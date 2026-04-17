@@ -181,7 +181,7 @@ export default function Home() {
       {/* ヘッダー（コンパクト） */}
       <header className="bg-stone-800 text-stone-100 px-4 py-2 dark:bg-stone-950 dark:border-b dark:border-stone-800">
         <div className="max-w-2xl mx-auto flex items-baseline gap-3">
-          <h1 className="text-base font-black tracking-tight text-stone-100">
+          <h1 className="text-base font-black tracking-tight text-stone-100" translate="no">
             LES MILLS 検索
           </h1>
           <span className="text-xs font-bold tracking-widest text-stone-400 uppercase" translate="no">
@@ -264,7 +264,7 @@ export default function Home() {
 
           {/* DAY */}
           <div className="mb-2">
-            <label className="block text-xs text-stone-400 mb-1 tracking-wider">DAY</label>
+            <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">DAY</label>
             <div className="flex gap-1">
               {DAYS.map((d) => (
                 <button
@@ -286,7 +286,7 @@ export default function Home() {
           <div className="flex gap-3 items-end">
             {/* AREA */}
             <div style={{ width: 110 }}>
-              <label className="block text-xs text-stone-400 mb-1 tracking-wider">AREA</label>
+              <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">AREA</label>
               <select
                 value={prefecture}
                 onChange={(e) => setPrefecture(e.target.value)}
@@ -301,7 +301,7 @@ export default function Home() {
             </div>
             {/* TIME */}
             <div className="flex-1">
-              <label className="block text-xs text-stone-400 mb-1 tracking-wider">TIME</label>
+              <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">TIME</label>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
                   {fmtHour(timeFrom)}
