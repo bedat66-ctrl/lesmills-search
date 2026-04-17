@@ -768,7 +768,13 @@
     "endTime": "07:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -779,7 +785,13 @@
     "endTime": "08:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -790,7 +802,13 @@
     "endTime": "16:00",
     "program": "GRIT",
     "note": "GRIT CARDIO",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -801,7 +819,13 @@
     "endTime": "20:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": "元吉 香織"
+    "instructor": "元吉 香織",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -812,7 +836,13 @@
     "endTime": "21:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": "元吉 香織"
+    "instructor": "元吉 香織",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -823,7 +853,13 @@
     "endTime": "22:15",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -834,7 +870,13 @@
     "endTime": "08:30",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -845,7 +887,13 @@
     "endTime": "09:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -856,7 +904,13 @@
     "endTime": "22:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -867,7 +921,13 @@
     "endTime": "23:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -878,7 +938,13 @@
     "endTime": "07:45",
     "program": "GRIT",
     "note": "GRIT CARDIO",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -889,7 +955,13 @@
     "endTime": "08:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -900,7 +972,13 @@
     "endTime": "09:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -911,7 +989,13 @@
     "endTime": "12:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": "槌谷 巧"
+    "instructor": "槌谷 巧",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -922,7 +1006,13 @@
     "endTime": "13:10",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -933,7 +1023,13 @@
     "endTime": "18:00",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -944,7 +1040,13 @@
     "endTime": "18:45",
     "program": "GRIT",
     "note": "",
-    "instructor": "YURI"
+    "instructor": "YURI",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -955,7 +1057,13 @@
     "endTime": "20:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": "山崎 舞子"
+    "instructor": "山崎 舞子",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -966,7 +1074,13 @@
     "endTime": "22:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -977,7 +1091,13 @@
     "endTime": "23:00",
     "program": "GRIT",
     "note": "GRIT CARDIO",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -988,7 +1108,13 @@
     "endTime": "07:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -999,7 +1125,13 @@
     "endTime": "08:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1010,7 +1142,13 @@
     "endTime": "09:15",
     "program": "GRIT",
     "note": "GRIT CARDIO",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1021,7 +1159,13 @@
     "endTime": "11:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1032,7 +1176,13 @@
     "endTime": "11:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1043,7 +1193,13 @@
     "endTime": "14:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1054,7 +1210,13 @@
     "endTime": "16:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1065,7 +1227,13 @@
     "endTime": "19:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1076,7 +1244,13 @@
     "endTime": "20:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1087,7 +1261,13 @@
     "endTime": "21:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1098,7 +1278,13 @@
     "endTime": "22:00",
     "program": "GRIT",
     "note": "GRIT CARDIO",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1109,7 +1295,13 @@
     "endTime": "07:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1120,7 +1312,13 @@
     "endTime": "08:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1131,7 +1329,13 @@
     "endTime": "11:30",
     "program": "GRIT",
     "note": "GRIT CARDIO",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1142,7 +1346,13 @@
     "endTime": "13:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": "山下 瑠久"
+    "instructor": "山下 瑠久",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1153,7 +1363,13 @@
     "endTime": "15:30",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1164,7 +1380,13 @@
     "endTime": "16:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1175,7 +1397,13 @@
     "endTime": "18:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1186,7 +1414,13 @@
     "endTime": "19:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": "黒澤 朱音"
+    "instructor": "黒澤 朱音",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1197,7 +1431,13 @@
     "endTime": "23:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1208,7 +1448,13 @@
     "endTime": "08:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1219,7 +1465,13 @@
     "endTime": "09:00",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1230,7 +1482,13 @@
     "endTime": "12:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": "芝田 里沙"
+    "instructor": "芝田 里沙",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1241,7 +1499,13 @@
     "endTime": "18:00",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1252,7 +1516,13 @@
     "endTime": "19:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1263,7 +1533,13 @@
     "endTime": "21:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1274,7 +1550,13 @@
     "endTime": "07:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1285,7 +1567,13 @@
     "endTime": "15:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": "齋藤 香帆"
+    "instructor": "齋藤 香帆",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1296,7 +1584,13 @@
     "endTime": "16:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": "小山 弘美"
+    "instructor": "小山 弘美",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1307,7 +1601,13 @@
     "endTime": "18:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1318,7 +1618,13 @@
     "endTime": "20:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 11,
@@ -1329,7 +1635,13 @@
     "endTime": "21:30",
     "program": "GRIT",
     "note": "GRIT STRENGTH",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江東区",
+    "address": "東京都江東区白河1-1-6",
+    "station": "清澄白河駅",
+    "gymUrl": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江東区白河1-1-6"
   },
   {
     "gymId": 12,
@@ -1340,7 +1652,13 @@
     "endTime": "06:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1351,7 +1669,13 @@
     "endTime": "06:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1362,7 +1686,13 @@
     "endTime": "08:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1373,7 +1703,13 @@
     "endTime": "09:00",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1384,7 +1720,13 @@
     "endTime": "13:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1395,7 +1737,13 @@
     "endTime": "14:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1406,7 +1754,13 @@
     "endTime": "16:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1417,7 +1771,13 @@
     "endTime": "17:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1428,7 +1788,13 @@
     "endTime": "19:50",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1439,7 +1805,13 @@
     "endTime": "23:00",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1450,7 +1822,13 @@
     "endTime": "23:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1461,7 +1839,13 @@
     "endTime": "00:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1472,7 +1856,13 @@
     "endTime": "05:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1483,7 +1873,13 @@
     "endTime": "05:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1494,7 +1890,13 @@
     "endTime": "06:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1505,7 +1907,13 @@
     "endTime": "06:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1516,7 +1924,13 @@
     "endTime": "07:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1527,7 +1941,13 @@
     "endTime": "08:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1538,7 +1958,13 @@
     "endTime": "09:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1549,7 +1975,13 @@
     "endTime": "09:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1560,7 +1992,13 @@
     "endTime": "10:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1571,7 +2009,13 @@
     "endTime": "14:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1582,7 +2026,13 @@
     "endTime": "14:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1593,7 +2043,13 @@
     "endTime": "15:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1604,7 +2060,13 @@
     "endTime": "16:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1615,7 +2077,13 @@
     "endTime": "18:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1626,7 +2094,13 @@
     "endTime": "22:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1637,7 +2111,13 @@
     "endTime": "22:00",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1648,7 +2128,13 @@
     "endTime": "23:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1659,7 +2145,13 @@
     "endTime": "23:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1670,7 +2162,13 @@
     "endTime": "00:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1681,7 +2179,13 @@
     "endTime": "06:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1692,7 +2196,13 @@
     "endTime": "06:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1703,7 +2213,13 @@
     "endTime": "07:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1714,7 +2230,13 @@
     "endTime": "09:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1725,7 +2247,13 @@
     "endTime": "09:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1736,7 +2264,13 @@
     "endTime": "14:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1747,7 +2281,13 @@
     "endTime": "17:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1758,7 +2298,13 @@
     "endTime": "18:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1769,7 +2315,13 @@
     "endTime": "22:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1780,7 +2332,13 @@
     "endTime": "23:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1791,7 +2349,13 @@
     "endTime": "00:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1802,7 +2366,13 @@
     "endTime": "05:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1813,7 +2383,13 @@
     "endTime": "06:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1824,7 +2400,13 @@
     "endTime": "09:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1835,7 +2417,13 @@
     "endTime": "14:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1846,7 +2434,13 @@
     "endTime": "16:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1857,7 +2451,13 @@
     "endTime": "17:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1868,7 +2468,13 @@
     "endTime": "18:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1879,7 +2485,13 @@
     "endTime": "21:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1890,7 +2502,13 @@
     "endTime": "23:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1901,7 +2519,13 @@
     "endTime": "01:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1912,7 +2536,13 @@
     "endTime": "06:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1923,7 +2553,13 @@
     "endTime": "07:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1934,7 +2570,13 @@
     "endTime": "08:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1945,7 +2587,13 @@
     "endTime": "09:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1956,7 +2604,13 @@
     "endTime": "13:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1967,7 +2621,13 @@
     "endTime": "13:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1978,7 +2638,13 @@
     "endTime": "15:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -1989,7 +2655,13 @@
     "endTime": "18:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2000,7 +2672,13 @@
     "endTime": "18:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2011,7 +2689,13 @@
     "endTime": "18:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2022,7 +2706,13 @@
     "endTime": "19:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2033,7 +2723,13 @@
     "endTime": "20:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2044,7 +2740,13 @@
     "endTime": "21:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2055,7 +2757,13 @@
     "endTime": "22:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2066,7 +2774,13 @@
     "endTime": "22:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2077,7 +2791,13 @@
     "endTime": "23:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2088,7 +2808,13 @@
     "endTime": "23:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 12,
@@ -2099,7 +2825,13 @@
     "endTime": "00:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   },
   {
     "gymId": 13,
@@ -2110,7 +2842,13 @@
     "endTime": "06:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2121,7 +2859,13 @@
     "endTime": "06:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2132,7 +2876,13 @@
     "endTime": "08:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2143,7 +2893,13 @@
     "endTime": "09:00",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2154,7 +2910,13 @@
     "endTime": "17:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2165,7 +2927,13 @@
     "endTime": "22:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2176,7 +2944,13 @@
     "endTime": "23:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2187,7 +2961,13 @@
     "endTime": "00:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2198,7 +2978,13 @@
     "endTime": "05:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2209,7 +2995,13 @@
     "endTime": "06:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2220,7 +3012,13 @@
     "endTime": "08:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2231,7 +3029,13 @@
     "endTime": "09:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2242,7 +3046,13 @@
     "endTime": "09:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2253,7 +3063,13 @@
     "endTime": "21:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": "星野"
+    "instructor": "星野",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2264,7 +3080,13 @@
     "endTime": "23:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2275,7 +3097,13 @@
     "endTime": "00:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2286,7 +3114,13 @@
     "endTime": "01:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2297,7 +3131,13 @@
     "endTime": "05:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2308,7 +3148,13 @@
     "endTime": "06:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2319,7 +3165,13 @@
     "endTime": "07:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2330,7 +3182,13 @@
     "endTime": "09:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2341,7 +3199,13 @@
     "endTime": "22:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2352,7 +3216,13 @@
     "endTime": "00:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2363,7 +3233,13 @@
     "endTime": "01:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2374,7 +3250,13 @@
     "endTime": "06:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2385,7 +3267,13 @@
     "endTime": "06:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2396,7 +3284,13 @@
     "endTime": "07:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2407,7 +3301,13 @@
     "endTime": "09:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2418,7 +3318,13 @@
     "endTime": "09:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2429,7 +3335,13 @@
     "endTime": "16:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2440,7 +3352,13 @@
     "endTime": "16:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2451,7 +3369,13 @@
     "endTime": "23:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2462,7 +3386,13 @@
     "endTime": "00:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2473,7 +3403,13 @@
     "endTime": "05:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2484,7 +3420,13 @@
     "endTime": "08:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2495,7 +3437,13 @@
     "endTime": "08:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2506,7 +3454,13 @@
     "endTime": "16:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2517,7 +3471,13 @@
     "endTime": "17:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2528,7 +3488,13 @@
     "endTime": "22:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2539,7 +3505,13 @@
     "endTime": "01:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2550,7 +3522,13 @@
     "endTime": "06:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2561,7 +3539,13 @@
     "endTime": "08:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2572,7 +3556,13 @@
     "endTime": "09:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2583,7 +3573,13 @@
     "endTime": "09:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2594,7 +3590,13 @@
     "endTime": "12:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": "星野"
+    "instructor": "星野",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2605,7 +3607,13 @@
     "endTime": "18:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2616,7 +3624,13 @@
     "endTime": "18:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2627,7 +3641,13 @@
     "endTime": "21:30",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2638,7 +3658,13 @@
     "endTime": "22:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2649,7 +3675,13 @@
     "endTime": "23:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 13,
@@ -2660,7 +3692,13 @@
     "endTime": "00:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区新川1-3-5",
+    "station": "茅場町駅",
+    "gymUrl": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区新川1-3-5"
   },
   {
     "gymId": 14,
@@ -2671,7 +3709,13 @@
     "endTime": "06:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2682,7 +3726,13 @@
     "endTime": "06:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2693,7 +3743,13 @@
     "endTime": "08:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2704,7 +3760,13 @@
     "endTime": "09:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2715,7 +3777,13 @@
     "endTime": "22:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2726,7 +3794,13 @@
     "endTime": "23:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2737,7 +3811,13 @@
     "endTime": "00:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2748,7 +3828,13 @@
     "endTime": "05:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2759,7 +3845,13 @@
     "endTime": "06:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2770,7 +3862,13 @@
     "endTime": "08:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2781,7 +3879,13 @@
     "endTime": "09:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2792,7 +3896,13 @@
     "endTime": "09:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2803,7 +3913,13 @@
     "endTime": "15:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2814,7 +3930,13 @@
     "endTime": "18:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2825,7 +3947,13 @@
     "endTime": "23:15",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2836,7 +3964,13 @@
     "endTime": "00:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2847,7 +3981,13 @@
     "endTime": "01:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2858,7 +3998,13 @@
     "endTime": "05:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2869,7 +4015,13 @@
     "endTime": "06:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2880,7 +4032,13 @@
     "endTime": "07:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2891,7 +4049,13 @@
     "endTime": "10:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2902,7 +4066,13 @@
     "endTime": "20:40",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2913,7 +4083,13 @@
     "endTime": "22:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2924,7 +4100,13 @@
     "endTime": "00:15",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2935,7 +4117,13 @@
     "endTime": "01:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2946,7 +4134,13 @@
     "endTime": "06:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2957,7 +4151,13 @@
     "endTime": "06:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2968,7 +4168,13 @@
     "endTime": "07:30",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2979,7 +4185,13 @@
     "endTime": "09:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -2990,7 +4202,13 @@
     "endTime": "09:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3001,7 +4219,13 @@
     "endTime": "13:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3012,7 +4236,13 @@
     "endTime": "15:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3023,7 +4253,13 @@
     "endTime": "16:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3034,7 +4270,13 @@
     "endTime": "17:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3045,7 +4287,13 @@
     "endTime": "18:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3056,7 +4304,13 @@
     "endTime": "22:15",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3067,7 +4321,13 @@
     "endTime": "23:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3078,7 +4338,13 @@
     "endTime": "00:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3089,7 +4355,13 @@
     "endTime": "05:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3100,7 +4372,13 @@
     "endTime": "06:30",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3111,7 +4389,13 @@
     "endTime": "06:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3122,7 +4406,13 @@
     "endTime": "08:00",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3133,7 +4423,13 @@
     "endTime": "08:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3144,7 +4440,13 @@
     "endTime": "09:15",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3155,7 +4457,13 @@
     "endTime": "12:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3166,7 +4474,13 @@
     "endTime": "00:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3177,7 +4491,13 @@
     "endTime": "00:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3188,7 +4508,13 @@
     "endTime": "12:45",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3199,7 +4525,13 @@
     "endTime": "16:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3210,7 +4542,13 @@
     "endTime": "18:00",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3221,7 +4559,13 @@
     "endTime": "18:45",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3232,7 +4576,13 @@
     "endTime": "21:45",
     "program": "BODYATTACK",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3243,7 +4593,13 @@
     "endTime": "22:30",
     "program": "GRIT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3254,7 +4610,13 @@
     "endTime": "00:00",
     "program": "BODYCOMBAT",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   },
   {
     "gymId": 14,
@@ -3265,6 +4627,12 @@
     "endTime": "00:45",
     "program": "BODYPUMP",
     "note": "",
-    "instructor": ""
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "江戸川区",
+    "address": "東京都江戸川区瑞江2-3-18",
+    "station": "瑞江駅",
+    "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-3-18"
   }
 ]
