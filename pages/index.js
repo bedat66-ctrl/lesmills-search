@@ -1,5 +1,87 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import schedules from "../data/schedules.json";
+
+// タッチ・マウス両対応のデュアルレンジスライダー
+function DualRangeSlider({ min, max, from, to, onFromChange, onToChange, fmtLabel }) {
+  const trackRef = useRef(null);
+  const dragging = useRef(null); // "from" | "to" | null
+
+  const getVal = useCallback((clientX) => {
+    const rect = trackRef.current.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    return Math.round(min + pct * (max - min));
+  }, [min, max]);
+
+  const startDrag = useCallback((clientX) => {
+    const val = getVal(clientX);
+    const distFrom = Math.abs(val - from);
+    const distTo = Math.abs(val - to);
+    dragging.current = distFrom <= distTo ? "from" : "to";
+    moveDrag(clientX);
+  }, [from, to, getVal]);
+
+  const moveDrag = useCallback((clientX) => {
+    if (!dragging.current) return;
+    const val = getVal(clientX);
+    if (dragging.current === "from") onFromChange(Math.min(val, to - 1));
+    else onToChange(Math.max(val, from + 1));
+  }, [from, to, getVal, onFromChange, onToChange]);
+
+  const endDrag = () => { dragging.current = null; };
+
+  // マウス
+  const onMouseDown = (e) => { e.preventDefault(); startDrag(e.clientX); };
+  useEffect(() => {
+    const onMove = (e) => moveDrag(e.clientX);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", endDrag);
+    return () => { window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", endDrag); };
+  }, [moveDrag]);
+
+  // タッチ
+  const onTouchStart = (e) => { startDrag(e.touches[0].clientX); };
+  const onTouchMove = (e) => { e.preventDefault(); moveDrag(e.touches[0].clientX); };
+
+  const toPct = (v) => ((v - min) / (max - min)) * 100;
+
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
+        {fmtLabel(from)}
+      </span>
+      <div
+        ref={trackRef}
+        className="relative flex-1 h-6 cursor-pointer select-none"
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={endDrag}
+        style={{ touchAction: "none" }}
+      >
+        {/* トラック背景 */}
+        <div className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 rounded-full bg-stone-200 dark:bg-stone-700">
+          <div
+            className="absolute h-full rounded-full bg-stone-700 dark:bg-stone-300"
+            style={{ left: `${toPct(from)}%`, right: `${100 - toPct(to)}%` }}
+          />
+        </div>
+        {/* FROMつまみ */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md"
+          style={{ left: `calc(${toPct(from)}% - 10px)` }}
+        />
+        {/* TOつまみ */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md"
+          style={{ left: `calc(${toPct(to)}% - 10px)` }}
+        />
+      </div>
+      <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
+        {fmtLabel(to)}
+      </span>
+    </div>
+  );
+}
 
 const PROGRAMS = ["すべて", "BODYATTACK", "GRIT", "BODYPUMP", "BODYCOMBAT"];
 const PROGRAM_SHORT = {
@@ -301,45 +383,13 @@ export default function Home() {
             {/* TIME */}
             <div className="flex-1">
               <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">TIME</label>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
-                  {fmtHour(timeFrom)}
-                </span>
-                <div className="relative flex-1 h-6">
-                  <div className="absolute inset-y-0 flex items-center w-full pointer-events-none">
-                    <div className="w-full h-1.5 rounded-full bg-stone-200 dark:bg-stone-700 relative">
-                      <div
-                        className="absolute h-full rounded-full bg-stone-700 dark:bg-stone-300"
-                        style={{ left: `${toPct(timeFrom)}%`, right: `${100 - toPct(timeTo)}%` }}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md pointer-events-none"
-                    style={{ left: `calc(${toPct(timeFrom)}% - 8px)` }}
-                  />
-                  <div
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md pointer-events-none"
-                    style={{ left: `calc(${toPct(timeTo)}% - 8px)` }}
-                  />
-                  {/* FROMスライダー: 右寄り or TOに近い時は前面に */}
-                  <input
-                    type="range" min={TIME_MIN} max={TIME_MAX} value={timeFrom}
-                    onChange={(e) => setTimeFrom(Math.min(Number(e.target.value), timeTo - 1))}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    style={{ zIndex: timeFrom >= timeTo - 2 || toPct(timeFrom) > 50 ? 5 : 3 }}
-                  />
-                  <input
-                    type="range" min={TIME_MIN} max={TIME_MAX} value={timeTo}
-                    onChange={(e) => setTimeTo(Math.max(Number(e.target.value), timeFrom + 1))}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    style={{ zIndex: 4 }}
-                  />
-                </div>
-                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
-                  {fmtHour(timeTo)}
-                </span>
-              </div>
+              <DualRangeSlider
+                min={TIME_MIN} max={TIME_MAX}
+                from={timeFrom} to={timeTo}
+                onFromChange={setTimeFrom}
+                onToChange={setTimeTo}
+                fmtLabel={fmtHour}
+              />
             </div>
           </div>
         </div>
