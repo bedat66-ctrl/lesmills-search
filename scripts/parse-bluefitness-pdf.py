@@ -1,23 +1,47 @@
 """
 BlueFitness VRクラス PDFスケジュール抽出スクリプト
 対象: BODYATTACK / BODYCOMBAT / BODYPUMP / GRIT
-使い方: python3 scripts/parse-bluefitness-pdf.py
+使い方:
+  手動: python3 scripts/parse-bluefitness-pdf.py
+  自動: python3 scripts/parse-bluefitness-pdf.py --auto  (確認なしで保存)
 """
 
 import pdfplumber
 import re
 import json
 import os
+import sys
+import urllib.request
+import tempfile
+
+# 自動モード（GitHub Actions用）
+AUTO_MODE = "--auto" in sys.argv
 
 # 曜日マッピング (テーブルindex 1-7 → 曜日)
 DAY_MAP = {1: "月", 2: "火", 3: "水", 4: "木", 5: "金", 6: "土", 7: "日"}
 
-# PDFファイル → gymId マッピング
+# PDFのURL → gymId マッピング
 PDF_GYMS = [
-    {"file": "ブルーフィットネス清澄白河04.pdf", "gymId": 11, "gymName": "BLUE FITNESS 24＋studio 清澄白河"},
-    {"file": "ブルーフィットネス勝どき04.pdf",   "gymId": 12, "gymName": "BLUE FITNESS 24＋studio 勝どき"},
-    {"file": "ブルーフィットネス茅場町04.pdf",   "gymId": 13, "gymName": "BLUE FITNESS 24＋studio 茅場町・新川"},
-    {"file": "ブルーフィットネス瑞江04.pdf",     "gymId": 14, "gymName": "BLUE FITNESS 24＋studio 瑞江"},
+    {
+        "url": "https://www.blue-fitness24.com/kiyosumishirakawa_lp/images/schedule.pdf",
+        "gymId": 11,
+        "gymName": "BLUE FITNESS 24＋studio 清澄白河",
+    },
+    {
+        "url": "https://www.blue-fitness24.com/kachidoki/images/schedule.pdf",
+        "gymId": 12,
+        "gymName": "BLUE FITNESS 24＋studio 勝どき",
+    },
+    {
+        "url": "https://www.blue-fitness24.com/kayabacho-shinkawa_lp/images/schedule.pdf",
+        "gymId": 13,
+        "gymName": "BLUE FITNESS 24＋studio 茅場町・新川",
+    },
+    {
+        "url": "https://www.blue-fitness24.com/mizue_lp/images/schedule.pdf",
+        "gymId": 14,
+        "gymName": "BLUE FITNESS 24＋studio 瑞江",
+    },
 ]
 
 TARGET_PROGRAMS = ["BODYATTACK", "BODY ATTACK", "BODYCOMBAT", "BODY COMBAT", "BODYPUMP", "BODY PUMP", "GRIT"]
@@ -92,31 +116,51 @@ def parse_table(table, day_of_week):
     return results
 
 
+def download_pdf(url):
+    """PDFをURLからダウンロードして一時ファイルに保存、パスを返す"""
+    tmp = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=30) as res:
+            tmp.write(res.read())
+        tmp.close()
+        return tmp.name
+    except Exception as e:
+        tmp.close()
+        os.unlink(tmp.name)
+        raise e
+
+
 def parse_pdf(gym):
-    path = gym["file"]
-    if not os.path.exists(path):
-        print(f"  ファイルなし: {path}")
+    print(f"  ダウンロード中: {gym['url']}")
+    try:
+        pdf_path = download_pdf(gym["url"])
+    except Exception as e:
+        print(f"  ❌ ダウンロード失敗: {e}")
         return []
 
     results = []
-    with pdfplumber.open(path) as pdf:
-        page = pdf.pages[0]
-        tables = page.extract_tables()
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            page = pdf.pages[0]
+            tables = page.extract_tables()
 
-        # テーブル0はヘッダー行、1-7が月-日
-        for tbl_idx, tbl in enumerate(tables):
-            if tbl_idx not in DAY_MAP:
-                continue
-            day = DAY_MAP[tbl_idx]
-            lessons = parse_table(tbl, day)
-            for lesson in lessons:
-                results.append({
-                    "gymId": gym["gymId"],
-                    "gymName": gym["gymName"],
-                    "chain": "BlueFitness",
-                    **lesson,
-                })
-                print(f"  {day}曜 {lesson['startTime']}-{lesson['endTime']} {lesson['program']} {lesson['note']} {lesson['instructor']}")
+            # テーブル0はヘッダー行、1-7が月-日
+            for tbl_idx, tbl in enumerate(tables):
+                if tbl_idx not in DAY_MAP:
+                    continue
+                day = DAY_MAP[tbl_idx]
+                lessons = parse_table(tbl, day)
+                for lesson in lessons:
+                    results.append({
+                        "gymId": gym["gymId"],
+                        "gymName": gym["gymName"],
+                        "chain": "BlueFitness",
+                        **lesson,
+                    })
+                    print(f"  {day}曜 {lesson['startTime']}-{lesson['endTime']} {lesson['program']} {lesson['note']} {lesson['instructor']}")
+    finally:
+        os.unlink(pdf_path)
 
     return results
 
@@ -131,7 +175,8 @@ def main():
         print(f"  → {len(results)}件取得")
 
     # schedules.json を読み込み
-    with open("data/schedules.json", encoding="utf-8") as f:
+    schedules_path = os.path.join(os.path.dirname(__file__), "..", "data", "schedules.json")
+    with open(schedules_path, encoding="utf-8") as f:
         existing = json.load(f)
 
     bf_existing = [s for s in existing if s.get("chain") == "BlueFitness"]
@@ -166,11 +211,16 @@ def main():
     if not added and not removed:
         print("✅ 差分なし")
 
-    # 保存確認
-    answer = input("\nschedules.jsonを更新しますか？ (y/n): ").strip().lower()
+    # 保存
+    if AUTO_MODE:
+        answer = "y"
+        print("\n自動モード: schedules.jsonを更新します")
+    else:
+        answer = input("\nschedules.jsonを更新しますか？ (y/n): ").strip().lower()
+
     if answer == "y":
         updated = non_bf + new_bf
-        with open("data/schedules.json", "w", encoding="utf-8") as f:
+        with open(schedules_path, "w", encoding="utf-8") as f:
             json.dump(updated, f, ensure_ascii=False, indent=2)
         print(f"✅ schedules.json を更新しました（合計{len(updated)}件）")
     else:

@@ -1,0 +1,42 @@
+name: BlueFitness スケジュール自動更新
+
+on:
+  schedule:
+    # 毎月2日 8:00 JST (= 毎月1日 23:00 UTC) に実行
+    # ※1日にPDFが公開されるので、翌2日に取得
+    - cron: "0 23 1 * *"
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  update-schedules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Python セットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Python 依存パッケージのインストール
+        run: pip install pdfplumber
+
+      - name: BlueFitness PDFをダウンロード・解析
+        run: python3 scripts/parse-bluefitness-pdf.py --auto
+
+      - name: 変更があればコミット & プッシュ
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/schedules.json
+          if git diff --cached --quiet; then
+            echo "変更なし。コミットをスキップします。"
+          else
+            git commit -m "🤖 BlueFitness スケジュール自動更新 $(date '+%Y-%m')"
+            git push
+            echo "✅ schedules.json を更新してプッシュしました"
+          fi
