@@ -239,7 +239,12 @@ export default function Home() {
         a.startTime.localeCompare(b.startTime)
     );
 
-  const activeDays = day === "すべて" ? DAYS_OF_WEEK : [day];
+  // 当日の曜日からスタートする順に並べる
+  const todayJsDow = new Date().getDay(); // 0=日,1=月...6=土
+  const todayIdx = todayJsDow === 0 ? 6 : todayJsDow - 1; // 月=0,火=1...日=6
+  const activeDays = day === "すべて"
+    ? [...DAYS_OF_WEEK.slice(todayIdx), ...DAYS_OF_WEEK.slice(0, todayIdx)]
+    : [day];
   const hourLabels = Array.from(
     { length: DAY_END_H - DAY_START_H },
     (_, i) => DAY_START_H + i
@@ -375,7 +380,7 @@ export default function Home() {
               >
                 {PREFECTURES.map((p) => (
                   <option key={p} value={p}>
-                    {p === "すべて" ? "すべて" : p}
+                    {p === "すべて" ? "ALL" : p}
                   </option>
                 ))}
               </select>
