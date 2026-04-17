@@ -1,78 +1,649 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { useState, useEffect, useRef } from "react";
+import schedules from "../data/schedules.json";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const PROGRAMS = ["すべて", "BODYATTACK", "GRIT", "BODYPUMP", "BODYCOMBAT"];
+const PROGRAM_SHORT = {
+  "すべて": "ALL",
+  "BODYATTACK": "ATTACK",
+  "GRIT": "GRIT",
+  "BODYPUMP": "PUMP",
+  "BODYCOMBAT": "COMBAT",
+};
+const DAYS = ["すべて", "月", "火", "水", "木", "金", "土", "日"];
+const DAYS_OF_WEEK = ["月", "火", "水", "木", "金", "土", "日"];
+const DAY_ORDER = { 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6, 日: 7 };
+const CHAINS = ["すべて", "NAS", "BlueFitness"];
+const PREFECTURES = ["すべて", ...Array.from(new Set(schedules.map((s) => s.prefecture))).sort()];
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const PROGRAM_BADGE = {
+  BODYATTACK: "bg-amber-400 text-stone-900",
+  BODYCOMBAT: "bg-emerald-800 text-white",
+  BODYPUMP: "bg-red-600 text-white",
+  GRIT: "bg-stone-700 text-stone-100",
+};
+
+// 週表示のブロック背景色
+const PROGRAM_BG = {
+  BODYATTACK: "#fbbf24",
+  BODYCOMBAT: "#1a5c38",
+  BODYPUMP: "#c0182e",
+  GRIT: "#44403c",
+};
+const PROGRAM_COLOR = {
+  BODYATTACK: "#1c1917",
+  BODYCOMBAT: "#fff",
+  BODYPUMP: "#fff",
+  GRIT: "#f5f5f4",
+};
+const CHAIN_BADGE = {
+  NAS: "bg-stone-200 text-stone-600",
+  BlueFitness: "bg-blue-100 text-blue-700",
+};
+
+// 週表示の定数
+const HOUR_PX = 60;
+const DAY_START_H = 5;
+const DAY_END_H = 24;
+const TOTAL_HEIGHT = (DAY_END_H - DAY_START_H) * HOUR_PX;
+
+function timeToMinutes(t) {
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
+}
+function topPx(startTime) {
+  return ((timeToMinutes(startTime) - DAY_START_H * 60) / 60) * HOUR_PX;
+}
+function heightPx(startTime, endTime) {
+  let diff = timeToMinutes(endTime) - timeToMinutes(startTime);
+  if (diff <= 0) diff += 24 * 60;
+  return Math.max((diff / 60) * HOUR_PX - 2, 20);
+}
+
+// 同じ時間帯のクラスを横に並べるためのレーン計算
+function assignLanes(events) {
+  const sorted = [...events].sort((a, b) =>
+    timeToMinutes(a.startTime) - timeToMinutes(b.startTime)
+  );
+  const laneEnds = [];
+  const result = sorted.map((ev) => {
+    const s = timeToMinutes(ev.startTime);
+    const e =
+      timeToMinutes(ev.endTime) <= s
+        ? timeToMinutes(ev.endTime) + 1440
+        : timeToMinutes(ev.endTime);
+    let lane = laneEnds.findIndex((le) => le <= s);
+    if (lane === -1) {
+      lane = laneEnds.length;
+      laneEnds.push(e);
+    } else {
+      laneEnds[lane] = e;
+    }
+    return { ...ev, lane };
+  });
+  return { events: result, numLanes: laneEnds.length };
+}
+
+// ジム名マスク（スクリーンショット用）
+const GYM_MASK = {
+  "スポーツクラブNAS西日暮里": "フィットネスクラブA（西部）",
+  "スポーツクラブNAS大崎": "フィットネスクラブA（南部）",
+  "スポーツクラブNASリバーシティ21": "フィットネスクラブA（東部）",
+  "スポーツクラブNAS西葛西": "フィットネスクラブA（東部2）",
+  "スポーツクラブNAS戸塚": "フィットネスクラブA（横浜）",
+  "スポーツクラブNAS藤沢": "フィットネスクラブA（湘南）",
+  "スポーツクラブNAS新川崎": "フィットネスクラブA（川崎）",
+  "スポーツクラブNAS篠崎": "フィットネスクラブA（東部3）",
+  "スポーツクラブNAS溝の口": "フィットネスクラブA（川崎2）",
+  "スポーツクラブNAS中山": "フィットネスクラブA（横浜2）",
+  "スポーツクラブNAS蕨": "フィットネスクラブA（北部）",
+  "BLUE FITNESS 24＋studio 清澄白河": "フィットネスクラブB（清澄）",
+  "BLUE FITNESS 24＋studio 勝どき": "フィットネスクラブB（勝どき）",
+  "BLUE FITNESS 24＋studio 茅場町・新川": "フィットネスクラブB（茅場町）",
+  "BLUE FITNESS 24＋studio 瑞江": "フィットネスクラブB（瑞江）",
+};
 
 export default function Home() {
+  const [program, setProgram] = useState("すべて");
+  const [prefecture, setPrefecture] = useState("すべて");
+  const [day, setDay] = useState("すべて");
+  const [chain, setChain] = useState("すべて");
+  const [ssMode, setSsMode] = useState(false);
+  const [timeFrom, setTimeFrom] = useState(5);
+  const [timeTo, setTimeTo] = useState(24);
+  const [popup, setPopup] = useState(null); // { schedule, blockRect }
+  const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
+
+  // ポインター/タッチ追従
+  useEffect(() => {
+    if (!popup) return;
+    const onMove = (e) => {
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      const y = e.touches ? e.touches[0].clientY : e.clientY;
+      setPointerPos({ x, y });
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("touchmove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("touchmove", onMove);
+    };
+  }, [popup]);
+
+  const fmtHour = (h) => h === 24 ? "24:00" : `${String(h).padStart(2, "0")}:00`;
+  const TIME_MIN = 5;
+  const TIME_MAX = 24;
+  const toPct = (h) => ((h - TIME_MIN) / (TIME_MAX - TIME_MIN)) * 100;
+
+  const filtered = schedules
+    .filter((s) => program === "すべて" || s.program === program)
+    .filter((s) => prefecture === "すべて" || s.prefecture === prefecture)
+    .filter((s) => day === "すべて" || s.dayOfWeek === day)
+    .filter((s) => chain === "すべて" || s.chain === chain)
+    .filter((s) => {
+      const startMin = timeToMinutes(s.startTime);
+      return startMin >= timeFrom * 60 && startMin < timeTo * 60;
+    })
+    .sort(
+      (a, b) =>
+        DAY_ORDER[a.dayOfWeek] - DAY_ORDER[b.dayOfWeek] ||
+        a.startTime.localeCompare(b.startTime)
+    );
+
+  const activeDays = day === "すべて" ? DAYS_OF_WEEK : [day];
+  const hourLabels = Array.from(
+    { length: DAY_END_H - DAY_START_H },
+    (_, i) => DAY_START_H + i
+  );
+
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
-    >
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the index.js file.
+    <div className="min-h-screen bg-stone-100 text-stone-900">
+      {/* ヘッダー（コンパクト） */}
+      <header className="bg-stone-800 text-stone-100 px-4 py-2">
+        <div className="max-w-2xl mx-auto flex items-baseline gap-3">
+          <h1 className="text-base font-black tracking-tight text-stone-100">
+            LES MILLS 検索
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <span className="text-xs font-bold tracking-widest text-stone-400 uppercase" translate="no">
+            Program Search
+          </span>
+        </div>
+      </header>
+
+      <main className="px-3 py-3">
+        {/* フィルター（コンパクト） */}
+        <div className="bg-stone-50 border border-stone-200 rounded-xl px-3 py-3 mb-3 shadow-sm max-w-2xl mx-auto">
+
+          {/* PROGRAM */}
+          <div className="mb-2">
+            <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">PROGRAM</label>
+            {/* 1行目: ALL / ATTACK / GRIT */}
+            <div className="flex gap-1 mb-1">
+              {["すべて", "BODYATTACK", "GRIT"].map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setProgram(p)}
+                  translate="no"
+                  className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
+                    program === p
+                      ? "bg-stone-700 text-stone-100 border-stone-700"
+                      : "bg-stone-50 text-stone-500 border-stone-300"
+                  }`}
+                >
+                  {PROGRAM_SHORT[p]}
+                </button>
+              ))}
+            </div>
+            {/* 2行目: PUMP / COMBAT */}
+            <div className="flex gap-1">
+              {["BODYPUMP", "BODYCOMBAT"].map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setProgram(p)}
+                  translate="no"
+                  className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
+                    program === p
+                      ? "bg-stone-700 text-stone-100 border-stone-700"
+                      : "bg-stone-50 text-stone-500 border-stone-300"
+                  }`}
+                >
+                  {PROGRAM_SHORT[p]}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* CHAIN */}
+          <div className="mb-2">
+            <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">CHAIN</label>
+            <div className="flex gap-1">
+              {CHAINS.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setChain(c)}
+                  translate="no"
+                  className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
+                    chain === c
+                      ? "bg-stone-700 text-stone-100 border-stone-700"
+                      : "bg-stone-50 text-stone-500 border-stone-300"
+                  }`}
+                >
+                  {c === "すべて" ? "ALL" : ssMode ? (c === "NAS" ? "チェーンA" : "チェーンB") : c}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* DAY */}
+          <div className="mb-2">
+            <label className="block text-xs text-stone-400 mb-1 tracking-wider">DAY</label>
+            <div className="flex gap-1">
+              {DAYS.map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setDay(d)}
+                  className={`flex-1 py-1 rounded text-xs font-bold border transition-all ${
+                    day === d
+                      ? "bg-stone-700 text-stone-100 border-stone-700"
+                      : "bg-stone-50 text-stone-500 border-stone-300"
+                  }`}
+                >
+                  {d === "すべて" ? "ALL" : d}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 3行目: AREA + TIME */}
+          <div className="flex gap-3 items-end">
+            {/* AREA */}
+            <div style={{ width: 110 }}>
+              <label className="block text-xs text-stone-400 mb-1 tracking-wider">AREA</label>
+              <select
+                value={prefecture}
+                onChange={(e) => setPrefecture(e.target.value)}
+                className="w-full bg-stone-50 border border-stone-300 text-stone-800 rounded px-2 py-1 text-xs focus:outline-none focus:border-stone-500"
+              >
+                {PREFECTURES.map((p) => (
+                  <option key={p} value={p}>
+                    {p === "すべて" ? "すべて" : p}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* TIME */}
+            <div className="flex-1">
+              <label className="block text-xs text-stone-400 mb-1 tracking-wider">TIME</label>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-stone-700 w-10 text-center shrink-0" translate="no">
+                  {fmtHour(timeFrom)}
+                </span>
+                <div className="relative flex-1 h-6">
+                  <div className="absolute inset-y-0 flex items-center w-full pointer-events-none">
+                    <div className="w-full h-1.5 rounded-full bg-stone-200 relative">
+                      <div
+                        className="absolute h-full rounded-full bg-stone-700"
+                        style={{ left: `${toPct(timeFrom)}%`, right: `${100 - toPct(timeTo)}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 border-2 border-white shadow-md pointer-events-none"
+                    style={{ left: `calc(${toPct(timeFrom)}% - 8px)` }}
+                  />
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 border-2 border-white shadow-md pointer-events-none"
+                    style={{ left: `calc(${toPct(timeTo)}% - 8px)` }}
+                  />
+                  <input
+                    type="range" min={TIME_MIN} max={TIME_MAX} value={timeFrom}
+                    onChange={(e) => setTimeFrom(Math.min(Number(e.target.value), timeTo - 1))}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    style={{ zIndex: timeFrom > TIME_MAX - 2 ? 5 : 3 }}
+                  />
+                  <input
+                    type="range" min={TIME_MIN} max={TIME_MAX} value={timeTo}
+                    onChange={(e) => setTimeTo(Math.max(Number(e.target.value), timeFrom + 1))}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    style={{ zIndex: 4 }}
+                  />
+                </div>
+                <span className="text-xs font-bold text-stone-700 w-10 text-center shrink-0" translate="no">
+                  {fmtHour(timeTo)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 撮影モード切替（スクリーンショット用） */}
+        <div className="max-w-2xl mx-auto mb-2 text-right">
+          <button
+            onClick={() => setSsMode((v) => !v)}
+            className={`text-xs px-2 py-1 rounded border transition-all ${ssMode ? "bg-stone-700 text-stone-100 border-stone-700" : "bg-stone-50 text-stone-400 border-stone-300"}`}
+          >
+            📷 {ssMode ? "撮影モード ON" : "撮影モード OFF"}
+          </button>
+        </div>
+
+        {/* 件数 */}
+        <div className="flex items-center justify-between mb-3 max-w-2xl mx-auto">
+          <p className="text-xs text-stone-400 tracking-widest uppercase" translate="no">
+            {filtered.length} Results
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs/pages/getting-started?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* ── 週表示 ── */}
+        <div
+          className="rounded-xl border border-stone-200 shadow-sm bg-white"
+          style={{ overflow: "auto", maxHeight: "calc(100vh - 260px)" }}
+        >
+            <div style={{ minWidth: `${48 + activeDays.length * 130}px` }}>
+              {/* 曜日ヘッダー（縦スクロール時も固定） */}
+              <div
+                className="flex sticky top-0 z-20 bg-stone-800 text-stone-100"
+                style={{ borderBottom: "1px solid #44403c" }}
+              >
+                <div
+                  className="flex-shrink-0"
+                  style={{ width: 48, borderRight: "1px solid #57534e" }}
+                />
+                {activeDays.map((d) => (
+                  <div
+                    key={d}
+                    translate="no"
+                    className="flex-1 text-center text-sm font-bold py-2"
+                    style={{ borderRight: "1px solid #57534e" }}
+                  >
+                    {d}曜
+                  </div>
+                ))}
+              </div>
+
+              {/* グリッド本体 */}
+              <div className="flex">
+                {/* 時刻ラベル列 */}
+                <div
+                  className="flex-shrink-0 bg-stone-50 relative"
+                  style={{
+                    width: 48,
+                    height: TOTAL_HEIGHT,
+                    borderRight: "1px solid #e7e5e4",
+                  }}
+                >
+                  {hourLabels.map((h) => (
+                    <div
+                      key={h}
+                      className="absolute w-full text-right pr-1"
+                      style={{ top: (h - DAY_START_H) * HOUR_PX - 7 }}
+                    >
+                      <span className="text-xs text-stone-400" translate="no">
+                        {String(h).padStart(2, "0")}:00
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 各曜日の列 */}
+                {activeDays.map((d) => {
+                  const dayEvents = filtered.filter((s) => s.dayOfWeek === d);
+                  const { events, numLanes } = assignLanes(dayEvents);
+
+                  return (
+                    <div
+                      key={d}
+                      className="flex-1 relative"
+                      style={{
+                        height: TOTAL_HEIGHT,
+                        minWidth: 130,
+                        borderRight: "1px solid #e7e5e4",
+                      }}
+                    >
+                      {/* 1時間ごとの区切り線 */}
+                      {hourLabels.map((h) => (
+                        <div
+                          key={h}
+                          className="absolute left-0 right-0"
+                          style={{
+                            top: (h - DAY_START_H) * HOUR_PX,
+                            borderTop: "1px solid #e7e5e4",
+                          }}
+                        />
+                      ))}
+                      {/* 30分ごとの区切り線 */}
+                      {hourLabels.map((h) => (
+                        <div
+                          key={`${h}h`}
+                          className="absolute left-0 right-0"
+                          style={{
+                            top: (h - DAY_START_H) * HOUR_PX + 30,
+                            borderTop: "1px solid #f5f5f4",
+                          }}
+                        />
+                      ))}
+
+                      {/* クラスブロック */}
+                      {events.map((s) => {
+                        const top = topPx(s.startTime);
+                        const height = heightPx(s.startTime, s.endTime);
+                        const laneW = 100 / numLanes;
+                        const isBA = s.program === "BODYATTACK"; // ポップアップヘッダー色判定用に残す
+                        const blockBg = PROGRAM_BG[s.program] || "#44403c";
+                        const blockColor = PROGRAM_COLOR[s.program] || "#f5f5f4";
+                        const gymShort = ssMode
+                          ? (GYM_MASK[s.gymName] || s.gymName).replace("フィットネスクラブA（", "A-").replace("フィットネスクラブB（", "B-").replace("）", "")
+                          : s.gymName
+                          .replace("スポーツクラブNAS ", "NAS ")
+                          .replace("スポーツクラブNAS", "NAS")
+                          .replace("BLUE FITNESS 24＋studio 清澄白河", "BF清澄")
+                          .replace("BLUE FITNESS 24＋studio 勝どき", "BF勝")
+                          .replace("BLUE FITNESS 24＋studio 瑞江", "BF瑞江")
+                          .replace("BLUE FITNESS 24＋studio 茅場町・新川", "BF茅場")
+                          .replace("BLUE FITNESS 24＋studio ", "BF ");
+                        const isSmall = height < 42;
+
+                        return (
+                          <div
+                            key={s.id}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              const cx = e.touches ? e.touches[0].clientX : e.clientX;
+                              const cy = e.touches ? e.touches[0].clientY : e.clientY;
+                              setPointerPos({ x: cx || rect.left + rect.width / 2, y: cy || rect.top });
+                              setPopup({ schedule: s, blockRect: { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right } });
+                            }}
+                            style={{
+                              position: "absolute",
+                              top: top + 1,
+                              height: height,
+                              left: `calc(${s.lane * laneW}% + 1px)`,
+                              width: `calc(${laneW}% - 2px)`,
+                              padding: "2px 3px",
+                              overflow: "hidden",
+                              borderRadius: 4,
+                              border: "1px solid rgba(255,255,255,0.4)",
+                              background: blockBg,
+                              color: blockColor,
+                              zIndex: 1,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <div
+                              translate="no"
+                              style={{
+                                fontSize: 10,
+                                fontWeight: "bold",
+                                lineHeight: 1.2,
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
+                              {s.program}
+                            </div>
+                            {isSmall ? (
+                              // 小さいブロック：施設名+時間帯を1行に収める
+                              <div
+                                translate="no"
+                                style={{
+                                  fontSize: 8,
+                                  lineHeight: 1.2,
+                                  whiteSpace: "nowrap",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  opacity: 0.9,
+                                }}
+                              >
+                                {gymShort} {s.startTime}–{s.endTime}
+                              </div>
+                            ) : (
+                              <>
+                                <div
+                                  translate="no"
+                                  style={{
+                                    fontSize: 9,
+                                    lineHeight: 1.2,
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    opacity: 0.9,
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  {s.startTime}–{s.endTime}
+                                </div>
+                                <div
+                                  translate="no"
+                                  style={{
+                                    fontSize: 9,
+                                    lineHeight: 1.2,
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    opacity: 0.85,
+                                  }}
+                                >
+                                  {gymShort}
+                                </div>
+                              </>
+                            )}
+                            {height >= 52 && s.instructor && s.chain !== "BlueFitness" && (
+                              <div
+                                translate="no"
+                                style={{
+                                  fontSize: 9,
+                                  lineHeight: 1.2,
+                                  whiteSpace: "nowrap",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  opacity: 0.75,
+                                }}
+                              >
+                                {s.instructor}さん
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
         </div>
       </main>
+
+      {/* ポップアップ（ポインター追従カード） */}
+      {popup && (() => {
+        const s = popup.schedule;
+        const isBA = s.program === "BODYATTACK";
+        const dispName = ssMode ? (GYM_MASK[s.gymName] || s.gymName) : s.gymName;
+        const chainLabel = ssMode ? (s.chain === "NAS" ? "チェーンA" : "チェーンB") : s.chain;
+        const cardW = 220;
+        const cardH = 130; // 概算
+        const vw = typeof window !== "undefined" ? window.innerWidth : 390;
+        const vh = typeof window !== "undefined" ? window.innerHeight : 844;
+        const px = pointerPos.x;
+        const py = pointerPos.y;
+        const br = popup.blockRect;
+
+        // カードX: ポインターの右側を基本、画面端なら左側
+        let cx = px + 12;
+        if (cx + cardW > vw - 8) cx = px - cardW - 12;
+        cx = Math.max(8, cx);
+
+        // カードY: ブロックに重ならないよう上下で判定
+        // ブロックの上に出す余裕があれば上、なければ下
+        let cy;
+        if (br.top - cardH - 8 > 8) {
+          cy = br.top - cardH - 8; // ブロックの上
+        } else {
+          cy = br.bottom + 8; // ブロックの下
+        }
+        // 画面外にはみ出さないクランプ
+        cy = Math.max(8, Math.min(cy, vh - cardH - 8));
+
+        return (
+          <>
+            {/* 背景タップで閉じる */}
+            <div className="fixed inset-0 z-40" onClick={() => setPopup(null)} />
+            {/* カード本体 */}
+            <div
+              style={{
+                position: "fixed",
+                left: cx,
+                top: cy,
+                width: cardW,
+                zIndex: 50,
+                background: "#fff",
+                borderRadius: 14,
+                boxShadow: "0 6px 24px rgba(0,0,0,0.20)",
+                overflow: "hidden",
+                pointerEvents: "auto",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* カラーヘッダー */}
+              <div style={{ background: PROGRAM_BG[s.program] || "#292524", padding: "9px 12px 7px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span translate="no" style={{ fontSize: 13, fontWeight: 900, color: PROGRAM_COLOR[s.program] || "#fafaf9", letterSpacing: "0.05em" }}>
+                    {s.program}
+                  </span>
+                  <button
+                    onClick={() => setPopup(null)}
+                    style={{ color: "rgba(255,255,255,0.6)", fontSize: 18, lineHeight: 1, background: "none", border: "none", cursor: "pointer", padding: "0 2px" }}
+                  >×</button>
+                </div>
+                <div translate="no" style={{ fontSize: 10, color: "rgba(255,255,255,0.6)", marginTop: 1 }}>
+                  {chainLabel}
+                </div>
+              </div>
+              {/* 内容 */}
+              <div style={{ padding: "9px 12px 11px" }}>
+                <p translate="no" style={{ fontSize: 12, fontWeight: 800, color: "#1c1917", lineHeight: 1.3, marginBottom: 5 }}>
+                  {dispName}
+                </p>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 5, marginBottom: 4 }}>
+                  <span translate="no" style={{ fontSize: 11, color: "#78716c", fontWeight: 700 }}>{s.dayOfWeek}曜</span>
+                  <span translate="no" style={{ fontSize: 14, fontWeight: 900, color: "#1c1917" }}>
+                    {s.startTime}–{s.endTime}
+                  </span>
+                </div>
+                {s.instructor && s.chain !== "BlueFitness" && (
+                  <p translate="no" style={{ fontSize: 11, color: "#57534e" }}>
+                    👤 {s.instructor}さん
+                  </p>
+                )}
+              </div>
+            </div>
+          </>
+        );
+      })()}
+
+      <footer className="text-center text-xs text-stone-400 py-8 px-4 border-t border-stone-200 mt-8">
+        <p>このサイトはNAS・BLUE FITNESSの非公式ファンサイトです。</p>
+        <p className="mt-1">情報は変更になる場合があります。最新情報は各施設にご確認ください。</p>
+      </footer>
     </div>
   );
 }
