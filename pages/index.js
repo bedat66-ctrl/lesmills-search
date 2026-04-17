@@ -17,7 +17,7 @@ const PREFECTURES = ["すべて", ...Array.from(new Set(schedules.map((s) => s.p
 
 const PROGRAM_BADGE = {
   BODYATTACK: "bg-amber-400 text-stone-900",
-  BODYCOMBAT: "bg-emerald-800 text-white",
+  BODYCOMBAT: "text-white",  // bg color applied via style
   BODYPUMP: "bg-red-600 text-white",
   GRIT: "bg-stone-700 text-stone-100",
 };
@@ -25,7 +25,7 @@ const PROGRAM_BADGE = {
 // 週表示のブロック背景色
 const PROGRAM_BG = {
   BODYATTACK: "#fbbf24",
-  BODYCOMBAT: "#1a5c38",
+  BODYCOMBAT: "#5a5a1a",
   BODYPUMP: "#c0182e",
   GRIT: "#44403c",
 };
