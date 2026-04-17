@@ -356,6 +356,7 @@ export default function Home() {
                 <button
                   key={d}
                   onClick={() => setDay(d)}
+                  translate="no"
                   className={`flex-1 py-1 rounded text-xs font-bold border transition-all ${
                     day === d
                       ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
