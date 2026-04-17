@@ -301,27 +301,42 @@ export default function Home() {
             {/* TIME */}
             <div className="flex-1">
               <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">TIME</label>
-              {/* FROM */}
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs text-stone-400 w-8 shrink-0" translate="no">FROM</span>
-                <input
-                  type="range" min={TIME_MIN} max={TIME_MAX} value={timeFrom}
-                  onChange={(e) => setTimeFrom(Math.min(Number(e.target.value), timeTo - 1))}
-                  className="flex-1 accent-stone-700 dark:accent-stone-300 cursor-pointer"
-                />
-                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-right shrink-0" translate="no">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
                   {fmtHour(timeFrom)}
                 </span>
-              </div>
-              {/* TO */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-stone-400 w-8 shrink-0" translate="no">TO</span>
-                <input
-                  type="range" min={TIME_MIN} max={TIME_MAX} value={timeTo}
-                  onChange={(e) => setTimeTo(Math.max(Number(e.target.value), timeFrom + 1))}
-                  className="flex-1 accent-stone-700 dark:accent-stone-300 cursor-pointer"
-                />
-                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-right shrink-0" translate="no">
+                <div className="relative flex-1 h-6">
+                  <div className="absolute inset-y-0 flex items-center w-full pointer-events-none">
+                    <div className="w-full h-1.5 rounded-full bg-stone-200 dark:bg-stone-700 relative">
+                      <div
+                        className="absolute h-full rounded-full bg-stone-700 dark:bg-stone-300"
+                        style={{ left: `${toPct(timeFrom)}%`, right: `${100 - toPct(timeTo)}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md pointer-events-none"
+                    style={{ left: `calc(${toPct(timeFrom)}% - 8px)` }}
+                  />
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md pointer-events-none"
+                    style={{ left: `calc(${toPct(timeTo)}% - 8px)` }}
+                  />
+                  {/* FROMスライダー: 右寄り or TOに近い時は前面に */}
+                  <input
+                    type="range" min={TIME_MIN} max={TIME_MAX} value={timeFrom}
+                    onChange={(e) => setTimeFrom(Math.min(Number(e.target.value), timeTo - 1))}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    style={{ zIndex: timeFrom >= timeTo - 2 || toPct(timeFrom) > 50 ? 5 : 3 }}
+                  />
+                  <input
+                    type="range" min={TIME_MIN} max={TIME_MAX} value={timeTo}
+                    onChange={(e) => setTimeTo(Math.max(Number(e.target.value), timeFrom + 1))}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    style={{ zIndex: 4 }}
+                  />
+                </div>
+                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
                   {fmtHour(timeTo)}
                 </span>
               </div>
