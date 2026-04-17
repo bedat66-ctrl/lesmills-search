@@ -77,7 +77,7 @@ def parse_table(table, day_of_week):
                 if is_target(l): continue
                 if "VR" in l.upper(): continue
                 if len(l) > 20: continue
-                if l in ("", "イブ", "ブリッド", "ハイ"): continue
+                if l in ("", "イブ", "ブリッド", "ハイ", "ハイブリッド"): continue
                 instructor = l
                 break
 

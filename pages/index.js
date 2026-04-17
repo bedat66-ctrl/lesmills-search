@@ -43,12 +43,14 @@ const CHAIN_BADGE = {
 // 週表示の定数
 const HOUR_PX = 60;
 const DAY_START_H = 5;
-const DAY_END_H = 24;
+const DAY_END_H = 25; // 深夜1時台まで表示 (BlueFitnessの深夜クラス対応)
 const TOTAL_HEIGHT = (DAY_END_H - DAY_START_H) * HOUR_PX;
 
 function timeToMinutes(t) {
   const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
+  // 深夜0時・1時台は翌日扱い (24時・25時) にして週表示に収める
+  const hour = h <= 1 ? h + 24 : h;
+  return hour * 60 + m;
 }
 function topPx(startTime) {
   return ((timeToMinutes(startTime) - DAY_START_H * 60) / 60) * HOUR_PX;
@@ -109,7 +111,7 @@ export default function Home() {
   const [chain, setChain] = useState("すべて");
   const [ssMode, setSsMode] = useState(false);
   const [timeFrom, setTimeFrom] = useState(5);
-  const [timeTo, setTimeTo] = useState(24);
+  const [timeTo, setTimeTo] = useState(25);
   const [popup, setPopup] = useState(null); // { schedule, blockRect }
   const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
 
@@ -129,9 +131,9 @@ export default function Home() {
     };
   }, [popup]);
 
-  const fmtHour = (h) => h === 24 ? "24:00" : `${String(h).padStart(2, "0")}:00`;
+  const fmtHour = (h) => h >= 24 ? `${String(h - 24).padStart(2, "0")}:00` : `${String(h).padStart(2, "0")}:00`;
   const TIME_MIN = 5;
-  const TIME_MAX = 24;
+  const TIME_MAX = 25;
   const toPct = (h) => ((h - TIME_MIN) / (TIME_MAX - TIME_MIN)) * 100;
 
   const filtered = schedules
@@ -377,7 +379,7 @@ export default function Home() {
                       style={{ top: (h - DAY_START_H) * HOUR_PX - 7 }}
                     >
                       <span className="text-xs text-stone-400" translate="no">
-                        {String(h).padStart(2, "0")}:00
+                        {String(h >= 24 ? h - 24 : h).padStart(2, "0")}:00
                       </span>
                     </div>
                   ))}
