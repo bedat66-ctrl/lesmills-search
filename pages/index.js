@@ -377,10 +377,11 @@ export default function Home() {
               <select
                 value={prefecture}
                 onChange={(e) => setPrefecture(e.target.value)}
+                translate="no"
                 className="w-full bg-stone-50 border border-stone-300 text-stone-800 rounded px-2 py-1 text-xs focus:outline-none focus:border-stone-500 dark:bg-stone-800 dark:border-stone-600 dark:text-stone-200"
               >
                 {PREFECTURES.map((p) => (
-                  <option key={p} value={p}>
+                  <option key={p} value={p} translate="no">
                     {p === "すべて" ? "ALL" : p}
                   </option>
                 ))}
