@@ -115,7 +115,6 @@ export default function Home() {
   const [prefecture, setPrefecture] = useState("すべて");
   const [day, setDay] = useState("すべて");
   const [chain, setChain] = useState("すべて");
-  const [ssMode, setSsMode] = useState(false);
   const [timeFrom, setTimeFrom] = useState(5);
   const [timeTo, setTimeTo] = useState(25);
   const [popup, setPopup] = useState(null); // { schedule, blockRect }
@@ -256,7 +255,7 @@ export default function Home() {
                       : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
-                  {c === "すべて" ? "ALL" : ssMode ? (c === "NAS" ? "チェーンA" : "チェーンB") : c}
+                  {c === "すべて" ? "ALL" : c}
                 </button>
               ))}
             </div>
@@ -327,7 +326,7 @@ export default function Home() {
                     type="range" min={TIME_MIN} max={TIME_MAX} value={timeFrom}
                     onChange={(e) => setTimeFrom(Math.min(Number(e.target.value), timeTo - 1))}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    style={{ zIndex: timeFrom > TIME_MAX - 2 ? 5 : 3 }}
+                    style={{ zIndex: timeTo - timeFrom < 2 ? 5 : 3 }}
                   />
                   <input
                     type="range" min={TIME_MIN} max={TIME_MAX} value={timeTo}
@@ -342,16 +341,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* 撮影モード切替（スクリーンショット用） */}
-        <div className="max-w-2xl mx-auto mb-2 text-right">
-          <button
-            onClick={() => setSsMode((v) => !v)}
-            className={`text-xs px-2 py-1 rounded border transition-all ${ssMode ? "bg-stone-700 text-stone-100 border-stone-700" : "bg-stone-50 text-stone-400 border-stone-300 dark:bg-stone-900 dark:border-stone-700 dark:text-stone-500"}`}
-          >
-            📷 {ssMode ? "撮影モード ON" : "撮影モード OFF"}
-          </button>
         </div>
 
         {/* 件数 */}
@@ -458,9 +447,7 @@ export default function Home() {
                         const laneW = 100 / numLanes;
                         const blockBg = (dark ? PROGRAM_BG_DARK : PROGRAM_BG)[s.program] || "#44403c";
                         const blockColor = PROGRAM_COLOR[s.program] || "#f5f5f4";
-                        const gymShort = ssMode
-                          ? (GYM_MASK[s.gymName] || s.gymName).replace("フィットネスクラブA（", "A-").replace("フィットネスクラブB（", "B-").replace("）", "")
-                          : s.gymName
+                        const gymShort = s.gymName
                           .replace("スポーツクラブNAS ", "NAS ")
                           .replace("スポーツクラブNAS", "NAS")
                           .replace("BLUE FITNESS 24＋studio 清澄白河", "BF清澄")
@@ -589,8 +576,8 @@ export default function Home() {
       {/* ポップアップ（ポインター追従カード） */}
       {popup && (() => {
         const s = popup.schedule;
-        const dispName = ssMode ? (GYM_MASK[s.gymName] || s.gymName) : s.gymName;
-        const chainLabel = ssMode ? (s.chain === "NAS" ? "チェーンA" : "チェーンB") : s.chain;
+        const dispName = s.gymName;
+        const chainLabel = s.chain;
         const cardW = 220;
         const cardH = 130; // 概算
         const vw = typeof window !== "undefined" ? window.innerWidth : 390;
