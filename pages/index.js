@@ -22,12 +22,18 @@ const PROGRAM_BADGE = {
   GRIT: "bg-stone-700 text-stone-100",
 };
 
-// 週表示のブロック背景色
+// 週表示のブロック背景色（ライト / ダーク）
 const PROGRAM_BG = {
   BODYATTACK: "#fbbf24",
   BODYCOMBAT: "#5a5a1a",
   BODYPUMP: "#c0182e",
   GRIT: "#44403c",
+};
+const PROGRAM_BG_DARK = {
+  BODYATTACK: "#fbbf24",
+  BODYCOMBAT: "#8a8a1e",   // ダーク時は明るめオリーブ
+  BODYPUMP: "#c0182e",
+  GRIT: "#57534e",
 };
 const PROGRAM_COLOR = {
   BODYATTACK: "#1c1917",
@@ -114,6 +120,7 @@ export default function Home() {
   const [timeTo, setTimeTo] = useState(25);
   const [popup, setPopup] = useState(null); // { schedule, blockRect }
   const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
+  const [dark, setDark] = useState(false);
 
   // ポインター/タッチ追従
   useEffect(() => {
@@ -157,10 +164,22 @@ export default function Home() {
     (_, i) => DAY_START_H + i
   );
 
+  // ダークモード用の色定義
+  const gridBg = dark ? "#0c0a09" : "#ffffff";
+  const gridLine = dark ? "#292524" : "#e7e5e4";
+  const gridLine30 = dark ? "#1c1917" : "#f5f5f4";
+  const hourColBg = dark ? "#0c0a09" : "#fafaf9";
+  const hourColBorder = dark ? "#292524" : "#e7e5e4";
+  const popupBg = dark ? "#1c1917" : "#ffffff";
+  const popupText = dark ? "#f5f5f4" : "#1c1917";
+  const popupSub = dark ? "#a8a29e" : "#78716c";
+  const popupBodyText = dark ? "#d6d3d1" : "#57534e";
+
   return (
-    <div className="min-h-screen bg-stone-100 text-stone-900">
+    <div className={dark ? "dark" : ""}>
+    <div className="min-h-screen bg-stone-100 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
       {/* ヘッダー（コンパクト） */}
-      <header className="bg-stone-800 text-stone-100 px-4 py-2">
+      <header className="bg-stone-800 text-stone-100 px-4 py-2 dark:bg-stone-950 dark:border-b dark:border-stone-800">
         <div className="max-w-2xl mx-auto flex items-baseline gap-3">
           <h1 className="text-base font-black tracking-tight text-stone-100">
             LES MILLS 検索
@@ -168,12 +187,20 @@ export default function Home() {
           <span className="text-xs font-bold tracking-widest text-stone-400 uppercase" translate="no">
             Program Search
           </span>
+          {/* ダークモード切替 */}
+          <button
+            onClick={() => setDark((v) => !v)}
+            className="ml-auto text-lg leading-none"
+            title={dark ? "ライトモード" : "ダークモード"}
+          >
+            {dark ? "☀️" : "🌙"}
+          </button>
         </div>
       </header>
 
       <main className="px-3 py-3">
         {/* フィルター（コンパクト） */}
-        <div className="bg-stone-50 border border-stone-200 rounded-xl px-3 py-3 mb-3 shadow-sm max-w-2xl mx-auto">
+        <div className="bg-stone-50 border border-stone-200 rounded-xl px-3 py-3 mb-3 shadow-sm max-w-2xl mx-auto dark:bg-stone-900 dark:border-stone-700">
 
           {/* PROGRAM */}
           <div className="mb-2">
@@ -187,8 +214,8 @@ export default function Home() {
                   translate="no"
                   className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
                     program === p
-                      ? "bg-stone-700 text-stone-100 border-stone-700"
-                      : "bg-stone-50 text-stone-500 border-stone-300"
+                      ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
+                      : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
                   {PROGRAM_SHORT[p]}
@@ -204,8 +231,8 @@ export default function Home() {
                   translate="no"
                   className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
                     program === p
-                      ? "bg-stone-700 text-stone-100 border-stone-700"
-                      : "bg-stone-50 text-stone-500 border-stone-300"
+                      ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
+                      : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
                   {PROGRAM_SHORT[p]}
@@ -225,8 +252,8 @@ export default function Home() {
                   translate="no"
                   className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
                     chain === c
-                      ? "bg-stone-700 text-stone-100 border-stone-700"
-                      : "bg-stone-50 text-stone-500 border-stone-300"
+                      ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
+                      : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
                   {c === "すべて" ? "ALL" : ssMode ? (c === "NAS" ? "チェーンA" : "チェーンB") : c}
@@ -245,8 +272,8 @@ export default function Home() {
                   onClick={() => setDay(d)}
                   className={`flex-1 py-1 rounded text-xs font-bold border transition-all ${
                     day === d
-                      ? "bg-stone-700 text-stone-100 border-stone-700"
-                      : "bg-stone-50 text-stone-500 border-stone-300"
+                      ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
+                      : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
                   {d === "すべて" ? "ALL" : d}
@@ -263,7 +290,7 @@ export default function Home() {
               <select
                 value={prefecture}
                 onChange={(e) => setPrefecture(e.target.value)}
-                className="w-full bg-stone-50 border border-stone-300 text-stone-800 rounded px-2 py-1 text-xs focus:outline-none focus:border-stone-500"
+                className="w-full bg-stone-50 border border-stone-300 text-stone-800 rounded px-2 py-1 text-xs focus:outline-none focus:border-stone-500 dark:bg-stone-800 dark:border-stone-600 dark:text-stone-200"
               >
                 {PREFECTURES.map((p) => (
                   <option key={p} value={p}>
@@ -276,24 +303,24 @@ export default function Home() {
             <div className="flex-1">
               <label className="block text-xs text-stone-400 mb-1 tracking-wider">TIME</label>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-stone-700 w-10 text-center shrink-0" translate="no">
+                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
                   {fmtHour(timeFrom)}
                 </span>
                 <div className="relative flex-1 h-6">
                   <div className="absolute inset-y-0 flex items-center w-full pointer-events-none">
-                    <div className="w-full h-1.5 rounded-full bg-stone-200 relative">
+                    <div className="w-full h-1.5 rounded-full bg-stone-200 dark:bg-stone-700 relative">
                       <div
-                        className="absolute h-full rounded-full bg-stone-700"
+                        className="absolute h-full rounded-full bg-stone-700 dark:bg-stone-300"
                         style={{ left: `${toPct(timeFrom)}%`, right: `${100 - toPct(timeTo)}%` }}
                       />
                     </div>
                   </div>
                   <div
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 border-2 border-white shadow-md pointer-events-none"
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md pointer-events-none"
                     style={{ left: `calc(${toPct(timeFrom)}% - 8px)` }}
                   />
                   <div
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 border-2 border-white shadow-md pointer-events-none"
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-stone-800 dark:bg-stone-200 border-2 border-white dark:border-stone-900 shadow-md pointer-events-none"
                     style={{ left: `calc(${toPct(timeTo)}% - 8px)` }}
                   />
                   <input
@@ -309,7 +336,7 @@ export default function Home() {
                     style={{ zIndex: 4 }}
                   />
                 </div>
-                <span className="text-xs font-bold text-stone-700 w-10 text-center shrink-0" translate="no">
+                <span className="text-xs font-bold text-stone-700 dark:text-stone-300 w-10 text-center shrink-0" translate="no">
                   {fmtHour(timeTo)}
                 </span>
               </div>
@@ -321,7 +348,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto mb-2 text-right">
           <button
             onClick={() => setSsMode((v) => !v)}
-            className={`text-xs px-2 py-1 rounded border transition-all ${ssMode ? "bg-stone-700 text-stone-100 border-stone-700" : "bg-stone-50 text-stone-400 border-stone-300"}`}
+            className={`text-xs px-2 py-1 rounded border transition-all ${ssMode ? "bg-stone-700 text-stone-100 border-stone-700" : "bg-stone-50 text-stone-400 border-stone-300 dark:bg-stone-900 dark:border-stone-700 dark:text-stone-500"}`}
           >
             📷 {ssMode ? "撮影モード ON" : "撮影モード OFF"}
           </button>
@@ -336,25 +363,25 @@ export default function Home() {
 
         {/* ── 週表示 ── */}
         <div
-          className="rounded-xl border border-stone-200 shadow-sm bg-white"
-          style={{ overflow: "auto", maxHeight: "calc(100vh - 260px)" }}
+          className="rounded-xl border border-stone-200 shadow-sm dark:border-stone-700"
+          style={{ overflow: "auto", maxHeight: "calc(100vh - 260px)", background: gridBg }}
         >
             <div style={{ minWidth: `${48 + activeDays.length * 130}px` }}>
               {/* 曜日ヘッダー（縦スクロール時も固定） */}
               <div
-                className="flex sticky top-0 z-20 bg-stone-800 text-stone-100"
-                style={{ borderBottom: "1px solid #44403c" }}
+                className="flex sticky top-0 z-20 bg-stone-800 text-stone-100 dark:bg-stone-950"
+                style={{ borderBottom: `1px solid ${dark ? "#292524" : "#44403c"}` }}
               >
                 <div
                   className="flex-shrink-0"
-                  style={{ width: 48, borderRight: "1px solid #57534e" }}
+                  style={{ width: 48, borderRight: `1px solid ${dark ? "#44403c" : "#57534e"}` }}
                 />
                 {activeDays.map((d) => (
                   <div
                     key={d}
                     translate="no"
                     className="flex-1 text-center text-sm font-bold py-2"
-                    style={{ borderRight: "1px solid #57534e" }}
+                    style={{ borderRight: `1px solid ${dark ? "#44403c" : "#57534e"}` }}
                   >
                     {d}曜
                   </div>
@@ -365,11 +392,12 @@ export default function Home() {
               <div className="flex">
                 {/* 時刻ラベル列 */}
                 <div
-                  className="flex-shrink-0 bg-stone-50 relative"
+                  className="flex-shrink-0 relative"
                   style={{
                     width: 48,
                     height: TOTAL_HEIGHT,
-                    borderRight: "1px solid #e7e5e4",
+                    background: hourColBg,
+                    borderRight: `1px solid ${hourColBorder}`,
                   }}
                 >
                   {hourLabels.map((h) => (
@@ -397,7 +425,7 @@ export default function Home() {
                       style={{
                         height: TOTAL_HEIGHT,
                         minWidth: 130,
-                        borderRight: "1px solid #e7e5e4",
+                        borderRight: `1px solid ${gridLine}`,
                       }}
                     >
                       {/* 1時間ごとの区切り線 */}
@@ -407,7 +435,7 @@ export default function Home() {
                           className="absolute left-0 right-0"
                           style={{
                             top: (h - DAY_START_H) * HOUR_PX,
-                            borderTop: "1px solid #e7e5e4",
+                            borderTop: `1px solid ${gridLine}`,
                           }}
                         />
                       ))}
@@ -418,7 +446,7 @@ export default function Home() {
                           className="absolute left-0 right-0"
                           style={{
                             top: (h - DAY_START_H) * HOUR_PX + 30,
-                            borderTop: "1px solid #f5f5f4",
+                            borderTop: `1px solid ${gridLine30}`,
                           }}
                         />
                       ))}
@@ -428,8 +456,7 @@ export default function Home() {
                         const top = topPx(s.startTime);
                         const height = heightPx(s.startTime, s.endTime);
                         const laneW = 100 / numLanes;
-                        const isBA = s.program === "BODYATTACK"; // ポップアップヘッダー色判定用に残す
-                        const blockBg = PROGRAM_BG[s.program] || "#44403c";
+                        const blockBg = (dark ? PROGRAM_BG_DARK : PROGRAM_BG)[s.program] || "#44403c";
                         const blockColor = PROGRAM_COLOR[s.program] || "#f5f5f4";
                         const gymShort = ssMode
                           ? (GYM_MASK[s.gymName] || s.gymName).replace("フィットネスクラブA（", "A-").replace("フィットネスクラブB（", "B-").replace("）", "")
@@ -558,7 +585,6 @@ export default function Home() {
       {/* ポップアップ（ポインター追従カード） */}
       {popup && (() => {
         const s = popup.schedule;
-        const isBA = s.program === "BODYATTACK";
         const dispName = ssMode ? (GYM_MASK[s.gymName] || s.gymName) : s.gymName;
         const chainLabel = ssMode ? (s.chain === "NAS" ? "チェーンA" : "チェーンB") : s.chain;
         const cardW = 220;
@@ -575,14 +601,12 @@ export default function Home() {
         cx = Math.max(8, cx);
 
         // カードY: ブロックに重ならないよう上下で判定
-        // ブロックの上に出す余裕があれば上、なければ下
         let cy;
         if (br.top - cardH - 8 > 8) {
           cy = br.top - cardH - 8; // ブロックの上
         } else {
           cy = br.bottom + 8; // ブロックの下
         }
-        // 画面外にはみ出さないクランプ
         cy = Math.max(8, Math.min(cy, vh - cardH - 8));
 
         return (
@@ -597,16 +621,19 @@ export default function Home() {
                 top: cy,
                 width: cardW,
                 zIndex: 50,
-                background: "#fff",
+                background: popupBg,
                 borderRadius: 14,
-                boxShadow: "0 6px 24px rgba(0,0,0,0.20)",
+                boxShadow: dark
+                  ? "0 6px 24px rgba(0,0,0,0.60)"
+                  : "0 6px 24px rgba(0,0,0,0.20)",
                 overflow: "hidden",
                 pointerEvents: "auto",
+                border: dark ? "1px solid #292524" : "none",
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* カラーヘッダー */}
-              <div style={{ background: PROGRAM_BG[s.program] || "#292524", padding: "9px 12px 7px" }}>
+              <div style={{ background: (dark ? PROGRAM_BG_DARK : PROGRAM_BG)[s.program] || "#292524", padding: "9px 12px 7px" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <span translate="no" style={{ fontSize: 13, fontWeight: 900, color: PROGRAM_COLOR[s.program] || "#fafaf9", letterSpacing: "0.05em" }}>
                     {s.program}
@@ -622,17 +649,17 @@ export default function Home() {
               </div>
               {/* 内容 */}
               <div style={{ padding: "9px 12px 11px" }}>
-                <p translate="no" style={{ fontSize: 12, fontWeight: 800, color: "#1c1917", lineHeight: 1.3, marginBottom: 5 }}>
+                <p translate="no" style={{ fontSize: 12, fontWeight: 800, color: popupText, lineHeight: 1.3, marginBottom: 5 }}>
                   {dispName}
                 </p>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 5, marginBottom: 4 }}>
-                  <span translate="no" style={{ fontSize: 11, color: "#78716c", fontWeight: 700 }}>{s.dayOfWeek}曜</span>
-                  <span translate="no" style={{ fontSize: 14, fontWeight: 900, color: "#1c1917" }}>
+                  <span translate="no" style={{ fontSize: 11, color: popupSub, fontWeight: 700 }}>{s.dayOfWeek}曜</span>
+                  <span translate="no" style={{ fontSize: 14, fontWeight: 900, color: popupText }}>
                     {s.startTime}–{s.endTime}
                   </span>
                 </div>
                 {s.instructor && s.chain !== "BlueFitness" && (
-                  <p translate="no" style={{ fontSize: 11, color: "#57534e" }}>
+                  <p translate="no" style={{ fontSize: 11, color: popupBodyText }}>
                     👤 {s.instructor}さん
                   </p>
                 )}
@@ -642,10 +669,11 @@ export default function Home() {
         );
       })()}
 
-      <footer className="text-center text-xs text-stone-400 py-8 px-4 border-t border-stone-200 mt-8">
+      <footer className="text-center text-xs text-stone-400 py-8 px-4 border-t border-stone-200 mt-8 dark:border-stone-800">
         <p>このサイトはNAS・BLUE FITNESSの非公式ファンサイトです。</p>
         <p className="mt-1">情報は変更になる場合があります。最新情報は各施設にご確認ください。</p>
       </footer>
+    </div>
     </div>
   );
 }
