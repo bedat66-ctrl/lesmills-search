@@ -469,6 +469,10 @@ export default function Home() {
                           .replace("BLUE FITNESS 24＋studio 茅場町・新川", "BF茅場")
                           .replace("BLUE FITNESS 24＋studio ", "BF ");
                         const isSmall = height < 42;
+                        // ALL曜日表示時はプログラム名を短縮
+                        const programLabel = day === "すべて"
+                          ? (PROGRAM_SHORT[s.program] || s.program)
+                          : s.program;
 
                         return (
                           <div
@@ -508,7 +512,7 @@ export default function Home() {
                                 textOverflow: "ellipsis",
                               }}
                             >
-                              {s.program}
+                              {programLabel}
                             </div>
                             {isSmall ? (
                               // 小さいブロック：施設名+時間帯を1行に収める
