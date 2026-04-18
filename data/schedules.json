@@ -4793,5 +4793,39 @@
     "station": "瑞江駅",
     "gymUrl": "https://www.blue-fitness24.com/mizue_lp/",
     "mapUrl": "https://maps.google.com/?q=東京都江戸川区瑞江2-20-9"
+  },
+  {
+    "gymId": 15,
+    "gymName": "スポーツクラブNAS蕨",
+    "chain": "NAS",
+    "dayOfWeek": "火",
+    "startTime": "20:00",
+    "endTime": "21:00",
+    "program": "BODYJAM",
+    "note": "",
+    "instructor": "NOE",
+    "prefecture": "埼玉県",
+    "city": "蕨市",
+    "address": "埼玉県蕨市中央1-20-1",
+    "station": "蕨駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/warabi/",
+    "mapUrl": "https://maps.google.com/?q=埼玉県蕨市中央1-20-1"
+  },
+  {
+    "gymId": 15,
+    "gymName": "スポーツクラブNAS蕨",
+    "chain": "NAS",
+    "dayOfWeek": "日",
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "program": "BODYJAM",
+    "note": "",
+    "instructor": "AKANE",
+    "prefecture": "埼玉県",
+    "city": "蕨市",
+    "address": "埼玉県蕨市中央1-20-1",
+    "station": "蕨駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/warabi/",
+    "mapUrl": "https://maps.google.com/?q=埼玉県蕨市中央1-20-1"
   }
 ]
