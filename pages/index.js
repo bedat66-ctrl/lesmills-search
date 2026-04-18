@@ -221,9 +221,8 @@ export default function Home() {
         setHasDefaults(true);
         if (saved.program) setProgram(saved.program);
         if (saved.prefecture) setPrefecture(saved.prefecture);
-        if (saved.day) setDay(saved.day);
         if (saved.chain) setChain(saved.chain);
-        // timeFrom / timeTo は保存・復元しない（常に05:00〜01:00起動）
+        // day / timeFrom / timeTo は保存・復元しない（常にリアルタイム表示）
       }
     } catch {}
   }, []);
@@ -261,7 +260,7 @@ export default function Home() {
 
   // デフォルト設定の保存・クリア
   const saveDefaults = () => {
-    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain }));
+    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, chain }));
     setHasDefaults(true);
     alert("現在のフィルター設定をデフォルトに保存しました");
   };
