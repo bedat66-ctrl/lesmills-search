@@ -548,7 +548,8 @@ export default function Home() {
             const ai = activeDays.indexOf(a.dayOfWeek);
             const bi = activeDays.indexOf(b.dayOfWeek);
             if (ai !== bi) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-            return a.startTime.localeCompare(b.startTime);
+            // 深夜クラス(00:xx,01:xx)が24:xx扱いになるようtimeToMinutesで並び替え
+            return timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
           });
           return (
             <div className="rounded-xl border border-stone-200 dark:border-stone-700 overflow-hidden max-w-2xl mx-auto mb-4">
