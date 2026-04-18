@@ -202,6 +202,7 @@ export default function Home() {
   const [popup, setPopup] = useState(null); // { schedule, blockRect }
   const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
   const [dark, setDark] = useState(false);
+  const [demoMode, setDemoMode] = useState(false);
 
   // ポインター/タッチ追従
   useEffect(() => {
@@ -281,6 +282,15 @@ export default function Home() {
           >
             {dark ? "☀️" : "🌙"}
           </button>
+          {/* デモモード切替（動画撮影用・黒塗り） */}
+          <button
+            onClick={() => setDemoMode((v) => !v)}
+            className={`text-xs px-1.5 py-0.5 rounded border transition-all leading-none ${demoMode ? "bg-stone-100 text-stone-900 border-stone-100" : "border-stone-700 text-stone-600"}`}
+            title="デモモード"
+            style={{ fontSize: 14 }}
+          >
+            🎬
+          </button>
         </div>
       </header>
 
@@ -342,7 +352,7 @@ export default function Home() {
                       : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
-                  {c === "すべて" ? "ALL" : c}
+                  {c === "すべて" ? "ALL" : demoMode ? "██████" : c}
                 </button>
               ))}
             </div>
@@ -518,6 +528,7 @@ export default function Home() {
                         const programLabel = day === "すべて"
                           ? (PROGRAM_SHORT[s.program] || s.program)
                           : s.program;
+                        const gymShortDisplay = demoMode ? "██████" : gymShort;
 
                         return (
                           <div
@@ -572,7 +583,7 @@ export default function Home() {
                                   opacity: 0.9,
                                 }}
                               >
-                                {gymShort} {s.startTime}–{s.endTime}
+                                {gymShortDisplay} {s.startTime}–{s.endTime}
                               </div>
                             ) : (
                               <>
@@ -601,7 +612,7 @@ export default function Home() {
                                     opacity: 0.85,
                                   }}
                                 >
-                                  {gymShort}
+                                  {gymShortDisplay}
                                 </div>
                               </>
                             )}
@@ -617,7 +628,7 @@ export default function Home() {
                                   opacity: 0.75,
                                 }}
                               >
-                                {s.instructor}さん
+                                {demoMode ? "██████" : s.instructor}さん
                               </div>
                             )}
                           </div>
@@ -634,8 +645,9 @@ export default function Home() {
       {/* ポップアップ（ポインター追従カード） */}
       {popup && (() => {
         const s = popup.schedule;
-        const dispName = s.gymName;
-        const chainLabel = s.chain;
+        const chainLabel = demoMode ? "██████" : s.chain;
+        const dispName = demoMode ? "██████████████" : s.gymName;
+        const dispInstructor = demoMode ? "██████" : s.instructor;
         const cardW = 220;
         const cardH = 130; // 概算
         const vw = typeof window !== "undefined" ? window.innerWidth : 390;
@@ -709,7 +721,7 @@ export default function Home() {
                 </div>
                 {s.instructor && s.chain !== "BlueFitness" && (
                   <p translate="no" style={{ fontSize: 11, color: popupBodyText }}>
-                    👤 {s.instructor}さん
+                    👤 {dispInstructor}さん
                   </p>
                 )}
               </div>
