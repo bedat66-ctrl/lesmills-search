@@ -418,10 +418,7 @@ export default function Home() {
 
           {/* DAY */}
           <div className="mb-2">
-            <div className="flex items-center gap-2 mb-1">
-              <label className="text-xs text-stone-400 tracking-wider" translate="no">DAY</label>
-              {hasDefaults && <span className="text-xs" title="デフォルト設定あり">⭐</span>}
-            </div>
+            <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">DAY</label>
             <div className="flex gap-1">
               {DAYS.map((d) => (
                 <button
@@ -490,7 +487,11 @@ export default function Home() {
             {/* デフォルト設定 */}
             <button
               onClick={saveDefaults}
-              className="text-xs px-2.5 py-1 rounded-full border border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300 font-bold"
+              className={`text-xs px-2.5 py-1 rounded-full border font-bold transition-all ${
+                hasDefaults
+                  ? "bg-amber-400 border-amber-400 text-stone-900"
+                  : "border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300"
+              }`}
               translate="no"
             >
               ⭐ 保存
