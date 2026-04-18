@@ -83,13 +83,14 @@ function DualRangeSlider({ min, max, from, to, onFromChange, onToChange, fmtLabe
   );
 }
 
-const PROGRAMS = ["すべて", "BODYATTACK", "GRIT", "BODYPUMP", "BODYCOMBAT"];
+const PROGRAMS = ["すべて", "BODYATTACK", "GRIT", "BODYPUMP", "BODYCOMBAT", "BODYJAM"];
 const PROGRAM_SHORT = {
   "すべて": "ALL",
   "BODYATTACK": "ATTACK",
   "GRIT": "GRIT",
   "BODYPUMP": "PUMP",
   "BODYCOMBAT": "COMBAT",
+  "BODYJAM": "JAM",
 };
 const DAYS = ["すべて", "月", "火", "水", "木", "金", "土", "日"];
 const DAYS_OF_WEEK = ["月", "火", "水", "木", "金", "土", "日"];
@@ -102,6 +103,7 @@ const PROGRAM_BADGE = {
   BODYCOMBAT: "text-white",  // bg color applied via style
   BODYPUMP: "bg-red-600 text-white",
   GRIT: "bg-stone-700 text-stone-100",
+  BODYJAM: "bg-purple-600 text-white",
 };
 
 // 週表示のブロック背景色（ライト / ダーク）
@@ -110,18 +112,21 @@ const PROGRAM_BG = {
   BODYCOMBAT: "#5a5a1a",
   BODYPUMP: "#c0182e",
   GRIT: "#44403c",
+  BODYJAM: "#7c3aed",
 };
 const PROGRAM_BG_DARK = {
   BODYATTACK: "#fbbf24",
   BODYCOMBAT: "#8a8a1e",   // ダーク時は明るめオリーブ
   BODYPUMP: "#c0182e",
   GRIT: "#57534e",
+  BODYJAM: "#a78bfa",
 };
 const PROGRAM_COLOR = {
   BODYATTACK: "#1c1917",
   BODYCOMBAT: "#fff",
   BODYPUMP: "#fff",
   GRIT: "#f5f5f4",
+  BODYJAM: "#fff",
 };
 const CHAIN_BADGE = {
   NAS: "bg-stone-200 text-stone-600",
@@ -318,9 +323,9 @@ export default function Home() {
                 </button>
               ))}
             </div>
-            {/* 2行目: PUMP / COMBAT */}
+            {/* 2行目: PUMP / COMBAT / JAM */}
             <div className="flex gap-1">
-              {["BODYPUMP", "BODYCOMBAT"].map((p) => (
+              {["BODYPUMP", "BODYCOMBAT", "BODYJAM"].map((p) => (
                 <button
                   key={p}
                   onClick={() => setProgram(p)}

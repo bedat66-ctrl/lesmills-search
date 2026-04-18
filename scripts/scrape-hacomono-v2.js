@@ -21,12 +21,13 @@ const NAS_GYMS = [
   { gymId: 15, gymName: "スポーツクラブNAS蕨",          hacoUrl: "https://rsv.nas-club.co.jp/reserve/schedule/155/364" },
 ];
 
-const TARGET_PROGRAMS = ["BODYATTACK", "BODY ATTACK", "GRIT"];
+const TARGET_PROGRAMS = ["BODYATTACK", "BODY ATTACK", "GRIT", "BODYJAM", "BODY JAM"];
 
 function normalizeProgram(text) {
   const u = text.toUpperCase();
   if (u.includes("BODYATTACK") || u.includes("BODY ATTACK")) return "BODYATTACK";
   if (u.includes("GRIT")) return "GRIT";
+  if (u.includes("BODYJAM") || u.includes("BODY JAM")) return "BODYJAM";
   return text.trim();
 }
 

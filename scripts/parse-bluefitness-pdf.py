@@ -44,7 +44,7 @@ PDF_GYMS = [
     },
 ]
 
-TARGET_PROGRAMS = ["BODYATTACK", "BODY ATTACK", "BODYCOMBAT", "BODY COMBAT", "BODYPUMP", "BODY PUMP", "GRIT"]
+TARGET_PROGRAMS = ["BODYATTACK", "BODY ATTACK", "BODYCOMBAT", "BODY COMBAT", "BODYPUMP", "BODY PUMP", "GRIT", "BODYJAM", "BODY JAM"]
 
 def normalize_program(text):
     u = text.upper().replace(" ", "")
@@ -52,6 +52,7 @@ def normalize_program(text):
     if "BODYCOMBAT" in u: return "BODYCOMBAT"
     if "BODYPUMP" in u: return "BODYPUMP"
     if "GRIT" in u: return "GRIT"
+    if "BODYJAM" in u: return "BODYJAM"
     return text.strip()
 
 def get_grit_note(text):
