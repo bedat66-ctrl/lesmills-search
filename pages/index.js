@@ -210,6 +210,7 @@ export default function Home() {
   const [demoMode, setDemoMode] = useState(false);
   const [viewMode, setViewMode] = useState("calendar"); // "calendar" | "list"
   const [hasDefaults, setHasDefaults] = useState(false);
+  const [extraFromMin, setExtraFromMin] = useState(0); // 今すぐ時の分単位オフセット
   const calendarRef = useRef(null);
 
   // デフォルト設定: マウント時にlocalStorageから復元
@@ -230,15 +231,18 @@ export default function Home() {
 
   // 今すぐボタン: 今日の曜日・現在時刻以降に絞り込み、カレンダーを現在時刻にスクロール
   const handleNow = () => {
-    const todayDow = new Date().getDay();
-    const todayDowJa = ["日","月","火","水","木","金","土"][todayDow];
-    const currentHour = new Date().getHours();
+    const now = new Date();
+    const todayDowJa = ["日","月","火","水","木","金","土"][now.getDay()];
+    const currentHour = now.getHours();
+    const currentMin = now.getMinutes();
     setDay(todayDowJa);
     setTimeFrom(Math.max(TIME_MIN, currentHour));
+    setExtraFromMin(currentMin);
     setTimeTo(TIME_MAX);
     setTimeout(() => {
       if (calendarRef.current) {
-        const scrollTo = Math.max(0, (currentHour - DAY_START_H - 1) * HOUR_PX);
+        // 現在時刻の30分前を上端に表示
+        const scrollTo = Math.max(0, ((currentHour + currentMin / 60) - DAY_START_H - 0.5) * HOUR_PX);
         calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
       }
     }, 50);
@@ -248,6 +252,7 @@ export default function Home() {
   const resetTime = () => {
     setTimeFrom(TIME_MIN);
     setTimeTo(TIME_MAX);
+    setExtraFromMin(0);
   };
 
   // デフォルト設定の保存・クリア
@@ -290,7 +295,7 @@ export default function Home() {
     .filter((s) => chain === "すべて" || s.chain === chain)
     .filter((s) => {
       const startMin = timeToMinutes(s.startTime);
-      return startMin >= timeFrom * 60 && startMin < timeTo * 60;
+      return startMin >= timeFrom * 60 + extraFromMin && startMin < timeTo * 60;
     })
     .sort(
       (a, b) =>
@@ -469,7 +474,7 @@ export default function Home() {
               <DualRangeSlider
                 min={TIME_MIN} max={TIME_MAX}
                 from={timeFrom} to={timeTo}
-                onFromChange={setTimeFrom}
+                onFromChange={(v) => { setTimeFrom(v); setExtraFromMin(0); }}
                 onToChange={setTimeTo}
                 fmtLabel={fmtHour}
               />
