@@ -225,6 +225,15 @@ export default function Home() {
         if (saved.chain) setChain(saved.chain);
         if (saved.timeFrom != null) setTimeFrom(saved.timeFrom);
         if (saved.timeTo != null) setTimeTo(saved.timeTo);
+        // 05:00より後の時刻が保存されていればカレンダーをスクロール
+        if (saved.timeFrom != null && saved.timeFrom > DAY_START_H) {
+          setTimeout(() => {
+            if (calendarRef.current) {
+              const scrollTo = Math.max(0, (saved.timeFrom - DAY_START_H - 0.5) * HOUR_PX);
+              calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+            }
+          }, 100);
+        }
       }
     } catch {}
   }, []);
