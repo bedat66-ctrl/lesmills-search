@@ -4607,5 +4607,41 @@
     "endTime": "14:35",
     "instructor": "鈴木 直也",
     "note": ""
+  },
+  {
+    "gymId": 1,
+    "gymName": "スポーツクラブNAS西日暮里",
+    "chain": "NAS",
+    "prefecture": "東京都",
+    "city": "荒川区",
+    "address": "東京都荒川区西日暮里2-54-3",
+    "station": "西日暮里駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "mapUrl": "https://maps.google.com/?q=東京都荒川区西日暮里2-54-3",
+    "program": "BODYPUMP",
+    "dayOfWeek": "月",
+    "startTime": "21:15",
+    "endTime": "22:00",
+    "instructor": "谷 顕真",
+    "note": "BODYPUMP HEAVY"
+  },
+  {
+    "gymId": 1,
+    "gymName": "スポーツクラブNAS西日暮里",
+    "chain": "NAS",
+    "prefecture": "東京都",
+    "city": "荒川区",
+    "address": "東京都荒川区西日暮里2-54-3",
+    "station": "西日暮里駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "mapUrl": "https://maps.google.com/?q=東京都荒川区西日暮里2-54-3",
+    "program": "BODYPUMP",
+    "dayOfWeek": "土",
+    "startTime": "15:15",
+    "endTime": "16:00",
+    "instructor": "結城",
+    "note": "BODYPUMP HEAVY"
   }
 ]
