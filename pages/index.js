@@ -209,6 +209,7 @@ export default function Home() {
   const [dark, setDark] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
   const [viewMode, setViewMode] = useState("calendar"); // "calendar" | "list"
+  const calendarRef = useRef(null);
 
   // デフォルト設定: マウント時にlocalStorageから復元
   useEffect(() => {
@@ -234,13 +235,26 @@ export default function Home() {
     alert("デフォルト設定をリセットしました");
   };
 
-  // 今すぐボタン: 今日の曜日・現在時刻以降に絞り込む
+  // 今すぐボタン: 今日の曜日・現在時刻以降に絞り込み、カレンダーを現在時刻にスクロール
   const handleNow = () => {
     const todayDow = new Date().getDay();
     const todayDowJa = ["日","月","火","水","木","金","土"][todayDow];
     const currentHour = new Date().getHours();
     setDay(todayDowJa);
     setTimeFrom(Math.max(TIME_MIN, currentHour));
+    setTimeTo(TIME_MAX);
+    setViewMode("calendar");
+    setTimeout(() => {
+      if (calendarRef.current) {
+        const scrollTo = Math.max(0, (currentHour - DAY_START_H - 1) * HOUR_PX);
+        calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+      }
+    }, 50);
+  };
+
+  // TIMEを全時間帯に戻す
+  const resetTime = () => {
+    setTimeFrom(TIME_MIN);
     setTimeTo(TIME_MAX);
   };
 
@@ -439,7 +453,14 @@ export default function Home() {
             </div>
             {/* TIME */}
             <div className="flex-1">
-              <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">TIME</label>
+              <div className="flex items-center gap-2 mb-1">
+                <label className="text-xs text-stone-400 tracking-wider" translate="no">TIME</label>
+                {(timeFrom !== TIME_MIN || timeTo !== TIME_MAX) && (
+                  <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline" translate="no">
+                    全時間
+                  </button>
+                )}
+              </div>
               <DualRangeSlider
                 min={TIME_MIN} max={TIME_MAX}
                 from={timeFrom} to={timeTo}
@@ -448,6 +469,7 @@ export default function Home() {
                 fmtLabel={fmtHour}
               />
             </div>
+
           </div>
         </div>
 
@@ -553,6 +575,7 @@ export default function Home() {
 
         {/* ── 週表示 ── */}
         {viewMode === "calendar" && <div
+          ref={calendarRef}
           className="rounded-xl border border-stone-200 shadow-sm dark:border-stone-700"
           style={{ overflow: "auto", maxHeight: "calc(100vh - 260px)", background: gridBg }}
         >
