@@ -253,6 +253,7 @@ export default function Home() {
     setTimeFrom(TIME_MIN);
     setTimeTo(TIME_MAX);
     setExtraFromMin(0);
+    setDay("すべて");
   };
 
   // デフォルト設定の保存・クリア
@@ -464,10 +465,10 @@ export default function Home() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <label className="text-xs text-stone-400 tracking-wider" translate="no">TIME</label>
-                <button onClick={handleNow} className="text-xs text-stone-500 dark:text-stone-400 font-bold underline" translate="no">
+                <button onClick={handleNow} className="text-xs text-stone-500 dark:text-stone-400 font-bold underline py-1 px-1" translate="no">
                   今すぐ
                 </button>
-                <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline" translate="no">
+                <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline py-1 px-1" translate="no">
                   全時間
                 </button>
               </div>
