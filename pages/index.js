@@ -226,15 +226,6 @@ export default function Home() {
     } catch {}
   }, []);
 
-  const saveDefaults = () => {
-    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain, timeFrom, timeTo }));
-    alert("現在のフィルター設定をデフォルトに保存しました");
-  };
-  const clearDefaults = () => {
-    localStorage.removeItem("lesmills_defaults");
-    alert("デフォルト設定をリセットしました");
-  };
-
   // 今すぐボタン: 今日の曜日・現在時刻以降に絞り込み、カレンダーを現在時刻にスクロール
   const handleNow = () => {
     const todayDow = new Date().getDay();
@@ -485,21 +476,6 @@ export default function Home() {
               translate="no"
             >
               ⏰ 今すぐ
-            </button>
-            {/* デフォルト設定 */}
-            <button
-              onClick={saveDefaults}
-              className="text-xs px-2.5 py-1 rounded-full border border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300 font-bold"
-              translate="no"
-            >
-              ⭐ 保存
-            </button>
-            <button
-              onClick={clearDefaults}
-              className="text-xs px-2 py-1 rounded-full border border-stone-300 text-stone-400 dark:border-stone-600 dark:text-stone-500"
-              translate="no"
-            >
-              リセット
             </button>
             {/* 表示切替 */}
             <div className="flex rounded-lg border border-stone-300 dark:border-stone-600 overflow-hidden">
