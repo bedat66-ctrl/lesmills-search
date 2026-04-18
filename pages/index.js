@@ -411,7 +411,7 @@ export default function Home() {
                   key={p}
                   onClick={() => setProgram(p)}
                   translate="no"
-                  className={`flex-1 py-1 rounded text-xs font-bold tracking-wider uppercase border transition-all ${
+                  className={`flex-1 h-7 flex items-center justify-center rounded text-xs font-bold tracking-wider uppercase border transition-all ${
                     program === p
                       ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
                       : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
@@ -428,7 +428,7 @@ export default function Home() {
                   key={p}
                   onClick={() => setProgram(p)}
                   translate="no"
-                  className={`flex-1 py-0.5 rounded border transition-all font-bold tracking-wider uppercase ${
+                  className={`flex-1 h-7 flex items-center justify-center rounded border transition-all font-bold tracking-wider uppercase ${
                     p === "BODYPUMP HEAVY"
                       ? program === p
                         ? "bg-indigo-700 text-white border-indigo-700 text-[10px]"
