@@ -27,6 +27,7 @@ const NAS_GYMS = [
 const TARGET_KEYWORDS = [
   "BODYATTACK", "BODY ATTACK",
   "BODYCOMBAT", "BODY COMBAT",
+  "BODYPUMP HEAVY", "BODY PUMP HEAVY",
   "BODYPUMP",   "BODY PUMP",
   "GRIT",
   "BODYJAM",    "BODY JAM",
@@ -36,6 +37,7 @@ function normalizeProgram(text) {
   const u = text.toUpperCase().replace(/\s+/g, "");
   if (u.includes("BODYATTACK"))  return "BODYATTACK";
   if (u.includes("BODYCOMBAT"))  return "BODYCOMBAT";
+  if (u.includes("BODYPUMPHEAVY") || u.includes("BODYPUMP HEAVY")) return "BODYPUMP HEAVY";
   if (u.includes("BODYPUMP"))    return "BODYPUMP";
   if (u.includes("GRIT"))        return "GRIT";
   if (u.includes("BODYJAM"))     return "BODYJAM";
@@ -48,9 +50,6 @@ function getNote(program, text) {
     if (u.includes("CARDIO"))   return "GRIT CARDIO";
     if (u.includes("STRENGTH")) return "GRIT STRENGTH";
     if (u.includes("ATHLETIC")) return "GRIT ATHLETIC";
-  }
-  if (program === "BODYPUMP") {
-    if (u.includes("HEAVY")) return "BODYPUMP HEAVY";
   }
   return "";
 }

@@ -83,12 +83,13 @@ function DualRangeSlider({ min, max, from, to, onFromChange, onToChange, fmtLabe
   );
 }
 
-const PROGRAMS = ["すべて", "BODYATTACK", "GRIT", "BODYPUMP", "BODYCOMBAT", "BODYJAM"];
+const PROGRAMS = ["すべて", "BODYATTACK", "GRIT", "BODYPUMP", "BODYPUMP HEAVY", "BODYCOMBAT", "BODYJAM"];
 const PROGRAM_SHORT = {
   "すべて": "ALL",
   "BODYATTACK": "ATTACK",
   "GRIT": "GRIT",
   "BODYPUMP": "PUMP",
+  "BODYPUMP HEAVY": "HEAVY",
   "BODYCOMBAT": "COMBAT",
   "BODYJAM": "JAM",
 };
@@ -106,6 +107,7 @@ const PROGRAM_BADGE = {
   BODYATTACK: "bg-amber-400 text-stone-900",
   BODYCOMBAT: "text-white",  // bg color applied via style
   BODYPUMP: "bg-red-600 text-white",
+  "BODYPUMP HEAVY": "bg-indigo-700 text-white",
   GRIT: "bg-stone-700 text-stone-100",
   BODYJAM: "bg-yellow-400 text-stone-900",
 };
@@ -115,6 +117,7 @@ const PROGRAM_BG = {
   BODYATTACK: "#fbbf24",
   BODYCOMBAT: "#5a5a1a",
   BODYPUMP: "#c0182e",
+  "BODYPUMP HEAVY": "#4338ca",  // indigo-700
   GRIT: "#44403c",
   BODYJAM: "#eab308",
 };
@@ -122,6 +125,7 @@ const PROGRAM_BG_DARK = {
   BODYATTACK: "#fbbf24",
   BODYCOMBAT: "#8a8a1e",   // ダーク時は明るめオリーブ
   BODYPUMP: "#c0182e",
+  "BODYPUMP HEAVY": "#4f46e5",  // indigo-600（ダーク時は少し明るめ）
   GRIT: "#57534e",
   BODYJAM: "#facc15",
 };
@@ -129,6 +133,7 @@ const PROGRAM_COLOR = {
   BODYATTACK: "#1c1917",
   BODYCOMBAT: "#fff",
   BODYPUMP: "#fff",
+  "BODYPUMP HEAVY": "#fff",
   GRIT: "#f5f5f4",
   BODYJAM: "#1c1917",
 };
