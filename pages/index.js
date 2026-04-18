@@ -484,10 +484,10 @@ export default function Home() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <label className="text-xs text-stone-400 tracking-wider" translate="no">TIME</label>
-                <button onClick={handleNow} className="text-xs text-stone-500 dark:text-stone-400 font-bold underline py-1 px-1" translate="no">
+                <button onClick={handleNow} className={`text-xs underline py-1 px-1 font-bold ${extraFromMin > 0 ? "text-stone-900 dark:text-stone-100" : "text-stone-400 dark:text-stone-500"}`} translate="no">
                   今すぐ
                 </button>
-                <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline py-1 px-1" translate="no">
+                <button onClick={resetTime} className={`text-xs underline py-1 px-1 font-bold ${extraFromMin === 0 && timeFrom === 5 && timeTo === 25 ? "text-stone-900 dark:text-stone-100" : "text-stone-400 dark:text-stone-500"}`} translate="no">
                   全時間
                 </button>
               </div>
