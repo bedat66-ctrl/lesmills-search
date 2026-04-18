@@ -208,6 +208,41 @@ export default function Home() {
   const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
   const [dark, setDark] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
+  const [viewMode, setViewMode] = useState("calendar"); // "calendar" | "list"
+
+  // デフォルト設定: マウント時にlocalStorageから復元
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("lesmills_defaults") || "null");
+      if (saved) {
+        if (saved.program) setProgram(saved.program);
+        if (saved.prefecture) setPrefecture(saved.prefecture);
+        if (saved.day) setDay(saved.day);
+        if (saved.chain) setChain(saved.chain);
+        if (saved.timeFrom != null) setTimeFrom(saved.timeFrom);
+        if (saved.timeTo != null) setTimeTo(saved.timeTo);
+      }
+    } catch {}
+  }, []);
+
+  const saveDefaults = () => {
+    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain, timeFrom, timeTo }));
+    alert("現在のフィルター設定をデフォルトに保存しました");
+  };
+  const clearDefaults = () => {
+    localStorage.removeItem("lesmills_defaults");
+    alert("デフォルト設定をリセットしました");
+  };
+
+  // 今すぐボタン: 今日の曜日・現在時刻以降に絞り込む
+  const handleNow = () => {
+    const todayDow = new Date().getDay();
+    const todayDowJa = ["日","月","火","水","木","金","土"][todayDow];
+    const currentHour = new Date().getHours();
+    setDay(todayDowJa);
+    setTimeFrom(Math.max(TIME_MIN, currentHour));
+    setTimeTo(TIME_MAX);
+  };
 
   // ポインター/タッチ追従
   useEffect(() => {
@@ -416,15 +451,108 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 件数 */}
-        <div className="flex items-center justify-between mb-3 max-w-2xl mx-auto">
+        {/* 件数 + ツールバー */}
+        <div className="flex items-center justify-between mb-3 max-w-2xl mx-auto gap-2 flex-wrap">
           <p className="text-xs text-stone-400 tracking-widest uppercase" translate="no">
             {filtered.length} Results
           </p>
+          <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
+            {/* 今すぐボタン */}
+            <button
+              onClick={handleNow}
+              className="text-xs px-2.5 py-1 rounded-full border border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300 font-bold"
+              translate="no"
+            >
+              ⏰ 今すぐ
+            </button>
+            {/* デフォルト設定 */}
+            <button
+              onClick={saveDefaults}
+              className="text-xs px-2.5 py-1 rounded-full border border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300 font-bold"
+              translate="no"
+            >
+              ⭐ 保存
+            </button>
+            <button
+              onClick={clearDefaults}
+              className="text-xs px-2 py-1 rounded-full border border-stone-300 text-stone-400 dark:border-stone-600 dark:text-stone-500"
+              translate="no"
+            >
+              リセット
+            </button>
+            {/* 表示切替 */}
+            <div className="flex rounded-lg border border-stone-300 dark:border-stone-600 overflow-hidden">
+              <button
+                onClick={() => setViewMode("calendar")}
+                className={`px-2.5 py-1 text-xs font-bold transition-all ${viewMode === "calendar" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
+                translate="no"
+              >
+                📅
+              </button>
+              <button
+                onClick={() => setViewMode("list")}
+                className={`px-2.5 py-1 text-xs font-bold transition-all ${viewMode === "list" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
+                translate="no"
+              >
+                ☰
+              </button>
+            </div>
+          </div>
         </div>
 
+        {/* ── リスト表示 ── */}
+        {viewMode === "list" && (() => {
+          const listItems = [...filtered].sort((a, b) => {
+            const ai = activeDays.indexOf(a.dayOfWeek);
+            const bi = activeDays.indexOf(b.dayOfWeek);
+            if (ai !== bi) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+            return a.startTime.localeCompare(b.startTime);
+          });
+          return (
+            <div className="rounded-xl border border-stone-200 dark:border-stone-700 overflow-hidden max-w-2xl mx-auto mb-4">
+              {listItems.length === 0 && (
+                <p className="text-center text-xs text-stone-400 py-8">該当なし</p>
+              )}
+              {listItems.map((s, i) => {
+                const blockBg = (dark ? PROGRAM_BG_DARK : PROGRAM_BG)[s.program] || "#44403c";
+                const gName = s.gymName
+                  .replace("スポーツクラブNAS", "NAS")
+                  .replace("BLUE FITNESS 24＋studio ", "BF ");
+                const dispGName = demoMode ? "██████████████" : gName;
+                const dispInst = demoMode ? "██████" : s.instructor;
+                return (
+                  <div
+                    key={s.id}
+                    onClick={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      setPointerPos({ x: rect.left + rect.width / 2, y: rect.top });
+                      setPopup({ schedule: s, blockRect: { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right } });
+                    }}
+                    className={`flex items-stretch cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors ${i > 0 ? "border-t border-stone-100 dark:border-stone-800" : ""}`}
+                  >
+                    {/* 左カラー帯 */}
+                    <div style={{ background: blockBg, width: 5, flexShrink: 0 }} />
+                    {/* 内容 */}
+                    <div className="flex-1 py-2.5 px-3">
+                      <div className="flex items-baseline gap-2 flex-wrap">
+                        <span translate="no" className="text-xs font-black" style={{ color: blockBg }}>{s.program}</span>
+                        <span translate="no" className="text-sm font-black text-stone-800 dark:text-stone-100">{s.startTime}–{s.endTime}</span>
+                        <span translate="no" className="text-xs text-stone-400">{s.dayOfWeek}曜</span>
+                      </div>
+                      <div translate="no" className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{dispGName}</div>
+                      {s.instructor && s.chain !== "BlueFitness" && (
+                        <div translate="no" className="text-xs text-stone-400 dark:text-stone-500">👤 {dispInst}さん</div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()}
+
         {/* ── 週表示 ── */}
-        <div
+        {viewMode === "calendar" && <div
           className="rounded-xl border border-stone-200 shadow-sm dark:border-stone-700"
           style={{ overflow: "auto", maxHeight: "calc(100vh - 260px)", background: gridBg }}
         >
@@ -644,7 +772,7 @@ export default function Home() {
                 })}
               </div>
             </div>
-        </div>
+        </div>}
       </main>
 
       {/* ポップアップ（ポインター追従カード） */}
