@@ -209,6 +209,7 @@ export default function Home() {
   const [dark, setDark] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
   const [viewMode, setViewMode] = useState("calendar"); // "calendar" | "list"
+  const [hasDefaults, setHasDefaults] = useState(false);
   const calendarRef = useRef(null);
 
   // デフォルト設定: マウント時にlocalStorageから復元
@@ -216,6 +217,7 @@ export default function Home() {
     try {
       const saved = JSON.parse(localStorage.getItem("lesmills_defaults") || "null");
       if (saved) {
+        setHasDefaults(true);
         if (saved.program) setProgram(saved.program);
         if (saved.prefecture) setPrefecture(saved.prefecture);
         if (saved.day) setDay(saved.day);
@@ -251,10 +253,12 @@ export default function Home() {
   // デフォルト設定の保存・クリア
   const saveDefaults = () => {
     localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain, timeFrom, timeTo }));
+    setHasDefaults(true);
     alert("現在のフィルター設定をデフォルトに保存しました");
   };
   const clearDefaults = () => {
     localStorage.removeItem("lesmills_defaults");
+    setHasDefaults(false);
     alert("デフォルト設定をリセットしました");
   };
 
@@ -414,7 +418,10 @@ export default function Home() {
 
           {/* DAY */}
           <div className="mb-2">
-            <label className="block text-xs text-stone-400 mb-1 tracking-wider" translate="no">DAY</label>
+            <div className="flex items-center gap-2 mb-1">
+              <label className="text-xs text-stone-400 tracking-wider" translate="no">DAY</label>
+              {hasDefaults && <span className="text-xs" title="デフォルト設定あり">⭐</span>}
+            </div>
             <div className="flex gap-1">
               {DAYS.map((d) => (
                 <button
@@ -458,11 +465,9 @@ export default function Home() {
                 <button onClick={handleNow} className="text-xs text-stone-500 dark:text-stone-400 font-bold underline" translate="no">
                   今すぐ
                 </button>
-                {(timeFrom !== TIME_MIN || timeTo !== TIME_MAX) && (
-                  <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline" translate="no">
-                    全時間
-                  </button>
-                )}
+                <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline" translate="no">
+                  全時間
+                </button>
               </div>
               <DualRangeSlider
                 min={TIME_MIN} max={TIME_MAX}
