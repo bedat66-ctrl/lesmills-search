@@ -296,7 +296,14 @@ export default function Home() {
     .filter((s) => chain === "すべて" || s.chain === chain)
     .filter((s) => {
       const startMin = timeToMinutes(s.startTime);
-      return startMin >= timeFrom * 60 + extraFromMin && startMin < timeTo * 60;
+      const threshold = timeFrom * 60 + extraFromMin;
+      // 今すぐモード(extraFromMin>0)かつ昼以降(timeFrom>=2)の場合、
+      // 深夜クラス(00:xx, 01:xx)は当日の早朝=既に終了済みなので除外
+      if (extraFromMin > 0 && timeFrom >= 2) {
+        const rawH = parseInt(s.startTime.split(":")[0]);
+        if (rawH <= 1) return false;
+      }
+      return startMin >= threshold && startMin < timeTo * 60;
     })
     .sort(
       (a, b) =>
