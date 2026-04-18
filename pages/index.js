@@ -248,6 +248,16 @@ export default function Home() {
     setTimeTo(TIME_MAX);
   };
 
+  // デフォルト設定の保存・クリア
+  const saveDefaults = () => {
+    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain, timeFrom, timeTo }));
+    alert("現在のフィルター設定をデフォルトに保存しました");
+  };
+  const clearDefaults = () => {
+    localStorage.removeItem("lesmills_defaults");
+    alert("デフォルト設定をリセットしました");
+  };
+
   // ポインター/タッチ追従
   useEffect(() => {
     if (!popup) return;
@@ -445,6 +455,9 @@ export default function Home() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <label className="text-xs text-stone-400 tracking-wider" translate="no">TIME</label>
+                <button onClick={handleNow} className="text-xs text-stone-500 dark:text-stone-400 font-bold underline" translate="no">
+                  今すぐ
+                </button>
                 {(timeFrom !== TIME_MIN || timeTo !== TIME_MAX) && (
                   <button onClick={resetTime} className="text-xs text-stone-400 dark:text-stone-500 underline" translate="no">
                     全時間
@@ -469,13 +482,20 @@ export default function Home() {
             {filtered.length} Results
           </p>
           <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
-            {/* 今すぐボタン */}
+            {/* デフォルト設定 */}
             <button
-              onClick={handleNow}
+              onClick={saveDefaults}
               className="text-xs px-2.5 py-1 rounded-full border border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300 font-bold"
               translate="no"
             >
-              ⏰ 今すぐ
+              ⭐ 保存
+            </button>
+            <button
+              onClick={clearDefaults}
+              className="text-xs px-2 py-1 rounded-full border border-stone-300 text-stone-400 dark:border-stone-600 dark:text-stone-500"
+              translate="no"
+            >
+              リセット
             </button>
             {/* 表示切替 */}
             <div className="flex rounded-lg border border-stone-300 dark:border-stone-600 overflow-hidden">
