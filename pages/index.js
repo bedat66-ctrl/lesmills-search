@@ -213,7 +213,7 @@ export default function Home() {
   const [extraFromMin, setExtraFromMin] = useState(0); // 今すぐ時の分単位オフセット
   const calendarRef = useRef(null);
 
-  // デフォルト設定: マウント時にlocalStorageから復元
+  // デフォルト設定: マウント時にlocalStorageから復元（時刻は保存しない）
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("lesmills_defaults") || "null");
@@ -223,17 +223,7 @@ export default function Home() {
         if (saved.prefecture) setPrefecture(saved.prefecture);
         if (saved.day) setDay(saved.day);
         if (saved.chain) setChain(saved.chain);
-        if (saved.timeFrom != null) setTimeFrom(saved.timeFrom);
-        if (saved.timeTo != null) setTimeTo(saved.timeTo);
-        // 05:00より後の時刻が保存されていればカレンダーをスクロール
-        if (saved.timeFrom != null && saved.timeFrom > DAY_START_H) {
-          setTimeout(() => {
-            if (calendarRef.current) {
-              const scrollTo = Math.max(0, (saved.timeFrom - DAY_START_H - 0.5) * HOUR_PX);
-              calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
-            }
-          }, 100);
-        }
+        // timeFrom / timeTo は保存・復元しない（常に05:00〜01:00起動）
       }
     } catch {}
   }, []);
@@ -271,7 +261,7 @@ export default function Home() {
 
   // デフォルト設定の保存・クリア
   const saveDefaults = () => {
-    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain, timeFrom, timeTo }));
+    localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, day, chain }));
     setHasDefaults(true);
     alert("現在のフィルター設定をデフォルトに保存しました");
   };
@@ -283,9 +273,14 @@ export default function Home() {
 
   // カレンダー表示に切り替えた時、今すぐモードなら現在時刻にスクロール
   useEffect(() => {
-    if (viewMode === "calendar" && extraFromMin > 0 && calendarRef.current) {
-      const scrollTo = Math.max(0, ((timeFrom + extraFromMin / 60) - DAY_START_H - 0.5) * HOUR_PX);
-      calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+    if (viewMode === "calendar" && extraFromMin > 0) {
+      // 実機でDOMが描画完了するのを待つためsetTimeoutを使用
+      setTimeout(() => {
+        if (calendarRef.current) {
+          const scrollTo = Math.max(0, ((timeFrom + extraFromMin / 60) - DAY_START_H - 0.5) * HOUR_PX);
+          calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+        }
+      }, 80);
     }
   }, [viewMode]);
 
