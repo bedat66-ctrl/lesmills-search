@@ -254,6 +254,10 @@ export default function Home() {
     setTimeTo(TIME_MAX);
     setExtraFromMin(0);
     setDay("すべて");
+    // カレンダーを05:00先頭に戻す
+    setTimeout(() => {
+      if (calendarRef.current) calendarRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }, 50);
   };
 
   // デフォルト設定の保存・クリア
@@ -505,24 +509,18 @@ export default function Home() {
             {filtered.length} Results
           </p>
           <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
-            {/* デフォルト設定 */}
+            {/* デフォルト設定（保存済みならクリックで解除） */}
             <button
-              onClick={saveDefaults}
+              onClick={hasDefaults ? clearDefaults : saveDefaults}
               className={`text-xs px-2.5 py-1 rounded-full border font-bold transition-all ${
                 hasDefaults
                   ? "bg-amber-400 border-amber-400 text-stone-900"
                   : "border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300"
               }`}
               translate="no"
+              title={hasDefaults ? "クリックでデフォルト設定を解除" : "現在のフィルターをデフォルトに保存"}
             >
-              ⭐ 保存
-            </button>
-            <button
-              onClick={clearDefaults}
-              className="text-xs px-2 py-1 rounded-full border border-stone-300 text-stone-400 dark:border-stone-600 dark:text-stone-500"
-              translate="no"
-            >
-              リセット
+              {hasDefaults ? "⭐ 保存済み" : "⭐ 保存"}
             </button>
             {/* 表示切替 */}
             <div className="flex rounded-lg border border-stone-300 dark:border-stone-600 overflow-hidden">
