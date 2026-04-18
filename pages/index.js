@@ -283,6 +283,14 @@ export default function Home() {
     }
   }, [viewMode]);
 
+  // タイムスライダーのFrom（左ハンドル）を動かしたとき、カレンダーをその時刻に連動スクロール
+  useEffect(() => {
+    if (viewMode === "calendar" && calendarRef.current) {
+      const scrollTo = Math.max(0, (timeFrom - DAY_START_H - 0.5) * HOUR_PX);
+      calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+    }
+  }, [timeFrom]);
+
   // ポインター/タッチ追従
   useEffect(() => {
     if (!popup) return;
