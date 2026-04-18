@@ -96,6 +96,10 @@ const DAYS = ["すべて", "月", "火", "水", "木", "金", "土", "日"];
 const DAYS_OF_WEEK = ["月", "火", "水", "木", "金", "土", "日"];
 const DAY_ORDER = { 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6, 日: 7 };
 const CHAINS = ["すべて", "NAS", "BlueFitness"];
+
+// VRクラス判定（BlueFitness全クラス、NASのVRクラスフラグ付き）
+const isVirtualClass = (s) =>
+  s.chain === "BlueFitness" || (s.note && s.note.includes("VRクラス"));
 const PREFECTURES = ["すべて", ...Array.from(new Set(schedules.map((s) => s.prefecture))).sort()];
 
 const PROGRAM_BADGE = {
@@ -590,11 +594,14 @@ export default function Home() {
                     <div className="flex-1 py-2.5 px-3">
                       <div className="flex items-baseline gap-2 flex-wrap">
                         <span translate="no" className="text-xs font-black" style={{ color: blockBg }}>{s.program}</span>
+                        {isVirtualClass(s) && (
+                          <span translate="no" className="text-xs font-bold px-1 py-0.5 rounded bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-300">VRクラス</span>
+                        )}
                         <span translate="no" className="text-sm font-black text-stone-800 dark:text-stone-100">{s.startTime}–{s.endTime}</span>
                         <span translate="no" className="text-xs text-stone-400">{s.dayOfWeek}曜</span>
                       </div>
                       <div translate="no" className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{dispGName}</div>
-                      {s.instructor && s.chain !== "BlueFitness" && (
+                      {s.instructor && !isVirtualClass(s) && (
                         <div translate="no" className="text-xs text-stone-400 dark:text-stone-500">👤 {dispInst}さん</div>
                       )}
                     </div>
@@ -804,7 +811,21 @@ export default function Home() {
                                 </div>
                               </>
                             )}
-                            {height >= 52 && s.instructor && s.chain !== "BlueFitness" && (
+                            {height >= 40 && isVirtualClass(s) && (
+                              <div
+                                translate="no"
+                                style={{
+                                  fontSize: 8,
+                                  lineHeight: 1.2,
+                                  fontWeight: "bold",
+                                  opacity: 0.85,
+                                  color: "#0ea5e9",
+                                }}
+                              >
+                                VRクラス
+                              </div>
+                            )}
+                            {height >= 52 && s.instructor && !isVirtualClass(s) && (
                               <div
                                 translate="no"
                                 style={{
@@ -907,7 +928,12 @@ export default function Home() {
                     {s.startTime}–{s.endTime}
                   </span>
                 </div>
-                {s.instructor && s.chain !== "BlueFitness" && (
+                {isVirtualClass(s) && (
+                  <p translate="no" style={{ fontSize: 11, fontWeight: 700, color: "#0ea5e9" }}>
+                    📺 VRクラス
+                  </p>
+                )}
+                {s.instructor && !isVirtualClass(s) && (
                   <p translate="no" style={{ fontSize: 11, color: popupBodyText }}>
                     👤 {dispInstructor}さん
                   </p>

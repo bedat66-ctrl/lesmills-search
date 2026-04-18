@@ -125,13 +125,17 @@ async function scrapeGym(gym, browser) {
         if (!targetKeywords.some(k => programText.toUpperCase().includes(k))) return;
 
         // インストラクター名（短い行・時刻やプログラム名でない行）
-        const instructor = lines.find(l => {
+        const rawInstructor = lines.find(l => {
           if (!l || l.length > 20) return false;
           if (/\d:\d/.test(l)) return false;
           if (programText && l === programText) return false;
           if (targetKeywords.some(k => l.toUpperCase().includes(k))) return false;
           return true;
         }) || "";
+
+        // 「予約不要レッスン」= VRクラス（インストラクターなし）
+        const isVR = rawInstructor === "予約不要レッスン";
+        const instructor = isVR ? "" : rawInstructor;
 
         // X位置から最近曜日を特定
         const lessonX = Math.round(rect.x + rect.width / 2);
@@ -144,6 +148,7 @@ async function scrapeGym(gym, browser) {
         results.push({
           startTime, endTime, programText,
           instructor: instructor.replace(/\s+/g, " ").trim(),
+          isVR,
           dayOfWeek: nearestDay?.dayOfWeek || "?",
           dist: Math.round(minDist),
         });
@@ -156,8 +161,13 @@ async function scrapeGym(gym, browser) {
 
     data.results.forEach(r => {
       const program = normalizeProgram(r.programText);
-      const note = getNote(program, r.programText);
-      console.log(`   ${r.dayOfWeek} | ${r.startTime}-${r.endTime} | ${program}${note ? " ("+note+")" : ""} | ${r.instructor}`);
+      const baseNote = getNote(program, r.programText);
+      // VRクラスはnoteに"VRクラス"を付加
+      const note = r.isVR
+        ? (baseNote ? `VRクラス ${baseNote}` : "VRクラス")
+        : baseNote;
+      const vrLabel = r.isVR ? " [VR]" : "";
+      console.log(`   ${r.dayOfWeek} | ${r.startTime}-${r.endTime} | ${program}${note ? " ("+note+")" : ""}${vrLabel} | ${r.instructor}`);
       results.push({ gymId: gym.gymId, gymName: gym.gymName, program, note, dayOfWeek: r.dayOfWeek, startTime: r.startTime, endTime: r.endTime, instructor: r.instructor });
     });
 
