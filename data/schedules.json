@@ -4691,5 +4691,22 @@
     "endTime": "21:15",
     "instructor": "鎌田真生",
     "note": ""
+  },
+  {
+    "gymId": 12,
+    "gymName": "BLUE FITNESS 24＋studio 勝どき",
+    "chain": "BlueFitness",
+    "dayOfWeek": "土",
+    "startTime": "17:15",
+    "endTime": "18:00",
+    "program": "BODYATTACK",
+    "note": "",
+    "instructor": "",
+    "prefecture": "東京都",
+    "city": "中央区",
+    "address": "東京都中央区勝どき1-13-1",
+    "station": "勝どき駅",
+    "gymUrl": "https://www.blue-fitness24.com/kachidoki/",
+    "mapUrl": "https://maps.google.com/?q=東京都中央区勝どき1-13-1"
   }
 ]
