@@ -103,7 +103,7 @@ const PROGRAM_BADGE = {
   BODYCOMBAT: "text-white",  // bg color applied via style
   BODYPUMP: "bg-red-600 text-white",
   GRIT: "bg-stone-700 text-stone-100",
-  BODYJAM: "bg-purple-600 text-white",
+  BODYJAM: "bg-yellow-400 text-stone-900",
 };
 
 // 週表示のブロック背景色（ライト / ダーク）
@@ -112,21 +112,21 @@ const PROGRAM_BG = {
   BODYCOMBAT: "#5a5a1a",
   BODYPUMP: "#c0182e",
   GRIT: "#44403c",
-  BODYJAM: "#7c3aed",
+  BODYJAM: "#eab308",
 };
 const PROGRAM_BG_DARK = {
   BODYATTACK: "#fbbf24",
   BODYCOMBAT: "#8a8a1e",   // ダーク時は明るめオリーブ
   BODYPUMP: "#c0182e",
   GRIT: "#57534e",
-  BODYJAM: "#a78bfa",
+  BODYJAM: "#facc15",
 };
 const PROGRAM_COLOR = {
   BODYATTACK: "#1c1917",
   BODYCOMBAT: "#fff",
   BODYPUMP: "#fff",
   GRIT: "#f5f5f4",
-  BODYJAM: "#fff",
+  BODYJAM: "#1c1917",
 };
 const CHAIN_BADGE = {
   NAS: "bg-stone-200 text-stone-600",
