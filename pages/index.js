@@ -428,14 +428,10 @@ export default function Home() {
                   key={p}
                   onClick={() => setProgram(p)}
                   translate="no"
-                  className={`flex-1 h-7 flex items-center justify-center rounded border transition-all font-bold tracking-wider uppercase ${
-                    p === "BODYPUMP HEAVY"
-                      ? program === p
-                        ? "bg-indigo-700 text-white border-indigo-700 text-[10px]"
-                        : "bg-stone-50 text-indigo-500 border-indigo-300 text-[10px] dark:bg-stone-800 dark:text-indigo-400 dark:border-indigo-700"
-                      : program === p
-                        ? "bg-stone-700 text-stone-100 border-stone-700 text-xs dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
-                        : "bg-stone-50 text-stone-500 border-stone-300 text-xs dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
+                  className={`flex-1 h-7 flex items-center justify-center rounded text-xs font-bold tracking-wider uppercase border transition-all ${
+                    program === p
+                      ? "bg-stone-700 text-stone-100 border-stone-700 dark:bg-stone-300 dark:text-stone-900 dark:border-stone-300"
+                      : "bg-stone-50 text-stone-500 border-stone-300 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-600"
                   }`}
                 >
                   {PROGRAM_SHORT[p]}
