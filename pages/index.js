@@ -268,6 +268,14 @@ export default function Home() {
     alert("デフォルト設定をリセットしました");
   };
 
+  // カレンダー表示に切り替えた時、今すぐモードなら現在時刻にスクロール
+  useEffect(() => {
+    if (viewMode === "calendar" && extraFromMin > 0 && calendarRef.current) {
+      const scrollTo = Math.max(0, ((timeFrom + extraFromMin / 60) - DAY_START_H - 0.5) * HOUR_PX);
+      calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+    }
+  }, [viewMode]);
+
   // ポインター/タッチ追従
   useEffect(() => {
     if (!popup) return;
