@@ -243,7 +243,6 @@ export default function Home() {
     setDay(todayDowJa);
     setTimeFrom(Math.max(TIME_MIN, currentHour));
     setTimeTo(TIME_MAX);
-    setViewMode("calendar");
     setTimeout(() => {
       if (calendarRef.current) {
         const scrollTo = Math.max(0, (currentHour - DAY_START_H - 1) * HOUR_PX);
