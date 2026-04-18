@@ -107,8 +107,8 @@ const PROGRAM_BADGE = {
   BODYATTACK: "bg-amber-400 text-stone-900",
   BODYCOMBAT: "text-white",  // bg color applied via style
   BODYPUMP: "bg-red-600 text-white",
-  "BODYPUMP HEAVY": "bg-indigo-700 text-white",
-  GRIT: "bg-stone-700 text-stone-100",
+  "BODYPUMP HEAVY": "bg-zinc-700 text-white",
+  GRIT: "bg-zinc-900 text-white",
   BODYJAM: "bg-yellow-400 text-stone-900",
 };
 
@@ -117,16 +117,16 @@ const PROGRAM_BG = {
   BODYATTACK: "#fbbf24",
   BODYCOMBAT: "#5a5a1a",
   BODYPUMP: "#c0182e",
-  "BODYPUMP HEAVY": "#4338ca",  // indigo-700
-  GRIT: "#44403c",
+  "BODYPUMP HEAVY": "#3f3f46",  // 黒に近い灰鼠色 zinc-700
+  GRIT: "#18181b",              // ほぼ黒 zinc-900
   BODYJAM: "#eab308",
 };
 const PROGRAM_BG_DARK = {
   BODYATTACK: "#fbbf24",
-  BODYCOMBAT: "#8a8a1e",   // ダーク時は明るめオリーブ
+  BODYCOMBAT: "#8a8a1e",
   BODYPUMP: "#c0182e",
-  "BODYPUMP HEAVY": "#4f46e5",  // indigo-600（ダーク時は少し明るめ）
-  GRIT: "#57534e",
+  "BODYPUMP HEAVY": "#52525b",  // ダーク時は少し明るめ zinc-600
+  GRIT: "#27272a",              // ダーク時は少し明るめ zinc-800
   BODYJAM: "#facc15",
 };
 const PROGRAM_COLOR = {
@@ -134,7 +134,7 @@ const PROGRAM_COLOR = {
   BODYCOMBAT: "#fff",
   BODYPUMP: "#fff",
   "BODYPUMP HEAVY": "#fff",
-  GRIT: "#f5f5f4",
+  GRIT: "#fff",
   BODYJAM: "#1c1917",
 };
 const CHAIN_BADGE = {
