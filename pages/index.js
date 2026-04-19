@@ -221,6 +221,7 @@ export default function Home() {
   const [hasDefaults, setHasDefaults] = useState(false);
   const [extraFromMin, setExtraFromMin] = useState(0); // 今すぐ時の分単位オフセット
   const calendarRef = useRef(null);
+  const scrollTargetRef = useRef(null); // リスト→カレンダー遷移時のスクロール先(時間h)
 
   // デフォルト設定: マウント時にlocalStorageから復元（時刻は保存しない）
   useEffect(() => {
@@ -345,18 +346,23 @@ export default function Home() {
     if (viewMode !== "calendar") return;
     setTimeout(() => {
       if (!calendarRef.current) return;
-      if (extraFromMin > 0) {
+      if (scrollTargetRef.current !== null) {
+        // リストアイテムクリックで指定された時刻へ
+        const h = scrollTargetRef.current;
+        scrollTargetRef.current = null;
+        const scrollTo = Math.max(0, (h - DAY_START_H - 0.5) * HOUR_PX);
+        calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+      } else if (extraFromMin > 0) {
         // 今すぐモード: 現在時刻付近にスクロール
         const scrollTo = Math.max(0, ((timeFrom + extraFromMin / 60) - DAY_START_H - 0.5) * HOUR_PX);
         calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
       } else if (program !== "すべて") {
-        // 特定プログラム選択中: 最早〜最遅クラスが画面内に収まる位置にスクロール
+        // 特定プログラム選択中: 最早〜最遅の中間付近にスクロール
         const allMatches = schedules.filter(s => s.program === program);
         if (allMatches.length > 0) {
           const times = allMatches.map(s => timeToMinutes(s.startTime));
-          const minTime = Math.min(...times);
-          // 最初のクラスの30分前を上端に表示（余白を持たせる）
-          const scrollTo = Math.max(0, (minTime / 60 - DAY_START_H - 0.5) * HOUR_PX);
+          const mid = (Math.min(...times) + Math.max(...times)) / 2;
+          const scrollTo = Math.max(0, (mid / 60 - DAY_START_H - 3) * HOUR_PX);
           calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
         }
       }
@@ -414,8 +420,12 @@ export default function Home() {
         a.startTime.localeCompare(b.startTime)
     );
 
-  // カレンダーは日曜スタート固定
-  const activeDays = day === "すべて" ? DAYS_OF_WEEK : [day];
+  // カレンダーは日曜スタート固定。特定プログラム選択時はそのプログラムがある曜日のみ表示
+  const activeDays = day !== "すべて"
+    ? [day]
+    : program !== "すべて"
+    ? DAYS_OF_WEEK.filter(d => filtered.some(s => s.dayOfWeek === d))
+    : DAYS_OF_WEEK;
   const hourLabels = Array.from(
     { length: DAY_END_H - DAY_START_H },
     (_, i) => DAY_START_H + i
@@ -653,10 +663,10 @@ export default function Home() {
                 return (
                   <div
                     key={s.id}
-                    onClick={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      setPointerPos({ x: rect.left + rect.width / 2, y: rect.top });
-                      setPopup({ schedule: s, blockRect: { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right } });
+                    onClick={() => {
+                      // カレンダー表示に遷移し、このクラスの時刻付近を表示
+                      scrollTargetRef.current = timeToMinutes(s.startTime) / 60;
+                      setViewMode("calendar");
                     }}
                     className={`flex items-stretch cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors ${i > 0 ? "border-t border-stone-100 dark:border-stone-800" : ""}`}
                   >
