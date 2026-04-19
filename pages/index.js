@@ -267,6 +267,26 @@ export default function Home() {
     }, 50);
   };
 
+  // PROGRAMボタン押下: 現在フィルターで0件になるなら曜日・時間を自動リセット
+  const handleProgramSelect = (p) => {
+    setProgram(p);
+    if (p === "すべて") return;
+    const hasMatch = schedules.some(s =>
+      s.program === p &&
+      (prefecture === "すべて" || s.prefecture === prefecture) &&
+      (chain === "すべて" || s.chain === chain) &&
+      (day === "すべて" || s.dayOfWeek === day) &&
+      timeToMinutes(s.startTime) >= timeFrom * 60 + extraFromMin &&
+      timeToMinutes(s.startTime) < timeTo * 60
+    );
+    if (!hasMatch) {
+      setDay("すべて");
+      setTimeFrom(5);
+      setTimeTo(25);
+      setExtraFromMin(0);
+    }
+  };
+
   // デフォルト設定の保存・クリア
   const saveDefaults = () => {
     localStorage.setItem("lesmills_defaults", JSON.stringify({ program, prefecture, chain }));
@@ -431,7 +451,7 @@ export default function Home() {
               {["すべて", "BODYATTACK", "GRIT"].map((p) => (
                 <button
                   key={p}
-                  onClick={() => setProgram(p)}
+                  onClick={() => handleProgramSelect(p)}
                   translate="no"
                   className={`flex-1 h-7 flex items-center justify-center rounded text-xs font-bold tracking-wider uppercase border transition-all ${
                     program === p
@@ -448,7 +468,7 @@ export default function Home() {
               {["BODYPUMP", "BODYPUMP HEAVY", "BODYCOMBAT", "BODYJAM"].map((p) => (
                 <button
                   key={p}
-                  onClick={() => setProgram(p)}
+                  onClick={() => handleProgramSelect(p)}
                   translate="no"
                   className={`flex-1 h-7 flex items-center justify-center rounded text-xs font-bold tracking-wider uppercase border transition-all ${
                     program === p
