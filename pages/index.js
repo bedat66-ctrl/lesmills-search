@@ -287,9 +287,12 @@ export default function Home() {
       setPrefecture("すべて");
     }
 
-    // カレンダーを最初のクラスの時刻にスクロール（timeFromのuseEffectが0にリセットした後に上書き）
+    // クラス数が少ない（≤10件）場合はリスト表示に自動切替 → 全クラスが一覧できる
+    // クラス数が多い場合はカレンダーを最初のクラスの時刻にスクロール
     const allMatches = schedules.filter(s => s.program === p);
-    if (allMatches.length > 0 && viewMode === "calendar") {
+    if (allMatches.length > 0 && allMatches.length <= 10) {
+      setViewMode("list");
+    } else if (allMatches.length > 10 && viewMode === "calendar") {
       const earliest = allMatches.reduce((a, b) =>
         timeToMinutes(a.startTime) < timeToMinutes(b.startTime) ? a : b
       );
