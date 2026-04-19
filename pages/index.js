@@ -93,9 +93,9 @@ const PROGRAM_SHORT = {
   "BODYCOMBAT": "COMBAT",
   "BODYJAM": "JAM",
 };
-const DAYS = ["すべて", "月", "火", "水", "木", "金", "土", "日"];
-const DAYS_OF_WEEK = ["月", "火", "水", "木", "金", "土", "日"];
-const DAY_ORDER = { 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6, 日: 7 };
+const DAYS = ["すべて", "日", "月", "火", "水", "木", "金", "土"];
+const DAYS_OF_WEEK = ["日", "月", "火", "水", "木", "金", "土"];
+const DAY_ORDER = { 日: 0, 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6 };
 const CHAINS = ["すべて", "NAS", "BlueFitness"];
 
 // VRクラス判定（BlueFitness全クラス、NASのVRクラスフラグ付き）
@@ -215,13 +215,14 @@ export default function Home() {
   const [timeTo, setTimeTo] = useState(25);
   const [popup, setPopup] = useState(null); // { schedule, blockRect }
   const [pointerPos, setPointerPos] = useState({ x: 0, y: 0 });
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [demoMode, setDemoMode] = useState(false);
   const [viewMode, setViewMode] = useState("calendar"); // "calendar" | "list"
   const [hasDefaults, setHasDefaults] = useState(false);
   const [extraFromMin, setExtraFromMin] = useState(0); // 今すぐ時の分単位オフセット
   const calendarRef = useRef(null);
   const scrollTargetRef = useRef(null); // リスト→カレンダー遷移時のスクロール先(時間h)
+  const lastViewedKeyRef = useRef(null); // 最後にクリックしたリストアイテムのkey
   const [highlightKey, setHighlightKey] = useState(null); // ハイライト対象のブロックキー
 
   // デフォルト設定: マウント時にlocalStorageから復元（時刻は保存しない）
@@ -421,16 +422,13 @@ export default function Home() {
         a.startTime.localeCompare(b.startTime)
     );
 
-  // 今日の曜日からスタートする順に並べる
-  const todayJsDow = new Date().getDay(); // 0=日,1=月...6=土
-  const todayIdx = todayJsDow === 0 ? 6 : todayJsDow - 1; // 月=0,火=1...日=6
-  const todayFirstDays = [...DAYS_OF_WEEK.slice(todayIdx), ...DAYS_OF_WEEK.slice(0, todayIdx)];
-  // 特定プログラム選択時はそのプログラムがある曜日のみ（今日スタート順を保持）
+  // 日曜始まりの固定順（日・月・火・水・木・金・土）
+  // 特定プログラム選択時はそのプログラムがある曜日のみ表示
   const activeDays = day !== "すべて"
     ? [day]
     : program !== "すべて"
-    ? todayFirstDays.filter(d => filtered.some(s => s.dayOfWeek === d))
-    : todayFirstDays;
+    ? DAYS_OF_WEEK.filter(d => filtered.some(s => s.dayOfWeek === d))
+    : DAYS_OF_WEEK;
   const hourLabels = Array.from(
     { length: DAY_END_H - DAY_START_H },
     (_, i) => DAY_START_H + i
@@ -449,8 +447,9 @@ export default function Home() {
 
   return (
     <div className={dark ? "dark" : ""}>
-    <div className="min-h-screen bg-stone-100 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
-      {/* ヘッダー（コンパクト） */}
+    <div className="flex flex-col bg-stone-100 text-stone-900 dark:bg-stone-950 dark:text-stone-100" style={{ height: "100dvh", overflow: "hidden" }}>
+      {/* ヘッダー＋フィルター（固定エリア） */}
+      <div className="flex-shrink-0">
       <header className="bg-stone-800 text-stone-100 px-4 py-2 dark:bg-stone-950 dark:border-b dark:border-stone-800">
         <div className="max-w-2xl mx-auto flex items-baseline gap-3">
           <h1 className="text-base font-black tracking-tight text-stone-100" translate="no">
@@ -478,8 +477,7 @@ export default function Home() {
           </button>
         </div>
       </header>
-
-      <main className="px-3 py-3">
+      <div className="px-3 pt-3">
         {/* フィルター（コンパクト） */}
         <div className="bg-stone-50 border border-stone-200 rounded-xl px-3 py-3 mb-3 shadow-sm max-w-2xl mx-auto dark:bg-stone-900 dark:border-stone-700">
 
@@ -634,7 +632,23 @@ export default function Home() {
                 📅
               </button>
               <button
-                onClick={() => setViewMode("list")}
+                onClick={() => {
+                  setViewMode("list");
+                  setDay("すべて");
+                  setTimeFrom(5);
+                  setTimeTo(25);
+                  setExtraFromMin(0);
+                  setTimeout(() => {
+                    if (lastViewedKeyRef.current) {
+                      // 最後に見たアイテムへスクロール
+                      const el = document.querySelector(`[data-item-key="${lastViewedKeyRef.current}"]`);
+                      el ? el.scrollIntoView({ behavior: "instant", block: "start" })
+                         : calendarRef.current?.scrollTo({ top: 0, behavior: "instant" });
+                    } else {
+                      calendarRef.current?.scrollTo({ top: 0, behavior: "instant" });
+                    }
+                  }, 30);
+                }}
                 className={`px-2.5 py-1 text-xs font-bold transition-all ${viewMode === "list" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
                 translate="no"
               >
@@ -643,13 +657,19 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>{/* /px-3 pt-3 */}
+      </div>{/* /flex-shrink-0 固定エリア */}
+
+      {/* スクロール可能なコンテンツエリア */}
+      <div ref={calendarRef} className="flex-1 overflow-auto">
+        <div className="px-3 pb-3">
 
         {/* ── リスト表示 ── */}
         {viewMode === "list" && (() => {
           const listItems = [...filtered].sort((a, b) => {
-            const ai = activeDays.indexOf(a.dayOfWeek);
-            const bi = activeDays.indexOf(b.dayOfWeek);
-            if (ai !== bi) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+            const ai = DAYS_OF_WEEK.indexOf(a.dayOfWeek);
+            const bi = DAYS_OF_WEEK.indexOf(b.dayOfWeek);
+            if (ai !== bi) return ai - bi;
             // 深夜クラス(00:xx,01:xx)が24:xx扱いになるようtimeToMinutesで並び替え
             return timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
           });
@@ -660,6 +680,9 @@ export default function Home() {
               )}
               {listItems.map((s, i) => {
                 const blockBg = (dark ? PROGRAM_BG_DARK : PROGRAM_BG)[s.program] || "#44403c";
+                // ダークモード時、暗色プログラム（GRIT・HEAVY）の文字は白にして視認性を確保
+                const listTextColor = (dark && (s.program === "GRIT" || s.program === "BODYPUMP HEAVY"))
+                  ? "#fff" : blockBg;
                 const gName = s.gymName
                   .replace("スポーツクラブNAS", "NAS")
                   .replace("BLUE FITNESS 24＋studio ", "BF ");
@@ -668,13 +691,20 @@ export default function Home() {
                 return (
                   <div
                     key={s.id}
+                    data-item-key={`${s.gymId}_${s.dayOfWeek}_${s.startTime}_${s.program}`}
                     onClick={() => {
                       // カレンダーに遷移してこのクラスの時刻付近を表示、ブロックをハイライト
                       const key = `${s.gymId}_${s.dayOfWeek}_${s.startTime}_${s.program}`;
+                      lastViewedKeyRef.current = key; // 戻ったときにここへスクロール
                       scrollTargetRef.current = timeToMinutes(s.startTime) / 60;
-                      setHighlightKey(key);
+                      // クラス数が少ないプログラムは一目で見つかるのでハイライト不要
+                      const skipHighlight = s.program === "BODYPUMP HEAVY" || s.program === "BODYJAM";
+                      if (!skipHighlight) {
+                        setHighlightKey(key);
+                        setTimeout(() => setHighlightKey(null), 2200);
+                      }
+                      setDay(s.dayOfWeek); // クリックした曜日に絞り込み→横スクロール不要に
                       setViewMode("calendar");
-                      setTimeout(() => setHighlightKey(null), 2500);
                     }}
                     className={`flex items-stretch cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors ${i > 0 ? "border-t border-stone-100 dark:border-stone-800" : ""}`}
                   >
@@ -683,12 +713,12 @@ export default function Home() {
                     {/* 内容 */}
                     <div className="flex-1 py-2.5 px-3">
                       <div className="flex items-baseline gap-2 flex-wrap">
-                        <span translate="no" className="text-xs font-black" style={{ color: blockBg }}>{s.program}</span>
+                        <span translate="no" className="text-xs font-black" style={{ color: listTextColor }}>{s.program}</span>
                         {isVirtualClass(s) && (
                           <span translate="no" className="text-xs font-bold px-1 py-0.5 rounded bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-300">VRクラス</span>
                         )}
                         <span translate="no" className="text-sm font-black text-stone-800 dark:text-stone-100">{s.startTime}–{s.endTime}</span>
-                        <span translate="no" className="text-xs text-stone-400">{s.dayOfWeek}曜</span>
+                        <span translate="no" className="text-xs text-stone-400">{s.dayOfWeek}</span>
                       </div>
                       <div translate="no" className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{dispGName}</div>
                       {s.instructor && !isVirtualClass(s) && (
@@ -704,42 +734,53 @@ export default function Home() {
 
         {/* ── 週表示 ── */}
         {viewMode === "calendar" && <div
-          ref={calendarRef}
-          className="rounded-xl border border-stone-200 shadow-sm dark:border-stone-700"
-          style={{ overflow: "auto", maxHeight: "calc(100vh - 260px)", background: gridBg }}
+          className="rounded-xl shadow-sm"
+          style={{ background: gridBg, width: "max-content", minWidth: "100%", position: "relative" }}
         >
             <div style={{ minWidth: `${48 + activeDays.length * 130}px` }}>
               {/* 曜日ヘッダー（縦スクロール時も固定） */}
               <div
-                className="flex sticky top-0 z-20 bg-stone-800 text-stone-100 dark:bg-stone-950"
+                className="flex h-7 sticky top-0 z-20 bg-stone-800 text-stone-100 dark:bg-stone-950"
                 style={{ borderBottom: `1px solid ${dark ? "#292524" : "#44403c"}` }}
               >
                 <div
                   className="flex-shrink-0"
-                  style={{ width: 48, borderRight: `1px solid ${dark ? "#44403c" : "#57534e"}` }}
+                  style={{
+                    position: "sticky",
+                    left: 0,
+                    zIndex: 21,
+                    width: 48,
+                    background: dark ? "#0c0a09" : "#292524",
+                    borderRight: `1px solid ${dark ? "#44403c" : "#57534e"}`,
+                    borderTopLeftRadius: "0.75rem",
+                  }}
                 />
                 {activeDays.map((d) => (
                   <div
                     key={d}
                     translate="no"
-                    className="flex-1 text-center text-sm font-bold py-2"
+                    className="flex-1 flex items-center justify-center text-xs font-bold"
                     style={{ borderRight: `1px solid ${dark ? "#44403c" : "#57534e"}` }}
                   >
-                    {d}曜
+                    {d}
                   </div>
                 ))}
               </div>
 
               {/* グリッド本体 */}
               <div className="flex">
-                {/* 時刻ラベル列 */}
+                {/* 時刻ラベル列（横スクロール時も固定） */}
                 <div
                   className="flex-shrink-0 relative"
                   style={{
+                    position: "sticky",
+                    left: 0,
+                    zIndex: 11,
                     width: 48,
                     height: TOTAL_HEIGHT,
                     background: hourColBg,
                     borderRight: `1px solid ${hourColBorder}`,
+                    borderBottomLeftRadius: "0.75rem",
                   }}
                 >
                   {hourLabels.map((h) => (
@@ -838,7 +879,7 @@ export default function Home() {
                               padding: "2px 3px",
                               overflow: "hidden",
                               borderRadius: 4,
-                              border: isHighlighted ? "2px solid rgba(255,255,255,0.9)" : "1px solid rgba(255,255,255,0.4)",
+                              border: "1px solid rgba(255,255,255,0.4)",
                               background: blockBg,
                               color: blockColor,
                               zIndex: isHighlighted ? 10 : 1,
@@ -941,8 +982,25 @@ export default function Home() {
                 })}
               </div>
             </div>
+          {/* 枠線オーバーレイ: stickyより前面に表示してrounded枠を常に見せる */}
+          <div
+            className="rounded-xl pointer-events-none"
+            style={{
+              position: "absolute",
+              inset: 0,
+              border: `1px solid ${dark ? "#44403c" : "#e7e5e4"}`,
+              zIndex: 30,
+            }}
+          />
         </div>}
-      </main>
+
+        </div>{/* /px-3 pb-3 */}
+
+        <footer className="text-center text-xs text-stone-400 py-8 px-4 border-t border-stone-200 dark:border-stone-800">
+          <p>このサイトはNAS・BLUE FITNESSの非公式ファンサイトです。</p>
+          <p className="mt-1">情報は変更になる場合があります。最新情報は各施設にご確認ください。</p>
+        </footer>
+      </div>{/* /scrollable */}
 
       {/* ポップアップ（ポインター追従カード） */}
       {popup && (() => {
@@ -1016,7 +1074,7 @@ export default function Home() {
                   {dispName}
                 </p>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 5, marginBottom: 4 }}>
-                  <span translate="no" style={{ fontSize: 11, color: popupSub, fontWeight: 700 }}>{s.dayOfWeek}曜</span>
+                  <span translate="no" style={{ fontSize: 11, color: popupSub, fontWeight: 700 }}>{s.dayOfWeek}</span>
                   <span translate="no" style={{ fontSize: 14, fontWeight: 900, color: popupText }}>
                     {s.startTime}–{s.endTime}
                   </span>
@@ -1037,10 +1095,6 @@ export default function Home() {
         );
       })()}
 
-      <footer className="text-center text-xs text-stone-400 py-8 px-4 border-t border-stone-200 mt-8 dark:border-stone-800">
-        <p>このサイトはNAS・BLUE FITNESSの非公式ファンサイトです。</p>
-        <p className="mt-1">情報は変更になる場合があります。最新情報は各施設にご確認ください。</p>
-      </footer>
     </div>
     </div>
   );
