@@ -267,16 +267,16 @@ export default function Home() {
     }, 50);
   };
 
-  // PROGRAMボタン押下: 曜日・時間を常にリセットし、それでも0件ならチェーン・都道府県もリセット
+  // PROGRAMボタン押下: 曜日・時間をリセットし、最初のクラス位置にスクロール
   const handleProgramSelect = (p) => {
     setProgram(p);
-    if (p === "すべて") return;
-    // 曜日・時間は常にリセット（プログラム切替時は全件表示が自然）
     setDay("すべて");
     setTimeFrom(5);
     setTimeTo(25);
     setExtraFromMin(0);
-    // チェーン・都道府県フィルターを保持した状態でも該当なし → それもリセット
+    if (p === "すべて") return;
+
+    // チェーン・都道府県フィルターで該当なし → それもリセット
     const hasMatchWithFilters = schedules.some(s =>
       s.program === p &&
       (prefecture === "すべて" || s.prefecture === prefecture) &&
@@ -285,6 +285,21 @@ export default function Home() {
     if (!hasMatchWithFilters) {
       setChain("すべて");
       setPrefecture("すべて");
+    }
+
+    // カレンダーを最初のクラスの時刻にスクロール（timeFromのuseEffectが0にリセットした後に上書き）
+    const allMatches = schedules.filter(s => s.program === p);
+    if (allMatches.length > 0 && viewMode === "calendar") {
+      const earliest = allMatches.reduce((a, b) =>
+        timeToMinutes(a.startTime) < timeToMinutes(b.startTime) ? a : b
+      );
+      const firstHour = timeToMinutes(earliest.startTime) / 60;
+      setTimeout(() => {
+        if (calendarRef.current) {
+          const scrollTo = Math.max(0, (firstHour - DAY_START_H - 1) * HOUR_PX);
+          calendarRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+        }
+      }, 80);
     }
   };
 
