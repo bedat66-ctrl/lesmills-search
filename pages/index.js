@@ -222,7 +222,6 @@ export default function Home() {
   const [extraFromMin, setExtraFromMin] = useState(0); // 今すぐ時の分単位オフセット
   const calendarRef = useRef(null);
   const scrollTargetRef = useRef(null); // リスト→カレンダー遷移時のスクロール先(時間h)
-  const autoListSwitchRef = useRef(false); // プログラム選択による自動リスト切替フラグ
   const [highlightKey, setHighlightKey] = useState(null); // ハイライト対象のブロックキー
 
   // デフォルト設定: マウント時にlocalStorageから復元（時刻は保存しない）
@@ -294,7 +293,6 @@ export default function Home() {
     // クラス数が多い場合はカレンダーを最初のクラスの時刻にスクロール
     const allMatches = schedules.filter(s => s.program === p);
     if (allMatches.length > 0 && allMatches.length <= 10) {
-      autoListSwitchRef.current = true; // プログラム選択による自動切替
       setViewMode("list");
     } else if (allMatches.length > 10 && viewMode === "calendar") {
       const earliest = allMatches.reduce((a, b) =>
@@ -321,21 +319,6 @@ export default function Home() {
     setHasDefaults(false);
     alert("デフォルト設定をリセットしました");
   };
-
-  // リスト表示に手動切替したとき、全時間表示なら今すぐ時刻を自動適用
-  useEffect(() => {
-    if (viewMode !== "list") return;
-    if (autoListSwitchRef.current) {
-      autoListSwitchRef.current = false;
-      return; // プログラム選択による自動切替はスキップ（全件見せる）
-    }
-    // 手動切替: 全時間表示中なら現在時刻以降に絞る
-    if (extraFromMin === 0 && timeFrom === 5 && timeTo === 25) {
-      const now = new Date();
-      setTimeFrom(Math.max(5, now.getHours()));
-      setExtraFromMin(now.getMinutes());
-    }
-  }, [viewMode]);
 
   // 今すぐモード中に画面に戻ってきたとき（スリープ解除・タブ切り替え）、時刻を自動更新
   useEffect(() => {
