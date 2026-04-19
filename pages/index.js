@@ -267,23 +267,24 @@ export default function Home() {
     }, 50);
   };
 
-  // PROGRAMボタン押下: 現在フィルターで0件になるなら曜日・時間を自動リセット
+  // PROGRAMボタン押下: 曜日・時間を常にリセットし、それでも0件ならチェーン・都道府県もリセット
   const handleProgramSelect = (p) => {
     setProgram(p);
     if (p === "すべて") return;
-    const hasMatch = schedules.some(s =>
+    // 曜日・時間は常にリセット（プログラム切替時は全件表示が自然）
+    setDay("すべて");
+    setTimeFrom(5);
+    setTimeTo(25);
+    setExtraFromMin(0);
+    // チェーン・都道府県フィルターを保持した状態でも該当なし → それもリセット
+    const hasMatchWithFilters = schedules.some(s =>
       s.program === p &&
       (prefecture === "すべて" || s.prefecture === prefecture) &&
-      (chain === "すべて" || s.chain === chain) &&
-      (day === "すべて" || s.dayOfWeek === day) &&
-      timeToMinutes(s.startTime) >= timeFrom * 60 + extraFromMin &&
-      timeToMinutes(s.startTime) < timeTo * 60
+      (chain === "すべて" || s.chain === chain)
     );
-    if (!hasMatch) {
-      setDay("すべて");
-      setTimeFrom(5);
-      setTimeTo(25);
-      setExtraFromMin(0);
+    if (!hasMatchWithFilters) {
+      setChain("すべて");
+      setPrefecture("すべて");
     }
   };
 
