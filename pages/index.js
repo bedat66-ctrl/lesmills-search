@@ -94,8 +94,8 @@ const PROGRAM_SHORT = {
   "BODYJAM": "JAM",
 };
 const DAYS = ["すべて", "月", "火", "水", "木", "金", "土", "日"];
-const DAYS_OF_WEEK = ["日", "月", "火", "水", "木", "金", "土"];
-const DAY_ORDER = { 日: 1, 月: 2, 火: 3, 水: 4, 木: 5, 金: 6, 土: 7 };
+const DAYS_OF_WEEK = ["月", "火", "水", "木", "金", "土", "日"];
+const DAY_ORDER = { 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6, 日: 7 };
 const CHAINS = ["すべて", "NAS", "BlueFitness"];
 
 // VRクラス判定（BlueFitness全クラス、NASのVRクラスフラグ付き）
@@ -420,12 +420,16 @@ export default function Home() {
         a.startTime.localeCompare(b.startTime)
     );
 
-  // カレンダーは日曜スタート固定。特定プログラム選択時はそのプログラムがある曜日のみ表示
+  // 今日の曜日からスタートする順に並べる
+  const todayJsDow = new Date().getDay(); // 0=日,1=月...6=土
+  const todayIdx = todayJsDow === 0 ? 6 : todayJsDow - 1; // 月=0,火=1...日=6
+  const todayFirstDays = [...DAYS_OF_WEEK.slice(todayIdx), ...DAYS_OF_WEEK.slice(0, todayIdx)];
+  // 特定プログラム選択時はそのプログラムがある曜日のみ（今日スタート順を保持）
   const activeDays = day !== "すべて"
     ? [day]
     : program !== "すべて"
-    ? DAYS_OF_WEEK.filter(d => filtered.some(s => s.dayOfWeek === d))
-    : DAYS_OF_WEEK;
+    ? todayFirstDays.filter(d => filtered.some(s => s.dayOfWeek === d))
+    : todayFirstDays;
   const hourLabels = Array.from(
     { length: DAY_END_H - DAY_START_H },
     (_, i) => DAY_START_H + i
