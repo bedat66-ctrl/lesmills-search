@@ -279,6 +279,28 @@ export default function Home() {
     alert("デフォルト設定をリセットしました");
   };
 
+  // 今すぐモード中に画面に戻ってきたとき（スリープ解除・タブ切り替え）、時刻を自動更新
+  useEffect(() => {
+    if (extraFromMin === 0) return;
+    const refresh = () => {
+      if (document.hidden) return;
+      const now = new Date();
+      const todayDowJa = ["日","月","火","水","木","金","土"][now.getDay()];
+      const h = now.getHours();
+      const m = now.getMinutes();
+      setDay(todayDowJa);
+      setTimeFrom(Math.max(5, h));
+      setExtraFromMin(m);
+      setTimeTo(25);
+    };
+    document.addEventListener("visibilitychange", refresh);
+    window.addEventListener("focus", refresh);
+    return () => {
+      document.removeEventListener("visibilitychange", refresh);
+      window.removeEventListener("focus", refresh);
+    };
+  }, [extraFromMin]);
+
   // カレンダー表示に切り替えた時、今すぐモードなら現在時刻にスクロール
   useEffect(() => {
     if (viewMode === "calendar" && extraFromMin > 0) {
