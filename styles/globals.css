@@ -15,7 +15,7 @@ body {
   100% { box-shadow: 0 0 0 0px rgba(255,255,255,0); transform: scale(1); }
 }
 .block-highlight {
-  animation: block-highlight 0.7s ease-in-out 3;
+  animation: block-highlight 0.7s ease-in-out 2;
   z-index: 10 !important;
   position: relative;
 }
