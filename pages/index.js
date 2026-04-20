@@ -658,6 +658,24 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {/* 並び順トグル（リスト表示時のみ） */}
+        {viewMode === "list" && (
+          <div className="flex items-center gap-1.5 mb-3 max-w-2xl mx-auto">
+            <span className="text-xs text-stone-400 dark:text-stone-500">並び順</span>
+            <div className="flex rounded-lg border border-stone-200 dark:border-stone-700 overflow-hidden">
+              <button
+                onClick={() => setListSort("day")}
+                className={`px-2.5 py-1 text-xs font-bold transition-all ${listSort === "day" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
+                translate="no"
+              >曜日順</button>
+              <button
+                onClick={() => setListSort("gym")}
+                className={`px-2.5 py-1 text-xs font-bold transition-all ${listSort === "gym" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
+                translate="no"
+              >店舗順</button>
+            </div>
+          </div>
+        )}
       </div>{/* /px-3 pt-3 */}
       </div>{/* /flex-shrink-0 固定エリア */}
 
@@ -684,22 +702,6 @@ export default function Home() {
           });
           return (
             <>
-            {/* 並び順トグル */}
-            <div className="flex items-center gap-1.5 mb-2 max-w-2xl mx-auto">
-              <span className="text-xs text-stone-400 dark:text-stone-500">並び順</span>
-              <div className="flex rounded-lg border border-stone-200 dark:border-stone-700 overflow-hidden">
-                <button
-                  onClick={() => setListSort("day")}
-                  className={`px-2.5 py-1 text-xs font-bold transition-all ${listSort === "day" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
-                  translate="no"
-                >曜日順</button>
-                <button
-                  onClick={() => setListSort("gym")}
-                  className={`px-2.5 py-1 text-xs font-bold transition-all ${listSort === "gym" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
-                  translate="no"
-                >店舗順</button>
-              </div>
-            </div>
             <div className="rounded-xl border border-stone-200 dark:border-stone-700 overflow-hidden max-w-2xl mx-auto mb-4">
               {listItems.length === 0 && (
                 <p className="text-center text-xs text-stone-400 py-8">該当なし</p>
