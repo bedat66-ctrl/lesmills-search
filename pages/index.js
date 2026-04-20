@@ -220,6 +220,7 @@ export default function Home() {
   const [viewMode, setViewMode] = useState("calendar"); // "calendar" | "list"
   const [hasDefaults, setHasDefaults] = useState(false);
   const [extraFromMin, setExtraFromMin] = useState(0); // 今すぐ時の分単位オフセット
+  const [listSort, setListSort] = useState("day"); // "day" | "gym"
   const calendarRef = useRef(null);
   const scrollTargetRef = useRef(null); // リスト→カレンダー遷移時のスクロール先(時間h)
   const lastViewedKeyRef = useRef(null); // 最後にクリックしたリストアイテムのkey
@@ -667,13 +668,38 @@ export default function Home() {
         {/* ── リスト表示 ── */}
         {viewMode === "list" && (() => {
           const listItems = [...filtered].sort((a, b) => {
+            if (listSort === "gym") {
+              // 店舗順: gymId → 曜日 → 時刻
+              if (a.gymId !== b.gymId) return a.gymId - b.gymId;
+              const ai = DAYS_OF_WEEK.indexOf(a.dayOfWeek);
+              const bi = DAYS_OF_WEEK.indexOf(b.dayOfWeek);
+              if (ai !== bi) return ai - bi;
+              return timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
+            }
+            // 曜日順（デフォルト）
             const ai = DAYS_OF_WEEK.indexOf(a.dayOfWeek);
             const bi = DAYS_OF_WEEK.indexOf(b.dayOfWeek);
             if (ai !== bi) return ai - bi;
-            // 深夜クラス(00:xx,01:xx)が24:xx扱いになるようtimeToMinutesで並び替え
             return timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
           });
           return (
+            <>
+            {/* 並び順トグル */}
+            <div className="flex items-center gap-1.5 mb-2 max-w-2xl mx-auto">
+              <span className="text-xs text-stone-400 dark:text-stone-500">並び順</span>
+              <div className="flex rounded-lg border border-stone-200 dark:border-stone-700 overflow-hidden">
+                <button
+                  onClick={() => setListSort("day")}
+                  className={`px-2.5 py-1 text-xs font-bold transition-all ${listSort === "day" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
+                  translate="no"
+                >曜日順</button>
+                <button
+                  onClick={() => setListSort("gym")}
+                  className={`px-2.5 py-1 text-xs font-bold transition-all ${listSort === "gym" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
+                  translate="no"
+                >店舗順</button>
+              </div>
+            </div>
             <div className="rounded-xl border border-stone-200 dark:border-stone-700 overflow-hidden max-w-2xl mx-auto mb-4">
               {listItems.length === 0 && (
                 <p className="text-center text-xs text-stone-400 py-8">該当なし</p>
@@ -688,9 +714,19 @@ export default function Home() {
                   .replace("BLUE FITNESS 24＋studio ", "BF ");
                 const dispGName = demoMode ? "██████████████" : gName;
                 const dispInst = demoMode ? "██████" : s.instructor;
+                // 店舗順の場合、gymIdが変わる箇所にジム名見出しを挿入
+                const showGymHeader = listSort === "gym" && (i === 0 || listItems[i - 1].gymId !== s.gymId);
                 return (
+                  <div key={s.id}>
+                    {showGymHeader && (
+                      <div
+                        className="px-3 py-1.5 text-xs font-bold text-stone-100 bg-stone-600 dark:bg-stone-800 border-t border-stone-200 dark:border-stone-700 first:border-t-0"
+                        translate="no"
+                      >
+                        {demoMode ? "██████████████" : gName}
+                      </div>
+                    )}
                   <div
-                    key={s.id}
                     data-item-key={`${s.gymId}_${s.dayOfWeek}_${s.startTime}_${s.program}`}
                     onClick={() => {
                       // カレンダーに遷移してこのクラスの時刻付近を表示、ブロックをハイライト
@@ -706,7 +742,7 @@ export default function Home() {
                       setDay(s.dayOfWeek); // クリックした曜日に絞り込み→横スクロール不要に
                       setViewMode("calendar");
                     }}
-                    className={`flex items-stretch cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors ${i > 0 ? "border-t border-stone-100 dark:border-stone-800" : ""}`}
+                    className={`flex items-stretch cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors ${i > 0 && !showGymHeader ? "border-t border-stone-100 dark:border-stone-800" : ""}`}
                   >
                     {/* 左カラー帯 */}
                     <div style={{ background: blockBg, width: 5, flexShrink: 0 }} />
@@ -720,15 +756,19 @@ export default function Home() {
                         <span translate="no" className="text-sm font-black text-stone-800 dark:text-stone-100">{s.startTime}–{s.endTime}</span>
                         <span translate="no" className="text-xs text-stone-400">{s.dayOfWeek}</span>
                       </div>
-                      <div translate="no" className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{dispGName}</div>
+                      {listSort !== "gym" && (
+                        <div translate="no" className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{dispGName}</div>
+                      )}
                       {s.instructor && !isVirtualClass(s) && (
                         <div translate="no" className="text-xs text-stone-400 dark:text-stone-500">👤 {dispInst}さん</div>
                       )}
                     </div>
                   </div>
+                  </div>
                 );
               })}
             </div>
+            </>
           );
         })()}
 
