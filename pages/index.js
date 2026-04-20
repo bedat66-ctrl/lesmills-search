@@ -610,6 +610,23 @@ export default function Home() {
             {filtered.length} Results
           </p>
           <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
+            {/* 検索リセット */}
+            <button
+              onClick={() => {
+                setProgram("すべて");
+                setChain("すべて");
+                setPrefecture("すべて");
+                setDay("すべて");
+                setTimeFrom(5);
+                setTimeTo(25);
+                setExtraFromMin(0);
+              }}
+              className="text-xs px-2.5 py-1 rounded-full border font-bold transition-all border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300"
+              translate="no"
+              title="検索条件をリセット（保存内容は消えません）"
+            >
+              ✕ リセット
+            </button>
             {/* デフォルト設定（保存済みならクリックで解除） */}
             <button
               onClick={hasDefaults ? clearDefaults : saveDefaults}
@@ -685,10 +702,14 @@ export default function Home() {
 
         {/* ── リスト表示 ── */}
         {viewMode === "list" && (() => {
+          // 店舗の表示優先順位（BF清澄白河〜BF瑞江 → NAS西日暮里〜NAS蕨）
+          const GYM_ORDER = [11, 12, 13, 14, 1, 2, 3, 4, 8, 7, 9, 15];
+          const gymRank = (id) => { const i = GYM_ORDER.indexOf(id); return i === -1 ? 99 : i; };
           const listItems = [...filtered].sort((a, b) => {
             if (listSort === "gym") {
-              // 店舗順: gymId → 曜日 → 時刻
-              if (a.gymId !== b.gymId) return a.gymId - b.gymId;
+              // 店舗順: 優先順位 → 曜日 → 時刻
+              const ra = gymRank(a.gymId), rb = gymRank(b.gymId);
+              if (ra !== rb) return ra - rb;
               const ai = DAYS_OF_WEEK.indexOf(a.dayOfWeek);
               const bi = DAYS_OF_WEEK.indexOf(b.dayOfWeek);
               if (ai !== bi) return ai - bi;
