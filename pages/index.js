@@ -657,7 +657,10 @@ export default function Home() {
                   setTimeTo(25);
                   setExtraFromMin(0);
                   setTimeout(() => {
-                    if (lastViewedKeyRef.current) {
+                    if (day !== "すべて") {
+                      // 特定の曜日が絞り込まれている場合はリスト先頭（=その曜日）を表示
+                      calendarRef.current?.scrollTo({ top: 0, behavior: "instant" });
+                    } else if (lastViewedKeyRef.current) {
                       // 最後に見たアイテムへスクロール
                       const el = document.querySelector(`[data-item-key="${lastViewedKeyRef.current}"]`);
                       el ? el.scrollIntoView({ behavior: "instant", block: "start" })
@@ -665,7 +668,7 @@ export default function Home() {
                     } else {
                       calendarRef.current?.scrollTo({ top: 0, behavior: "instant" });
                     }
-                  }, 30);
+                  }, 50);
                 }}
                 className={`px-2.5 py-1 text-xs font-bold transition-all ${viewMode === "list" ? "bg-stone-700 text-stone-100 dark:bg-stone-300 dark:text-stone-900" : "text-stone-400 dark:text-stone-500"}`}
                 translate="no"
