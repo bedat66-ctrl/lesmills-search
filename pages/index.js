@@ -620,7 +620,11 @@ export default function Home() {
                 setTimeFrom(5);
                 setTimeTo(25);
                 setExtraFromMin(0);
+                scrollTargetRef.current = null;
                 setViewMode("calendar");
+                setTimeout(() => {
+                  calendarRef.current?.scrollTo({ top: 0, behavior: "instant" });
+                }, 50);
               }}
               className="text-xs px-2.5 py-1 rounded-full border font-bold transition-all border-stone-400 text-stone-600 dark:border-stone-500 dark:text-stone-300"
               translate="no"
