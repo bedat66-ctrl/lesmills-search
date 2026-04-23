@@ -132,6 +132,7 @@ def extract_column_lessons(col_text, day):
             for j in range(i + 1, min(i + 4, len(lines))):
                 if TIME_PAT.search(lines[j]):
                     break
+                # 単行チェック
                 p = normalize_program(lines[j])
                 if p:
                     program = p
@@ -139,6 +140,16 @@ def extract_column_lessons(col_text, day):
                     if p == "GRIT":
                         note = get_grit_note(lines[j])
                     break
+                # 次行と結合チェック（"BODYA"+"TTACK" のような改行分割に対応）
+                if j + 1 < len(lines) and not TIME_PAT.search(lines[j + 1]):
+                    combined = lines[j] + lines[j + 1]
+                    p = normalize_program(combined)
+                    if p:
+                        program = p
+                        program_idx = j + 1
+                        if p == "GRIT":
+                            note = get_grit_note(combined)
+                        break
 
             if program is None:
                 i += 1
