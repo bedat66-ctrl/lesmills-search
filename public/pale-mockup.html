@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PALE — 商品タグ・台紙 モックアップ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    --black:#0a0908; --dark:#1c1a18; --beige:#ede6dc;
+    --sand:#c8b99a;  --text:#2a2826;  --muted:#7a7370;
+    --cream:#faf8f5; --line:#e8e0d4;
+    --gray-paper: #8c8a90;   /* タグ・台紙の色 */
+    --gray-dark:  #6e6c72;   /* デボス文字色 */
+    --gray-mid:   #78767c;   /* グレー文字色（中間） */
+  }
+  body { background:var(--cream); font-family:'Noto Sans JP',sans-serif; font-weight:300; color:var(--text); }
+
+  header { background:var(--black); padding:16px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .logo { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:22px; letter-spacing:0.55em; padding-left:0.55em; color:var(--beige); }
+  .header-sub { font-size:10px; letter-spacing:0.2em; color:var(--sand); text-transform:uppercase; }
+
+  .page-body { max-width:640px; margin:0 auto; padding:32px 20px 60px; }
+
+  .section-label { font-size:10px; letter-spacing:0.3em; color:var(--sand); text-transform:uppercase; margin-bottom:6px; }
+  .section-title {
+    font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; letter-spacing:0.1em;
+    color:var(--text); margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--line);
+  }
+
+  /* ── カラー切替ボタン ── */
+  .color-toggle { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+  .c-btn {
+    display:flex; align-items:center; gap:8px;
+    padding:9px 14px; background:#fff; border:2px solid var(--line);
+    border-radius:8px; cursor:pointer; font-family:'Noto Sans JP',sans-serif;
+    font-size:12px; color:var(--muted); transition:border-color 0.15s;
+  }
+  .c-btn.active { border-color:var(--dark); color:var(--text); }
+  .c-swatch { width:16px; height:16px; border-radius:50%; border:1px solid rgba(0,0,0,0.15); flex-shrink:0; }
+
+  /* ── フラットレイ ステージ ── */
+  .stage {
+    background: #e8e4e0;
+    background-image: radial-gradient(ellipse at 30% 20%, #f0ede8 0%, #e0dcd8 100%);
+    border-radius:14px;
+    padding: 48px 24px 52px;
+    display:flex; align-items:flex-end; justify-content:center;
+    gap:32px;
+    margin-bottom:12px;
+    position:relative;
+    overflow:hidden;
+    min-height:340px;
+  }
+  /* 紙の影（テーブル面） */
+  .stage::after {
+    content:'';position:absolute;bottom:0;left:0;right:0;height:40px;
+    background:linear-gradient(transparent,rgba(0,0,0,0.06));
+    pointer-events:none;
+  }
+
+  /* ── 商品タグ ── */
+  .tag-wrap {
+    transform: rotate(-5deg) translateY(-10px);
+    filter: drop-shadow(3px 6px 14px rgba(0,0,0,0.28));
+    flex-shrink:0;
+  }
+  .tag {
+    width:88px; height:210px;
+    background:var(--gray-paper);
+    border-radius:5px;
+    position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    padding-bottom:26px;
+  }
+  /* 紙の質感 */
+  .tag::before {
+    content:''; position:absolute; inset:0; border-radius:5px;
+    background: repeating-linear-gradient(
+      92deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px,
+      transparent 1px, transparent 4px
+    );
+    pointer-events:none;
+  }
+  /* 穴 */
+  .tag-hole {
+    position:absolute; top:16px; left:50%; transform:translateX(-50%);
+    width:9px; height:9px; border-radius:50%;
+    background:#e8e4e0;
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);
+  }
+  /* 穴あけ線の痕 */
+  .tag-hole::after {
+    content:''; position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px;
+    border-radius:50%; border:1.5px solid rgba(0,0,0,0.12);
+  }
+  /* 紐 */
+  .tag-string {
+    position:absolute; top:-22px; left:50%; transform:translateX(-50%);
+    width:1.5px; height:26px;
+    background:linear-gradient(to bottom, #aaa 0%, #999 60%, transparent 100%);
+    border-radius:1px;
+  }
+  .tag-string::before {
+    content:''; position:absolute; top:-4px; left:-5px;
+    width:11px; height:8px;
+    border-bottom:2px solid #aaa; border-radius:0 0 50% 50%;
+  }
+
+  .tag-text {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    text-align:center;
+    transition:color 0.2s, text-shadow 0.2s;
+    letter-spacing:0.38em;
+    padding-left:0.38em;
+  }
+  .tag-sub {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    font-size:7px;
+    letter-spacing:0.35em; padding-left:0.35em;
+    margin-top:5px;
+    text-align:center;
+    transition:color 0.2s;
+  }
+
+  /* ── ピアス台紙 ── */
+  .card-wrap {
+    transform: rotate(2deg);
+    filter: drop-shadow(3px 6px 14px rgba(0,0,0,0.25));
+    flex-shrink:0;
+  }
+  .card {
+    width:172px; height:230px;
+    background:var(--gray-paper);
+    border-radius:4px;
+    position:relative;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .card::before {
+    content:''; position:absolute; inset:0; border-radius:4px;
+    background: repeating-linear-gradient(
+      90deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px,
+      transparent 1px, transparent 5px
+    );
+    pointer-events:none;
+  }
+  /* ロゴエリア */
+  .card-logo-area {
+    padding-top:24px;
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+  }
+  .card-logo {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300;
+    letter-spacing:0.42em; padding-left:0.42em;
+    transition:color 0.2s, text-shadow 0.2s;
+    text-align:center;
+  }
+  .card-logo-sub {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300; font-size:7px;
+    letter-spacing:0.3em; padding-left:0.3em;
+    text-align:center;
+    transition:color 0.2s;
+  }
+  .card-divider {
+    width:60px; height:0.5px;
+    margin:10px auto;
+    transition:background 0.2s;
+  }
+
+  /* ピアス穴エリア */
+  .card-earring-area {
+    flex:1; display:flex; align-items:center; justify-content:center; gap:30px;
+    padding-bottom:18px;
+  }
+  .earring-slot-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .earring-slot {
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(0,0,0,0.2);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .earring-label {
+    font-size:6.5px; letter-spacing:0.08em;
+    opacity:0.55; transition:color 0.2s;
+  }
+  /* ピアスイメージ（丸パール） */
+  .pearl-preview {
+    width:18px; height:18px; border-radius:50%; margin-bottom:2px;
+    background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590);
+    box-shadow:1px 2px 4px rgba(0,0,0,0.3);
+    display:none;
+  }
+
+  /* ── 小タグ（別バリエーション） */
+  .mini-tag-wrap {
+    transform: rotate(6deg) translateY(20px);
+    filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.22));
+    flex-shrink:0;
+  }
+  .mini-tag {
+    width:60px; height:140px;
+    background:var(--gray-paper);
+    border-radius:4px;
+    position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    padding-bottom:18px;
+  }
+  .mini-tag::before {
+    content:''; position:absolute; inset:0; border-radius:4px;
+    background: repeating-linear-gradient(
+      92deg, rgba(255,255,255,0.022) 0px, rgba(255,255,255,0.022) 1px,
+      transparent 1px, transparent 4px);
+    pointer-events:none;
+  }
+  .mini-hole {
+    position:absolute; top:11px; left:50%; transform:translateX(-50%);
+    width:7px; height:7px; border-radius:50%;
+    background:#e8e4e0; box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .mini-text {
+    font-family:'Cormorant Garamond',serif; font-weight:300;
+    font-size:9px; letter-spacing:0.36em; padding-left:0.36em;
+    text-align:center; transition:color 0.2s, text-shadow 0.2s;
+    writing-mode:vertical-rl; text-orientation:mixed;
+  }
+
+  /* ── ステージ注釈 ── */
+  .stage-note { font-size:11px; color:var(--muted); text-align:center; margin-bottom:28px; letter-spacing:0.04em; }
+
+  /* ── カラーバリエーション説明 ── */
+  .variant-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:32px; }
+  .variant-card {
+    background:#fff; border-radius:8px; padding:14px 12px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.06);
+    text-align:center;
+  }
+  .variant-swatch {
+    width:48px; height:48px;
+    background:var(--gray-paper);
+    border-radius:4px; margin:0 auto 10px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:1px 2px 6px rgba(0,0,0,0.18);
+  }
+  .variant-swatch span {
+    font-family:'Cormorant Garamond',serif;
+    font-weight:300; font-size:12px; letter-spacing:0.3em; padding-left:0.3em;
+  }
+  .variant-name { font-size:11px; font-weight:400; color:var(--text); margin-bottom:4px; }
+  .variant-desc { font-size:10px; color:var(--muted); line-height:1.7; }
+
+  .note-box {
+    background:var(--beige); border-radius:8px; padding:16px 18px;
+    border-left:3px solid var(--sand); font-size:12px; color:var(--text); line-height:1.9;
+  }
+  .note-box strong { font-weight:400; color:var(--dark); }
+
+  footer { background:var(--black); padding:22px; text-align:center; }
+  footer .logo-f { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:18px; letter-spacing:0.55em; padding-left:0.55em; color:var(--sand); margin-bottom:4px; }
+  footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">P A L E</div>
+  <div class="header-sub">Tag &amp; Card Mockup</div>
+</header>
+
+<div class="page-body">
+
+  <div class="section-label">Packaging Mockup</div>
+  <div class="section-title">商品タグ・ピアス台紙 イメージ</div>
+
+  <!-- カラー切替 -->
+  <div class="color-toggle" id="color-toggle">
+    <button class="c-btn active" data-mode="deboss">
+      <span class="c-swatch" style="background:#6e6c72;"></span>
+      デボス（濃いグレー）
+    </button>
+    <button class="c-btn" data-mode="gold">
+      <span class="c-swatch" style="background:#c8b99a;"></span>
+      ゴールド箔押し風
+    </button>
+    <button class="c-btn" data-mode="white">
+      <span class="c-swatch" style="background:#f0ece6; border:1px solid #ccc;"></span>
+      ホワイトインク
+    </button>
+  </div>
+
+  <!-- フラットレイ ステージ -->
+  <div class="stage" id="stage">
+
+    <!-- 大きい商品タグ -->
+    <div class="tag-wrap">
+      <div class="tag">
+        <div class="tag-string"></div>
+        <div class="tag-hole"></div>
+        <div class="tag-text" id="tag-text" style="font-size:14px;">PALE</div>
+        <div class="tag-sub" id="tag-sub">JEWELLERY</div>
+      </div>
+    </div>
+
+    <!-- ピアス台紙 -->
+    <div class="card-wrap">
+      <div class="card">
+        <div class="card-logo-area">
+          <div class="card-logo" id="card-logo" style="font-size:15px;">PALE</div>
+          <div class="card-logo-sub" id="card-logo-sub">JEWELLERY</div>
+          <div class="card-divider" id="card-divider"></div>
+        </div>
+        <div class="card-earring-area">
+          <div class="earring-slot-wrap">
+            <div class="pearl-preview" id="pearl1"></div>
+            <div class="earring-slot"></div>
+            <div class="earring-label" id="elabel1">●</div>
+          </div>
+          <div class="earring-slot-wrap">
+            <div class="pearl-preview" id="pearl2"></div>
+            <div class="earring-slot"></div>
+            <div class="earring-label" id="elabel2">●</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 小タグ（サブ） -->
+    <div class="mini-tag-wrap">
+      <div class="mini-tag">
+        <div class="mini-hole"></div>
+        <div class="mini-text" id="mini-text">PALE</div>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <p class="stage-note">スクリーンショットで保存できます &nbsp;|&nbsp; iPhone: サイドボタン＋音量上　Android: 電源＋音量下</p>
+
+  <!-- 3種類の説明 -->
+  <div class="section-label" style="margin-bottom:8px;">文字の仕上げ方 3種類</div>
+  <div class="section-title">どの仕上げにするか選びましょう</div>
+
+  <div class="variant-grid">
+    <div class="variant-card">
+      <div class="variant-swatch">
+        <span style="color:#6e6c72; text-shadow:0.5px 0.5px 0 rgba(255,255,255,0.25),-0.5px -0.5px 0 rgba(0,0,0,0.2);">PALE</span>
+      </div>
+      <div class="variant-name">デボス</div>
+      <div class="variant-desc">同じグレーで<br>型押し沈み込み風。<br>上品でシック</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-swatch">
+        <span style="color:#c8b99a;">PALE</span>
+      </div>
+      <div class="variant-name">ゴールド箔押し</div>
+      <div class="variant-desc">金色の箔を転写。<br>高級感が増し<br>プレゼント向き</div>
+    </div>
+    <div class="variant-card">
+      <div class="variant-swatch">
+        <span style="color:#f0ece6;">PALE</span>
+      </div>
+      <div class="variant-name">ホワイトインク</div>
+      <div class="variant-desc">白インク印刷。<br>クリーンでモダン。<br>コスパよし</div>
+    </div>
+  </div>
+
+  <!-- ノート -->
+  <div class="note-box">
+    <strong>注文先のヒント：</strong><br>
+    グレーの台紙・タグは「グレーチップボール」「グレークラフト紙」で検索すると見つかります。<br>
+    白インク印刷は「ピアス台紙 白インク オリジナル」で検索。ロット50枚〜1,000円台から作れます。<br>
+    箔押しは「名刺 箔押し オリジナル」で検索、またはCreemaのショップ作家さんに依頼も◎
+  </div>
+
+</div>
+
+<footer>
+  <div class="logo-f">P A L E</div>
+  <p>動く日も、纏う。</p>
+</footer>
+
+<script>
+var modes = {
+  deboss: {
+    textColor: '#6a6870',
+    textShadow: '0.6px 0.6px 0px rgba(255,255,255,0.22), -0.4px -0.4px 0px rgba(0,0,0,0.18)',
+    divider: '#6a6870',
+    elabelColor: '#6a6870'
+  },
+  gold: {
+    textColor: '#c8b99a',
+    textShadow: '0px 0px 3px rgba(200,185,154,0.4)',
+    divider: '#c8b99a',
+    elabelColor: '#c8b99a'
+  },
+  white: {
+    textColor: '#f0ece6',
+    textShadow: 'none',
+    divider: '#f0ece6',
+    elabelColor: '#f0ece6'
+  }
+};
+
+var currentMode = 'deboss';
+
+function applyMode(mode) {
+  var m = modes[mode];
+  var targets = ['tag-text','tag-sub','card-logo','card-logo-sub','mini-text'];
+  targets.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.color = m.textColor;
+    el.style.textShadow = m.textShadow;
+  });
+  document.getElementById('card-divider').style.background = m.divider;
+  ['elabel1','elabel2'].forEach(function(id){
+    document.getElementById(id).style.color = m.elabelColor;
+  });
+}
+
+document.getElementById('color-toggle').addEventListener('click', function(e) {
+  var btn = e.target.closest('.c-btn');
+  if (!btn) return;
+  document.querySelectorAll('.c-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentMode = btn.dataset.mode;
+  applyMode(currentMode);
+});
+
+// 初期適用
+applyMode('deboss');
+</script>
+</body>
+</html>
