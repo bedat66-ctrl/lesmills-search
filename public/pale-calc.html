@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE — 計算ツール</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0908;
+      --charcoal: #1e1c1a;
+      --border: #2a2826;
+      --grey: #555;
+      --offwhite: #f0eeea;
+      --beige: #EDE6DC;
+      --sand: #C8B99A;
+      --green: #4a8060;
+      --red: #8a3030;
+    }
+    body {
+      background: var(--black);
+      color: var(--offwhite);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 32px 40px 24px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+    }
+    .header-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 24px;
+      letter-spacing: 0.5em;
+      color: #e8e4de;
+      padding-left: 0.5em;
+    }
+    .header-sub {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      text-transform: uppercase;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      border-bottom: 0.5px solid var(--border);
+      padding: 0 40px;
+    }
+    .tab {
+      padding: 14px 20px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--grey);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      color: var(--offwhite);
+      border-bottom-color: var(--sand);
+    }
+
+    /* ── Panels ── */
+    .panel { display: none; padding: 40px; }
+    .panel.active { display: block; }
+
+    /* ── Section ── */
+    .calc-section {
+      background: var(--charcoal);
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+    .calc-section-title {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--grey);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ── Input rows ── */
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 60px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 0.5px solid #1e1c1a;
+    }
+    .input-row:last-child { border-bottom: none; }
+    .input-label {
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: #aaa;
+    }
+    .input-label small {
+      display: block;
+      font-size: 10px;
+      color: var(--grey);
+      margin-top: 2px;
+    }
+    input[type="number"] {
+      background: #111;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      color: var(--offwhite);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      padding: 8px 10px;
+      text-align: right;
+      width: 100%;
+      outline: none;
+    }
+    input[type="number"]:focus { border-color: var(--sand); }
+    .input-unit {
+      font-size: 11px;
+      color: var(--grey);
+    }
+
+    /* ── Results ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .result-card {
+      background: var(--charcoal);
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .result-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      text-transform: uppercase;
+    }
+    .result-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 28px;
+      letter-spacing: 0.05em;
+      color: var(--offwhite);
+    }
+    .result-value.green { color: #6aaa88; }
+    .result-value.red   { color: #aa6060; }
+    .result-value.sand  { color: var(--sand); }
+    .result-sub {
+      font-size: 10px;
+      color: var(--grey);
+    }
+
+    /* ── Price slider ── */
+    .price-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+    }
+    input[type="range"] {
+      flex: 1;
+      appearance: none;
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--sand);
+      cursor: pointer;
+    }
+    .price-display {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 22px;
+      color: var(--offwhite);
+      min-width: 80px;
+      text-align: right;
+    }
+
+    /* ── Margin bar ── */
+    .margin-bar-wrap { margin-top: 8px; }
+    .margin-bar-bg {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .margin-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s, background 0.3s;
+    }
+    .margin-note {
+      font-size: 10px;
+      color: var(--grey);
+      margin-top: 6px;
+    }
+
+    /* ── Inventory ── */
+    .inv-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .inv-table th {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      text-transform: uppercase;
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .inv-table td {
+      padding: 12px;
+      font-size: 12px;
+      color: #aaa;
+      border-bottom: 0.5px solid #1a1814;
+      vertical-align: middle;
+    }
+    .inv-table td input {
+      width: 70px;
+    }
+    .inv-table .name-cell { color: var(--offwhite); }
+    .stock-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+    }
+    .stock-ok  { background: rgba(74,128,96,0.2);  color: #6aaa88; }
+    .stock-low { background: rgba(180,140,60,0.2); color: #c8a850; }
+    .stock-out { background: rgba(138,48,48,0.2);  color: #aa6060; }
+
+    .add-row-btn {
+      margin-top: 16px;
+      background: transparent;
+      border: 0.5px solid var(--border);
+      color: var(--grey);
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .add-row-btn:hover { border-color: var(--sand); color: var(--sand); }
+
+    /* ── Sales log ── */
+    .sales-log { display: flex; flex-direction: column; gap: 8px; }
+    .sales-row {
+      display: grid;
+      grid-template-columns: 1fr 100px 100px 100px;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      background: #111;
+      border-radius: 4px;
+      border: 0.5px solid var(--border);
+    }
+    .sales-row-label { font-size: 12px; color: #aaa; }
+    .sales-amount { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--offwhite); text-align: right; }
+    .sales-profit { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: #6aaa88; text-align: right; }
+    .sales-date { font-size: 10px; color: var(--grey); text-align: right; }
+
+    /* ── Totals ── */
+    .totals-bar {
+      background: var(--charcoal);
+      border: 0.5px solid var(--sand);
+      border-radius: 8px;
+      padding: 20px 28px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .total-item { display: flex; flex-direction: column; gap: 6px; }
+    .total-item-label { font-size: 9px; letter-spacing: 0.2em; color: var(--grey); text-transform: uppercase; }
+    .total-item-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 22px;
+      color: var(--offwhite);
+    }
+    .total-item-val.green { color: #6aaa88; }
+    .total-item-val.sand  { color: var(--sand); }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: var(--sand);
+      color: #1a1510;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 24px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-wm">PALE</div>
+  <div class="header-sub">Business Calculator</div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('pricing')">原価・価格設定</div>
+  <div class="tab" onclick="switchTab('inventory')">在庫管理</div>
+  <div class="tab" onclick="switchTab('sales')">売上・利益</div>
+</div>
+
+<!-- ══════════════════════════
+     TAB 1: 原価・価格設定
+══════════════════════════ -->
+<div class="panel active" id="tab-pricing">
+
+  <!-- 原価入力 -->
+  <div class="calc-section">
+    <div class="calc-section-title">原価（1個あたり）</div>
+
+    <div class="input-row">
+      <div class="input-label">チタンポスト（金具）<small>1個あたりの仕入れ値</small></div>
+      <input type="number" id="cost-post" value="80" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">パール<small>1粒あたりの仕入れ値</small></div>
+      <input type="number" id="cost-pearl" value="150" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">シリコンキャッチ<small>1個あたり</small></div>
+      <input type="number" id="cost-catch" value="10" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">接着剤（按分）<small>1個あたりの按分額</small></div>
+      <input type="number" id="cost-glue" value="5" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">箱・袋<small>パッケージ資材1セット</small></div>
+      <input type="number" id="cost-pkg" value="60" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">タグ・カード<small>1枚あたり</small></div>
+      <input type="number" id="cost-tag" value="15" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+    <div class="input-row">
+      <div class="input-label">梱包・送料（平均）<small>発送1件あたり</small></div>
+      <input type="number" id="cost-ship" value="200" min="0" oninput="calc()">
+      <div class="input-unit">円</div>
+    </div>
+  </div>
+
+  <!-- 価格スライダー -->
+  <div class="calc-section">
+    <div class="calc-section-title">販売価格を設定する</div>
+    <div class="price-slider-row">
+      <span style="font-size:11px;color:var(--grey)">¥500</span>
+      <input type="range" id="price-slider" min="500" max="5000" step="100" value="1980" oninput="calc()">
+      <span style="font-size:11px;color:var(--grey)">¥5,000</span>
+      <div class="price-display" id="price-display">¥1,980</div>
+    </div>
+    <div class="margin-bar-wrap">
+      <div class="margin-bar-bg">
+        <div class="margin-bar-fill" id="margin-bar" style="width:0%;background:#6aaa88"></div>
+      </div>
+      <div class="margin-note" id="margin-note"></div>
+    </div>
+  </div>
+
+  <!-- 結果 -->
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-label">原価合計</div>
+      <div class="result-value" id="r-cost">—</div>
+      <div class="result-sub">1個あたり</div>
+    </div>
+    <div class="result-card">
+      <div class="result-label">販売価格</div>
+      <div class="result-value sand" id="r-price">—</div>
+      <div class="result-sub">税込み想定</div>
+    </div>
+    <div class="result-card">
+      <div class="result-label">1個あたり利益</div>
+      <div class="result-value green" id="r-profit">—</div>
+      <div class="result-sub" id="r-margin">利益率 —%</div>
+    </div>
+  </div>
+
+  <!-- 目標売上シミュレーション -->
+  <div class="calc-section">
+    <div class="calc-section-title">売上シミュレーション</div>
+    <div class="input-row">
+      <div class="input-label">月間販売目標数<small>何個売りたいか</small></div>
+      <input type="number" id="sim-units" value="20" min="1" oninput="calc()">
+      <div class="input-unit">個</div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-label">月間売上</div>
+        <div class="result-value sand" id="r-monthly-sales">—</div>
+        <div class="result-sub">目標販売数 × 販売価格</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">月間原価</div>
+        <div class="result-value" id="r-monthly-cost">—</div>
+        <div class="result-sub">目標販売数 × 原価</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">月間利益</div>
+        <div class="result-value green" id="r-monthly-profit">—</div>
+        <div class="result-sub">売上 − 原価</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════
+     TAB 2: 在庫管理
+══════════════════════════ -->
+<div class="panel" id="tab-inventory">
+
+  <div class="calc-section">
+    <div class="calc-section-title">在庫一覧</div>
+    <table class="inv-table">
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th>現在庫数</th>
+          <th>販売済み</th>
+          <th>状態</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="inv-body">
+        <tr>
+          <td class="name-cell">パール スタッド 3mm（ホワイト）</td>
+          <td><input type="number" value="10" min="0" class="inv-stock" oninput="updateStock(this)"></td>
+          <td class="inv-sold">0</td>
+          <td class="inv-status"><span class="stock-badge stock-ok">在庫あり</span></td>
+          <td><button class="add-row-btn" style="padding:4px 10px;font-size:10px" onclick="sell(this)">販売 −1</button></td>
+        </tr>
+        <tr>
+          <td class="name-cell">パール スタッド 2mm（ホワイト）</td>
+          <td><input type="number" value="5" min="0" class="inv-stock" oninput="updateStock(this)"></td>
+          <td class="inv-sold">0</td>
+          <td class="inv-status"><span class="stock-badge stock-ok">在庫あり</span></td>
+          <td><button class="add-row-btn" style="padding:4px 10px;font-size:10px" onclick="sell(this)">販売 −1</button></td>
+        </tr>
+        <tr>
+          <td class="name-cell">パール スタッド 3mm（グレー）</td>
+          <td><input type="number" value="3" min="0" class="inv-stock" oninput="updateStock(this)"></td>
+          <td class="inv-sold">0</td>
+          <td class="inv-status"><span class="stock-badge stock-low">残りわずか</span></td>
+          <td><button class="add-row-btn" style="padding:4px 10px;font-size:10px" onclick="sell(this)">販売 −1</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-row-btn" onclick="addItem()">＋ 商品を追加</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════
+     TAB 3: 売上・利益
+══════════════════════════ -->
+<div class="panel" id="tab-sales">
+
+  <div class="totals-bar">
+    <div class="total-item">
+      <div class="total-item-label">累計売上</div>
+      <div class="total-item-val sand" id="t-sales">¥0</div>
+    </div>
+    <div class="total-item">
+      <div class="total-item-label">累計原価</div>
+      <div class="total-item-val" id="t-cost">¥0</div>
+    </div>
+    <div class="total-item">
+      <div class="total-item-label">累計利益</div>
+      <div class="total-item-val green" id="t-profit">¥0</div>
+    </div>
+    <div class="total-item">
+      <div class="total-item-label">販売個数</div>
+      <div class="total-item-val" id="t-units">0 個</div>
+    </div>
+  </div>
+
+  <!-- 売上記録追加 -->
+  <div class="calc-section">
+    <div class="calc-section-title">売上を記録する</div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px auto;gap:12px;align-items:end">
+      <div>
+        <div style="font-size:10px;color:var(--grey);margin-bottom:6px;letter-spacing:0.1em">商品名</div>
+        <input type="text" id="log-name" placeholder="例）パール 3mm ホワイト"
+          style="background:#111;border:0.5px solid var(--border);border-radius:4px;color:var(--offwhite);font-family:'Noto Sans JP',sans-serif;font-size:12px;padding:8px 10px;width:100%;outline:none">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--grey);margin-bottom:6px;letter-spacing:0.1em">販売価格</div>
+        <input type="number" id="log-price" placeholder="1980"
+          style="background:#111;border:0.5px solid var(--border);border-radius:4px;color:var(--offwhite);font-family:'Noto Sans JP',sans-serif;font-size:13px;padding:8px 10px;width:100%;outline:none;text-align:right">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--grey);margin-bottom:6px;letter-spacing:0.1em">原価</div>
+        <input type="number" id="log-cost" placeholder="520"
+          style="background:#111;border:0.5px solid var(--border);border-radius:4px;color:var(--offwhite);font-family:'Noto Sans JP',sans-serif;font-size:13px;padding:8px 10px;width:100%;outline:none;text-align:right">
+      </div>
+      <button class="btn-primary" onclick="addSale()">記録</button>
+    </div>
+  </div>
+
+  <div class="calc-section">
+    <div class="calc-section-title">売上履歴</div>
+    <div class="sales-log" id="sales-log">
+      <div style="font-size:11px;color:var(--grey);text-align:center;padding:20px">
+        まだ記録がありません
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── Tab switching ──
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── Pricing calc ──
+  function calc() {
+    const post  = +document.getElementById('cost-post').value  || 0;
+    const pearl = +document.getElementById('cost-pearl').value || 0;
+    const ctch  = +document.getElementById('cost-catch').value || 0;
+    const glue  = +document.getElementById('cost-glue').value  || 0;
+    const pkg   = +document.getElementById('cost-pkg').value   || 0;
+    const tag   = +document.getElementById('cost-tag').value   || 0;
+    const ship  = +document.getElementById('cost-ship').value  || 0;
+    const totalCost = post + pearl + ctch + glue + pkg + tag + ship;
+
+    const price = +document.getElementById('price-slider').value;
+    const profit = price - totalCost;
+    const margin = totalCost > 0 ? Math.round((profit / price) * 100) : 0;
+    const units  = +document.getElementById('sim-units').value || 0;
+
+    // display
+    document.getElementById('price-display').textContent = '¥' + price.toLocaleString();
+    document.getElementById('r-cost').textContent   = '¥' + totalCost.toLocaleString();
+    document.getElementById('r-price').textContent  = '¥' + price.toLocaleString();
+    document.getElementById('r-profit').textContent = profit >= 0 ? '¥' + profit.toLocaleString() : '−¥' + Math.abs(profit).toLocaleString();
+    document.getElementById('r-profit').className   = 'result-value ' + (profit >= 0 ? 'green' : 'red');
+    document.getElementById('r-margin').textContent = '利益率 ' + margin + '%';
+
+    // margin bar
+    const barPct = Math.min(Math.max(margin, 0), 100);
+    const barColor = margin >= 50 ? '#6aaa88' : margin >= 30 ? '#c8a850' : '#aa6060';
+    document.getElementById('margin-bar').style.width = barPct + '%';
+    document.getElementById('margin-bar').style.background = barColor;
+    document.getElementById('margin-note').textContent =
+      margin >= 60 ? '✦ 利益率良好です' :
+      margin >= 40 ? '利益率は適正範囲です' :
+      margin >= 0  ? '▲ 利益率が低めです。価格を上げることを検討してください' :
+                     '✕ 赤字です。原価を下げるか価格を上げてください';
+    document.getElementById('margin-note').style.color =
+      margin >= 60 ? '#6aaa88' : margin >= 40 ? '#c8a850' : '#aa6060';
+
+    // simulation
+    document.getElementById('r-monthly-sales').textContent  = '¥' + (price * units).toLocaleString();
+    document.getElementById('r-monthly-cost').textContent   = '¥' + (totalCost * units).toLocaleString();
+    document.getElementById('r-monthly-profit').textContent = '¥' + (profit * units).toLocaleString();
+    document.getElementById('r-monthly-profit').className   = 'result-value ' + (profit >= 0 ? 'green' : 'red');
+  }
+
+  // ── Inventory ──
+  function updateStock(input) {
+    const row = input.closest('tr');
+    const val = +input.value;
+    const badge = row.querySelector('.stock-badge');
+    if (val <= 0) {
+      badge.className = 'stock-badge stock-out'; badge.textContent = '在庫なし';
+    } else if (val <= 3) {
+      badge.className = 'stock-badge stock-low'; badge.textContent = '残りわずか';
+    } else {
+      badge.className = 'stock-badge stock-ok';  badge.textContent = '在庫あり';
+    }
+  }
+
+  function sell(btn) {
+    const row = btn.closest('tr');
+    const input = row.querySelector('.inv-stock');
+    const soldCell = row.querySelector('.inv-sold');
+    const val = +input.value;
+    if (val <= 0) { alert('在庫がありません'); return; }
+    input.value = val - 1;
+    soldCell.textContent = +soldCell.textContent + 1;
+    updateStock(input);
+  }
+
+  function addItem() {
+    const name = prompt('商品名を入力してください');
+    if (!name) return;
+    const tbody = document.getElementById('inv-body');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="name-cell">${name}</td>
+      <td><input type="number" value="0" min="0" class="inv-stock" oninput="updateStock(this)"></td>
+      <td class="inv-sold">0</td>
+      <td class="inv-status"><span class="stock-badge stock-out">在庫なし</span></td>
+      <td><button class="add-row-btn" style="padding:4px 10px;font-size:10px" onclick="sell(this)">販売 −1</button></td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  // ── Sales log ──
+  let salesData = [];
+
+  function addSale() {
+    const name  = document.getElementById('log-name').value.trim();
+    const price = +document.getElementById('log-price').value;
+    const cost  = +document.getElementById('log-cost').value;
+    if (!name || !price) { alert('商品名と販売価格を入力してください'); return; }
+    const profit = price - cost;
+    const now = new Date();
+    const dateStr = now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0');
+    salesData.push({ name, price, cost, profit, date: dateStr });
+    renderSales();
+    document.getElementById('log-name').value  = '';
+    document.getElementById('log-price').value = '';
+    document.getElementById('log-cost').value  = '';
+  }
+
+  function renderSales() {
+    const log = document.getElementById('sales-log');
+    if (salesData.length === 0) {
+      log.innerHTML = '<div style="font-size:11px;color:var(--grey);text-align:center;padding:20px">まだ記録がありません</div>';
+    } else {
+      log.innerHTML = salesData.slice().reverse().map(s => `
+        <div class="sales-row">
+          <div class="sales-row-label">${s.name}</div>
+          <div class="sales-amount">¥${s.price.toLocaleString()}</div>
+          <div class="sales-profit">+¥${s.profit.toLocaleString()}</div>
+          <div class="sales-date">${s.date}</div>
+        </div>
+      `).join('');
+    }
+    const totals = salesData.reduce((a, s) => ({
+      sales: a.sales + s.price,
+      cost:  a.cost  + s.cost,
+      profit:a.profit+ s.profit,
+      units: a.units + 1
+    }), { sales:0, cost:0, profit:0, units:0 });
+    document.getElementById('t-sales').textContent  = '¥' + totals.sales.toLocaleString();
+    document.getElementById('t-cost').textContent   = '¥' + totals.cost.toLocaleString();
+    document.getElementById('t-profit').textContent = '¥' + totals.profit.toLocaleString();
+    document.getElementById('t-units').textContent  = totals.units + ' 個';
+  }
+
+  // init
+  calc();
+</script>
+</body>
+</html>

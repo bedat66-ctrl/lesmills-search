@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE — YouTube Channel Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0e0e0e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 80px;
+      gap: 56px;
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #ccc;
+    }
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: #333;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .block { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 680px; }
+
+    /* ── Channel page ── */
+    .channel {
+      width: 100%;
+      background: #0f0f0f;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* Banner */
+    .banner {
+      width: 100%;
+      height: 140px;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(200,185,154,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 60%, rgba(120,120,120,0.08) 0%, transparent 50%),
+        #111111;
+    }
+    .banner-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .banner-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 36px;
+      letter-spacing: 0.6em;
+      color: #e8e8e8;
+      padding-left: 0.6em;
+    }
+    .banner-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: #C8B99A;
+    }
+    .banner-line { width: 32px; height: 0.5px; background: #444; }
+
+    /* Channel info */
+    .channel-info {
+      padding: 16px 20px 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 0.5px solid #1e1e1e;
+    }
+    .ch-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #111;
+      border: 1.5px solid #2c2c2c;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ch-avatar-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 20px;
+      letter-spacing: 0.1em;
+      color: #e8e8e8;
+    }
+    .ch-meta { flex: 1; }
+    .ch-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f0f0f0;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+    .ch-sub {
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+    .ch-btn {
+      background: #f0f0f0;
+      color: #111;
+      border: none;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 16px;
+      flex-shrink: 0;
+    }
+
+    /* Nav tabs */
+    .ch-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 0.5px solid #1e1e1e;
+      padding: 0 20px;
+    }
+    .ch-tab {
+      font-size: 12px;
+      color: #666;
+      padding: 10px 16px;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid transparent;
+    }
+    .ch-tab.active {
+      color: #f0f0f0;
+      border-bottom-color: #f0f0f0;
+    }
+
+    /* Video grid */
+    .video-section { padding: 20px; }
+    .video-section-title {
+      font-size: 13px;
+      color: #f0f0f0;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .video-card { display: flex; flex-direction: column; gap: 6px; cursor: pointer; }
+
+    /* Thumbnails */
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .duration {
+      position: absolute;
+      bottom: 4px; right: 4px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 8px;
+      padding: 1px 4px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* thumb A: 商品接写 — dark */
+    .ta {
+      background: #111;
+    }
+    .ta .pearl-hero {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, #e0d8d0 40%, #c0b8b0 80%, #909090);
+      box-shadow: 0 0 16px rgba(200,185,154,0.3), 2px 4px 8px rgba(0,0,0,0.4);
+    }
+    .ta .title-overlay {
+      position: absolute;
+      bottom: 14px; left: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: #e8e8e8;
+    }
+
+    /* thumb B: ライフスタイル — beige */
+    .tb { background: #EDE6DC; }
+    .tb .scene {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .tb .circle-head {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #C8B99A;
+    }
+    .tb .body-line {
+      width: 1.5px; height: 20px;
+      background: #C8B99A;
+    }
+    .tb .arm-line {
+      width: 20px; height: 1.5px;
+      background: #C8B99A;
+      margin-top: -12px;
+    }
+    .tb .pearl-ear {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, #e8e0d8 50%, #c0b8b0);
+      position: absolute;
+      top: 30%; right: 38%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .tb .tag-overlay {
+      position: absolute;
+      top: 8px; left: 8px;
+      font-size: 7px;
+      letter-spacing: 0.15em;
+      color: #2a2520;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+
+    /* thumb C: テキスト — off-white */
+    .tc {
+      background: #f0eeec;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px;
+    }
+    .tc .tc-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.4em;
+      color: #2a2520;
+      padding-left: 0.4em;
+    }
+    .tc .tc-line { width: 16px; height: 0.5px; background: #C8B99A; }
+    .tc .tc-sub {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      font-size: 7px;
+      letter-spacing: 0.15em;
+      color: #7a6e63;
+    }
+
+    /* thumb D: アンボックス — charcoal */
+    .td {
+      background: #1e1e1e;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .td .box-shape {
+      width: 30px; height: 22px;
+      border: 0.5px solid #444;
+      position: relative;
+    }
+    .td .box-lid {
+      width: 34px; height: 8px;
+      border: 0.5px solid #555;
+      position: absolute;
+      top: -9px;
+      left: -2px;
+    }
+    .td .pearl-inside {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, #e0d8d0 50%, #b0a8a0);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .td .open-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: #C8B99A;
+    }
+
+    /* thumb E: スタイリング — grey */
+    .te { background: #2c2c2c; }
+    .te .outfit {
+      display: flex;
+      gap: 5px;
+      align-items: flex-end;
+    }
+    .te .outfit-bar {
+      width: 8px;
+      border-radius: 2px;
+      background: #444;
+    }
+    .te .pearl-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, #e0d8d0 60%, #b0a8a0);
+      position: absolute;
+      top: 20%; right: 30%;
+    }
+    .te .te-label {
+      position: absolute;
+      bottom: 10px; left: 8px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      font-size: 7px;
+      letter-spacing: 0.15em;
+      color: #888;
+    }
+
+    /* thumb F: PALE story — beige warm */
+    .tf {
+      background: linear-gradient(135deg, #C8B99A 0%, #EDE6DC 100%);
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px;
+    }
+    .tf .tf-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 18px;
+      letter-spacing: 0.5em;
+      color: #2a2520;
+      padding-left: 0.5em;
+    }
+    .tf .tf-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: #5a4e43;
+    }
+
+    /* Video meta */
+    .video-meta { padding: 0 2px; }
+    .video-title {
+      font-size: 10px;
+      color: #e0e0e0;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      margin-bottom: 3px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+    .video-views {
+      font-size: 9px;
+      color: #555;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Content Strategy Guide ── */
+    .guide {
+      width: 100%;
+      max-width: 680px;
+      background: #161616;
+      border-radius: 16px;
+      padding: 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .guide-heading {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: #333;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .pillar {
+      display: grid;
+      grid-template-columns: 28px 80px 1fr;
+      align-items: start;
+      gap: 0 16px;
+      padding: 16px 0;
+      border-bottom: 0.5px solid #1e1e1e;
+    }
+    .pillar:last-child { border-bottom: none; }
+    .pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: #C8B99A;
+      line-height: 1.2;
+    }
+    .pillar-tag {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: #555;
+      text-transform: uppercase;
+      padding-top: 4px;
+      line-height: 1.6;
+    }
+    .pillar-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .pillar-title {
+      font-size: 12px;
+      color: #ddd;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+    .pillar-desc {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+    .example-title {
+      font-size: 10px;
+      color: #C8B99A;
+      letter-spacing: 0.05em;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      margin-top: 4px;
+    }
+
+    /* BGM note */
+    .bgm-box {
+      width: 100%;
+      max-width: 680px;
+      background: #111;
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border: 0.5px solid #1e1e1e;
+    }
+    .bgm-title {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: #333;
+      text-transform: uppercase;
+    }
+    .bgm-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bgm-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #C8B99A;
+      flex-shrink: 0;
+    }
+    .bgm-text {
+      font-size: 11px;
+      color: #777;
+      line-height: 1.7;
+      letter-spacing: 0.03em;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+    .bgm-text strong { color: #ccc; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <!-- Channel mockup -->
+  <div class="block">
+    <div class="section-label">YouTube Channel — pale_pearl</div>
+
+    <div class="channel">
+
+      <!-- Banner -->
+      <div class="banner">
+        <div class="banner-bg"></div>
+        <div class="banner-content">
+          <div class="banner-line"></div>
+          <div class="banner-wm">PALE</div>
+          <div class="banner-sub">動く日も、纏う。</div>
+          <div class="banner-line"></div>
+        </div>
+      </div>
+
+      <!-- Channel info -->
+      <div class="channel-info">
+        <div class="ch-avatar"><span class="ch-avatar-text">P</span></div>
+        <div class="ch-meta">
+          <div class="ch-name">PALE pearl</div>
+          <div class="ch-sub">@pale_pearl · チャンネル登録者 1,840人</div>
+        </div>
+        <div class="ch-btn">登録済み</div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="ch-tabs">
+        <div class="ch-tab active">ホーム</div>
+        <div class="ch-tab">動画</div>
+        <div class="ch-tab">ショート</div>
+        <div class="ch-tab">概要</div>
+      </div>
+
+      <!-- Videos -->
+      <div class="video-section">
+        <div class="video-section-title">最新動画</div>
+        <div class="video-grid">
+
+          <!-- Video 1 -->
+          <div class="video-card">
+            <div class="thumb ta">
+              <div class="pearl-hero"></div>
+              <div class="title-overlay">PALE 01</div>
+              <div class="duration">1:24</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-title">パールの光と影 — 3mm の世界</div>
+              <div class="video-views">2,104 回視聴</div>
+            </div>
+          </div>
+
+          <!-- Video 2 -->
+          <div class="video-card">
+            <div class="thumb tb">
+              <div class="scene">
+                <div class="circle-head"></div>
+                <div class="arm-line"></div>
+                <div class="body-line"></div>
+              </div>
+              <div class="pearl-ear"></div>
+              <div class="tag-overlay">wearing</div>
+              <div class="duration">3:48</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-title">ジムからカフェへ、一日つけてみた</div>
+              <div class="video-views">4,872 回視聴</div>
+            </div>
+          </div>
+
+          <!-- Video 3 -->
+          <div class="video-card">
+            <div class="thumb tc">
+              <div class="tc-wm">PALE</div>
+              <div class="tc-line"></div>
+              <div class="tc-sub">why we started</div>
+              <div class="duration">5:12</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-title">なぜパールピアスなのか</div>
+              <div class="video-views">6,331 回視聴</div>
+            </div>
+          </div>
+
+          <!-- Video 4 -->
+          <div class="video-card">
+            <div class="thumb td">
+              <div class="box-shape">
+                <div class="box-lid"></div>
+                <div class="pearl-inside"></div>
+              </div>
+              <div class="open-label">unboxing</div>
+              <div class="duration">2:05</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-title">初回ロット、開封してみた</div>
+              <div class="video-views">3,210 回視聴</div>
+            </div>
+          </div>
+
+          <!-- Video 5 -->
+          <div class="video-card">
+            <div class="thumb te">
+              <div class="outfit">
+                <div class="outfit-bar" style="height:40px"></div>
+                <div class="outfit-bar" style="height:28px"></div>
+                <div class="outfit-bar" style="height:36px"></div>
+              </div>
+              <div class="pearl-dot"></div>
+              <div class="te-label">styling</div>
+              <div class="duration">4:30</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-title">3つのコーデに合わせてみた</div>
+              <div class="video-views">1,988 回視聴</div>
+            </div>
+          </div>
+
+          <!-- Video 6 -->
+          <div class="video-card">
+            <div class="thumb tf">
+              <div class="tf-wm">PALE</div>
+              <div class="tf-sub">brand story</div>
+              <div class="duration">7:00</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-title">PALEができるまで</div>
+              <div class="video-views">8,450 回視聴</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /channel -->
+  </div>
+
+  <!-- Content strategy -->
+  <div class="guide">
+    <div class="guide-heading">Content Pillars — 動画の柱</div>
+
+    <div class="pillar">
+      <div class="pillar-num">1</div>
+      <div class="pillar-tag">product</div>
+      <div class="pillar-body">
+        <div class="pillar-title">商品接写・素材感</div>
+        <div class="pillar-desc">パールの光、チタンの質感をスローモーションで。BGMはAMBIENT。<br>60〜90秒。言葉はほぼなくていい。</div>
+        <div class="example-title">「3mm の光 — PALE 01」</div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">2</div>
+      <div class="pillar-tag">wearing</div>
+      <div class="pillar-body">
+        <div class="pillar-title">フィットネス → 日常 Vlog</div>
+        <div class="pillar-desc">ジム・スタジオ・ランニング → そのままカフェや通勤へ。<br>「外さなくていい」を体で見せる。3〜5分。</div>
+        <div class="example-title">「BODYATTACK → カフェ、ずっとつけてた話」</div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">3</div>
+      <div class="pillar-tag">story</div>
+      <div class="pillar-body">
+        <div class="pillar-title">ブランドストーリー・制作の裏側</div>
+        <div class="pillar-desc">なぜ作ったか、パールをどう選んだか。顔出しなしでも成立する。<br>5〜8分。最も再生されやすい柱。</div>
+        <div class="example-title">「なぜ3,000円以内にこだわるのか」</div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">4</div>
+      <div class="pillar-tag">styling</div>
+      <div class="pillar-body">
+        <div class="pillar-title">コーデ・スタイリング提案</div>
+        <div class="pillar-desc">「このワークアウトウェアにPALEを合わせると」系。<br>インスタとの連動で相乗効果が出やすい。</div>
+        <div class="example-title">「ヨガウェア3パターン × PALE」</div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">5</div>
+      <div class="pillar-tag">unboxing</div>
+      <div class="pillar-body">
+        <div class="pillar-title">新商品・パッケージ開封</div>
+        <div class="pillar-desc">丁寧な開封動画はASMR的な需要がある。BGMなし or 環境音。<br>パッケージの質感がそのまま広告になる。</div>
+        <div class="example-title">「新作パール、届きました」</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BGM guide -->
+  <div class="bgm-box">
+    <div class="bgm-title">BGM Direction — 音の世界観</div>
+    <div class="bgm-row">
+      <div class="bgm-dot"></div>
+      <div class="bgm-text"><strong>Ambient / Lo-fi electronic</strong> — テイ・トウワ的な透明感。ビートは控えめ、音数が少ないもの</div>
+    </div>
+    <div class="bgm-row">
+      <div class="bgm-dot"></div>
+      <div class="bgm-text"><strong>歌詞なし or 英語のみ</strong> — 日本語歌詞が入ると映像の邪魔になる</div>
+    </div>
+    <div class="bgm-row">
+      <div class="bgm-dot"></div>
+      <div class="bgm-text"><strong>環境音を活かす</strong> — スタジオの空調、パールの音、箱を開ける音。ASMR寄りの動画は無音区間を怖がらない</div>
+    </div>
+    <div class="bgm-row">
+      <div class="bgm-dot"></div>
+      <div class="bgm-text"><strong>参考アーティスト</strong> — Tei Towa / Bonobo / Nils Frahm / Nujabes（著作権フリー音源はYouTube Audio Library で探す）</div>
+    </div>
+  </div>
+
+</body>
+</html>

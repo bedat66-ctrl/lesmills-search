@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PALE — Instagram イメージ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fafafa; font-family: -apple-system, 'Helvetica Neue', sans-serif; max-width: 390px; margin: 0 auto; }
+
+  /* ヘッダー */
+  .ig-header { background: #fff; border-bottom: 1px solid #dbdbdb; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .ig-username { font-size: 16px; font-weight: 600; }
+  .ig-header-icons { display: flex; gap: 16px; font-size: 22px; }
+
+  /* プロフィール */
+  .ig-profile { background: #fff; padding: 16px; }
+  .ig-profile-top { display: flex; align-items: center; gap: 20px; margin-bottom: 14px; }
+  .ig-avatar { width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590); border: 3px solid #fff; box-shadow: 0 0 0 2px #c8b99a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 0.2em; color: #fff; }
+  .ig-stats { display: flex; gap: 20px; flex: 1; justify-content: center; }
+  .ig-stat { text-align: center; }
+  .ig-stat-num { font-size: 16px; font-weight: 600; display: block; }
+  .ig-stat-label { font-size: 12px; color: #262626; }
+  .ig-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .ig-bio { font-size: 13px; line-height: 1.6; color: #262626; margin-bottom: 4px; }
+  .ig-link { font-size: 13px; color: #00376b; font-weight: 400; }
+  .ig-buttons { display: flex; gap: 8px; margin-top: 14px; }
+  .ig-btn { flex: 1; padding: 7px; border: 1px solid #dbdbdb; border-radius: 8px; background: #efefef; font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; }
+  .ig-btn-follow { background: #0095f6; color: #fff; border-color: #0095f6; }
+
+  /* ハイライト */
+  .ig-highlights { background: #fff; border-bottom: 1px solid #dbdbdb; padding: 14px 16px; display: flex; gap: 16px; overflow-x: auto; }
+  .ig-hl { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+  .ig-hl-circle { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #dbdbdb; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #f5f0ea; }
+  .ig-hl-label { font-size: 11px; color: #262626; }
+
+  /* タブ */
+  .ig-tabs { display: flex; border-bottom: 1px solid #dbdbdb; background: #fff; }
+  .ig-tab { flex: 1; padding: 12px; text-align: center; font-size: 20px; color: #8e8e8e; border-bottom: 2px solid transparent; }
+  .ig-tab.active { color: #262626; border-color: #262626; }
+
+  /* グリッド */
+  .ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .ig-cell { aspect-ratio: 1; background: #ede6dc; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .ig-cell .pearl { width: 40%; aspect-ratio: 1; border-radius: 50%; }
+  .ig-cell-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.3); color: #fff; font-size: 9px; padding: 4px 6px; line-height: 1.4; }
+
+  /* 試着バナー */
+  .ig-tryon-banner { background: linear-gradient(135deg, #1c1a18, #3a3530); margin: 2px 0; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .ig-tryon-icon { font-size: 28px; }
+  .ig-tryon-text { flex: 1; }
+  .ig-tryon-text strong { color: #ede6dc; font-size: 13px; display: block; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .ig-tryon-text span { color: #c8b99a; font-size: 11px; }
+  .ig-tryon-arrow { color: #c8b99a; font-size: 18px; }
+
+  /* 注記 */
+  .mock-note { text-align: center; padding: 24px 16px; color: #8e8e8e; font-size: 11px; line-height: 1.8; border-top: 1px solid #dbdbdb; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="ig-header">
+  <div class="ig-username">pale_jewelry</div>
+  <div class="ig-header-icons">
+    <span>＋</span>
+    <span>☰</span>
+  </div>
+</div>
+
+<div class="ig-profile">
+  <div class="ig-profile-top">
+    <div class="ig-avatar">P</div>
+    <div class="ig-stats">
+      <div class="ig-stat"><span class="ig-stat-num">12</span><span class="ig-stat-label">投稿</span></div>
+      <div class="ig-stat"><span class="ig-stat-num">248</span><span class="ig-stat-label">フォロワー</span></div>
+      <div class="ig-stat"><span class="ig-stat-num">91</span><span class="ig-stat-label">フォロー中</span></div>
+    </div>
+  </div>
+  <div class="ig-name">PALE パレ</div>
+  <div class="ig-bio">
+    💎 小粒パールピアス専門<br>
+    「つけたまま忘れるほど、軽く、上品に」<br>
+    10mm以内・日常使い・全世代向け<br>
+    👇 試着シミュレーターはこちら
+  </div>
+  <div class="ig-link">🔗 pale-tryon.pages.dev</div>
+  <div class="ig-buttons">
+    <div class="ig-btn ig-btn-follow">フォローする</div>
+    <div class="ig-btn">メッセージ</div>
+    <div class="ig-btn" style="flex:0;padding:7px 10px;">▼</div>
+  </div>
+</div>
+
+<div class="ig-highlights">
+  <div class="ig-hl">
+    <div class="ig-hl-circle">💎</div>
+    <div class="ig-hl-label">商品一覧</div>
+  </div>
+  <div class="ig-hl">
+    <div class="ig-hl-circle">👗</div>
+    <div class="ig-hl-label">コーデ例</div>
+  </div>
+  <div class="ig-hl">
+    <div class="ig-hl-circle">🪞</div>
+    <div class="ig-hl-label">試着方法</div>
+  </div>
+  <div class="ig-hl">
+    <div class="ig-hl-circle">📦</div>
+    <div class="ig-hl-label">お届け</div>
+  </div>
+  <div class="ig-hl">
+    <div class="ig-hl-circle">❓</div>
+    <div class="ig-hl-label">よくある質問</div>
+  </div>
+</div>
+
+<div class="ig-tabs">
+  <div class="ig-tab active">⊞</div>
+  <div class="ig-tab">🎬</div>
+  <div class="ig-tab">🏷</div>
+</div>
+
+<!-- 試着バナー（固定投稿風） -->
+<div class="ig-tryon-banner">
+  <div class="ig-tryon-icon">🪞</div>
+  <div class="ig-tryon-text">
+    <strong>ピアス試着シミュレーター</strong>
+    <span>自分の写真でサイズ感を確認 → 購入</span>
+  </div>
+  <div class="ig-tryon-arrow">›</div>
+</div>
+
+<div class="ig-grid">
+  <!-- 投稿1 -->
+  <div class="ig-cell" style="background:#f0ebe3;">
+    <div class="pearl" style="background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590);"></div>
+    <div class="ig-cell-caption">ホワイト 6mm</div>
+  </div>
+  <!-- 投稿2 -->
+  <div class="ig-cell" style="background:#ede6dc;">
+    <div class="pearl" style="background:radial-gradient(circle at 40% 38%, #ecddd8, #d4b8b2 45%, #b89890 72%, #927570);"></div>
+    <div class="ig-cell-caption">ピンク 8mm</div>
+  </div>
+  <!-- 投稿3 -->
+  <div class="ig-cell" style="background:#e8e0d5;">
+    <div class="pearl" style="background:radial-gradient(circle at 40% 38%, #c5c2bf, #a5a2a0 45%, #858280 72%, #656260);"></div>
+    <div class="ig-cell-caption">グレー 6mm</div>
+  </div>
+  <!-- 投稿4 -->
+  <div class="ig-cell" style="background:#f5f0ea;">
+    <div style="font-size:32px;">👩</div>
+    <div class="ig-cell-caption">着用イメージ</div>
+  </div>
+  <!-- 投稿5 -->
+  <div class="ig-cell" style="background:#1c1a18;">
+    <div style="color:#ede6dc;font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:0.3em;">PALE</div>
+    <div class="ig-cell-caption" style="color:#c8b99a;">ブランド紹介</div>
+  </div>
+  <!-- 投稿6 -->
+  <div class="ig-cell" style="background:#f0ebe3;">
+    <div class="pearl" style="background:radial-gradient(circle at 40% 38%, #e0d098, #c4b060 45%, #a89040 72%, #8a7230); width:30%;"></div>
+    <div class="pearl" style="background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590); width:30%; margin-left:6px;"></div>
+    <div class="ig-cell-caption">セット販売</div>
+  </div>
+</div>
+
+<div class="mock-note">
+  ※ これはイメージ図です。<br>
+  実際のアカウント名・フォロワー数・投稿内容は<br>
+  開設後にご自身で設定してください。
+</div>
+
+</body>
+</html>

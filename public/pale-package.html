@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE — Packaging</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0e0e0e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 24px 80px;
+      gap: 72px;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: #333;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .block { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 680px; }
+    .row { display: flex; gap: 24px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+
+    /* ────────────────────────────
+       BOX — isometric-style
+    ──────────────────────────── */
+    .box-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .box-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: #444;
+      text-transform: uppercase;
+    }
+
+    /* Box: lid + body stacked to look like an open box */
+    .box {
+      position: relative;
+      width: 140px;
+    }
+    .box-lid {
+      width: 140px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2px;
+      position: relative;
+    }
+    .box-body {
+      width: 140px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+    .box-inner-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      opacity: 0.5;
+    }
+    .box-pearl {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 32%, #f8f2ec, #ddd4c8 35%, #bcb4aa 65%, #908880);
+      box-shadow: 0 0 6px 2px rgba(235,222,206,0.28), 2px 3px 6px rgba(0,0,0,0.38);
+    }
+    .box-shadow {
+      width: 120px; height: 6px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%);
+      margin-top: 4px;
+    }
+
+    /* Wordmark on lid */
+    .lid-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      padding-left: 0.5em;
+    }
+
+    /* Box A: オフホワイト */
+    .box-a .box-lid  { background: #f0eeea; border: 0.5px solid #dddad4; }
+    .box-a .box-body { background: #f7f6f2; border: 0.5px solid #dddad4; border-top: none; }
+    .box-a .lid-wm   { color: #1c1c1c; }
+    .box-a .box-inner-tag { color: #888; }
+
+    /* Box B: チャコール */
+    .box-b .box-lid  { background: #2a2826; border: 0.5px solid #3a3835; }
+    .box-b .box-body { background: #222020; border: 0.5px solid #3a3835; border-top: none; }
+    .box-b .lid-wm   { color: #e8e4de; }
+    .box-b .box-inner-tag { color: #555; }
+
+    /* Box C: 藍 メゾチント質感（濱口陽三） */
+    .box-c .box-lid  {
+      background-color: #0f2050;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      background-blend-mode: multiply;
+      border: 0.5px solid #1a3268;
+    }
+    .box-c .box-body {
+      background-color: #09183e;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      background-blend-mode: multiply;
+      border: 0.5px solid #1a3268;
+      border-top: none;
+    }
+    .box-c .lid-wm        { color: #c4dcf0; text-shadow: none; }
+    .box-c .box-inner-tag { color: #5a88b8; }
+
+    /* Box E: ブラック */
+    .box-e .box-lid  { background: #0a0908; border: 0.5px solid #222; }
+    .box-e .box-body { background: #111010; border: 0.5px solid #222; border-top: none; }
+    .box-e .lid-wm   { color: #e8e4de; }
+    .box-e .box-inner-tag { color: #444; }
+
+    /* Box D: ベージュ */
+    .box-d .box-lid  { background: #E8DDD0; border: 0.5px solid #d4c8ba; }
+    .box-d .box-body { background: #EDE6DC; border: 0.5px solid #d4c8ba; border-top: none; }
+    .box-d .lid-wm   { color: #2a2520; }
+    .box-d .box-inner-tag { color: #9a8a7a; }
+
+    /* ────────────────────────────
+       BAG
+    ──────────────────────────── */
+    .bag-outer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .bag {
+      width: 110px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* handles */
+    .bag-handle {
+      width: 60px;
+      height: 20px;
+      border-top: 1.5px solid;
+      border-left: 1.5px solid;
+      border-right: 1.5px solid;
+      border-radius: 6px 6px 0 0;
+      margin-bottom: -1px;
+    }
+    .bag-body {
+      width: 110px;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .bag-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      padding-left: 0.5em;
+    }
+    .bag-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 7px;
+      letter-spacing: 0.15em;
+    }
+    .bag-rule { width: 20px; height: 0.5px; }
+    .bag-shadow {
+      width: 90px; height: 6px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%);
+      margin-top: 4px;
+    }
+
+    /* Bag A: チャコール */
+    .bag-a .bag-handle { border-color: #2a2826; }
+    .bag-a .bag-body   { background: #2a2826; }
+    .bag-a .bag-wm     { color: #e8e4de; }
+    .bag-a .bag-tagline{ color: #7a7470; }
+    .bag-a .bag-rule   { background: #C8B99A; }
+
+    /* Bag B: オフホワイト */
+    .bag-b .bag-handle { border-color: #c8c4be; }
+    .bag-b .bag-body   { background: #f0eeea; border: 0.5px solid #dddad4; }
+    .bag-b .bag-wm     { color: #1c1c1c; }
+    .bag-b .bag-tagline{ color: #8a8480; }
+    .bag-b .bag-rule   { background: #C8B99A; }
+
+    /* Bag C: 藍 メゾチント質感（濱口陽三） */
+    .bag-c .bag-handle { border-color: #183268; }
+    .bag-c .bag-body   {
+      background-color: #0f2050;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      background-blend-mode: multiply;
+    }
+    .bag-c .bag-wm     { color: #c4dcf0; }
+    .bag-c .bag-tagline{ color: #5a88b8; }
+    .bag-c .bag-rule   { background: #C8B99A; }
+
+    /* Bag D: ブラック */
+    .bag-d .bag-handle { border-color: #222; }
+    .bag-d .bag-body   { background: #0a0908; border: 0.5px solid #222; }
+    .bag-d .bag-wm     { color: #e8e4de; }
+    .bag-d .bag-tagline{ color: #444; }
+    .bag-d .bag-rule   { background: #C8B99A; }
+
+    /* ────────────────────────────
+       CARD / TAG
+    ──────────────────────────── */
+    .card-set {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* サンキューカード */
+    .thank-card {
+      width: 160px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .thank-card.light { background: #f7f6f2; border: 0.5px solid #dddad4; }
+    .thank-card.dark  { background: #1c1a18; border: 0.5px solid #3a3835; }
+    .thank-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      padding-left: 0.5em;
+    }
+    .thank-card.light .thank-wm { color: #1c1c1c; }
+    .thank-card.dark  .thank-wm { color: #e8e4de; }
+    .thank-rule { width: 20px; height: 0.5px; background: #C8B99A; }
+    .thank-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+    }
+    .thank-card.light .thank-tagline { color: #7a6e60; }
+    .thank-card.dark  .thank-tagline { color: #7a7470; }
+
+    /* 下げ札（タグ） */
+    .hang-tag {
+      width: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hang-tag-hole {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 0.5px solid;
+      margin-bottom: -1px;
+    }
+    .hang-tag-string {
+      width: 0.5px;
+      height: 16px;
+    }
+    .hang-tag-body {
+      width: 72px;
+      height: 112px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 8px;
+    }
+    .hang-tag-wm {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      padding-left: 0.4em;
+    }
+    .hang-tag-rule { width: 16px; height: 0.5px; }
+    .hang-tag-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 6.5px;
+      letter-spacing: 0.15em;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .hang-tag-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* tag light */
+    .tag-light .hang-tag-hole   { border-color: #888; }
+    .tag-light .hang-tag-string { background: #888; }
+    .tag-light .hang-tag-body   { background: #f7f6f2; border: 0.5px solid #dddad4; }
+    .tag-light .hang-tag-wm     { color: #1c1c1c; }
+    .tag-light .hang-tag-rule   { background: #C8B99A; }
+    .tag-light .hang-tag-sub    { color: #7a6e60; }
+    .tag-light .hang-tag-price  { color: #2a2520; }
+
+    /* tag dark */
+    .tag-dark .hang-tag-hole   { border-color: #555; }
+    .tag-dark .hang-tag-string { background: #555; }
+    .tag-dark .hang-tag-body   { background: #1c1a18; border: 0.5px solid #3a3835; }
+    .tag-dark .hang-tag-wm     { color: #e8e4de; }
+    .tag-dark .hang-tag-rule   { background: #C8B99A; }
+    .tag-dark .hang-tag-sub    { color: #7a7470; }
+    .tag-dark .hang-tag-price  { color: #e8e4de; }
+
+    /* ────────────────────────────
+       RECOMMENDATION NOTE
+    ──────────────────────────── */
+    .rec-box {
+      width: 100%;
+      max-width: 680px;
+      background: #161616;
+      border-radius: 16px;
+      padding: 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .rec-title {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: #333;
+      text-transform: uppercase;
+    }
+    .rec-row {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .rec-item-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: #555;
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+    .rec-item-text {
+      font-size: 11px;
+      color: #777;
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+    .rec-item-text strong { color: #ccc; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <!-- BOX -->
+  <div class="block">
+    <div class="section-label">Box — 5 color options</div>
+    <div class="row">
+
+      <div class="box-wrap">
+        <div class="box-label">off-white</div>
+        <div class="box box-a">
+          <div class="box-lid"><span class="lid-wm">PALE</span></div>
+          <div class="box-body">
+            <div class="box-pearl"></div>
+            <div class="box-inner-tag">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="box-shadow"></div>
+      </div>
+
+      <div class="box-wrap">
+        <div class="box-label">charcoal</div>
+        <div class="box box-b">
+          <div class="box-lid"><span class="lid-wm">PALE</span></div>
+          <div class="box-body">
+            <div class="box-pearl"></div>
+            <div class="box-inner-tag">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="box-shadow"></div>
+      </div>
+
+      <div class="box-wrap">
+        <div class="box-label">くすんだ藍</div>
+        <div class="box box-c">
+          <div class="box-lid"><span class="lid-wm">PALE</span></div>
+          <div class="box-body">
+            <div class="box-pearl"></div>
+            <div class="box-inner-tag">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="box-shadow"></div>
+      </div>
+
+      <div class="box-wrap">
+        <div class="box-label">beige</div>
+        <div class="box box-d">
+          <div class="box-lid"><span class="lid-wm">PALE</span></div>
+          <div class="box-body">
+            <div class="box-pearl"></div>
+            <div class="box-inner-tag">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="box-shadow"></div>
+      </div>
+
+      <div class="box-wrap">
+        <div class="box-label">black</div>
+        <div class="box box-e">
+          <div class="box-lid"><span class="lid-wm">PALE</span></div>
+          <div class="box-body">
+            <div class="box-pearl"></div>
+            <div class="box-inner-tag">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="box-shadow"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BAG -->
+  <div class="block">
+    <div class="section-label">Paper bag — 4 color options</div>
+    <div class="row">
+
+      <div class="bag-outer">
+        <div class="box-label">charcoal</div>
+        <div class="bag bag-a">
+          <div class="bag-handle"></div>
+          <div class="bag-body">
+            <div class="bag-wm">PALE</div>
+            <div class="bag-rule"></div>
+            <div class="bag-tagline">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="bag-shadow"></div>
+      </div>
+
+      <div class="bag-outer">
+        <div class="box-label">off-white</div>
+        <div class="bag bag-b">
+          <div class="bag-handle"></div>
+          <div class="bag-body">
+            <div class="bag-wm">PALE</div>
+            <div class="bag-rule"></div>
+            <div class="bag-tagline">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="bag-shadow"></div>
+      </div>
+
+      <div class="bag-outer">
+        <div class="box-label">くすんだ藍</div>
+        <div class="bag bag-c">
+          <div class="bag-handle"></div>
+          <div class="bag-body">
+            <div class="bag-wm">PALE</div>
+            <div class="bag-rule"></div>
+            <div class="bag-tagline">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="bag-shadow"></div>
+      </div>
+
+      <div class="bag-outer">
+        <div class="box-label">black</div>
+        <div class="bag bag-d">
+          <div class="bag-handle"></div>
+          <div class="bag-body">
+            <div class="bag-wm">PALE</div>
+            <div class="bag-rule"></div>
+            <div class="bag-tagline">動く日も、纏う。</div>
+          </div>
+        </div>
+        <div class="bag-shadow"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CARD & TAG -->
+  <div class="block">
+    <div class="section-label">Thank-you card &amp; hang tag</div>
+    <div class="card-set">
+
+      <!-- サンキューカード ライト -->
+      <div class="card-wrap">
+        <div class="box-label">card — light</div>
+        <div class="thank-card light">
+          <div class="thank-wm">PALE</div>
+          <div class="thank-rule"></div>
+          <div class="thank-tagline">動く日も、纏う。</div>
+        </div>
+      </div>
+
+      <!-- サンキューカード ダーク -->
+      <div class="card-wrap">
+        <div class="box-label">card — dark</div>
+        <div class="thank-card dark">
+          <div class="thank-wm">PALE</div>
+          <div class="thank-rule"></div>
+          <div class="thank-tagline">動く日も、纏う。</div>
+        </div>
+      </div>
+
+      <!-- 下げ札 ライト -->
+      <div class="card-wrap">
+        <div class="box-label">hang tag — light</div>
+        <div class="hang-tag tag-light">
+          <div class="hang-tag-hole"></div>
+          <div class="hang-tag-string"></div>
+          <div class="hang-tag-body">
+            <div class="hang-tag-wm">PALE</div>
+            <div class="hang-tag-rule"></div>
+            <div class="hang-tag-sub">titanium<br>allergy free<br>3mm pearl</div>
+            <div class="hang-tag-price">¥ 1,980</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 下げ札 ダーク -->
+      <div class="card-wrap">
+        <div class="box-label">hang tag — dark</div>
+        <div class="hang-tag tag-dark">
+          <div class="hang-tag-hole"></div>
+          <div class="hang-tag-string"></div>
+          <div class="hang-tag-body">
+            <div class="hang-tag-wm">PALE</div>
+            <div class="hang-tag-rule"></div>
+            <div class="hang-tag-sub">titanium<br>allergy free<br>3mm pearl</div>
+            <div class="hang-tag-price">¥ 1,980</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div class="rec-box">
+    <div class="rec-title">Recommendation — パッケージ構成案</div>
+
+    <div class="rec-row">
+      <div class="rec-item-label">箱</div>
+      <div class="rec-item-text"><strong>チャコール or くすんだ藍</strong>がおすすめ。濱口陽三的な「暗闇の中の光」がそのままパッケージになる。蓋を開けると光るパールが現れる演出。</div>
+    </div>
+    <div class="rec-row">
+      <div class="rec-item-label">袋</div>
+      <div class="rec-item-text"><strong>チャコール or オフホワイト</strong>。箱と同じ色にしないことで、セットとして持ったときに引き締まる。</div>
+    </div>
+    <div class="rec-row">
+      <div class="rec-item-label">カード</div>
+      <div class="rec-item-text">箱の中にサンキューカードを一枚。<strong>「動く日も、纏う。」</strong>とブランド名だけ。余白を怖がらない。</div>
+    </div>
+    <div class="rec-row">
+      <div class="rec-item-label">下げ札</div>
+      <div class="rec-item-text">素材・価格・アレルギーフリー表記をまとめる。<strong>細い糸で結ぶ</strong>と和光的な上品さが出る。</div>
+    </div>
+    <div class="rec-row">
+      <div class="rec-item-label">内装</div>
+      <div class="rec-item-text">箱の中にくすんだ藍のティッシュペーパーを敷く。開けた瞬間だけ藍色が現れる小さなサプライズ。</div>
+    </div>
+  </div>
+
+</body>
+</html>
