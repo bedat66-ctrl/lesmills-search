@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE × ユニセックス3アイテム まとめ</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #faf8f5;
+      color: #2a2826;
+      padding: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 0 20px;
+      border-bottom: 1px solid #e8e0d4;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      color: #b8a98a;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2a2826;
+      line-height: 1.5;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    /* タブ */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 4px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid #e8e0d4;
+      background: #fff;
+      color: #aaa;
+      transition: all 0.2s;
+    }
+
+    .tab.active {
+      background: #b8a98a;
+      color: #fff;
+      border-color: #b8a98a;
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* セクション */
+    .section { margin-bottom: 24px; }
+
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #b8a98a;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e8e0d4;
+    }
+
+    /* カード */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2a2826;
+      margin-bottom: 6px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      background: #f0ebe2;
+      color: #7a6a50;
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .tag-gold {
+      background: #fef9e7;
+      color: #b8860b;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    .highlight {
+      font-size: 13px;
+      color: #b8a98a;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .tip {
+      font-size: 12px;
+      color: #27ae60;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* ステップ */
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #b8a98a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+      padding-top: 3px;
+    }
+
+    /* 難易度・時間バッジ */
+    .meta {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .meta-badge {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #f0ebe2;
+      color: #7a6a50;
+      font-weight: 600;
+    }
+
+    /* 材料テーブル */
+    .material-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0ebe2;
+      font-size: 13px;
+    }
+
+    .material-row:last-child { border-bottom: none; }
+    .material-name { color: #2a2826; font-weight: 500; }
+    .material-spec { color: #888; font-size: 11px; margin-top: 2px; }
+    .material-where { font-size: 11px; color: #b8a98a; font-weight: 600; }
+
+    /* おすすめ順 */
+    .recommend-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rank {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .rank-1 { background: #fef9e7; color: #b8860b; }
+    .rank-2 { background: #f0ebe2; color: #7a6a50; }
+    .rank-3 { background: #f5f5f5; color: #888; }
+
+    .recommend-info { flex: 1; }
+    .recommend-name { font-size: 14px; font-weight: 600; color: #2a2826; }
+    .recommend-reason { font-size: 12px; color: #888; margin-top: 3px; line-height: 1.5; }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #bbb;
+      padding: 24px 0 16px;
+      letter-spacing: 0.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">P A L E  J E W E L L E R Y</div>
+    <h1>ユニセックス 3アイテム</h1>
+    <div class="subtitle">ブローチ・スティックピン・バッグチャーム</div>
+  </header>
+
+  <!-- タブ -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('brooch')">ブローチ</div>
+    <div class="tab" onclick="switchTab('stick')">スティック<br>ピン</div>
+    <div class="tab" onclick="switchTab('charm')">バッグ<br>チャーム</div>
+    <div class="tab" onclick="switchTab('common')">共通<br>まとめ</div>
+  </div>
+
+  <!-- ブローチ -->
+  <div id="brooch" class="panel active">
+
+    <div class="meta">
+      <span class="meta-badge">難易度 ★★☆☆☆</span>
+      <span class="meta-badge">⏱ 15〜30分</span>
+    </div>
+
+    <div class="section">
+      <div class="section-title">売れ筋デザイン</div>
+      <div class="card">
+        <div class="card-title">一粒パール＋ゴールドフレーム</div>
+        <div class="note">シンプルで男女問わず使いやすい定番。どんな服にも合う。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">サークル型</div>
+        <div class="note">パールを円形に並べたデザイン。フォーマルにも普段使いにも◎</div>
+      </div>
+      <div class="card">
+        <div class="card-title">スター・クロス型</div>
+        <div class="note">メンズに人気。ジャケットの襟やバッグにも。</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">必要な材料</div>
+      <div class="card">
+        <div class="material-row">
+          <div>
+            <div class="material-name">コットンパール</div>
+            <div class="material-spec">3〜5mm｜オフホワイト</div>
+          </div>
+          <div class="material-where">貴和製作所</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">ブローチ金具（ピン付き）</div>
+            <div class="material-spec">25〜30mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">ワイヤー or テグス</div>
+            <div class="material-spec">0.2〜0.3mm</div>
+          </div>
+          <div class="material-where">ダイソー</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">接着剤（Gボンド推奨）</div>
+            <div class="material-spec">補強用</div>
+          </div>
+          <div class="material-where">ダイソー/ホームセンター</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">作り方</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">ブローチ金具の上にパールを配置してデザインを決める</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">ワイヤーまたはテグスでパールを金具に固定する</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">接着剤で補強して乾かせば完成！</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- スティックピン -->
+  <div id="stick" class="panel">
+
+    <div class="meta">
+      <span class="meta-badge">難易度 ★☆☆☆☆</span>
+      <span class="meta-badge">⏱ 5〜10分</span>
+    </div>
+
+    <div class="section">
+      <div class="section-title">売れ筋デザイン</div>
+      <div class="card">
+        <div class="card-title">一粒パール＋細いゴールドピン</div>
+        <div class="note">スーツ・ジャケットのラペル（襟）に刺すスタイル。ビジネス〜カジュアルまで。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">2〜3粒 縦連なり型</div>
+        <div class="note">パールを縦に並べた上品なデザイン。ネクタイやスカーフにも◎</div>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 今一番おすすめ</div>
+        <div class="note">メンズの襟・ネクタイへのスティックピンスタイルが急上昇中。PALEならではのユニセックス展開に最適！</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">必要な材料</div>
+      <div class="card">
+        <div class="material-row">
+          <div>
+            <div class="material-name">コットンパール</div>
+            <div class="material-spec">3〜5mm｜オフホワイト</div>
+          </div>
+          <div class="material-where">貴和製作所</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">スティックピン金具</div>
+            <div class="material-spec">6〜8cm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">Tピン or 9ピン</div>
+            <div class="material-spec">0.6mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所/ダイソー</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">接着剤</div>
+            <div class="material-spec">補強用</div>
+          </div>
+          <div class="material-where">ダイソー</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">作り方</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Tピンにパールを通して先端を丸めてパーツを作る</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">スティックピン金具の頭部分にパーツを接着する</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">乾いたら完成！とても簡単です◎</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- バッグチャーム -->
+  <div id="charm" class="panel">
+
+    <div class="meta">
+      <span class="meta-badge">難易度 ★★☆☆☆</span>
+      <span class="meta-badge">⏱ 20〜40分</span>
+    </div>
+
+    <div class="section">
+      <div class="section-title">売れ筋デザイン</div>
+      <div class="card">
+        <div class="card-title">パール＋チェーン</div>
+        <div class="note">シンプルで高見え。バッグのハンドルに下げるだけで一気におしゃれに。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">パール複数連なり＋カラビナフック</div>
+        <div class="note">着脱が簡単で使いやすい。男女問わず人気。今のトレンド！</div>
+      </div>
+      <div class="card">
+        <div class="card-title">パール＋レザーコード</div>
+        <div class="note">カジュアル・メンズ向け。革紐との組み合わせで無骨さと上品さを両立。</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">必要な材料</div>
+      <div class="card">
+        <div class="material-row">
+          <div>
+            <div class="material-name">コットンパール</div>
+            <div class="material-spec">3〜5mm｜オフホワイト</div>
+          </div>
+          <div class="material-where">貴和製作所</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">カラビナフック or Dカン</div>
+            <div class="material-spec">20〜25mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所/100均</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">チェーン or コード</div>
+            <div class="material-spec">5〜10cm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">丸カン</div>
+            <div class="material-spec">3〜4mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所/ダイソー</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">9ピン</div>
+            <div class="material-spec">0.6mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所/ダイソー</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">作り方</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">9ピンにパールを通して両端を丸めてパーツを作る</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">チェーンにパーツを丸カンでつないでいく</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">カラビナフックをチェーンの端に取り付けて完成！</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 共通まとめ -->
+  <div id="common" class="panel">
+
+    <div class="section">
+      <div class="section-title">追加で必要な材料（共通）</div>
+      <div class="card">
+        <div class="material-row">
+          <div>
+            <div class="material-name">ブローチ金具</div>
+            <div class="material-spec">25〜30mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所 100〜300円</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">スティックピン金具</div>
+            <div class="material-spec">6〜8cm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所 100〜200円</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">Tピン・9ピン</div>
+            <div class="material-spec">0.6mm｜ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所/ダイソー 100〜200円</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">カラビナフック・丸カン</div>
+            <div class="material-spec">ゴールド</div>
+          </div>
+          <div class="material-where">貴和製作所/100均 100〜300円</div>
+        </div>
+        <div class="material-row">
+          <div>
+            <div class="material-name">接着剤（Gボンド）</div>
+            <div class="material-spec">補強用</div>
+          </div>
+          <div class="material-where">ダイソー/ホームセンター 200〜500円</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">作り始めるおすすめ順</div>
+
+      <div class="recommend-card">
+        <div class="rank rank-1">1</div>
+        <div class="recommend-info">
+          <div class="recommend-name">スティックピン</div>
+          <div class="recommend-reason">最も簡単・材料費が安い・メンズ需要が高まっている</div>
+        </div>
+      </div>
+
+      <div class="recommend-card">
+        <div class="rank rank-2">2</div>
+        <div class="recommend-info">
+          <div class="recommend-name">バッグチャーム</div>
+          <div class="recommend-reason">今のトレンド・男女問わず売れる・単価を上げやすい</div>
+        </div>
+      </div>
+
+      <div class="recommend-card">
+        <div class="rank rank-3">3</div>
+        <div class="recommend-info">
+          <div class="recommend-name">ブローチ</div>
+          <div class="recommend-reason">フォーマル需要あり・デザインの幅が広い・高単価が狙える</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">購入先リンク</div>
+      <div class="card">
+        <div class="material-row">
+          <div class="material-name">貴和製作所</div>
+          <a href="https://kiwaseisakujo.jp/en" style="font-size:12px;color:#b8a98a;text-decoration:none;">開く →</a>
+        </div>
+        <div class="material-row">
+          <div class="material-name">ダイソー ハンドメイド</div>
+          <a href="https://jp.daisonet.com/collections/handmade0246" style="font-size:12px;color:#b8a98a;text-decoration:none;">開く →</a>
+        </div>
+        <div class="material-row">
+          <div class="material-name">紗や工房（楽天）</div>
+          <a href="https://item.rakuten.co.jp/sayakobo-plus/c/0000000651/" style="font-size:12px;color:#b8a98a;text-decoration:none;">開く →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>PALE JEWELLERY — Unisex Collection</footer>
+
+  <script>
+    function switchTab(id) {
+      document.querySelectorAll('.tab').forEach((t, i) => {
+        t.classList.remove('active');
+      });
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+      const ids = ['brooch', 'stick', 'charm', 'common'];
+      const idx = ids.indexOf(id);
+      document.querySelectorAll('.tab')[idx].classList.add('active');
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
