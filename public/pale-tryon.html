@@ -207,8 +207,16 @@
           <span class="sh-label">丸</span>
         </button>
         <button class="shape-btn" data-shape="oval">
-          <div style="width:14px;height:20px;border-radius:50%;background:var(--sand);"></div>
+          <div style="width:9px;height:20px;border-radius:50%;background:var(--sand);"></div>
           <span class="sh-label">オーバル</span>
+        </button>
+        <button class="shape-btn" data-shape="drop">
+          <div style="width:12px;height:22px;border-radius:50% 50% 45% 45% / 28% 28% 72% 72%;background:var(--sand);"></div>
+          <span class="sh-label">ドロップ</span>
+        </button>
+        <button class="shape-btn" data-shape="hoop">
+          <div style="width:20px;height:20px;border-radius:50%;border:3.5px solid var(--sand);background:transparent;"></div>
+          <span class="sh-label">フープ</span>
         </button>
         <button class="shape-btn" data-shape="square">
           <div style="width:20px;height:20px;border-radius:3px;background:var(--sand);"></div>
@@ -300,7 +308,9 @@ const COLORS = {
 
 function shapeDims(shape, s) {
   switch(shape) {
-    case 'oval':     return { w:s*0.72, h:s,      r:'50%' };
+    case 'oval':     return { w:s*0.52, h:s,      r:'50%' };
+    case 'drop':     return { w:s*0.65, h:s*1.7,  r:'50% 50% 45% 45% / 28% 28% 72% 72%' };
+    case 'hoop':     return { w:s*1.1,  h:s*1.1,  r:'50%', isHoop:true };
     case 'square':   return { w:s,      h:s,      r:'3px' };
     case 'rounded':  return { w:s,      h:s,      r:'30%' };
     case 'teardrop': return { w:s*0.78, h:s*1.18, r:'50% 50% 48% 48% / 36% 36% 64% 64%' };
@@ -328,25 +338,41 @@ let currentShape = 'circle';
 let currentColor = 'white';
 let earringPx    = 22;
 
+/* ── スタイル適用ヘルパー ── */
+function applyDimsToEl(el, d, c) {
+  el.style.width        = d.w + 'px';
+  el.style.height       = d.h + 'px';
+  el.style.borderRadius = d.r;
+  if (d.isHoop) {
+    el.style.background  = 'transparent';
+    el.style.border      = Math.max(2, d.w * 0.14) + 'px solid ' + hoopColor(c);
+    el.style.boxShadow   = 'none';
+  } else {
+    el.style.background  = c.bg;
+    el.style.border      = 'none';
+    el.style.boxShadow   = c.sh;
+  }
+}
+
+function hoopColor(c) {
+  const map = {
+    white: '#c8b99a', pink: '#c49088', gray: '#909090',
+    gold: '#b09030', black: '#303030'
+  };
+  return map[currentColor] || '#c8b99a';
+}
+
 /* ── スタイル適用 ── */
 function applyStyle() {
   const c = COLORS[currentColor];
   const earrings = [leftEarring, rightEarring];
   earrings.forEach(el => {
     const d = shapeDims(currentShape, earringPx);
-    el.style.width        = d.w + 'px';
-    el.style.height       = d.h + 'px';
-    el.style.borderRadius = d.r;
-    el.style.background   = c.bg;
-    el.style.boxShadow    = c.sh;
+    applyDimsToEl(el, d, c);
   });
   // size dot preview
   const d2 = shapeDims(currentShape, 22);
-  sizeDot.style.width        = d2.w + 'px';
-  sizeDot.style.height       = d2.h + 'px';
-  sizeDot.style.borderRadius = d2.r;
-  sizeDot.style.background   = c.bg;
-  sizeDot.style.boxShadow    = c.sh;
+  applyDimsToEl(sizeDot, d2, c);
   // 固定中はピアスサイズをスケールに合わせて上書き
   updateLockedEarringPositions();
 }
@@ -553,9 +579,7 @@ function updateLockedEarringPositions() {
     el.style.left = (cW / 2 + photoX + earringRelPos[i].relX * photoScale) + 'px';
     el.style.top  = (cH / 2 + photoY + earringRelPos[i].relY * photoScale) + 'px';
     const d = shapeDims(currentShape, scaledPx);
-    el.style.width        = d.w + 'px';
-    el.style.height       = d.h + 'px';
-    el.style.borderRadius = d.r;
+    applyDimsToEl(el, d, COLORS[currentColor]);
   });
 }
 
