@@ -172,32 +172,27 @@
     transition:background 0.2s;
   }
 
-  /* ピアス4粒エリア（グレー×ホワイト固定） */
+  /* ピアス穴エリア */
   .card-earring-area {
-    flex:1; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    padding-bottom:16px; gap:8px;
+    flex:1; display:flex; align-items:center; justify-content:center; gap:30px;
+    padding-bottom:18px;
   }
-  .pearl-4-grid {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:18px; padding:4px 20px;
+  .earring-slot-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .earring-slot {
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(0,0,0,0.2);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);
   }
-  .pearl-cell {
-    display:flex; flex-direction:column; align-items:center; gap:7px;
+  .earring-label {
+    font-size:6.5px; letter-spacing:0.08em;
+    opacity:0.55; transition:color 0.2s;
   }
-  .pearl-circle {
-    width:26px; height:26px; border-radius:50%;
-    background:radial-gradient(circle at 38% 36%,
-      rgba(252,249,244,0.95) 0%,
-      rgba(238,233,226,0.88) 52%,
-      rgba(218,214,208,0.78) 100%);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.28), inset 0 -1px 2px rgba(0,0,0,0.1),
-                inset 1px 1px 2px rgba(255,255,255,0.6);
-  }
-  .pearl-post {
-    width:4px; height:4px; border-radius:50%;
-    background:rgba(255,255,255,0.35);
-    box-shadow:inset 0 1px 1px rgba(0,0,0,0.3);
+  /* ピアスイメージ（丸パール） */
+  .pearl-preview {
+    width:18px; height:18px; border-radius:50%; margin-bottom:2px;
+    background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590);
+    box-shadow:1px 2px 4px rgba(0,0,0,0.3);
+    display:none;
   }
 
   /* ── 小タグ（別バリエーション） */
@@ -280,10 +275,7 @@
   <div class="section-label">Packaging Mockup</div>
   <div class="section-title">商品タグ・ピアス台紙 イメージ</div>
 
-  <!-- カラー切替（タグのみ） -->
-  <div style="font-size:11px; color:var(--muted); margin-bottom:8px; letter-spacing:0.06em;">
-    タグの文字色を切り替えられます（台紙はグレー×ホワイト固定）
-  </div>
+  <!-- カラー切替 -->
   <div class="color-toggle" id="color-toggle">
     <button class="c-btn active" data-mode="deboss">
       <span class="c-swatch" style="background:#6e6c72;"></span>
@@ -312,34 +304,24 @@
       </div>
     </div>
 
-    <!-- ピアス台紙（グレー×ホワイト固定） -->
+    <!-- ピアス台紙 -->
     <div class="card-wrap">
       <div class="card">
-        <!-- ロゴ：ホワイトインク固定 -->
         <div class="card-logo-area">
-          <div class="card-logo" style="font-size:15px; color:#f0ece6;">PALE</div>
-          <div class="card-logo-sub" style="color:#f0ece6; opacity:0.8;">JEWELLERY</div>
-          <div class="card-divider" style="background:rgba(240,236,230,0.5);"></div>
+          <div class="card-logo" id="card-logo" style="font-size:15px;">PALE</div>
+          <div class="card-logo-sub" id="card-logo-sub">JEWELLERY</div>
+          <div class="card-divider" id="card-divider"></div>
         </div>
-        <!-- パール4粒 2×2 -->
         <div class="card-earring-area">
-          <div class="pearl-4-grid">
-            <div class="pearl-cell">
-              <div class="pearl-circle"></div>
-              <div class="pearl-post"></div>
-            </div>
-            <div class="pearl-cell">
-              <div class="pearl-circle"></div>
-              <div class="pearl-post"></div>
-            </div>
-            <div class="pearl-cell">
-              <div class="pearl-circle"></div>
-              <div class="pearl-post"></div>
-            </div>
-            <div class="pearl-cell">
-              <div class="pearl-circle"></div>
-              <div class="pearl-post"></div>
-            </div>
+          <div class="earring-slot-wrap">
+            <div class="pearl-preview" id="pearl1"></div>
+            <div class="earring-slot"></div>
+            <div class="earring-label" id="elabel1">●</div>
+          </div>
+          <div class="earring-slot-wrap">
+            <div class="pearl-preview" id="pearl2"></div>
+            <div class="earring-slot"></div>
+            <div class="earring-label" id="elabel2">●</div>
           </div>
         </div>
       </div>
@@ -426,12 +408,16 @@ var currentMode = 'deboss';
 
 function applyMode(mode) {
   var m = modes[mode];
-  // タグのみ切替（台紙はグレー×ホワイト固定）
-  ['tag-text','tag-sub','mini-text'].forEach(function(id) {
+  var targets = ['tag-text','tag-sub','card-logo','card-logo-sub','mini-text'];
+  targets.forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
     el.style.color = m.textColor;
     el.style.textShadow = m.textShadow;
+  });
+  document.getElementById('card-divider').style.background = m.divider;
+  ['elabel1','elabel2'].forEach(function(id){
+    document.getElementById(id).style.color = m.elabelColor;
   });
 }
 
