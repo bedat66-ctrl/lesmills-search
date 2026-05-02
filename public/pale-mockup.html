@@ -185,7 +185,7 @@
   }
   .earring-label {
     font-size:6.5px; letter-spacing:0.08em;
-    opacity:0.55; transition:color 0.2s;
+    color:#f0ece6; opacity:0.88; /* ホワイトインク固定 */
   }
   /* ピアスイメージ（丸パール） */
   .pearl-preview {
@@ -416,9 +416,6 @@ function applyMode(mode) {
     el.style.textShadow = m.textShadow;
   });
   document.getElementById('card-divider').style.background = m.divider;
-  ['elabel1','elabel2'].forEach(function(id){
-    document.getElementById(id).style.color = m.elabelColor;
-  });
 }
 
 document.getElementById('color-toggle').addEventListener('click', function(e) {
