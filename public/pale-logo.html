@@ -105,6 +105,13 @@
   .vendor-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
   .vendor-chip { font-size:11px; padding:5px 12px; background:#fff; border:1px solid var(--line); border-radius:20px; color:var(--muted); }
 
+  /* ── Pitch slider ── */
+  .pitch-section { background:#fff; border-radius:10px; padding:16px 18px; margin-bottom:28px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  .pitch-row { display:flex; align-items:center; gap:12px; }
+  .pitch-label-main { font-size:11px; letter-spacing:0.15em; color:var(--muted); flex-shrink:0; }
+  .pitch-ends { display:flex; justify-content:space-between; font-size:10px; color:var(--muted); margin-top:4px; letter-spacing:0.05em; }
+  input#pitch-slider { flex:1; accent-color:var(--sand); cursor:pointer; }
+
   footer { background:var(--black); padding:22px; text-align:center; }
   footer .logo-f { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:18px; letter-spacing:0.55em; padding-left:0.55em; color:var(--sand); margin-bottom:4px; }
   footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
@@ -212,6 +219,15 @@
 
   </div>
 
+  <!-- PITCH SLIDER -->
+  <div class="pitch-section">
+    <div class="pitch-row">
+      <span class="pitch-label-main">文字ピッチ</span>
+      <input type="range" id="pitch-slider" min="1" max="9" value="4" step="1">
+    </div>
+    <div class="pitch-ends"><span>せまい</span><span>ひろい</span></div>
+  </div>
+
   <!-- STEP 2 -->
   <div class="step-label">Step 02</div>
   <div class="step-title">スタンプのサイズを選ぶ</div>
@@ -268,8 +284,8 @@
 const DESIGNS = {
   classic: {
     baseW:28, baseH:10,
-    build: function(W,H) {
-      var fs=H*0.52, ls=H*0.32, cx=W/2+ls/2;
+    build: function(W,H,pm) {
+      var fs=H*0.52, ls=H*0.32*pm, cx=W/2+ls/2;
       return '<text x="'+cx+'" y="'+H*0.67+'" text-anchor="middle"'
         +' font-family="\'Cormorant Garamond\',Georgia,serif"'
         +' font-weight="300" font-size="'+fs+'" letter-spacing="'+ls+'"'
@@ -278,8 +294,8 @@ const DESIGNS = {
   },
   soft: {
     baseW:22, baseH:10,
-    build: function(W,H) {
-      var fs=H*0.58, ls=H*0.1;
+    build: function(W,H,pm) {
+      var fs=H*0.58, ls=H*0.1*pm;
       return '<text x="'+W/2+'" y="'+H*0.7+'" text-anchor="middle"'
         +' font-family="\'Cormorant Garamond\',Georgia,serif"'
         +' font-weight="300" font-size="'+fs+'" letter-spacing="'+ls+'"'
@@ -288,8 +304,8 @@ const DESIGNS = {
   },
   ruled: {
     baseW:28, baseH:12,
-    build: function(W,H) {
-      var fs=H*0.43, ls=H*0.26, cx=W/2+ls/2, lw=H*0.025;
+    build: function(W,H,pm) {
+      var fs=H*0.43, ls=H*0.26*pm, cx=W/2+ls/2, lw=H*0.025;
       return '<line x1="'+W*0.06+'" y1="'+H*0.15+'" x2="'+W*0.94+'" y2="'+H*0.15+'" stroke="black" stroke-width="'+lw+'"/>'
         +'<text x="'+cx+'" y="'+H*0.65+'" text-anchor="middle"'
         +' font-family="\'Cormorant Garamond\',Georgia,serif"'
@@ -300,8 +316,8 @@ const DESIGNS = {
   },
   pearl: {
     baseW:24, baseH:13,
-    build: function(W,H) {
-      var fs=H*0.43, ls=H*0.26, cx=W/2+ls/2;
+    build: function(W,H,pm) {
+      var fs=H*0.43, ls=H*0.26*pm, cx=W/2+ls/2;
       return '<circle cx="'+W/2+'" cy="'+H*0.18+'" r="'+H*0.1+'" fill="black"/>'
         +'<text x="'+cx+'" y="'+H*0.78+'" text-anchor="middle"'
         +' font-family="\'Cormorant Garamond\',Georgia,serif"'
@@ -311,9 +327,9 @@ const DESIGNS = {
   },
   stacked: {
     baseW:30, baseH:14,
-    build: function(W,H) {
-      var fs1=H*0.34, ls1=H*0.2, cx1=W/2+ls1/2;
-      var fs2=H*0.16, ls2=H*0.12, cx2=W/2+ls2/2;
+    build: function(W,H,pm) {
+      var fs1=H*0.34, ls1=H*0.2*pm, cx1=W/2+ls1/2;
+      var fs2=H*0.16, ls2=H*0.12*pm, cx2=W/2+ls2/2;
       return '<text x="'+cx1+'" y="'+H*0.42+'" text-anchor="middle"'
         +' font-family="\'Cormorant Garamond\',Georgia,serif"'
         +' font-weight="300" font-size="'+fs1+'" letter-spacing="'+ls1+'"'
@@ -327,8 +343,8 @@ const DESIGNS = {
   },
   italic: {
     baseW:26, baseH:10,
-    build: function(W,H) {
-      var fs=H*0.56, ls=H*0.14;
+    build: function(W,H,pm) {
+      var fs=H*0.56, ls=H*0.14*pm;
       return '<text x="'+W/2+'" y="'+H*0.7+'" text-anchor="middle"'
         +' font-family="\'Cormorant Garamond\',Georgia,serif"'
         +' font-weight="300" font-style="italic" font-size="'+fs+'" letter-spacing="'+ls+'"'
@@ -339,6 +355,7 @@ const DESIGNS = {
 
 var selectedDesign = 'classic';
 var selectedSizeMm = 25;
+var pitchMult = 0.8; // default: やや狭め（スライダー初期値4/9）
 
 document.getElementById('design-grid').addEventListener('click', function(e) {
   var card = e.target.closest('.design-card');
@@ -358,6 +375,12 @@ document.querySelectorAll('.size-btn').forEach(function(btn) {
   });
 });
 
+document.getElementById('pitch-slider').addEventListener('input', function() {
+  // 1〜9 → 0.2〜1.8倍（5=1.0倍）
+  pitchMult = this.value / 5;
+  updatePreview();
+});
+
 function getScaledDims(designId, sizeMm) {
   var d = DESIGNS[designId];
   var scale = sizeMm / d.baseW;
@@ -369,7 +392,7 @@ function updatePreview() {
   var dispPx = 4; // 4px per mm
   var pW = dims.W * dispPx;
   var pH = dims.H * dispPx;
-  var inner = DESIGNS[selectedDesign].build(pW, pH);
+  var inner = DESIGNS[selectedDesign].build(pW, pH, pitchMult);
   var svg = '<svg xmlns="http://www.w3.org/2000/svg"'
     +' width="'+pW+'" height="'+pH+'"'
     +' viewBox="0 0 '+pW+' '+pH+'"'
@@ -384,7 +407,7 @@ function updatePreview() {
 document.getElementById('dl-btn').addEventListener('click', function() {
   var dims = getScaledDims(selectedDesign, selectedSizeMm);
   var W = dims.W, H = dims.H;
-  var inner = DESIGNS[selectedDesign].build(W, H);
+  var inner = DESIGNS[selectedDesign].build(W, H, pitchMult);
   var svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n'
     +'<svg xmlns="http://www.w3.org/2000/svg"'
     +' width="'+W+'mm" height="'+H.toFixed(2)+'mm"'
