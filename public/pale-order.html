@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE × 発注リスト｜リカちゃん クラシックブライダル</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #faf8f5;
+      color: #2a2826;
+      padding: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 0 20px;
+      border-bottom: 1px solid #e8e0d4;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      color: #b8a98a;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2a2826;
+      line-height: 1.5;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #b8a98a;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e8e0d4;
+    }
+
+    /* 発注リスト */
+    .item-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2a2826;
+      margin-bottom: 6px;
+    }
+
+    .item-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      background: #f0ebe2;
+      color: #7a6a50;
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .qty {
+      font-size: 13px;
+      color: #b8a98a;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .tip {
+      font-size: 12px;
+      color: #27ae60;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* 購入先 */
+    .shop-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .shop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .shop-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2a2826;
+    }
+
+    .shop-badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .badge-green { background: #e6f9ee; color: #27ae60; }
+    .badge-blue  { background: #e8f0fe; color: #3b6fd4; }
+    .badge-gold  { background: #fef9e7; color: #b8860b; }
+
+    .shop-items {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .shop-link {
+      display: inline-block;
+      font-size: 12px;
+      color: #b8a98a;
+      text-decoration: none;
+      border: 1px solid #e8e0d4;
+      border-radius: 6px;
+      padding: 5px 12px;
+    }
+
+    /* 予算 */
+    .budget-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0ebe2;
+      font-size: 13px;
+    }
+
+    .budget-row:last-child { border-bottom: none; }
+
+    .budget-label { color: #555; }
+    .budget-price { font-weight: 600; color: #2a2826; }
+    .budget-total { color: #b8a98a; font-weight: 700; font-size: 15px; }
+
+    /* 手順 */
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #b8a98a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+      padding-top: 3px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #bbb;
+      padding: 24px 0 16px;
+      letter-spacing: 0.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">P A L E  J E W E L L E R Y</div>
+    <h1>発注リスト &amp; 購入先</h1>
+    <div class="subtitle">リカちゃん × クラシックブライダル</div>
+  </header>
+
+  <!-- 発注リスト -->
+  <div class="section">
+    <div class="section-title">01 &nbsp; 発注リスト</div>
+
+    <div class="item-card">
+      <div class="item-name">コットンパール（メイン）</div>
+      <div class="item-detail">
+        <span class="tag">3mm</span>
+        <span class="tag">オフホワイト / クリーム</span>
+      </div>
+      <div class="qty">推奨 100粒（最低 35粒）</div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-name">コットンパール（アクセント）</div>
+      <div class="item-detail">
+        <span class="tag">4mm</span>
+        <span class="tag">オフホワイト / クリーム</span>
+      </div>
+      <div class="qty">推奨 30粒（裾ライン用）</div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-name">テグス</div>
+      <div class="item-detail">
+        <span class="tag">0.2mm</span>
+        <span class="tag">クリア（透明）</span>
+      </div>
+      <div class="qty">推奨 10m</div>
+      <div class="tip">💡 ダイソーで 50m / 110円で購入可</div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-name">ワイヤー（補強用）</div>
+      <div class="item-detail">
+        <span class="tag">0.3mm</span>
+        <span class="tag">ゴールド</span>
+      </div>
+      <div class="qty">推奨 50cm</div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-name">Jカン / マグネット金具</div>
+      <div class="item-detail">
+        <span class="tag">3mm</span>
+        <span class="tag">ゴールド</span>
+      </div>
+      <div class="qty">推奨 10個</div>
+    </div>
+  </div>
+
+  <!-- 購入先 -->
+  <div class="section">
+    <div class="section-title">02 &nbsp; 購入先</div>
+
+    <div class="shop-card">
+      <div class="shop-header">
+        <div class="shop-name">ダイソー</div>
+        <span class="shop-badge badge-green">まず行く</span>
+      </div>
+      <div class="shop-items">テグス 0.2mm × 50m → 110円</div>
+      <a class="shop-link" href="https://jp.daisonet.com/collections/handmade0246" target="_blank">ダイソー公式を見る →</a>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-header">
+        <div class="shop-name">貴和製作所</div>
+        <span class="shop-badge badge-gold">メイン仕入れ</span>
+      </div>
+      <div class="shop-items">コットンパール 3mm・4mm、Jカン・ワイヤー<br>品質安定・実店舗あり</div>
+      <a class="shop-link" href="https://kiwaseisakujo.jp/en/collections/pearl-3" target="_blank">貴和製作所を見る →</a>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-header">
+        <div class="shop-name">ビーズファクトリー</div>
+        <span class="shop-badge badge-blue">まとめ買い</span>
+      </div>
+      <div class="shop-items">コットンパール 各種・カラー豊富<br>将来的なまとめ発注に◎</div>
+      <a class="shop-link" href="https://www.beadsfactory.co.jp/parts/045.html" target="_blank">ビーズファクトリーを見る →</a>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-header">
+        <div class="shop-name">紗や工房（楽天）</div>
+        <span class="shop-badge badge-blue">少量から</span>
+      </div>
+      <div class="shop-items">Jカン・金具パーツを少量から購入可</div>
+      <a class="shop-link" href="https://item.rakuten.co.jp/sayakobo-plus/c/0000000651/" target="_blank">紗や工房を見る →</a>
+    </div>
+  </div>
+
+  <!-- 予算 -->
+  <div class="section">
+    <div class="section-title">03 &nbsp; 予算目安</div>
+    <div style="background:#fff; border-radius:10px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+      <div class="budget-row">
+        <span class="budget-label">コットンパール 3mm（100粒）</span>
+        <span class="budget-price">300〜800円</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">コットンパール 4mm（30粒）</span>
+        <span class="budget-price">200〜500円</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">テグス（ダイソー）</span>
+        <span class="budget-price">110円</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">ワイヤー・Jカン</span>
+        <span class="budget-price">500〜1,000円</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label budget-total">合計目安</span>
+        <span class="budget-price budget-total">約 1,100〜2,400円</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- お買い物の順番 -->
+  <div class="section">
+    <div class="section-title">04 &nbsp; お買い物の順番</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">まず<strong>ダイソー</strong>でテグスを購入（110円）</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>貴和製作所</strong>のオンラインまたは実店舗でコットンパール・金具をまとめて購入</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">材料が揃ったら Claude Code で<strong>作り方の手順</strong>を確認して制作スタート！</div>
+    </div>
+  </div>
+
+  <footer>PALE JEWELLERY — Doll Pearl Dress Project</footer>
+
+</body>
+</html>
