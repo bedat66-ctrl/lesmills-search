@@ -55,7 +55,8 @@ header {
 #step2 {
   position:fixed; top:0; left:0; right:0; bottom:0;
   display:none; flex-direction:column; align-items:center;
-  background:var(--cream); z-index:200; overflow:hidden;
+  background:var(--cream); z-index:200;
+  /* overflow:hidden を削除 → position:fixed の照準マーカーが切られなくなる */
 }
 
 /* Instruction bar */
@@ -729,9 +730,10 @@ function resetPhotoTransform() {
   applyPhotoTransform();
 }
 
-/* ── 照準マーカー ── */
+/* ── 照準マーカー：overflow:hiddenの影響を完全に避けるためbodyに移動 ── */
 var aimMarker  = document.getElementById('aim-marker');
 var aimLabel   = document.getElementById('aim-label');
+document.body.appendChild(aimMarker); /* bodyの直下に付け替え */
 var AIM_OFFSET = 100; /* 指の上方向へのオフセット（px） */
 var aimContainerX = 0, aimContainerY = 0; /* 配置用コンテナ内座標 */
 
@@ -881,12 +883,12 @@ photoContainer.addEventListener('touchend', function(e) {
       }
       placingTouchId = null;
     } else if (e.touches.length === 1) {
-      /* 2本指 → 1本指に戻った（ピンチ終了） */
+      /* 2本指 → 1本指（ピンチ終了、まだ指が残っている）
+         placingPinched は true のまま保持する。
+         この残り1本が離れた時は touches.length===0 に入り、
+         placingPinched===true なので配置しない → バグ修正 */
       pinchData = null;
-      /* この1本指でまた配置できるよう照準を再開 */
-      if (placingPinched) {
-        placingPinched = false; /* 次の1本指タップは配置OKにする */
-      }
+      hideAim(); /* 照準マーカーを隠す */
     }
     return;
   }
