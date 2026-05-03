@@ -166,7 +166,8 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
   <label for="photo-input" class="upload-btn">写真を選ぶ</label>
 </div>
 
-<input type="file" id="photo-input" accept="image/*" style="display:none">
+<input type="file" id="photo-input"         accept="image/*" style="display:none">
+<input type="file" id="earring-photo-input" accept="image/*" style="display:none">
 
 <!-- ── STEP 2: Mark + Try ── -->
 <div id="step2">
@@ -329,11 +330,17 @@ var remarkBtn     = document.getElementById('remark-btn');
 var productGallery= document.getElementById('product-gallery');
 
 /* ══ State ══ */
-var appMode       = 'marking'; // 'marking' | 'trying'
-var currentShape  = 'circle';
-var currentColor  = 'white';
-var earringPx     = 20;
+var appMode         = 'marking'; // 'marking' | 'trying'
+var currentShape    = 'circle';
+var currentColor    = 'white';
+var earringPx       = 20;
 var activeProductId = null;
+/* ロック */
+var earringsLocked   = false;
+var earringRelPos    = [null, null];
+var lockedPhotoScale = 1;
+/* カスタム画像 */
+var customEarringURL = null;
 
 /* ══ 写真アップロード ══ */
 photoInput.addEventListener('change', function(e) {
@@ -409,14 +416,73 @@ function snapEarringsToMarkers() {
   rightEarring.style.top  = rightMarker.style.top;
 }
 
+/* ══ カスタム写真をピアスとして適用 ══ */
+function applyCustomPhoto(el, d) {
+  el.style.width             = d.w + 'px';
+  el.style.height            = d.h + 'px';
+  el.style.borderRadius      = d.r;
+  el.style.backgroundImage   = 'url(' + customEarringURL + ')';
+  el.style.backgroundSize    = 'contain';
+  el.style.backgroundRepeat  = 'no-repeat';
+  el.style.backgroundPosition= 'center';
+  el.style.backgroundColor   = 'transparent';
+  el.style.border            = 'none';
+  el.style.boxShadow         = 'none';
+  el.style.mixBlendMode      = 'multiply'; /* 白背景を透明化 */
+}
+
 /* ══ スタイル適用 ══ */
 function applyStyle() {
   var d = shapeDims(currentShape, earringPx);
-  applyDimsToEl(leftEarring,  d, currentColor);
-  applyDimsToEl(rightEarring, d, currentColor);
+  if (customEarringURL) {
+    applyCustomPhoto(leftEarring,  d);
+    applyCustomPhoto(rightEarring, d);
+  } else {
+    [leftEarring, rightEarring].forEach(function(el) {
+      el.style.mixBlendMode = '';
+      applyDimsToEl(el, d, currentColor);
+    });
+  }
   // size dot
   var d2 = shapeDims(currentShape, 22);
   applyDimsToEl(sizeDot, d2, currentColor);
+}
+
+/* ══ ピアスを写真座標に固定 ══ */
+function lockEarringsToPhoto() {
+  var cW = photoContainer.offsetWidth;
+  var cH = photoContainer.offsetHeight;
+  [leftEarring, rightEarring].forEach(function(el, i) {
+    var sx = parseFloat(el.style.left) || 0;
+    var sy = parseFloat(el.style.top)  || 0;
+    earringRelPos[i] = {
+      x: (sx - cW/2 - photoX) / photoScale,
+      y: (sy - cH/2 - photoY) / photoScale
+    };
+  });
+  lockedPhotoScale = photoScale;
+  earringsLocked   = true;
+}
+
+/* ══ 固定中：写真変形に追従 ══ */
+function updateLockedPositions() {
+  if (!earringsLocked) return;
+  var cW = photoContainer.offsetWidth;
+  var cH = photoContainer.offsetHeight;
+  var scaleRatio = photoScale / lockedPhotoScale;
+  var scaledPx   = Math.max(5, earringPx * scaleRatio);
+  var d = shapeDims(currentShape, scaledPx);
+  [leftEarring, rightEarring].forEach(function(el, i) {
+    if (!earringRelPos[i]) return;
+    el.style.left = (cW/2 + photoX + earringRelPos[i].x * photoScale) + 'px';
+    el.style.top  = (cH/2 + photoY + earringRelPos[i].y * photoScale) + 'px';
+    if (customEarringURL) {
+      applyCustomPhoto(el, d);
+    } else {
+      el.style.mixBlendMode = '';
+      applyDimsToEl(el, d, currentColor);
+    }
+  });
 }
 
 /* ══ 確定ボタン ══ */
@@ -426,7 +492,8 @@ confirmBtn.addEventListener('click', function() {
 
 /* ══ 耳の位置を修正 ══ */
 remarkBtn.addEventListener('click', function() {
-  // マーカーをピアスの現在位置に戻す
+  earringsLocked = false;
+  earringRelPos  = [null, null];
   leftMarker.style.left  = leftEarring.style.left;
   leftMarker.style.top   = leftEarring.style.top;
   rightMarker.style.left = rightEarring.style.left;
@@ -436,11 +503,14 @@ remarkBtn.addEventListener('click', function() {
 
 /* ══ 別の写真 ══ */
 function resetAll() {
-  photoInput.value = '';
-  userPhoto.src    = '';
+  photoInput.value    = '';
+  userPhoto.src       = '';
   step2.style.display = 'none';
   step1.style.display = 'flex';
-  activeProductId  = null;
+  activeProductId     = null;
+  earringsLocked      = false;
+  earringRelPos       = [null, null];
+  customEarringURL    = null;
   resetPhotoTransform();
   document.querySelectorAll('.product-card').forEach(function(c){ c.classList.remove('active'); });
 }
@@ -450,12 +520,27 @@ document.getElementById('change-btn-try').addEventListener('click', resetAll);
 /* ══ 商品ギャラリー生成 ══ */
 function buildGallery() {
   productGallery.innerHTML = '';
+
+  // ── カスタム写真カード（先頭）──
+  var customCard = document.createElement('div');
+  customCard.className = 'product-card';
+  customCard.dataset.id = 'custom';
+  customCard.style.borderStyle = 'dashed';
+  customCard.innerHTML =
+    '<div class="product-thumb" style="font-size:20px;line-height:1;">📷</div>' +
+    '<div class="product-name" style="font-size:10px;">自分の<br>写真を使う</div>' +
+    '<div class="product-price">アップロード</div>';
+  customCard.addEventListener('click', function() {
+    document.getElementById('earring-photo-input').click();
+  });
+  productGallery.appendChild(customCard);
+
+  // ── 通常商品 ──
   PRODUCTS.forEach(function(p) {
     var card = document.createElement('div');
     card.className = 'product-card';
     card.dataset.id = p.id;
 
-    // サムネイル
     var thumb = document.createElement('div');
     thumb.className = 'product-thumb';
     var mini = document.createElement('div');
@@ -463,7 +548,6 @@ function buildGallery() {
     applyDimsToEl(mini, d, p.color);
     thumb.appendChild(mini);
 
-    // テキスト
     var name = document.createElement('div');
     name.className = 'product-name';
     name.textContent = p.name.replace('\n', ' ');
@@ -474,29 +558,48 @@ function buildGallery() {
     card.appendChild(thumb);
     card.appendChild(name);
     card.appendChild(price);
-
-    card.addEventListener('click', function() {
-      selectProduct(p);
-    });
-
+    card.addEventListener('click', function() { selectProduct(p); });
     productGallery.appendChild(card);
   });
 }
 
+/* ══ カスタムピアス写真の読み込み ══ */
+var earringPhotoInput = document.getElementById('earring-photo-input');
+earringPhotoInput.addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    customEarringURL = ev.target.result;
+    // カスタムカードをアクティブに
+    document.querySelectorAll('.product-card').forEach(function(c){ c.classList.remove('active'); });
+    document.querySelector('.product-card[data-id="custom"]').classList.add('active');
+    activeProductId = 'custom';
+    // 耳の位置にスナップ → 写真固定
+    snapEarringsToMarkers();
+    applyStyle();
+    lockEarringsToPhoto();
+    instrBar.textContent = '写真を拡大・縮小すると全身イメージを確認できます';
+  };
+  reader.readAsDataURL(file);
+  e.target.value = ''; // 同じファイルを再選択できるようにリセット
+});
+
 function selectProduct(p) {
-  // カードのアクティブ状態
   document.querySelectorAll('.product-card').forEach(function(c){ c.classList.remove('active'); });
   var card = document.querySelector('.product-card[data-id="'+p.id+'"]');
   if (card) card.classList.add('active');
-  activeProductId = p.id;
-  // 形・色・サイズを設定
-  currentShape = p.shape;
-  currentColor = p.color;
-  earringPx    = p.sizePx;
+  activeProductId  = p.id;
+  currentShape     = p.shape;
+  currentColor     = p.color;
+  earringPx        = p.sizePx;
+  customEarringURL = null;          // CSS描画に戻す
   sizeSlider.value = Math.min(earringPx, 60);
-  // マーカー位置にスナップしてスタイル適用
+  // マーカー位置にスナップ → 写真に固定
   snapEarringsToMarkers();
   applyStyle();
+  lockEarringsToPhoto();
+  instrBar.textContent = '写真を拡大・縮小すると全身イメージを確認できます';
 }
 
 buildGallery();
@@ -573,6 +676,7 @@ var zoomLabel       = document.getElementById('zoom-label');
 
 function applyPhotoTransform() {
   userPhoto.style.transform = 'translate('+photoX+'px,'+photoY+'px) scale('+photoScale+')';
+  updateLockedPositions(); // ピアスを写真に追従させる
 }
 function resetPhotoTransform() {
   photoScale = 1; photoX = 0; photoY = 0;
