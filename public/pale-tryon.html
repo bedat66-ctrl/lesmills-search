@@ -216,10 +216,19 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
 
       <div class="ctrl-section">
         <div class="ctrl-title">サイズ微調整</div>
-        <div class="ctrl-row">
-          <span class="ctrl-label">大きさ</span>
-          <input type="range" id="size-slider" min="8" max="60" value="22">
-          <div class="size-dot-wrap"><div class="size-dot" id="size-dot" style="width:22px;height:22px;"></div></div>
+        <div class="ctrl-row" style="align-items:flex-start;">
+          <span class="ctrl-label" style="padding-top:5px;">大きさ</span>
+          <div style="flex:1; display:flex; flex-direction:column; gap:2px;">
+            <input type="range" id="size-slider" min="3" max="10" step="0.5" value="6" list="size-ticks" style="width:100%;">
+            <datalist id="size-ticks">
+              <option value="3"></option><option value="5"></option>
+              <option value="7"></option><option value="10"></option>
+            </datalist>
+            <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--muted); padding:0 1px; margin-top:1px;">
+              <span>3mm</span><span>5mm</span><span>7mm</span><span>10mm</span>
+            </div>
+          </div>
+          <span id="size-mm-label" style="min-width:40px; font-size:12px; color:var(--muted); text-align:right; padding-top:5px;">6.0mm</span>
         </div>
       </div>
 
@@ -265,19 +274,19 @@ const COLORS = {
 };
 const HOOP_COLORS = { white:'#b8b0a8', natural:'#a09098', pink:'#c49090', gray:'#888', gold:'#b09030', black:'#303030' };
 
-/* 商品リスト */
+/* 商品リスト（sizeMm = 実寸mm） */
 const PRODUCTS = [
   /* ── 実物あり ── */
-  { id:'p0', name:'淡水パール\nオーバル', price:'準備中', shape:'button', color:'natural', sizePx:18 },
+  { id:'p0', name:'淡水パール\nオーバル', price:'準備中', shape:'button', color:'natural', sizeMm:6, imgSrc:'images/pearl-oval.png' },
   /* ── 今後展開予定 ── */
-  { id:'p1', name:'パール\n丸 3mm',       price:'¥1,200', shape:'circle', color:'white',   sizePx:12 },
-  { id:'p2', name:'パール\n丸 5mm',       price:'¥1,400', shape:'circle', color:'white',   sizePx:20 },
-  { id:'p3', name:'パール\n丸 8mm',       price:'¥1,600', shape:'circle', color:'white',   sizePx:32 },
-  { id:'p4', name:'パール\nオーバル',     price:'¥1,500', shape:'oval',   color:'white',   sizePx:24 },
-  { id:'p5', name:'パール\nドロップ',     price:'¥1,600', shape:'drop',   color:'white',   sizePx:22 },
-  { id:'p6', name:'パール\nフープ',       price:'¥1,800', shape:'hoop',   color:'white',   sizePx:28 },
-  { id:'p7', name:'ゴールド\nスタッド',   price:'¥1,300', shape:'circle', color:'gold',    sizePx:16 },
-  { id:'p8', name:'ピンク\nパール',       price:'¥1,400', shape:'circle', color:'pink',    sizePx:20 },
+  { id:'p1', name:'パール\n丸 3mm',       price:'¥1,200', shape:'circle', color:'white',   sizeMm:3 },
+  { id:'p2', name:'パール\n丸 5mm',       price:'¥1,400', shape:'circle', color:'white',   sizeMm:5 },
+  { id:'p3', name:'パール\n丸 8mm',       price:'¥1,600', shape:'circle', color:'white',   sizeMm:8 },
+  { id:'p4', name:'パール\nオーバル',     price:'¥1,500', shape:'oval',   color:'white',   sizeMm:6 },
+  { id:'p5', name:'パール\nドロップ',     price:'¥1,600', shape:'drop',   color:'white',   sizeMm:7 },
+  { id:'p6', name:'パール\nフープ',       price:'¥1,800', shape:'hoop',   color:'white',   sizeMm:10 },
+  { id:'p7', name:'ゴールド\nスタッド',   price:'¥1,300', shape:'circle', color:'gold',    sizeMm:4 },
+  { id:'p8', name:'ピンク\nパール',       price:'¥1,400', shape:'circle', color:'pink',    sizeMm:5 },
 ];
 
 function shapeDims(shape, s) {
@@ -333,7 +342,8 @@ var productGallery= document.getElementById('product-gallery');
 var appMode         = 'marking'; // 'marking' | 'trying'
 var currentShape    = 'circle';
 var currentColor    = 'white';
-var earringPx       = 20;
+var currentMm       = 6;        // スライダーのmm値
+var earringPx       = 10;       // 描画用ピクセル（mm×pxPerMm()で計算）
 var activeProductId = null;
 /* ロック */
 var earringsLocked   = false;
@@ -341,6 +351,15 @@ var earringRelPos    = [null, null];
 var lockedPhotoScale = 1;
 /* カスタム画像 */
 var customEarringURL = null;
+
+/* ── mm→px変換（顔幅基準） ── */
+function pxPerMm() {
+  /* 写真内の顔幅は約60%を占めると仮定。実顔幅≈140mm */
+  return photoContainer.offsetWidth * 0.60 / 140;
+}
+function mmToPx(mm) {
+  return Math.max(3, mm * pxPerMm());
+}
 
 /* ══ 写真アップロード ══ */
 photoInput.addEventListener('change', function(e) {
@@ -543,10 +562,18 @@ function buildGallery() {
 
     var thumb = document.createElement('div');
     thumb.className = 'product-thumb';
-    var mini = document.createElement('div');
-    var d = shapeDims(p.shape, 28);
-    applyDimsToEl(mini, d, p.color);
-    thumb.appendChild(mini);
+    if (p.imgSrc) {
+      /* 実物写真サムネイル */
+      var img = document.createElement('img');
+      img.src = p.imgSrc;
+      img.style.cssText = 'width:32px;height:32px;object-fit:contain;border-radius:4px;';
+      thumb.appendChild(img);
+    } else {
+      var mini = document.createElement('div');
+      var d = shapeDims(p.shape, 28);
+      applyDimsToEl(mini, d, p.color);
+      thumb.appendChild(mini);
+    }
 
     var name = document.createElement('div');
     name.className = 'product-name';
@@ -592,9 +619,11 @@ function selectProduct(p) {
   activeProductId  = p.id;
   currentShape     = p.shape;
   currentColor     = p.color;
-  earringPx        = p.sizePx;
-  customEarringURL = null;          // CSS描画に戻す
-  sizeSlider.value = Math.min(earringPx, 60);
+  currentMm        = p.sizeMm || 6;
+  earringPx        = mmToPx(currentMm);
+  customEarringURL = p.imgSrc || null;   // 実物写真があれば使う
+  sizeSlider.value = currentMm;
+  document.getElementById('size-mm-label').textContent = currentMm.toFixed(1) + 'mm';
   // マーカー位置にスナップ → 写真に固定
   snapEarringsToMarkers();
   applyStyle();
@@ -606,8 +635,11 @@ buildGallery();
 
 /* ══ サイズスライダー ══ */
 sizeSlider.addEventListener('input', function() {
-  earringPx = parseInt(this.value);
-  applyStyle();
+  currentMm = parseFloat(this.value);
+  earringPx = mmToPx(currentMm);
+  document.getElementById('size-mm-label').textContent = currentMm.toFixed(1) + 'mm';
+  if (earringsLocked) updateLockedPositions();
+  else applyStyle();
 });
 
 /* ══ マーカー ドラッグ ══ */
