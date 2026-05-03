@@ -232,14 +232,8 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
         </div>
       </div>
 
-      <div class="ctrl-section">
-        <div class="ctrl-title">写真の調整</div>
-        <div class="ctrl-row">
-          <span class="ctrl-label">拡大縮小</span>
-          <input type="range" id="photo-zoom-slider" min="20" max="300" value="100">
-          <div id="zoom-label">100%</div>
-        </div>
-        <p style="font-size:11px;color:var(--muted);line-height:1.7;margin-top:4px;">写真をドラッグして移動できます。2本指ピンチで拡大縮小。</p>
+      <div class="ctrl-section" style="padding-bottom:6px;">
+        <p style="font-size:11px;color:var(--muted);line-height:1.7;">写真はドラッグで移動・2本指ピンチで拡大縮小できます</p>
       </div>
 
       <div class="btn-row">
@@ -354,8 +348,8 @@ var customEarringURL = null;
 
 /* ── mm→px変換（顔幅基準） ── */
 function pxPerMm() {
-  /* 写真内の顔幅は約60%を占めると仮定。実顔幅≈140mm */
-  return photoContainer.offsetWidth * 0.60 / 140;
+  /* バストアップ写真では顔が画面幅の約85%を占めると仮定。実顔幅≈140mm */
+  return photoContainer.offsetWidth * 0.85 / 140;
 }
 function mmToPx(mm) {
   return Math.max(3, mm * pxPerMm());
@@ -703,8 +697,6 @@ makeDraggable(rightEarring, 'trying');
 
 /* ══ 写真 パン＆ズーム ══ */
 var photoScale = 1, photoX = 0, photoY = 0;
-var photoZoomSlider = document.getElementById('photo-zoom-slider');
-var zoomLabel       = document.getElementById('zoom-label');
 
 function applyPhotoTransform() {
   userPhoto.style.transform = 'translate('+photoX+'px,'+photoY+'px) scale('+photoScale+')';
@@ -712,15 +704,8 @@ function applyPhotoTransform() {
 }
 function resetPhotoTransform() {
   photoScale = 1; photoX = 0; photoY = 0;
-  if (photoZoomSlider) { photoZoomSlider.value = 100; zoomLabel.textContent = '100%'; }
   applyPhotoTransform();
 }
-
-photoZoomSlider.addEventListener('input', function() {
-  photoScale = this.value / 100;
-  zoomLabel.textContent = this.value + '%';
-  applyPhotoTransform();
-});
 
 /* Touch drag / pinch on photo container */
 var photoTouchId = null, pinchData = null;
