@@ -255,29 +255,34 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
 <script>
 /* ══ 定数 ══ */
 const COLORS = {
-  white:{ bg:'radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
-  pink: { bg:'radial-gradient(circle at 40% 38%, #ecddd8, #d4b8b2 45%, #b89890 72%, #927570)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
-  gray: { bg:'radial-gradient(circle at 40% 38%, #c5c2bf, #a5a2a0 45%, #858280 72%, #656260)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
-  gold: { bg:'radial-gradient(circle at 40% 38%, #e0d098, #c4b060 45%, #a89040 72%, #8a7230)', sh:'1px 2px 5px rgba(80,60,0,0.32)' },
-  black:{ bg:'radial-gradient(circle at 40% 38%, #525050, #323030 45%, #201e1e 72%, #100e0e)', sh:'1px 2px 5px rgba(0,0,0,0.5)' }
+  white:  { bg:'radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
+  natural:{ bg:'radial-gradient(circle at 38% 36%, #dcd6d8, #c0b0b8 42%, #a09098 66%, #887888)', sh:'1px 2px 6px rgba(0,0,0,0.32)' }, /* 淡水パール・グレー×ピンク虹彩 */
+  pink:   { bg:'radial-gradient(circle at 40% 38%, #ecddd8, #d4b8b2 45%, #b89890 72%, #927570)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
+  gray:   { bg:'radial-gradient(circle at 40% 38%, #c5c2bf, #a5a2a0 45%, #858280 72%, #656260)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
+  gold:   { bg:'radial-gradient(circle at 40% 38%, #e0d098, #c4b060 45%, #a89040 72%, #8a7230)', sh:'1px 2px 5px rgba(80,60,0,0.32)' },
+  black:  { bg:'radial-gradient(circle at 40% 38%, #525050, #323030 45%, #201e1e 72%, #100e0e)', sh:'1px 2px 5px rgba(0,0,0,0.5)' }
 };
-const HOOP_COLORS = { white:'#b8b0a8', pink:'#c49090', gray:'#888', gold:'#b09030', black:'#303030' };
+const HOOP_COLORS = { white:'#b8b0a8', natural:'#a09098', pink:'#c49090', gray:'#888', gold:'#b09030', black:'#303030' };
 
-/* 商品リスト（実際の商品が揃ったら画像URLを追加） */
+/* 商品リスト */
 const PRODUCTS = [
-  { id:'p1', name:'パール\n丸 3mm', price:'¥1,200', shape:'circle', color:'white', sizePx:12 },
-  { id:'p2', name:'パール\n丸 5mm', price:'¥1,400', shape:'circle', color:'white', sizePx:20 },
-  { id:'p3', name:'パール\n丸 8mm', price:'¥1,600', shape:'circle', color:'white', sizePx:32 },
-  { id:'p4', name:'パール\nオーバル', price:'¥1,500', shape:'oval', color:'white', sizePx:24 },
-  { id:'p5', name:'パール\nドロップ', price:'¥1,600', shape:'drop', color:'white', sizePx:22 },
-  { id:'p6', name:'パール\nフープ', price:'¥1,800', shape:'hoop', color:'white', sizePx:28 },
-  { id:'p7', name:'ゴールド\nスタッド', price:'¥1,300', shape:'circle', color:'gold', sizePx:16 },
-  { id:'p8', name:'ピンク\nパール', price:'¥1,400', shape:'circle', color:'pink', sizePx:20 },
+  /* ── 実物あり ── */
+  { id:'p0', name:'淡水パール\nオーバル', price:'準備中', shape:'button', color:'natural', sizePx:18 },
+  /* ── 今後展開予定 ── */
+  { id:'p1', name:'パール\n丸 3mm',       price:'¥1,200', shape:'circle', color:'white',   sizePx:12 },
+  { id:'p2', name:'パール\n丸 5mm',       price:'¥1,400', shape:'circle', color:'white',   sizePx:20 },
+  { id:'p3', name:'パール\n丸 8mm',       price:'¥1,600', shape:'circle', color:'white',   sizePx:32 },
+  { id:'p4', name:'パール\nオーバル',     price:'¥1,500', shape:'oval',   color:'white',   sizePx:24 },
+  { id:'p5', name:'パール\nドロップ',     price:'¥1,600', shape:'drop',   color:'white',   sizePx:22 },
+  { id:'p6', name:'パール\nフープ',       price:'¥1,800', shape:'hoop',   color:'white',   sizePx:28 },
+  { id:'p7', name:'ゴールド\nスタッド',   price:'¥1,300', shape:'circle', color:'gold',    sizePx:16 },
+  { id:'p8', name:'ピンク\nパール',       price:'¥1,400', shape:'circle', color:'pink',    sizePx:20 },
 ];
 
 function shapeDims(shape, s) {
   switch(shape) {
-    case 'oval':     return { w:s*0.52, h:s,      r:'50%' };
+    case 'button':   return { w:s*0.84, h:s*0.76, r:'50%' };            /* 平たいオーバル（淡水パール型） */
+    case 'oval':     return { w:s*0.52, h:s,       r:'50%' };
     case 'drop':     return { w:s*0.65, h:s*1.7,  r:'50% 50% 45% 45% / 28% 28% 72% 72%' };
     case 'hoop':     return { w:s*1.1,  h:s*1.1,  r:'50%', isHoop:true };
     case 'square':   return { w:s,      h:s,       r:'3px' };
