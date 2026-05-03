@@ -77,17 +77,26 @@ header {
   transform-origin:center center;
 }
 
-/* Tap ripple hint */
-.tap-hint {
-  position:absolute; width:44px; height:44px;
-  border-radius:50%; border:2px dashed rgba(217,123,74,0.7);
-  transform:translate(-50%,-50%);
-  pointer-events:none; z-index:5;
-  animation:pulse 1.4s ease-in-out infinite;
+/* ── 照準マーカー（指の上に浮かぶ） ── */
+#aim-marker {
+  position:absolute; z-index:40; pointer-events:none;
+  display:none;
+  transform:translateX(-50%); /* X方向だけ中央揃え */
 }
-@keyframes pulse {
-  0%,100% { opacity:0.5; transform:translate(-50%,-50%) scale(1); }
-  50%      { opacity:1;   transform:translate(-50%,-50%) scale(1.12); }
+.aim-circle {
+  width:48px; height:48px; border-radius:50%;
+  border:2.5px solid var(--accent);
+  background:rgba(217,123,74,0.12);
+  position:relative; margin:0 auto;
+}
+.aim-h { position:absolute; width:18px; height:2px; background:var(--accent); top:50%; left:50%; transform:translate(-50%,-50%); border-radius:1px; }
+.aim-v { position:absolute; width:2px; height:18px; background:var(--accent); top:50%; left:50%; transform:translate(-50%,-50%); border-radius:1px; }
+.aim-dot { position:absolute; width:5px; height:5px; border-radius:50%; background:var(--accent); top:50%; left:50%; transform:translate(-50%,-50%); }
+.aim-stem { width:2px; height:50px; background:linear-gradient(to bottom, var(--accent) 0%, rgba(217,123,74,0) 100%); margin:0 auto; }
+.aim-label {
+  position:absolute; bottom:calc(100% + 56px); left:50%; transform:translateX(-50%);
+  background:var(--accent); color:#fff; font-size:11px; letter-spacing:0.06em;
+  padding:4px 10px; border-radius:20px; white-space:nowrap;
 }
 
 /* Earrings */
@@ -203,6 +212,16 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
 
   <div id="photo-container">
     <img id="user-photo" alt="">
+    <!-- 照準マーカー：タップ中に指の上に表示 -->
+    <div id="aim-marker">
+      <div class="aim-label" id="aim-label">ここに置く</div>
+      <div class="aim-circle">
+        <div class="aim-h"></div>
+        <div class="aim-v"></div>
+        <div class="aim-dot"></div>
+      </div>
+      <div class="aim-stem"></div>
+    </div>
     <div class="earring" id="left-earring"  style="display:none"></div>
     <div class="earring" id="right-earring" style="display:none"></div>
   </div>
@@ -212,7 +231,11 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
     <div class="place-guide">
       <div class="place-icon" id="place-icon">👂</div>
       <div class="place-title" id="place-title">左耳をタップ</div>
-      <div class="place-desc">写真の<strong>左耳たぶ</strong>を指でタップしてください<br>ドラッグで写真を動かせます</div>
+      <div class="place-desc">
+        耳たぶあたりを<strong>長押し＆ドラッグ</strong>して<br>
+        <span style="color:var(--accent);">◎</span> の印を耳たぶに合わせて<strong>離してください</strong><br>
+        <span style="font-size:11px; color:var(--muted);">指で見えない時は少し動かすと調整できます</span>
+      </div>
     </div>
     <div class="place-dots">
       <div class="place-dot active" id="dot0"></div>
@@ -702,46 +725,74 @@ function resetPhotoTransform() {
   applyPhotoTransform();
 }
 
-/* タップ vs ドラッグ判定 */
-var touchStartX = 0, touchStartY = 0, touchMoved = false;
+/* ── 照準マーカー ── */
+var aimMarker  = document.getElementById('aim-marker');
+var aimLabel   = document.getElementById('aim-label');
+var AIM_OFFSET = 100; /* 指の上方向へのオフセット（px） */
+var aimX = 0, aimY = 0; /* マーカーが指す実際の配置座標（container内） */
+
+function showAim(touchClientX, touchClientY) {
+  var rect = photoContainer.getBoundingClientRect();
+  aimX = touchClientX - rect.left;
+  aimY = touchClientY - rect.top;
+  /* マーカーを指の AIM_OFFSET px 上に表示 */
+  var markerTop = aimY - AIM_OFFSET;
+  aimMarker.style.left    = aimX + 'px';
+  aimMarker.style.top     = Math.max(0, markerTop) + 'px';
+  aimMarker.style.display = '';
+  /* はみ出し防止：画面上端付近ではラベルを下に逃がす */
+  aimLabel.style.bottom   = markerTop < 20 ? 'auto' : '';
+  aimLabel.style.top      = markerTop < 20 ? 'calc(100% + 4px)' : '';
+}
+function hideAim() { aimMarker.style.display = 'none'; }
+
+/* タッチ処理 */
 var photoTouchId = null, pinchData = null;
-var photoX0 = 0, photoY0 = 0;
-var photoDragPX = 0, photoDragPY = 0;
+var photoX0 = 0, photoY0 = 0, photoDragPX = 0, photoDragPY = 0;
+var placingTouchId = null; /* 配置用に追跡するタッチ */
 
 photoContainer.addEventListener('touchstart', function(e) {
   if (e.target.closest('.earring')) return;
   e.preventDefault();
-  touchMoved = false;
 
+  if (placingStep < 2 && e.touches.length === 1) {
+    /* ── 配置モード：照準マーカーを表示 ── */
+    placingTouchId = e.touches[0].identifier;
+    showAim(e.touches[0].clientX, e.touches[0].clientY);
+    return; /* パンは行わない */
+  }
+
+  /* ── 試着モード：パン＆ピンチ ── */
   if (e.touches.length === 1) {
-    var t = e.touches[0];
-    touchStartX  = t.clientX;
-    touchStartY  = t.clientY;
-    photoTouchId = t.identifier;
-    photoDragPX  = t.clientX; photoDragPY = t.clientY;
-    photoX0 = photoX; photoY0 = photoY;
-    pinchData = null;
+    photoTouchId = e.touches[0].identifier;
+    photoDragPX  = e.touches[0].clientX; photoDragPY = e.touches[0].clientY;
+    photoX0 = photoX; photoY0 = photoY; pinchData = null;
   } else if (e.touches.length === 2) {
     var t0 = e.touches[0], t1 = e.touches[1];
     pinchData = { dist: Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY), scale: photoScale };
-    touchMoved = true; /* ピンチはタップ扱いしない */
   }
 }, { passive:false });
 
 photoContainer.addEventListener('touchmove', function(e) {
   e.preventDefault();
+
+  if (placingStep < 2) {
+    /* 配置モード：照準マーカーを追従 */
+    var arr = Array.from(e.touches);
+    var t = arr.find(function(t){ return t.identifier === placingTouchId; });
+    if (t) showAim(t.clientX, t.clientY);
+    return;
+  }
+
+  /* 試着モード：パン＆ピンチ */
   if (e.touches.length >= 2 && pinchData) {
     var t0 = e.touches[0], t1 = e.touches[1];
     var dist = Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY);
     photoScale = Math.max(0.3, Math.min(4, pinchData.scale * dist / pinchData.dist));
-    touchMoved = true;
   } else if (e.touches.length === 1 && photoTouchId !== null) {
-    var arr = Array.from(e.touches);
-    var touch = arr.find(function(t){ return t.identifier === photoTouchId; });
+    var arr2 = Array.from(e.touches);
+    var touch = arr2.find(function(t){ return t.identifier === photoTouchId; });
     if (touch) {
-      var dx = touch.clientX - photoDragPX;
-      var dy = touch.clientY - photoDragPY;
-      if (Math.abs(dx) > 6 || Math.abs(dy) > 6) touchMoved = true;
       photoX = photoX0 + touch.clientX - photoDragPX;
       photoY = photoY0 + touch.clientY - photoDragPY;
     }
@@ -750,12 +801,12 @@ photoContainer.addEventListener('touchmove', function(e) {
 }, { passive:false });
 
 photoContainer.addEventListener('touchend', function(e) {
-  /* タップ判定：動いていない & 配置ステップ中 */
-  if (!touchMoved && placingStep < 2) {
-    var rect = photoContainer.getBoundingClientRect();
-    var x = touchStartX - rect.left;
-    var y = touchStartY - rect.top;
-    placeEarringAt(x, y);
+  if (placingStep < 2) {
+    /* 指を離した瞬間に照準マーカーの位置へ配置 */
+    hideAim();
+    placeEarringAt(aimX, aimY);
+    placingTouchId = null;
+    return;
   }
   if (e.touches.length === 0) { photoTouchId = null; pinchData = null; }
   else if (e.touches.length === 1) {
@@ -766,29 +817,44 @@ photoContainer.addEventListener('touchend', function(e) {
   }
 });
 
+photoContainer.addEventListener('touchcancel', function() {
+  hideAim(); placingTouchId = null;
+});
+
 /* マウス（PC確認用） */
-var mouseDown = false, mouseStartX = 0, mouseStartY = 0, mouseMoved = false;
+var mouseDown = false, mouseAiming = false;
+var mouseStartX = 0, mouseStartY = 0;
+var photoX0m = 0, photoY0m = 0, photoDragPXm = 0, photoDragPYm = 0;
+
 photoContainer.addEventListener('mousedown', function(e) {
   if (e.target.closest('.earring')) return;
-  mouseDown  = true; mouseMoved = false;
-  mouseStartX = e.clientX; mouseStartY = e.clientY;
-  photoDragPX = e.clientX; photoDragPY = e.clientY;
-  photoX0 = photoX; photoY0 = photoY;
+  mouseDown = true;
+  if (placingStep < 2) {
+    mouseAiming = true;
+    showAim(e.clientX, e.clientY);
+  } else {
+    mouseAiming = false;
+    photoDragPXm = e.clientX; photoDragPYm = e.clientY;
+    photoX0m = photoX; photoY0m = photoY;
+  }
 });
 document.addEventListener('mousemove', function(e) {
   if (!mouseDown) return;
-  var dx = e.clientX - photoDragPX, dy = e.clientY - photoDragPY;
-  if (Math.abs(dx) > 4 || Math.abs(dy) > 4) mouseMoved = true;
-  photoX = photoX0 + e.clientX - photoDragPX;
-  photoY = photoY0 + e.clientY - photoDragPY;
-  applyPhotoTransform();
+  if (mouseAiming) {
+    showAim(e.clientX, e.clientY);
+  } else {
+    photoX = photoX0m + e.clientX - photoDragPXm;
+    photoY = photoY0m + e.clientY - photoDragPYm;
+    applyPhotoTransform();
+  }
 });
 document.addEventListener('mouseup', function(e) {
-  if (mouseDown && !mouseMoved && placingStep < 2) {
-    var rect = photoContainer.getBoundingClientRect();
-    placeEarringAt(mouseStartX - rect.left, mouseStartY - rect.top);
+  if (!mouseDown) return;
+  if (mouseAiming) {
+    hideAim();
+    placeEarringAt(aimX, aimY);
   }
-  mouseDown = false;
+  mouseDown = false; mouseAiming = false;
 });
 </script>
 </body>
