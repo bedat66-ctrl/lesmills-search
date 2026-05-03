@@ -79,9 +79,11 @@ header {
 
 /* ── 照準マーカー（指の上に浮かぶ） ── */
 #aim-marker {
-  position:absolute; z-index:40; pointer-events:none;
+  position:fixed;          /* 画面全体に固定 ← overflow:hiddenに切られない */
+  z-index:9999;
+  pointer-events:none;
   display:none;
-  transform:translateX(-50%); /* X方向だけ中央揃え */
+  transform:translateX(-50%);
 }
 .aim-circle {
   width:48px; height:48px; border-radius:50%;
@@ -210,18 +212,19 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
 
   <div class="instr-bar placing" id="instr-bar">👂 左耳たぶをタップしてください</div>
 
+  <!-- 照準マーカー：photo-containerの外・画面固定で表示 -->
+  <div id="aim-marker">
+    <div class="aim-label" id="aim-label">ここに置く</div>
+    <div class="aim-circle">
+      <div class="aim-h"></div>
+      <div class="aim-v"></div>
+      <div class="aim-dot"></div>
+    </div>
+    <div class="aim-stem"></div>
+  </div>
+
   <div id="photo-container">
     <img id="user-photo" alt="">
-    <!-- 照準マーカー：タップ中に指の上に表示 -->
-    <div id="aim-marker">
-      <div class="aim-label" id="aim-label">ここに置く</div>
-      <div class="aim-circle">
-        <div class="aim-h"></div>
-        <div class="aim-v"></div>
-        <div class="aim-dot"></div>
-      </div>
-      <div class="aim-stem"></div>
-    </div>
     <div class="earring" id="left-earring"  style="display:none"></div>
     <div class="earring" id="right-earring" style="display:none"></div>
   </div>
@@ -729,20 +732,24 @@ function resetPhotoTransform() {
 var aimMarker  = document.getElementById('aim-marker');
 var aimLabel   = document.getElementById('aim-label');
 var AIM_OFFSET = 100; /* 指の上方向へのオフセット（px） */
-var aimX = 0, aimY = 0; /* マーカーが指す実際の配置座標（container内） */
+var aimContainerX = 0, aimContainerY = 0; /* 配置用コンテナ内座標 */
 
-function showAim(touchClientX, touchClientY) {
+function showAim(clientX, clientY) {
+  /* コンテナ内での配置座標を記録（ピアス配置に使用） */
   var rect = photoContainer.getBoundingClientRect();
-  aimX = touchClientX - rect.left;
-  aimY = touchClientY - rect.top;
-  /* マーカーを指の AIM_OFFSET px 上に表示 */
-  var markerTop = aimY - AIM_OFFSET;
-  aimMarker.style.left    = aimX + 'px';
-  aimMarker.style.top     = Math.max(0, markerTop) + 'px';
+  aimContainerX = clientX - rect.left;
+  aimContainerY = clientY - rect.top;
+
+  /* マーカーは画面固定（position:fixed）で指の上に表示 */
+  var topPos = Math.max(54, clientY - AIM_OFFSET); /* ヘッダー下限54px */
+  aimMarker.style.left    = clientX + 'px';
+  aimMarker.style.top     = topPos + 'px';
   aimMarker.style.display = '';
-  /* はみ出し防止：画面上端付近ではラベルを下に逃がす */
-  aimLabel.style.bottom   = markerTop < 20 ? 'auto' : '';
-  aimLabel.style.top      = markerTop < 20 ? 'calc(100% + 4px)' : '';
+
+  /* 上端ギリギリのときラベルを下に移す */
+  var tooHigh = (clientY - AIM_OFFSET) < 54;
+  aimLabel.style.bottom = tooHigh ? 'auto' : '';
+  aimLabel.style.top    = tooHigh ? 'calc(100% + 4px)' : '';
 }
 function hideAim() { aimMarker.style.display = 'none'; }
 
@@ -804,7 +811,7 @@ photoContainer.addEventListener('touchend', function(e) {
   if (placingStep < 2) {
     /* 指を離した瞬間に照準マーカーの位置へ配置 */
     hideAim();
-    placeEarringAt(aimX, aimY);
+    placeEarringAt(aimContainerX, aimContainerY);
     placingTouchId = null;
     return;
   }
@@ -852,7 +859,7 @@ document.addEventListener('mouseup', function(e) {
   if (!mouseDown) return;
   if (mouseAiming) {
     hideAim();
-    placeEarringAt(aimX, aimY);
+    placeEarringAt(aimContainerX, aimContainerY);
   }
   mouseDown = false; mouseAiming = false;
 });
