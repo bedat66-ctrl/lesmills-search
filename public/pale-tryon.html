@@ -75,6 +75,7 @@ header {
   display:block; width:100%; height:100%; object-fit:contain;
   pointer-events:none; user-select:none; -webkit-user-drag:none;
   transform-origin:center center;
+  will-change:transform; /* GPU合成レイヤーに昇格して滑らかに */
 }
 
 /* ── 照準マーカー（指の上に浮かぶ） ── */
@@ -753,79 +754,142 @@ function showAim(clientX, clientY) {
 }
 function hideAim() { aimMarker.style.display = 'none'; }
 
-/* タッチ処理 */
-var photoTouchId = null, pinchData = null;
-var photoX0 = 0, photoY0 = 0, photoDragPX = 0, photoDragPY = 0;
-var placingTouchId = null; /* 配置用に追跡するタッチ */
+/* ── タッチ処理 ── */
+var placingTouchId = null;
+var panTouchId     = null;
+var panStartX = 0, panStartY = 0, panPhotoX0 = 0, panPhotoY0 = 0;
+var pinchData  = null;
+var rafPending = false;
 
+/* requestAnimationFrameで描画を1フレームにまとめてガタつきを防ぐ */
+function scheduleTransform() {
+  if (rafPending) return;
+  rafPending = true;
+  requestAnimationFrame(function() {
+    rafPending = false;
+    applyPhotoTransform();
+  });
+}
+
+/* ── touchstart ── */
 photoContainer.addEventListener('touchstart', function(e) {
   if (e.target.closest('.earring')) return;
   e.preventDefault();
 
-  if (placingStep < 2 && e.touches.length === 1) {
-    /* ── 配置モード：照準マーカーを表示 ── */
-    placingTouchId = e.touches[0].identifier;
-    showAim(e.touches[0].clientX, e.touches[0].clientY);
-    return; /* パンは行わない */
+  /* 配置モード：1本指で照準 */
+  if (placingStep < 2) {
+    if (e.touches.length === 1) {
+      placingTouchId = e.touches[0].identifier;
+      showAim(e.touches[0].clientX, e.touches[0].clientY);
+    }
+    return;
   }
 
-  /* ── 試着モード：パン＆ピンチ ── */
+  /* 試着モード：パン＆ピンチ */
   if (e.touches.length === 1) {
-    photoTouchId = e.touches[0].identifier;
-    photoDragPX  = e.touches[0].clientX; photoDragPY = e.touches[0].clientY;
-    photoX0 = photoX; photoY0 = photoY; pinchData = null;
-  } else if (e.touches.length === 2) {
+    panTouchId = e.touches[0].identifier;
+    panStartX  = e.touches[0].clientX;
+    panStartY  = e.touches[0].clientY;
+    panPhotoX0 = photoX;
+    panPhotoY0 = photoY;
+    pinchData  = null;
+
+  } else if (e.touches.length >= 2) {
+    /* ピンチ開始：2本指の中心点を基点として保存 */
     var t0 = e.touches[0], t1 = e.touches[1];
-    pinchData = { dist: Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY), scale: photoScale };
+    var rect = photoContainer.getBoundingClientRect();
+    var cW   = photoContainer.offsetWidth;
+    var cH   = photoContainer.offsetHeight;
+    var midX = (t0.clientX + t1.clientX) / 2 - rect.left;
+    var midY = (t0.clientY + t1.clientY) / 2 - rect.top;
+
+    pinchData = {
+      startDist:  Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY),
+      startScale: photoScale,
+      /* ピンチ基点：画像座標系（画像中心からの相対位置） */
+      pivotImgX: (midX - cW / 2 - photoX) / photoScale,
+      pivotImgY: (midY - cH / 2 - photoY) / photoScale,
+    };
   }
 }, { passive:false });
 
+/* ── touchmove ── */
 photoContainer.addEventListener('touchmove', function(e) {
   e.preventDefault();
 
+  /* 配置モード：照準マーカーを追従 */
   if (placingStep < 2) {
-    /* 配置モード：照準マーカーを追従 */
     var arr = Array.from(e.touches);
     var t = arr.find(function(t){ return t.identifier === placingTouchId; });
     if (t) showAim(t.clientX, t.clientY);
     return;
   }
 
-  /* 試着モード：パン＆ピンチ */
+  /* 試着モード */
   if (e.touches.length >= 2 && pinchData) {
+    /* ──── ピンチ：中心点を基点に拡大縮小 ──── */
     var t0 = e.touches[0], t1 = e.touches[1];
-    var dist = Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY);
-    photoScale = Math.max(0.3, Math.min(4, pinchData.scale * dist / pinchData.dist));
-  } else if (e.touches.length === 1 && photoTouchId !== null) {
-    var arr2 = Array.from(e.touches);
-    var touch = arr2.find(function(t){ return t.identifier === photoTouchId; });
+    var rect = photoContainer.getBoundingClientRect();
+    var cW   = photoContainer.offsetWidth;
+    var cH   = photoContainer.offsetHeight;
+
+    var newDist  = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+    var newScale = Math.max(0.25, Math.min(6,
+                    pinchData.startScale * newDist / pinchData.startDist));
+
+    /* 現在の2本指中心点（コンテナ中央基準） */
+    var curMidX = (t0.clientX + t1.clientX) / 2 - rect.left - cW / 2;
+    var curMidY = (t0.clientY + t1.clientY) / 2 - rect.top  - cH / 2;
+
+    /*
+     * 基点がズームで動かないようにphotoX/Yを補正
+     * 式: curMid = photoXY_new + pivot * newScale
+     *     ∴ photoXY_new = curMid - pivot * newScale
+     */
+    photoScale = newScale;
+    photoX     = curMidX - pinchData.pivotImgX * newScale;
+    photoY     = curMidY - pinchData.pivotImgY * newScale;
+
+  } else if (e.touches.length === 1 && panTouchId !== null && !pinchData) {
+    /* ──── 1本指パン ──── */
+    var arr2  = Array.from(e.touches);
+    var touch = arr2.find(function(t){ return t.identifier === panTouchId; });
     if (touch) {
-      photoX = photoX0 + touch.clientX - photoDragPX;
-      photoY = photoY0 + touch.clientY - photoDragPY;
+      photoX = panPhotoX0 + touch.clientX - panStartX;
+      photoY = panPhotoY0 + touch.clientY - panStartY;
     }
   }
-  applyPhotoTransform();
+
+  scheduleTransform();
 }, { passive:false });
 
+/* ── touchend / touchcancel ── */
 photoContainer.addEventListener('touchend', function(e) {
   if (placingStep < 2) {
-    /* 指を離した瞬間に照準マーカーの位置へ配置 */
     hideAim();
     placeEarringAt(aimContainerX, aimContainerY);
     placingTouchId = null;
     return;
   }
-  if (e.touches.length === 0) { photoTouchId = null; pinchData = null; }
-  else if (e.touches.length === 1) {
-    pinchData    = null;
-    photoTouchId = e.touches[0].identifier;
-    photoDragPX  = e.touches[0].clientX; photoDragPY = e.touches[0].clientY;
-    photoX0 = photoX; photoY0 = photoY;
+  /* ピンチ → 1本指に戻ったらパン再開 */
+  if (e.touches.length === 1) {
+    pinchData  = null;
+    panTouchId = e.touches[0].identifier;
+    panStartX  = e.touches[0].clientX;
+    panStartY  = e.touches[0].clientY;
+    panPhotoX0 = photoX;
+    panPhotoY0 = photoY;
+  } else if (e.touches.length === 0) {
+    panTouchId = null;
+    pinchData  = null;
   }
 });
 
 photoContainer.addEventListener('touchcancel', function() {
-  hideAim(); placingTouchId = null;
+  hideAim();
+  placingTouchId = null;
+  panTouchId     = null;
+  pinchData      = null;
 });
 
 /* マウス（PC確認用） */
