@@ -4,104 +4,130 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>PALE — ピアス試着シミュレーター</title>
-<meta name="description" content="自分の写真でPALEのピアスを試着。サイズ・色・形を確認してから購入できます。">
-<meta property="og:title" content="PALE ピアス試着シミュレーター">
-<meta property="og:description" content="自分の写真でピアスを試着できます。顔の幅に合わせてサイズも自動調整。購入前に全身バランスも確認できます。">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="ja_JP">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PALE ピアス試着シミュレーター">
-<meta name="twitter:description" content="自分の写真でピアスを試着できます。顔の幅に合わせてサイズも自動調整。">
+<meta name="description" content="自分の写真でPALEのピアスを試着。耳の位置を指定するだけで自動で付きます。">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --black: #0a0908; --dark: #1c1a18; --beige: #ede6dc;
-    --sand: #c8b99a;  --text: #2a2826;  --muted: #7a7370;
-  }
-  body { background:#f5f0ea; font-family:'Noto Sans JP',sans-serif; font-weight:300; min-height:100vh; display:flex; flex-direction:column; }
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --black:#0a0908; --dark:#1c1a18; --beige:#ede6dc;
+  --sand:#c8b99a;  --text:#2a2826;  --muted:#7a7370;
+  --cream:#faf8f5; --line:#e8e0d4;
+  --marker:#e05a5a;
+}
+body { background:var(--cream); font-family:'Noto Sans JP',sans-serif; font-weight:300; min-height:100vh; display:flex; flex-direction:column; }
 
-  /* ── Header ── */
-  header { background:var(--black); padding:16px 24px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
-  .logo { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:22px; letter-spacing:0.55em; padding-left:0.55em; color:var(--beige); }
-  .header-sub { font-size:10px; letter-spacing:0.2em; color:var(--sand); text-transform:uppercase; }
+/* ── Header ── */
+header { background:var(--black); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.logo { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:20px; letter-spacing:0.55em; padding-left:0.55em; color:var(--beige); }
+.header-sub { font-size:10px; letter-spacing:0.2em; color:var(--sand); text-transform:uppercase; }
 
-  /* ── Step 1 ── */
-  #step1 { flex:1; overflow-y:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px; gap:28px; }
-  .pearl-deco { width:56px; height:56px; border-radius:50%; background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590); box-shadow:1px 3px 6px rgba(0,0,0,0.22); }
-  .page-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:22px; letter-spacing:0.12em; color:var(--text); text-align:center; }
-  .page-title span { display:block; font-family:'Noto Sans JP',sans-serif; font-size:12px; letter-spacing:0.1em; color:var(--muted); margin-top:6px; }
-  .privacy-box { background:var(--beige); border-left:3px solid var(--sand); padding:16px 20px; border-radius:0 4px 4px 0; width:100%; max-width:400px; }
-  .privacy-title { font-size:10px; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
-  .privacy-box p { font-size:13px; color:var(--text); line-height:1.9; }
-  .privacy-box strong { font-weight:400; color:var(--black); }
-  .upload-btn { display:block; width:100%; max-width:280px; padding:18px; background:var(--dark); color:var(--beige); text-align:center; font-family:'Cormorant Garamond',serif; font-size:18px; letter-spacing:0.25em; border-radius:4px; cursor:pointer; }
-  .upload-hint { font-size:12px; color:var(--muted); text-align:center; line-height:1.8; }
+/* ── Step 1: Upload ── */
+#step1 { flex:1; overflow-y:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px 24px; gap:24px; }
+.pearl-deco { width:50px; height:50px; border-radius:50%; background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590); box-shadow:1px 3px 6px rgba(0,0,0,0.22); }
+.page-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:22px; letter-spacing:0.12em; color:var(--text); text-align:center; }
+.page-title span { display:block; font-family:'Noto Sans JP',sans-serif; font-size:12px; letter-spacing:0.08em; color:var(--muted); margin-top:6px; line-height:1.7; }
 
-  /* ── Step 2 ── */
-  #step2 { position:fixed; top:0; left:0; right:0; bottom:0; display:none; flex-direction:column; align-items:center; overflow:hidden; background:#f5f0ea; z-index:200; }
-  .instruction-bar { width:100%; background:var(--dark); color:var(--sand); text-align:center; padding:10px 16px; font-size:12px; letter-spacing:0.08em; }
+/* How-to steps */
+.howto { width:100%; max-width:380px; display:flex; flex-direction:column; gap:10px; }
+.howto-step { display:flex; align-items:flex-start; gap:12px; }
+.step-num { flex-shrink:0; width:24px; height:24px; border-radius:50%; background:var(--sand); color:#fff; font-size:11px; font-weight:400; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.step-text { font-size:12px; color:var(--text); line-height:1.7; }
+.step-text strong { font-weight:400; color:var(--dark); }
 
-  /* Photo area */
-  #photo-container { position:relative; width:100%; max-width:540px; height:440px; background:#111; touch-action:none; user-select:none; flex-shrink:0; overflow:hidden; }
-  #user-photo { display:block; width:100%; height:100%; object-fit:contain; pointer-events:none; user-select:none; -webkit-user-drag:none; transform-origin:center center; transition:none; }
+.privacy-box { background:var(--beige); border-left:3px solid var(--sand); padding:14px 18px; border-radius:0 4px 4px 0; width:100%; max-width:380px; font-size:12px; color:var(--text); line-height:1.9; }
+.upload-btn { display:block; width:100%; max-width:260px; padding:17px; background:var(--dark); color:var(--beige); text-align:center; font-family:'Cormorant Garamond',serif; font-size:18px; letter-spacing:0.25em; border-radius:4px; cursor:pointer; }
 
-  /* Earring */
-  .earring { position:absolute; cursor:grab; touch-action:none; user-select:none; transform:translate(-50%,-50%); z-index:10; }
-  .earring.dragging { cursor:grabbing; }
+/* ── Step 2: Mark + Try ── */
+#step2 { position:fixed; top:0; left:0; right:0; bottom:0; display:none; flex-direction:column; align-items:center; background:var(--cream); z-index:200; overflow:hidden; }
 
+/* Instruction bar */
+.instr-bar { width:100%; background:var(--dark); color:var(--sand); text-align:center; padding:10px 16px; font-size:12px; letter-spacing:0.08em; flex-shrink:0; }
+.instr-bar.marking { background:var(--marker); color:#fff; }
 
-  /* ── Controls ── */
-  .controls-panel { width:100%; max-width:540px; background:#fff; border-top:1px solid var(--beige); flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; }
-  .ctrl-section { padding:16px 20px; border-bottom:1px solid #f0ebe3; }
-  .ctrl-title { font-size:10px; letter-spacing:0.22em; color:var(--muted); text-transform:uppercase; margin-bottom:14px; }
+/* Photo container */
+#photo-container { position:relative; width:100%; max-width:540px; flex-shrink:0; background:#111; touch-action:none; user-select:none; overflow:hidden; }
+#user-photo { display:block; width:100%; height:100%; object-fit:contain; pointer-events:none; user-select:none; -webkit-user-drag:none; transform-origin:center center; }
 
-  /* Shape buttons */
-  .shape-row { display:flex; gap:8px; flex-wrap:wrap; }
-  .shape-btn { display:flex; flex-direction:column; align-items:center; gap:5px; padding:8px 10px; background:var(--beige); border:none; border-radius:4px; cursor:pointer; min-width:52px; }
-  .shape-btn.active { background:var(--dark); }
-  .shape-btn .sh-label { font-size:10px; color:var(--muted); letter-spacing:0.04em; }
-  .shape-btn.active .sh-label { color:var(--sand); }
+/* ── Ear Markers ── */
+.ear-marker {
+  position:absolute; width:28px; height:28px;
+  transform:translate(-50%,-50%);
+  cursor:grab; touch-action:none; user-select:none;
+  z-index:20;
+}
+.ear-marker.dragging { cursor:grabbing; }
+.marker-ring {
+  position:absolute; inset:0; border-radius:50%;
+  border:2.5px solid var(--marker);
+  background:rgba(224,90,90,0.18);
+  transition:transform 0.15s;
+}
+.marker-cross-h, .marker-cross-v {
+  position:absolute; background:var(--marker); border-radius:1px;
+}
+.marker-cross-h { width:12px; height:1.5px; top:50%; left:50%; transform:translate(-50%,-50%); }
+.marker-cross-v { width:1.5px; height:12px; top:50%; left:50%; transform:translate(-50%,-50%); }
+.marker-label {
+  position:absolute; bottom:-18px; left:50%; transform:translateX(-50%);
+  font-size:9px; color:var(--marker); white-space:nowrap; letter-spacing:0.05em;
+}
 
-  /* Color buttons */
-  .color-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
-  .color-btn { width:32px; height:32px; border-radius:50%; border:2.5px solid transparent; cursor:pointer; padding:0; transition:border-color 0.15s; outline:none; }
-  .color-btn.active { border-color:var(--dark); box-shadow:0 0 0 1.5px var(--sand); }
-  .color-name { font-size:11px; color:var(--muted); margin-left:4px; }
+/* ── Earrings ── */
+.earring { position:absolute; cursor:grab; touch-action:none; user-select:none; transform:translate(-50%,-50%); z-index:10; }
+.earring.dragging { cursor:grabbing; }
 
-  /* Size slider */
-  .ctrl-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
-  .ctrl-label { font-size:11px; letter-spacing:0.1em; color:var(--muted); min-width:56px; }
-  input[type=range] { flex:1; accent-color:var(--sand); cursor:pointer; }
-  .size-dot-wrap { min-width:40px; display:flex; align-items:center; justify-content:center; }
-  .size-dot { border-radius:50%; box-shadow:1px 2px 3px rgba(0,0,0,0.22); }
+/* ── Marking Panel ── */
+#mark-panel { width:100%; max-width:540px; background:#fff; flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px 20px; gap:16px; }
+.mark-guide { text-align:center; max-width:300px; }
+.mark-guide .guide-icon { font-size:28px; color:var(--marker); margin-bottom:10px; }
+.mark-guide p { font-size:13px; color:var(--text); line-height:1.9; }
+.mark-guide p strong { font-weight:400; color:var(--dark); }
 
-  /* Real size */
-  .realsize-row { display:flex; gap:12px; margin-bottom:12px; }
-  .realsize-field { flex:1; }
-  .realsize-field label { display:block; font-size:10px; letter-spacing:0.15em; color:var(--muted); margin-bottom:5px; text-transform:uppercase; }
-  .input-unit { display:flex; align-items:center; gap:6px; }
-  .input-unit input[type=number] { flex:1; padding:8px 10px; border:1px solid #ddd5c8; border-radius:3px; font-size:16px; font-family:'Cormorant Garamond',serif; color:var(--text); background:#faf8f5; -moz-appearance:textfield; min-width:0; }
-  .input-unit input[type=number]::-webkit-inner-spin-button,
-  .input-unit input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; }
-  .unit-label { font-size:12px; color:var(--muted); flex-shrink:0; }
-  .realsize-note { font-size:11px; color:var(--muted); line-height:1.8; margin-bottom:12px; }
-  .auto-btn { width:100%; padding:13px; background:var(--dark); color:var(--beige); border:none; border-radius:4px; font-family:'Noto Sans JP',sans-serif; font-size:13px; letter-spacing:0.12em; cursor:pointer; }
-  .auto-btn:active { opacity:0.8; }
-  .realsize-result { font-size:11px; color:var(--muted); text-align:center; margin-top:10px; min-height:16px; line-height:1.7; }
+/* ── Trying Panel ── */
+#try-panel { width:100%; max-width:540px; background:#fff; border-top:1px solid var(--beige); flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; display:flex; flex-direction:column; }
 
-  /* Actions */
-  .action-row { display:flex; gap:10px; padding:16px 20px; }
-  .btn { flex:1; padding:13px 8px; border:none; border-radius:4px; font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:300; letter-spacing:0.1em; cursor:pointer; }
-  .btn:active { opacity:0.7; }
-  .btn-dark { background:var(--dark); color:var(--beige); }
-  .btn-light { background:var(--beige); color:var(--text); }
+/* Product gallery */
+.gallery-header { padding:12px 16px 6px; font-size:10px; letter-spacing:0.25em; color:var(--muted); text-transform:uppercase; flex-shrink:0; }
+.product-gallery { display:flex; gap:10px; overflow-x:auto; padding:6px 16px 14px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; flex-shrink:0; scrollbar-width:none; }
+.product-gallery::-webkit-scrollbar { display:none; }
 
-  .save-hint { width:100%; max-width:540px; background:#f0ebe3; text-align:center; padding:12px; font-size:11px; color:var(--muted); letter-spacing:0.06em; line-height:1.8; }
+.product-card {
+  flex-shrink:0; width:76px; scroll-snap-align:start;
+  background:var(--cream); border-radius:8px; padding:10px 6px 8px;
+  border:2px solid transparent; cursor:pointer; text-align:center;
+  transition:border-color 0.15s;
+}
+.product-card.active { border-color:var(--dark); background:#fff; }
+.product-card:hover:not(.active) { border-color:var(--sand); }
+.product-thumb { height:38px; display:flex; align-items:center; justify-content:center; margin-bottom:6px; }
+.product-name { font-size:10px; color:var(--text); line-height:1.5; letter-spacing:0.02em; }
+.product-price { font-size:10px; color:var(--muted); margin-top:2px; font-family:'Cormorant Garamond',serif; }
 
-  footer { background:var(--black); padding:22px; text-align:center; margin-top:auto; flex-shrink:0; }
-  footer .logo-f { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:18px; letter-spacing:0.55em; padding-left:0.55em; color:var(--sand); margin-bottom:5px; }
-  footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
+/* Controls panel */
+.controls-panel { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.ctrl-section { padding:14px 18px; border-bottom:1px solid #f0ebe3; }
+.ctrl-title { font-size:10px; letter-spacing:0.22em; color:var(--muted); text-transform:uppercase; margin-bottom:12px; }
+.ctrl-row { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.ctrl-label { font-size:11px; letter-spacing:0.08em; color:var(--muted); min-width:52px; }
+input[type=range] { flex:1; accent-color:var(--sand); cursor:pointer; }
+.size-dot-wrap { min-width:38px; display:flex; align-items:center; justify-content:center; }
+.size-dot { border-radius:50%; box-shadow:1px 2px 3px rgba(0,0,0,0.22); }
+#zoom-label { min-width:36px; font-size:12px; color:var(--muted); text-align:right; }
+
+/* Buttons */
+.btn-row { display:flex; gap:8px; padding:14px 18px; }
+.abtn { flex:1; padding:11px 8px; border:none; border-radius:4px; font-family:'Noto Sans JP',sans-serif; font-size:12px; font-weight:300; letter-spacing:0.08em; cursor:pointer; }
+.abtn:active { opacity:0.75; }
+.abtn-dark { background:var(--dark); color:var(--beige); }
+.abtn-light { background:var(--beige); color:var(--text); }
+.abtn-wide { display:block; width:calc(100% - 36px); margin:0 18px 14px; padding:13px; background:var(--dark); color:var(--beige); border:none; border-radius:4px; font-family:'Noto Sans JP',sans-serif; font-size:13px; letter-spacing:0.12em; cursor:pointer; }
+.abtn-wide:active { opacity:0.8; }
+
+.save-hint { background:#f0ebe3; text-align:center; padding:12px; font-size:11px; color:var(--muted); letter-spacing:0.04em; line-height:1.9; }
+
+footer { background:var(--black); padding:20px; text-align:center; margin-top:auto; flex-shrink:0; }
+footer .logo-f { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:18px; letter-spacing:0.55em; padding-left:0.55em; color:var(--sand); margin-bottom:4px; }
+footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
 </style>
 </head>
 <body>
@@ -111,184 +137,114 @@
   <div class="header-sub">Try-On</div>
 </header>
 
-<!-- ── Step 1 ── -->
+<!-- ── STEP 1: Upload ── -->
 <div id="step1">
   <div class="pearl-deco"></div>
   <div class="page-title">
     試着シミュレーター
-    <span>自分の写真でピアスのサイズ感・色・形を<br>購入前に確認できます</span>
+    <span>自分の写真でピアスのつき方を確認できます</span>
   </div>
 
-  <!-- 使い方3ステップ -->
-  <div style="width:100%;max-width:400px;display:flex;justify-content:center;gap:0;margin:0 0 24px;padding:0 20px;">
-    <div style="flex:1;text-align:center;">
-      <div style="font-size:22px;margin-bottom:6px;">📷</div>
-      <div style="font-size:11px;font-weight:400;letter-spacing:0.08em;color:var(--text);">① 写真を選ぶ</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">自撮り・全身<br>どちらでもOK</div>
+  <div class="howto">
+    <div class="howto-step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>写真をアップ</strong><br>正面向きの顔写真がおすすめ</div>
     </div>
-    <div style="flex:0;display:flex;align-items:center;padding:0 4px;color:var(--sand);font-size:16px;padding-bottom:18px;">›</div>
-    <div style="flex:1;text-align:center;">
-      <div style="font-size:22px;margin-bottom:6px;">💎</div>
-      <div style="font-size:11px;font-weight:400;letter-spacing:0.08em;color:var(--text);">② ピアスを合わせる</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">サイズ・色・形を<br>自由に調整</div>
+    <div class="howto-step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>耳の位置を合わせる</strong><br>◎ マークを両耳にドラッグ</div>
     </div>
-    <div style="flex:0;display:flex;align-items:center;padding:0 4px;color:var(--sand);font-size:16px;padding-bottom:18px;">›</div>
-    <div style="flex:1;text-align:center;">
-      <div style="font-size:22px;margin-bottom:6px;">🪞</div>
-      <div style="font-size:11px;font-weight:400;letter-spacing:0.08em;color:var(--text);">③ 全身で確認</div>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5;">髪型・洋服との<br>バランスも見える</div>
+    <div class="howto-step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>商品をタップ</strong><br>耳の位置にピアスが自動で付きます</div>
     </div>
   </div>
 
   <div class="privacy-box">
-    <div class="privacy-title">プライバシーについて</div>
-    <p>アップロードした写真は<strong>お客様のデバイス内のみ</strong>で処理されます。PALEには一切送信・保存されません。ページを閉じると完全に消えます。</p>
+    写真は<strong>お客様のデバイス内のみ</strong>で処理されます。PALEには送信・保存されません。
   </div>
   <label for="photo-input" class="upload-btn">写真を選ぶ</label>
-  <input type="file" id="photo-input" accept="image/*" style="display:none">
-  <p class="upload-hint">正面向きの顔写真がおすすめです<br>カメラロール・自撮りどちらでもOK</p>
 </div>
 
-<!-- ── Step 2 ── -->
+<input type="file" id="photo-input" accept="image/*" style="display:none">
+
+<!-- ── STEP 2: Mark + Try ── -->
 <div id="step2">
-  <div class="instruction-bar">ピアスを指でドラッグ → 耳の位置に合わせてください</div>
+
+  <div class="instr-bar marking" id="instr-bar">◎ を両耳の付け根にドラッグしてください</div>
 
   <div id="photo-container">
     <img id="user-photo" alt="">
+    <!-- Ear markers -->
+    <div class="ear-marker" id="left-marker">
+      <div class="marker-ring"></div>
+      <div class="marker-cross-h"></div>
+      <div class="marker-cross-v"></div>
+      <div class="marker-label">左耳</div>
+    </div>
+    <div class="ear-marker" id="right-marker">
+      <div class="marker-ring"></div>
+      <div class="marker-cross-h"></div>
+      <div class="marker-cross-v"></div>
+      <div class="marker-label">右耳</div>
+    </div>
+    <!-- Earrings -->
     <div class="earring" id="left-earring"></div>
     <div class="earring" id="right-earring"></div>
   </div>
 
-  <div class="controls-panel">
+  <!-- MARKING PANEL -->
+  <div id="mark-panel">
+    <div class="mark-guide">
+      <div class="guide-icon">◎</div>
+      <p>赤い ◎ を左右の<strong>耳たぶの付け根</strong>に<br>それぞれドラッグしてください</p>
+    </div>
+    <button class="abtn-wide" id="confirm-btn">確定して商品を選ぶ →</button>
+    <div class="btn-row" style="padding-top:0;">
+      <button class="abtn abtn-light" id="change-btn-mark">別の写真</button>
+    </div>
+  </div>
 
-    <!-- 実寸調整 -->
-    <div class="ctrl-section">
-      <div class="ctrl-title">実寸調整</div>
-      <p class="realsize-note">顔の横幅とピアスのサイズを入力して「自動調整」を押すと、実際の大きさに近い表示になります。</p>
-      <div class="realsize-row">
-        <div class="realsize-field">
-          <label>顔の横幅</label>
-          <div class="input-unit">
-            <input type="number" id="face-width-input" value="14" min="10" max="25" step="0.5">
-            <span class="unit-label">cm</span>
-          </div>
-        </div>
-        <div class="realsize-field">
-          <label>ピアスのサイズ</label>
-          <div class="input-unit">
-            <input type="number" id="earring-mm-input" value="3" min="1" max="30" step="0.5">
-            <span class="unit-label">mm</span>
-          </div>
+  <!-- TRYING PANEL -->
+  <div id="try-panel" style="display:none; flex-direction:column; flex:1; overflow:hidden;">
+
+    <div class="gallery-header">商品を選んでタップ — 耳に自動で付きます</div>
+    <div class="product-gallery" id="product-gallery"></div>
+
+    <div class="controls-panel">
+
+      <div class="ctrl-section">
+        <div class="ctrl-title">サイズ微調整</div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">大きさ</span>
+          <input type="range" id="size-slider" min="8" max="60" value="22">
+          <div class="size-dot-wrap"><div class="size-dot" id="size-dot" style="width:22px;height:22px;"></div></div>
         </div>
       </div>
-      <button class="auto-btn" id="auto-btn">実寸に自動調整</button>
-      <div class="realsize-result" id="realsize-result"></div>
-    </div>
 
-    <!-- 写真の調整 -->
-    <div class="ctrl-section">
-      <div class="ctrl-title">写真の調整</div>
-      <div class="ctrl-row">
-        <div class="ctrl-label">拡大・縮小</div>
-        <input type="range" id="photo-zoom-slider" min="20" max="300" value="100">
-        <div style="min-width:36px;font-size:12px;color:var(--muted);text-align:right;" id="zoom-label">100%</div>
+      <div class="ctrl-section">
+        <div class="ctrl-title">写真の調整</div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">拡大縮小</span>
+          <input type="range" id="photo-zoom-slider" min="20" max="300" value="100">
+          <div id="zoom-label">100%</div>
+        </div>
+        <p style="font-size:11px;color:var(--muted);line-height:1.7;margin-top:4px;">写真をドラッグして移動できます。2本指ピンチで拡大縮小。</p>
       </div>
-      <p class="realsize-note" style="margin-top:4px;">写真をドラッグして位置を動かせます。スマホは2本指ピンチでも拡大縮小できます。</p>
-      <button class="auto-btn" id="lock-btn" style="margin-top:10px;">ピアスを写真に固定する</button>
-      <p class="realsize-note" style="margin-top:6px;" id="lock-hint">固定後に写真を縮小すると、ピアスをつけたまま全体像を確認できます。</p>
-    </div>
 
-    <!-- 形 -->
-    <div class="ctrl-section">
-      <div class="ctrl-title">形</div>
-      <div class="shape-row" id="shape-row">
-        <button class="shape-btn active" data-shape="circle">
-          <div style="width:20px;height:20px;border-radius:50%;background:var(--sand);"></div>
-          <span class="sh-label">丸</span>
-        </button>
-        <button class="shape-btn" data-shape="oval">
-          <div style="width:9px;height:20px;border-radius:50%;background:var(--sand);"></div>
-          <span class="sh-label">オーバル</span>
-        </button>
-        <button class="shape-btn" data-shape="drop">
-          <div style="width:12px;height:22px;border-radius:50% 50% 45% 45% / 28% 28% 72% 72%;background:var(--sand);"></div>
-          <span class="sh-label">ドロップ</span>
-        </button>
-        <button class="shape-btn" data-shape="hoop">
-          <div style="width:20px;height:20px;border-radius:50%;border:3.5px solid var(--sand);background:transparent;"></div>
-          <span class="sh-label">フープ</span>
-        </button>
-        <button class="shape-btn" data-shape="square">
-          <div style="width:20px;height:20px;border-radius:3px;background:var(--sand);"></div>
-          <span class="sh-label">スクエア</span>
-        </button>
-        <button class="shape-btn" data-shape="rounded">
-          <div style="width:20px;height:20px;border-radius:30%;background:var(--sand);"></div>
-          <span class="sh-label">角丸</span>
-        </button>
-        <button class="shape-btn" data-shape="teardrop">
-          <div style="width:15px;height:20px;border-radius:50% 50% 48% 48% / 36% 36% 64% 64%;background:var(--sand);"></div>
-          <span class="sh-label">雫</span>
-        </button>
+      <div class="btn-row">
+        <button class="abtn abtn-light" id="remark-btn">耳の位置を修正</button>
+        <button class="abtn abtn-light" id="change-btn-try">別の写真</button>
       </div>
-    </div>
 
-    <!-- 色 -->
-    <div class="ctrl-section">
-      <div class="ctrl-title">色</div>
-      <div class="color-row" id="color-row">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-          <button class="color-btn active" data-color="white"
-            style="background:radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590);"></button>
-          <span class="color-name">ホワイト</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-          <button class="color-btn" data-color="pink"
-            style="background:radial-gradient(circle at 40% 38%, #ecddd8, #d4b8b2 45%, #b89890 72%, #927570);"></button>
-          <span class="color-name">ピンク</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-          <button class="color-btn" data-color="gray"
-            style="background:radial-gradient(circle at 40% 38%, #c5c2bf, #a5a2a0 45%, #858280 72%, #656260);"></button>
-          <span class="color-name">グレー</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-          <button class="color-btn" data-color="gold"
-            style="background:radial-gradient(circle at 40% 38%, #e0d098, #c4b060 45%, #a89040 72%, #8a7230);"></button>
-          <span class="color-name">ゴールド</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-          <button class="color-btn" data-color="black"
-            style="background:radial-gradient(circle at 40% 38%, #525050, #323030 45%, #201e1e 72%, #100e0e);"></button>
-          <span class="color-name">ブラック</span>
-        </div>
+      <div class="save-hint">
+        スクリーンショットで保存できます<br>
+        <span style="font-size:10px;">iPhone: サイドボタン＋音量上　Android: 電源ボタン＋音量下</span>
       </div>
-    </div>
 
-    <!-- 手動サイズ -->
-    <div class="ctrl-section">
-      <div class="ctrl-title">表示サイズ（手動）</div>
-      <div class="ctrl-row">
-        <div class="ctrl-label">大きさ</div>
-        <input type="range" id="size-slider" min="8" max="60" value="22">
-        <div class="size-dot-wrap">
-          <div class="size-dot" id="size-dot" style="width:22px;height:22px;"></div>
-        </div>
-      </div>
     </div>
+  </div>
 
-    <!-- Actions -->
-    <div class="action-row">
-      <button class="btn btn-dark" id="change-btn">別の写真</button>
-    </div>
-
-    <!-- Save hint inside controls so it scrolls -->
-    <div style="background:#f0ebe3;text-align:center;padding:14px;font-size:11px;color:var(--muted);letter-spacing:0.06em;line-height:1.8;">
-      スクリーンショットで保存できます<br>
-      <span style="font-size:10px;">iPhone: サイドボタン＋音量上　Android: 電源ボタン＋音量下</span>
-    </div>
-
-  </div><!-- end controls-panel -->
 </div>
 
 <footer>
@@ -297,55 +253,49 @@
 </footer>
 
 <script>
-/* ── 定数 ── */
+/* ══ 定数 ══ */
 const COLORS = {
-  white: { bg:'radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
-  pink:  { bg:'radial-gradient(circle at 40% 38%, #ecddd8, #d4b8b2 45%, #b89890 72%, #927570)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
-  gray:  { bg:'radial-gradient(circle at 40% 38%, #c5c2bf, #a5a2a0 45%, #858280 72%, #656260)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
-  gold:  { bg:'radial-gradient(circle at 40% 38%, #e0d098, #c4b060 45%, #a89040 72%, #8a7230)', sh:'1px 2px 5px rgba(80,60,0,0.32)' },
-  black: { bg:'radial-gradient(circle at 40% 38%, #525050, #323030 45%, #201e1e 72%, #100e0e)', sh:'1px 2px 5px rgba(0,0,0,0.5)' }
+  white:{ bg:'radial-gradient(circle at 40% 38%, #e8e2db, #d0cac2 45%, #b5b0a8 72%, #9a9590)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
+  pink: { bg:'radial-gradient(circle at 40% 38%, #ecddd8, #d4b8b2 45%, #b89890 72%, #927570)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
+  gray: { bg:'radial-gradient(circle at 40% 38%, #c5c2bf, #a5a2a0 45%, #858280 72%, #656260)', sh:'1px 2px 5px rgba(0,0,0,0.28)' },
+  gold: { bg:'radial-gradient(circle at 40% 38%, #e0d098, #c4b060 45%, #a89040 72%, #8a7230)', sh:'1px 2px 5px rgba(80,60,0,0.32)' },
+  black:{ bg:'radial-gradient(circle at 40% 38%, #525050, #323030 45%, #201e1e 72%, #100e0e)', sh:'1px 2px 5px rgba(0,0,0,0.5)' }
 };
+const HOOP_COLORS = { white:'#b8b0a8', pink:'#c49090', gray:'#888', gold:'#b09030', black:'#303030' };
+
+/* 商品リスト（実際の商品が揃ったら画像URLを追加） */
+const PRODUCTS = [
+  { id:'p1', name:'パール\n丸 3mm', price:'¥1,200', shape:'circle', color:'white', sizePx:12 },
+  { id:'p2', name:'パール\n丸 5mm', price:'¥1,400', shape:'circle', color:'white', sizePx:20 },
+  { id:'p3', name:'パール\n丸 8mm', price:'¥1,600', shape:'circle', color:'white', sizePx:32 },
+  { id:'p4', name:'パール\nオーバル', price:'¥1,500', shape:'oval', color:'white', sizePx:24 },
+  { id:'p5', name:'パール\nドロップ', price:'¥1,600', shape:'drop', color:'white', sizePx:22 },
+  { id:'p6', name:'パール\nフープ', price:'¥1,800', shape:'hoop', color:'white', sizePx:28 },
+  { id:'p7', name:'ゴールド\nスタッド', price:'¥1,300', shape:'circle', color:'gold', sizePx:16 },
+  { id:'p8', name:'ピンク\nパール', price:'¥1,400', shape:'circle', color:'pink', sizePx:20 },
+];
 
 function shapeDims(shape, s) {
   switch(shape) {
     case 'oval':     return { w:s*0.52, h:s,      r:'50%' };
     case 'drop':     return { w:s*0.65, h:s*1.7,  r:'50% 50% 45% 45% / 28% 28% 72% 72%' };
     case 'hoop':     return { w:s*1.1,  h:s*1.1,  r:'50%', isHoop:true };
-    case 'square':   return { w:s,      h:s,      r:'3px' };
-    case 'rounded':  return { w:s,      h:s,      r:'30%' };
-    case 'teardrop': return { w:s*0.78, h:s*1.18, r:'50% 50% 48% 48% / 36% 36% 64% 64%' };
-    default:         return { w:s,      h:s,      r:'50%' }; // circle
+    case 'square':   return { w:s,      h:s,       r:'3px' };
+    case 'rounded':  return { w:s,      h:s,       r:'30%' };
+    case 'teardrop': return { w:s*0.78, h:s*1.18,  r:'50% 50% 48% 48% / 36% 36% 64% 64%' };
+    default:         return { w:s,      h:s,       r:'50%' };
   }
 }
 
-/* ── 要素 ── */
-const photoInput     = document.getElementById('photo-input');
-const step1          = document.getElementById('step1');
-const step2          = document.getElementById('step2');
-const userPhoto      = document.getElementById('user-photo');
-const photoContainer = document.getElementById('photo-container');
-const leftEarring    = document.getElementById('left-earring');
-const rightEarring   = document.getElementById('right-earring');
-const sizeSlider     = document.getElementById('size-slider');
-const sizeDot        = document.getElementById('size-dot');
-const changeBtn      = document.getElementById('change-btn');
-const faceWidthInput = document.getElementById('face-width-input');
-const earringMmInput = document.getElementById('earring-mm-input');
-const autoBtn        = document.getElementById('auto-btn');
-const realsizeResult = document.getElementById('realsize-result');
-
-let currentShape = 'circle';
-let currentColor = 'white';
-let earringPx    = 22;
-
-/* ── スタイル適用ヘルパー ── */
-function applyDimsToEl(el, d, c) {
+function applyDimsToEl(el, d, colorKey) {
+  var c = COLORS[colorKey];
   el.style.width        = d.w + 'px';
   el.style.height       = d.h + 'px';
   el.style.borderRadius = d.r;
   if (d.isHoop) {
+    var bw = Math.max(2, d.w * 0.14);
     el.style.background  = 'transparent';
-    el.style.border      = Math.max(2, d.w * 0.14) + 'px solid ' + hoopColor(c);
+    el.style.border      = bw + 'px solid ' + HOOP_COLORS[colorKey];
     el.style.boxShadow   = 'none';
   } else {
     el.style.background  = c.bg;
@@ -354,137 +304,274 @@ function applyDimsToEl(el, d, c) {
   }
 }
 
-function hoopColor(c) {
-  const map = {
-    white: '#c8b99a', pink: '#c49088', gray: '#909090',
-    gold: '#b09030', black: '#303030'
-  };
-  return map[currentColor] || '#c8b99a';
-}
+/* ══ 要素 ══ */
+var photoInput    = document.getElementById('photo-input');
+var step1         = document.getElementById('step1');
+var step2         = document.getElementById('step2');
+var userPhoto     = document.getElementById('user-photo');
+var photoContainer= document.getElementById('photo-container');
+var leftMarker    = document.getElementById('left-marker');
+var rightMarker   = document.getElementById('right-marker');
+var leftEarring   = document.getElementById('left-earring');
+var rightEarring  = document.getElementById('right-earring');
+var instrBar      = document.getElementById('instr-bar');
+var markPanel     = document.getElementById('mark-panel');
+var tryPanel      = document.getElementById('try-panel');
+var sizeSlider    = document.getElementById('size-slider');
+var sizeDot       = document.getElementById('size-dot');
+var confirmBtn    = document.getElementById('confirm-btn');
+var remarkBtn     = document.getElementById('remark-btn');
+var productGallery= document.getElementById('product-gallery');
 
-/* ── スタイル適用 ── */
-function applyStyle() {
-  const c = COLORS[currentColor];
-  const earrings = [leftEarring, rightEarring];
-  earrings.forEach(el => {
-    const d = shapeDims(currentShape, earringPx);
-    applyDimsToEl(el, d, c);
-  });
-  // size dot preview
-  const d2 = shapeDims(currentShape, 22);
-  applyDimsToEl(sizeDot, d2, c);
-  // 固定中はピアスサイズをスケールに合わせて上書き
-  updateLockedEarringPositions();
-}
+/* ══ State ══ */
+var appMode       = 'marking'; // 'marking' | 'trying'
+var currentShape  = 'circle';
+var currentColor  = 'white';
+var earringPx     = 20;
+var activeProductId = null;
 
-/* ── 写真アップロード ── */
+/* ══ 写真アップロード ══ */
 photoInput.addEventListener('change', function(e) {
-  const file = e.target.files[0];
+  var file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => { userPhoto.src = ev.target.result; };
+  var reader = new FileReader();
+  reader.onload = function(ev) { userPhoto.src = ev.target.result; };
   reader.readAsDataURL(file);
 });
 
 userPhoto.addEventListener('load', function() {
   step1.style.display = 'none';
   step2.style.display = 'flex';
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    positionEarrings();
-    applyStyle();
-  }));
+  // photo container height
+  var cW = Math.min(window.innerWidth, 540);
+  var ih = userPhoto.naturalHeight, iw = userPhoto.naturalWidth;
+  var ratio = ih / iw;
+  var maxH = Math.floor(window.innerHeight * 0.48);
+  photoContainer.style.height = Math.min(Math.round(cW * ratio), maxH) + 'px';
+
+  resetPhotoTransform();
+  enterMarkingMode();
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      positionMarkers();
+    });
+  });
 });
 
-/* ── ピアスの初期位置 ── */
-function positionEarrings() {
-  const w = photoContainer.offsetWidth;
-  const h = photoContainer.offsetHeight;
-  leftEarring.style.left  = (w * 0.32) + 'px';
-  leftEarring.style.top   = (h * 0.44) + 'px';
-  rightEarring.style.left = (w * 0.68) + 'px';
-  rightEarring.style.top  = (h * 0.44) + 'px';
+/* ══ モード切替 ══ */
+function enterMarkingMode() {
+  appMode = 'marking';
+  instrBar.textContent = '◎ を両耳の付け根にドラッグしてください';
+  instrBar.className = 'instr-bar marking';
+  leftMarker.style.display  = '';
+  rightMarker.style.display = '';
+  leftEarring.style.display  = 'none';
+  rightEarring.style.display = 'none';
+  markPanel.style.display = '';
+  tryPanel.style.display  = 'none';
 }
 
+function enterTryingMode() {
+  appMode = 'trying';
+  instrBar.textContent = '商品をタップ → 耳に自動で付きます';
+  instrBar.className = 'instr-bar';
+  leftMarker.style.display  = 'none';
+  rightMarker.style.display = 'none';
+  leftEarring.style.display  = '';
+  rightEarring.style.display = '';
+  markPanel.style.display = 'none';
+  tryPanel.style.display  = 'flex';
+  // まだ商品未選択なら耳の位置にデフォルトで置く
+  snapEarringsToMarkers();
+  if (activeProductId) applyStyle();
+}
 
-/* ── 手動サイズスライダー ── */
+/* ══ マーカー初期位置 ══ */
+function positionMarkers() {
+  var cW = photoContainer.offsetWidth;
+  var cH = photoContainer.offsetHeight;
+  leftMarker.style.left  = (cW * 0.28) + 'px';
+  leftMarker.style.top   = (cH * 0.46) + 'px';
+  rightMarker.style.left = (cW * 0.72) + 'px';
+  rightMarker.style.top  = (cH * 0.46) + 'px';
+}
+
+/* ══ ピアスをマーカー位置にスナップ ══ */
+function snapEarringsToMarkers() {
+  leftEarring.style.left  = leftMarker.style.left;
+  leftEarring.style.top   = leftMarker.style.top;
+  rightEarring.style.left = rightMarker.style.left;
+  rightEarring.style.top  = rightMarker.style.top;
+}
+
+/* ══ スタイル適用 ══ */
+function applyStyle() {
+  var d = shapeDims(currentShape, earringPx);
+  applyDimsToEl(leftEarring,  d, currentColor);
+  applyDimsToEl(rightEarring, d, currentColor);
+  // size dot
+  var d2 = shapeDims(currentShape, 22);
+  applyDimsToEl(sizeDot, d2, currentColor);
+}
+
+/* ══ 確定ボタン ══ */
+confirmBtn.addEventListener('click', function() {
+  enterTryingMode();
+});
+
+/* ══ 耳の位置を修正 ══ */
+remarkBtn.addEventListener('click', function() {
+  // マーカーをピアスの現在位置に戻す
+  leftMarker.style.left  = leftEarring.style.left;
+  leftMarker.style.top   = leftEarring.style.top;
+  rightMarker.style.left = rightEarring.style.left;
+  rightMarker.style.top  = rightEarring.style.top;
+  enterMarkingMode();
+});
+
+/* ══ 別の写真 ══ */
+function resetAll() {
+  photoInput.value = '';
+  userPhoto.src    = '';
+  step2.style.display = 'none';
+  step1.style.display = 'flex';
+  activeProductId  = null;
+  resetPhotoTransform();
+  document.querySelectorAll('.product-card').forEach(function(c){ c.classList.remove('active'); });
+}
+document.getElementById('change-btn-mark').addEventListener('click', resetAll);
+document.getElementById('change-btn-try').addEventListener('click', resetAll);
+
+/* ══ 商品ギャラリー生成 ══ */
+function buildGallery() {
+  productGallery.innerHTML = '';
+  PRODUCTS.forEach(function(p) {
+    var card = document.createElement('div');
+    card.className = 'product-card';
+    card.dataset.id = p.id;
+
+    // サムネイル
+    var thumb = document.createElement('div');
+    thumb.className = 'product-thumb';
+    var mini = document.createElement('div');
+    var d = shapeDims(p.shape, 28);
+    applyDimsToEl(mini, d, p.color);
+    thumb.appendChild(mini);
+
+    // テキスト
+    var name = document.createElement('div');
+    name.className = 'product-name';
+    name.textContent = p.name.replace('\n', ' ');
+    var price = document.createElement('div');
+    price.className = 'product-price';
+    price.textContent = p.price;
+
+    card.appendChild(thumb);
+    card.appendChild(name);
+    card.appendChild(price);
+
+    card.addEventListener('click', function() {
+      selectProduct(p);
+    });
+
+    productGallery.appendChild(card);
+  });
+}
+
+function selectProduct(p) {
+  // カードのアクティブ状態
+  document.querySelectorAll('.product-card').forEach(function(c){ c.classList.remove('active'); });
+  var card = document.querySelector('.product-card[data-id="'+p.id+'"]');
+  if (card) card.classList.add('active');
+  activeProductId = p.id;
+  // 形・色・サイズを設定
+  currentShape = p.shape;
+  currentColor = p.color;
+  earringPx    = p.sizePx;
+  sizeSlider.value = Math.min(earringPx, 60);
+  // マーカー位置にスナップしてスタイル適用
+  snapEarringsToMarkers();
+  applyStyle();
+}
+
+buildGallery();
+
+/* ══ サイズスライダー ══ */
 sizeSlider.addEventListener('input', function() {
   earringPx = parseInt(this.value);
   applyStyle();
-  realsizeResult.textContent = '';
 });
 
-/* ── 形セレクター ── */
-document.getElementById('shape-row').addEventListener('click', function(e) {
-  const btn = e.target.closest('.shape-btn');
-  if (!btn) return;
-  document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentShape = btn.dataset.shape;
-  applyStyle();
-});
+/* ══ マーカー ドラッグ ══ */
+function makeDraggable(el, onlyInMode) {
+  var sX, sY, sL, sT;
 
-/* ── 色セレクター ── */
-document.getElementById('color-row').addEventListener('click', function(e) {
-  const btn = e.target.closest('.color-btn');
-  if (!btn) return;
-  document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentColor = btn.dataset.color;
-  applyStyle();
-});
+  function doMove(cx, cy) {
+    var cW = photoContainer.offsetWidth;
+    var cH = photoContainer.offsetHeight;
+    el.style.left = Math.max(0, Math.min(cW, sL + cx - sX)) + 'px';
+    el.style.top  = Math.max(0, Math.min(cH, sT + cy - sY)) + 'px';
+  }
 
-/* ── 実寸自動調整 ── */
-autoBtn.addEventListener('click', function() {
-  const faceW   = parseFloat(faceWidthInput.value) || 14;
-  const mmSize  = parseFloat(earringMmInput.value)  || 3;
-  const frac    = 0.6;
-  const cW      = photoContainer.offsetWidth;
-  const cH      = photoContainer.offsetHeight;
-  const facePx  = cW * frac;
-  const pxPerMm = facePx / (faceW * 10);
-  const calcPx  = mmSize * pxPerMm;
-  const minPx   = 6;
-  earringPx = Math.round(Math.max(calcPx, minPx));
-  sizeSlider.value = Math.min(earringPx, 60);
-  applyStyle();
+  // Touch
+  el.addEventListener('touchstart', function(e) {
+    if (onlyInMode && appMode !== onlyInMode) return;
+    e.preventDefault(); e.stopPropagation();
+    var t = e.touches[0];
+    sX = t.clientX; sY = t.clientY;
+    sL = parseFloat(el.style.left) || 0;
+    sT = parseFloat(el.style.top)  || 0;
+    el.classList.add('dragging');
+    function onMove(e2) {
+      e2.preventDefault();
+      doMove(e2.touches[0].clientX, e2.touches[0].clientY);
+    }
+    function onEnd() {
+      el.classList.remove('dragging');
+      el.removeEventListener('touchmove', onMove);
+      el.removeEventListener('touchend', onEnd);
+      el.removeEventListener('touchcancel', onEnd);
+    }
+    el.addEventListener('touchmove',   onMove,  { passive:false });
+    el.addEventListener('touchend',    onEnd);
+    el.addEventListener('touchcancel', onEnd);
+  }, { passive:false });
 
-  // 顔幅に合わせてピアス位置を自動配置（顔が写真中央にある前提）
-  const faceLeft  = (cW - facePx) / 2;
-  const faceRight = faceLeft + facePx;
-  const earY      = cH * 0.52;
-  leftEarring.style.left  = faceLeft  + 'px';
-  leftEarring.style.top   = earY + 'px';
-  rightEarring.style.left = faceRight + 'px';
-  rightEarring.style.top  = earY + 'px';
+  // Mouse
+  el.addEventListener('mousedown', function(e) {
+    if (onlyInMode && appMode !== onlyInMode) return;
+    e.preventDefault();
+    sX = e.clientX; sY = e.clientY;
+    sL = parseFloat(el.style.left) || 0;
+    sT = parseFloat(el.style.top)  || 0;
+    el.classList.add('dragging');
+    function onMove(e2) { doMove(e2.clientX, e2.clientY); }
+    function onUp() {
+      el.classList.remove('dragging');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
 
-  realsizeResult.textContent = calcPx < minPx
-    ? '実物は非常に小さいため最小表示にしています（実寸 ' + mmSize + 'mm = 約' + calcPx.toFixed(1) + 'px）'
-    : '✓ ' + mmSize + 'mm を実寸に近い大きさで表示しています';
-});
+makeDraggable(leftMarker,  'marking');
+makeDraggable(rightMarker, 'marking');
+makeDraggable(leftEarring,  'trying');
+makeDraggable(rightEarring, 'trying');
 
-/* ── リセット / 写真変更 ── */
-changeBtn.addEventListener('click', function() {
-  photoInput.value       = '';
-  userPhoto.src          = '';
-  step2.style.display    = 'none';
-  step1.style.display    = 'flex';
-  realsizeResult.textContent = '';
-  resetPhotoTransform();
-});
-
-/* ── 写真 パン＆ズーム ── */
-let photoScale = 1, photoX = 0, photoY = 0;
-
-const photoZoomSlider = document.getElementById('photo-zoom-slider');
-const zoomLabel       = document.getElementById('zoom-label');
+/* ══ 写真 パン＆ズーム ══ */
+var photoScale = 1, photoX = 0, photoY = 0;
+var photoZoomSlider = document.getElementById('photo-zoom-slider');
+var zoomLabel       = document.getElementById('zoom-label');
 
 function applyPhotoTransform() {
-  userPhoto.style.transform = `translate(${photoX}px,${photoY}px) scale(${photoScale})`;
-  updateLockedEarringPositions();
+  userPhoto.style.transform = 'translate('+photoX+'px,'+photoY+'px) scale('+photoScale+')';
 }
 function resetPhotoTransform() {
   photoScale = 1; photoX = 0; photoY = 0;
-  photoZoomSlider.value = 100; zoomLabel.textContent = '100%';
+  if (photoZoomSlider) { photoZoomSlider.value = 100; zoomLabel.textContent = '100%'; }
   applyPhotoTransform();
 }
 
@@ -494,134 +581,22 @@ photoZoomSlider.addEventListener('input', function() {
   applyPhotoTransform();
 });
 
-/* ── ピアス ドラッグ (touch + mouse) ── */
-[leftEarring, rightEarring].forEach(function(el) {
-  var sX, sY, sL, sT;
-
-  function touchMove(e) {
-    e.preventDefault();
-    var t = e.touches[0];
-    var cW = photoContainer.offsetWidth;
-    var cH = photoContainer.offsetHeight;
-    el.style.left = Math.max(0, Math.min(cW, sL + t.clientX - sX)) + 'px';
-    el.style.top  = Math.max(0, Math.min(cH, sT + t.clientY - sY)) + 'px';
-  }
-  function touchEnd() {
-    el.classList.remove('dragging');
-    el.removeEventListener('touchmove', touchMove);
-    el.removeEventListener('touchend',  touchEnd);
-    el.removeEventListener('touchcancel', touchEnd);
-  }
-  el.addEventListener('touchstart', function(e) {
-    if (earringsLocked) return;
-    e.preventDefault();
-    e.stopPropagation();
-    var t = e.touches[0];
-    sX = t.clientX; sY = t.clientY;
-    sL = parseFloat(el.style.left) || 0;
-    sT = parseFloat(el.style.top)  || 0;
-    el.classList.add('dragging');
-    el.addEventListener('touchmove',   touchMove,  { passive: false });
-    el.addEventListener('touchend',    touchEnd);
-    el.addEventListener('touchcancel', touchEnd);
-  }, { passive: false });
-
-  // マウス（PC用）
-  el.addEventListener('mousedown', function(e) {
-    if (earringsLocked) return;
-    e.preventDefault();
-    sX = e.clientX; sY = e.clientY;
-    sL = parseFloat(el.style.left) || 0;
-    sT = parseFloat(el.style.top)  || 0;
-    el.classList.add('dragging');
-    function mouseMove(e) {
-      var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
-      el.style.left = Math.max(0, Math.min(cW, sL + e.clientX - sX)) + 'px';
-      el.style.top  = Math.max(0, Math.min(cH, sT + e.clientY - sY)) + 'px';
-    }
-    function mouseUp() {
-      el.classList.remove('dragging');
-      document.removeEventListener('mousemove', mouseMove);
-      document.removeEventListener('mouseup',   mouseUp);
-    }
-    document.addEventListener('mousemove', mouseMove);
-    document.addEventListener('mouseup',   mouseUp);
-  });
-});
-
-/* ── ピアス固定 ── */
-let earringsLocked = false;
-let earringRelPos = [null, null];
-let lockedPhotoScale = 1;
-const MIN_EARRING_PX = 5;
-
-function calcEarringRelPos() {
-  const cW = photoContainer.offsetWidth;
-  const cH = photoContainer.offsetHeight;
-  [leftEarring, rightEarring].forEach(function(el, i) {
-    const earLeft = parseFloat(el.style.left) || 0;
-    const earTop  = parseFloat(el.style.top)  || 0;
-    earringRelPos[i] = {
-      relX: (earLeft - (cW / 2 + photoX)) / photoScale,
-      relY: (earTop  - (cH / 2 + photoY)) / photoScale
-    };
-  });
-}
-
-function updateLockedEarringPositions() {
-  if (!earringsLocked) return;
-  const cW = photoContainer.offsetWidth;
-  const cH = photoContainer.offsetHeight;
-  const ratio = photoScale / lockedPhotoScale;
-  const scaledPx = Math.max(MIN_EARRING_PX, earringPx * ratio);
-  [leftEarring, rightEarring].forEach(function(el, i) {
-    if (!earringRelPos[i]) return;
-    el.style.left = (cW / 2 + photoX + earringRelPos[i].relX * photoScale) + 'px';
-    el.style.top  = (cH / 2 + photoY + earringRelPos[i].relY * photoScale) + 'px';
-    const d = shapeDims(currentShape, scaledPx);
-    applyDimsToEl(el, d, COLORS[currentColor]);
-  });
-}
-
-const lockBtn = document.getElementById('lock-btn');
-lockBtn.addEventListener('click', function() {
-  if (!earringsLocked) {
-    calcEarringRelPos();
-    lockedPhotoScale = photoScale;
-    earringsLocked = true;
-    // ピアスが MIN_EARRING_PX になるズーム値を下限に設定
-    const minZoom = Math.max(20, Math.ceil(MIN_EARRING_PX / earringPx * lockedPhotoScale * 100));
-    photoZoomSlider.min = minZoom;
-    lockBtn.textContent = '固定を解除する';
-    lockBtn.style.background = '#888';
-  } else {
-    earringsLocked = false;
-    earringRelPos = [null, null];
-    photoZoomSlider.min = 20;
-    applyStyle();
-    lockBtn.textContent = 'ピアスを写真に固定する';
-    lockBtn.style.background = '';
-  }
-});
-
-/* ── 写真 ドラッグ＆ピンチ (touch + mouse) ── */
+/* Touch drag / pinch on photo container */
 var photoTouchId = null, pinchData = null;
 var photoDragPX = 0, photoDragPY = 0, photoX0 = 0, photoY0 = 0;
 
 photoContainer.addEventListener('touchstart', function(e) {
-  if (e.target.closest('.earring')) return;
+  if (e.target.closest('.ear-marker') || e.target.closest('.earring')) return;
   e.preventDefault();
   if (e.touches.length === 1) {
     photoTouchId = e.touches[0].identifier;
-    photoDragPX = e.touches[0].clientX;
-    photoDragPY = e.touches[0].clientY;
-    photoX0 = photoX; photoY0 = photoY;
-    pinchData = null;
+    photoDragPX = e.touches[0].clientX; photoDragPY = e.touches[0].clientY;
+    photoX0 = photoX; photoY0 = photoY; pinchData = null;
   } else if (e.touches.length === 2) {
     var t0 = e.touches[0], t1 = e.touches[1];
-    pinchData = { dist: Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY), scale: photoScale };
+    pinchData = { dist:Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY), scale:photoScale };
   }
-}, { passive: false });
+}, { passive:false });
 
 photoContainer.addEventListener('touchmove', function(e) {
   e.preventDefault();
@@ -640,7 +615,7 @@ photoContainer.addEventListener('touchmove', function(e) {
     }
   }
   applyPhotoTransform();
-}, { passive: false });
+}, { passive:false });
 
 photoContainer.addEventListener('touchend', function(e) {
   if (e.touches.length === 0) { photoTouchId = null; pinchData = null; }
@@ -652,10 +627,9 @@ photoContainer.addEventListener('touchend', function(e) {
   }
 });
 
-// マウス（PC用）
 var mousePhotoDrag = false;
 photoContainer.addEventListener('mousedown', function(e) {
-  if (e.target.closest('.earring')) return;
+  if (e.target.closest('.ear-marker') || e.target.closest('.earring')) return;
   mousePhotoDrag = true;
   photoDragPX = e.clientX; photoDragPY = e.clientY;
   photoX0 = photoX; photoY0 = photoY;
