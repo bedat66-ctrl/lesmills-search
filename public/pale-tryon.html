@@ -272,7 +272,7 @@ const PRODUCTS = [
   { id:'p1', name:'パール\n丸 3mm',       shape:'circle', color:'white',   sizeMm:3 },
   { id:'p2', name:'パール\n丸 5mm',       shape:'circle', color:'white',   sizeMm:5 },
   { id:'p3', name:'パール\n丸 8mm',       shape:'circle', color:'white',   sizeMm:8 },
-  { id:'p4', name:'パール\nオーバル',     shape:'oval',   color:'white',   sizeMm:6 },
+  { id:'p4', name:'パール\nオーバル 7mm', shape:'oval',   color:'white',   sizeMm:7 },
   { id:'p5', name:'パール\nフープ',       shape:'hoop',   color:'white',   sizeMm:10 },
   { id:'p6', name:'パール\nスクエア',     shape:'square', color:'white',   sizeMm:6 },
 ];
@@ -280,7 +280,7 @@ const PRODUCTS = [
 function shapeDims(shape, s) {
   switch(shape) {
     case 'button':   return { w:s*0.88, h:s*0.80, r:'50%' };
-    case 'oval':     return { w:s*0.54, h:s,       r:'50%' };
+    case 'oval':     return { w:s*0.43, h:s,       r:'50%' };
     case 'hoop':     return { w:s*1.1,  h:s*1.1,   r:'50%', isHoop:true };
     case 'square':   return { w:s,      h:s,        r:Math.max(2, s*0.18)+'px' };
     default:         return { w:s,      h:s,        r:'50%' };
