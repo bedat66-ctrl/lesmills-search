@@ -66,8 +66,7 @@ header { background:var(--black); padding:14px 20px; display:flex; align-items:c
 }
 
 /* ── Earrings ── */
-.earring { position:absolute; z-index:14; transform:translate(-50%,-50%); display:none; cursor:grab; touch-action:none; user-select:none; }
-.earring.dragging { cursor:grabbing; }
+.earring { position:absolute; z-index:14; transform:translate(-50%,-50%); display:none; pointer-events:none; user-select:none; }
 
 /* ── Align Panel ── */
 #align-panel { width:100%; max-width:540px; background:#fff; flex:1; overflow-y:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; gap:14px; }
@@ -207,12 +206,13 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
 
     <div class="ctrl-section" style="padding-bottom:8px;">
       <p style="font-size:11px; color:var(--muted); line-height:1.7;">
-        ピアスをドラッグして位置を微調整できます<br>
-        <span style="color:var(--accent);">「位置を調整」</span>で写真を動かせます
+        2本指ピンチで拡大縮小できます<br>
+        <span style="color:var(--accent);">「位置を調整」</span>で耳合わせに戻ります
       </p>
     </div>
 
     <div class="btn-row">
+      <button class="abtn abtn-light" id="reset-btn">リセット</button>
       <button class="abtn abtn-light" id="realign-btn">位置を調整</button>
       <button class="abtn abtn-light" id="change-btn-try">別の写真</button>
     </div>
@@ -339,25 +339,28 @@ var earringPx       = 10;
 var activeProductId = null;
 var customEarringURL= null;
 
+/* リセット用スナップショット（試着モード開始時の変換値） */
+var tryBaseScale = 1, tryBaseX = 0, tryBaseY = 0;
+
 /* ── マーカー・ピアスの画面位置（px）── */
 var markerLX = 0, markerLY = 0;
 var markerRX = 0, markerRY = 0;
 
-/* ── mm→px（マーカー間隔＝耳たぶ間距離 約135mm 基準） ── */
+/* ── mm→px（マーカー間隔＝耳たぶ間距離 約120mm 基準） ── */
 function pxPerMm() {
   var span = markerRX - markerLX; // マーカー間の距離（px）
-  if (span <= 0) return 1.2;      // fallback
-  return span / 135;              // 耳たぶ間平均135mmで割る
+  if (span <= 0) return 1.5;      // fallback
+  return span / 120;              // 耳たぶ間平均120mmで割る
 }
-function mmToPx(mm){ return Math.max(3, mm * pxPerMm()); }
+function mmToPx(mm){ return Math.max(2, mm * pxPerMm()); }
 
 /* ══ マーカー位置を設定（コンテナサイズ基準） ══ */
 function positionMarkers() {
   var cW = photoContainer.offsetWidth;
   var cH = photoContainer.offsetHeight;
-  markerLX = Math.round(cW * 0.28);
+  markerLX = Math.round(cW * 0.18);   // 広めに設定（左18%）
   markerLY = Math.round(cH * 0.44);
-  markerRX = Math.round(cW * 0.72);
+  markerRX = Math.round(cW * 0.82);   // 広めに設定（右82%）
   markerRY = Math.round(cH * 0.44);
 
   [leftMarker,  leftEarring ].forEach(function(el){ el.style.left = markerLX + 'px'; el.style.top = markerLY + 'px'; });
@@ -400,6 +403,8 @@ function enterAlignMode() {
 
 function enterTryingMode() {
   appMode = 'trying';
+  /* 試着開始時の変換値をスナップショット（リセット用） */
+  tryBaseScale = photoScale; tryBaseX = photoX; tryBaseY = photoY;
   instrBar.textContent = '商品をタップするとピアスが付きます';
   instrBar.className = 'instr-bar';
   leftMarker.style.display  = 'none';
@@ -409,12 +414,19 @@ function enterTryingMode() {
   alignPanel.style.display = 'none';
   tryPanel.style.display   = 'flex';
   /* ピアスをマーカー位置に配置 */
+  updateEarringPositions();
   if (activeProductId) applyStyle();
 }
 
 /* ══ 確定ボタン ══ */
 document.getElementById('confirm-btn').addEventListener('click', enterTryingMode);
 document.getElementById('realign-btn').addEventListener('click', enterAlignMode);
+
+/* ══ リセットボタン（試着開始時の位置・サイズに戻す） ══ */
+document.getElementById('reset-btn').addEventListener('click', function() {
+  photoScale = tryBaseScale; photoX = tryBaseX; photoY = tryBaseY;
+  applyPhotoTransform();
+});
 
 /* ══ 別の写真 ══ */
 function resetAll() {
@@ -430,9 +442,25 @@ function resetAll() {
 document.getElementById('change-btn-align').addEventListener('click', resetAll);
 document.getElementById('change-btn-try').addEventListener('click', resetAll);
 
-/* ══ スタイル適用 ══ */
+/* ══ ピアス位置をフォト変換に合わせて更新（試着モード用） ══ */
+function updateEarringPositions() {
+  var cW = photoContainer.offsetWidth;
+  var cH = photoContainer.offsetHeight;
+  /* マーカーベース位置を現在のフォト変換で写像 */
+  var lx = (markerLX - cW/2) * photoScale + cW/2 + photoX;
+  var ly = (markerLY - cH/2) * photoScale + cH/2 + photoY;
+  var rx = (markerRX - cW/2) * photoScale + cW/2 + photoX;
+  var ry = (markerRY - cH/2) * photoScale + cH/2 + photoY;
+  leftEarring.style.left  = lx + 'px';
+  leftEarring.style.top   = ly + 'px';
+  rightEarring.style.left = rx + 'px';
+  rightEarring.style.top  = ry + 'px';
+}
+
+/* ══ スタイル適用（試着モードではzoomに比例してサイズも拡縮） ══ */
 function applyStyle() {
-  earringPx = mmToPx(currentMm);
+  var displayScale = (appMode === 'trying') ? photoScale : 1;
+  earringPx = mmToPx(currentMm) * displayScale;
   var d = shapeDims(currentShape, earringPx);
   [leftEarring, rightEarring].forEach(function(el) {
     if (customEarringURL) { applyCustomPhoto(el, d); }
@@ -522,45 +550,17 @@ sizeSlider.addEventListener('input', function() {
   applyStyle();
 });
 
-/* ══ ピアス ドラッグ（位置微調整） ══ */
-function makeEarringDraggable(el) {
-  var sX, sY, sL, sT;
-  function doMove(cx, cy) {
-    var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
-    el.style.left = Math.max(0, Math.min(cW, sL + cx - sX)) + 'px';
-    el.style.top  = Math.max(0, Math.min(cH, sT + cy - sY)) + 'px';
-  }
-  el.addEventListener('touchstart', function(e) {
-    if (appMode !== 'trying') return;
-    e.preventDefault(); e.stopPropagation();
-    var t = e.touches[0]; sX = t.clientX; sY = t.clientY;
-    sL = parseFloat(el.style.left)||0; sT = parseFloat(el.style.top)||0;
-    el.classList.add('dragging');
-    function onM(e2){ e2.preventDefault(); doMove(e2.touches[0].clientX, e2.touches[0].clientY); }
-    function onE(){ el.classList.remove('dragging'); el.removeEventListener('touchmove',onM); el.removeEventListener('touchend',onE); }
-    el.addEventListener('touchmove', onM, {passive:false});
-    el.addEventListener('touchend', onE);
-  }, {passive:false});
-  el.addEventListener('mousedown', function(e) {
-    if (appMode !== 'trying') return;
-    e.preventDefault();
-    sX = e.clientX; sY = e.clientY;
-    sL = parseFloat(el.style.left)||0; sT = parseFloat(el.style.top)||0;
-    el.classList.add('dragging');
-    function onM(e2){ doMove(e2.clientX, e2.clientY); }
-    function onU(){ el.classList.remove('dragging'); document.removeEventListener('mousemove',onM); document.removeEventListener('mouseup',onU); }
-    document.addEventListener('mousemove', onM);
-    document.addEventListener('mouseup', onU);
-  });
-}
-makeEarringDraggable(leftEarring);
-makeEarringDraggable(rightEarring);
 
-/* ══ 写真 パン＆ピンチ（Alignモードのみ） ══ */
+/* ══ 写真 パン＆ピンチ ══ */
 var photoScale = 1, photoX = 0, photoY = 0;
 
 function applyPhotoTransform() {
   userPhoto.style.transform = 'translate('+photoX+'px,'+photoY+'px) scale('+photoScale+')';
+  /* 試着モードではピアスも連動して移動・サイズ変更 */
+  if (appMode === 'trying') {
+    updateEarringPositions();
+    if (activeProductId) applyStyle();
+  }
 }
 function resetPhotoTransform() { photoScale=1; photoX=0; photoY=0; applyPhotoTransform(); }
 
@@ -581,7 +581,9 @@ function applyPinch(t0, t1, pd) {
   var rect = photoContainer.getBoundingClientRect();
   var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
   var newDist  = Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY);
-  var newScale = Math.max(0.4, Math.min(6, pd.startScale * newDist / pd.startDist));
+  /* 試着モードでは縮小しすぎ防止（tryBaseScaleの0.5倍まで） */
+  var minScale = (appMode === 'trying') ? Math.max(0.5, tryBaseScale * 0.5) : 0.4;
+  var newScale = Math.max(minScale, Math.min(6, pd.startScale * newDist / pd.startDist));
   var curMidX  = (t0.clientX+t1.clientX)/2 - rect.left - cW/2;
   var curMidY  = (t0.clientY+t1.clientY)/2 - rect.top  - cH/2;
   photoScale = newScale;
@@ -595,13 +597,12 @@ function scheduleTransform(){
   requestAnimationFrame(function(){ rafPending=false; applyPhotoTransform(); });
 }
 
-/* Touch handlers（Alignモードのみ写真を動かす） */
+/* Touch handlers（Align + Trying 両モードで写真を動かす） */
 var panTouchId=null, panStartX=0, panStartY=0, panPhotoX0=0, panPhotoY0=0;
 var pinchData=null;
 
 photoContainer.addEventListener('touchstart', function(e) {
-  if (appMode !== 'align') return;
-  if (e.target.closest('.earring')) return;
+  if (appMode !== 'align' && appMode !== 'trying') return;
   e.preventDefault();
   if (e.touches.length === 1) {
     panTouchId = e.touches[0].identifier;
@@ -613,13 +614,13 @@ photoContainer.addEventListener('touchstart', function(e) {
 }, {passive:false});
 
 photoContainer.addEventListener('touchmove', function(e) {
-  if (appMode !== 'align') return;
+  if (appMode !== 'align' && appMode !== 'trying') return;
   e.preventDefault();
   if (e.touches.length >= 2 && pinchData) {
     applyPinch(e.touches[0], e.touches[1], pinchData);
   } else if (e.touches.length === 1 && panTouchId !== null && !pinchData) {
     var arr = Array.from(e.touches);
-    var t = arr.find(function(t){ return t.identifier===panTouchId; });
+    var t = arr.find(function(x){ return x.identifier===panTouchId; });
     if (t) { photoX = panPhotoX0 + t.clientX-panStartX; photoY = panPhotoY0 + t.clientY-panStartY; }
   }
   scheduleTransform();
