@@ -197,12 +197,15 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
         <div style="flex:1; display:flex; flex-direction:column; gap:2px;">
           <input type="range" id="size-slider" min="3" max="10" step="0.5" value="3" list="size-ticks">
           <datalist id="size-ticks">
-            <option value="3"></option><option value="5"></option>
-            <option value="7"></option><option value="10"></option>
+            <option value="3"></option><option value="4"></option>
+            <option value="5"></option><option value="6"></option>
+            <option value="7"></option><option value="8"></option>
+            <option value="9"></option><option value="10"></option>
           </datalist>
-          <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--muted); padding:0 1px; margin-top:1px;">
-            <span>3mm</span><span>5mm</span><span>7mm</span><span>10mm</span>
+          <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--muted); padding:0 1px; margin-top:1px;">
+            <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
           </div>
+          <div style="text-align:right; font-size:9px; color:var(--muted); margin-top:1px;">単位：mm</div>
         </div>
         <span id="size-mm-label">3.0mm</span>
       </div>
@@ -265,41 +268,62 @@ const COLORS = {
 const HOOP_COLORS = { white:'#b8b0a8', natural:'#a09098', pink:'#c49090', gray:'#888', gold:'#b09030', black:'#303030' };
 
 const PRODUCTS = [
-  { id:'p0', name:'淡水パール\nオーバル', price:'準備中', shape:'button', color:'natural', sizeMm:6,  imgSrc:'images/pearl-oval.png' },
-  { id:'p1', name:'パール\n丸 3mm',       price:'¥1,200', shape:'circle', color:'white',   sizeMm:3  },
-  { id:'p2', name:'パール\n丸 5mm',       price:'¥1,400', shape:'circle', color:'white',   sizeMm:5  },
-  { id:'p3', name:'パール\n丸 8mm',       price:'¥1,600', shape:'circle', color:'white',   sizeMm:8  },
-  { id:'p4', name:'パール\nオーバル',     price:'¥1,500', shape:'oval',   color:'white',   sizeMm:6  },
-  { id:'p5', name:'パール\nドロップ',     price:'¥1,600', shape:'drop',   color:'white',   sizeMm:7  },
-  { id:'p6', name:'パール\nフープ',       price:'¥1,800', shape:'hoop',   color:'white',   sizeMm:10 },
-  { id:'p7', name:'ゴールド\nスタッド',   price:'¥1,300', shape:'circle', color:'gold',    sizeMm:4  },
-  { id:'p8', name:'ピンク\nパール',       price:'¥1,400', shape:'circle', color:'pink',    sizeMm:5  },
+  { id:'p0', name:'淡水パール\nオーバル', shape:'button', color:'natural', sizeMm:6, imgSrc:'images/pearl-oval.png' },
+  { id:'p1', name:'パール\n丸 3mm',       shape:'circle', color:'white',   sizeMm:3 },
+  { id:'p2', name:'パール\n丸 5mm',       shape:'circle', color:'white',   sizeMm:5 },
+  { id:'p3', name:'パール\n丸 8mm',       shape:'circle', color:'white',   sizeMm:8 },
+  { id:'p4', name:'パール\nオーバル',     shape:'oval',   color:'white',   sizeMm:6 },
+  { id:'p5', name:'パール\nフープ',       shape:'hoop',   color:'white',   sizeMm:10 },
+  { id:'p6', name:'パール\nスクエア',     shape:'square', color:'white',   sizeMm:6 },
 ];
 
 function shapeDims(shape, s) {
   switch(shape) {
     case 'button':   return { w:s*0.88, h:s*0.80, r:'50%' };
     case 'oval':     return { w:s*0.54, h:s,       r:'50%' };
-    case 'drop':     return { w:s*0.65, h:s*1.7,   r:'50% 50% 45% 45% / 28% 28% 72% 72%' };
     case 'hoop':     return { w:s*1.1,  h:s*1.1,   r:'50%', isHoop:true };
+    case 'square':   return { w:s,      h:s,        r:Math.max(2, s*0.18)+'px' };
     default:         return { w:s,      h:s,        r:'50%' };
   }
 }
+
+/* ── フープ3Dグラデーション（コニックグラデーション＋マスクで立体リング） ── */
+var HOOP_GRAD = {
+  white:
+    'conic-gradient(from 250deg,' +
+    '#f8f5f0 0deg,#ffffff 30deg,#ede8e2 65deg,' +
+    '#cfc8c0 110deg,#b8b0a8 160deg,#a8a09a 195deg,' +
+    '#bab3ac 230deg,#d4cec8 270deg,#ede8e2 305deg,#f8f5f0 360deg)',
+  natural:
+    'conic-gradient(from 250deg,' +
+    '#e8e0e4 0deg,#f5eef2 30deg,#d8d0d4 70deg,' +
+    '#b8a8b0 120deg,#a09098 170deg,#888090 200deg,' +
+    '#9c949c 240deg,#c0b8bc 285deg,#dcd4d8 320deg,#e8e0e4 360deg)',
+  gold:
+    'conic-gradient(from 250deg,' +
+    '#e8d060 0deg,#f8ee98 30deg,#d4bc40 75deg,' +
+    '#b09820 130deg,#887510 175deg,#a08818 215deg,' +
+    '#c4a830 260deg,#dcc858 300deg,#e8d060 360deg)',
+};
 
 function applyDimsToEl(el, d, colorKey) {
   var c = COLORS[colorKey];
   el.style.width        = d.w + 'px';
   el.style.height       = d.h + 'px';
   el.style.borderRadius = d.r;
+  el.style.border       = 'none';
   if (d.isHoop) {
-    var bw = Math.max(2, d.w * 0.14);
-    el.style.background = 'transparent';
-    el.style.border     = bw + 'px solid ' + HOOP_COLORS[colorKey];
-    el.style.boxShadow  = 'none';
+    /* 3Dリング：conicグラデーション＋ラジアルマスクで穴を開ける */
+    var grad = HOOP_GRAD[colorKey] || HOOP_GRAD.white;
+    el.style.background  = grad;
+    el.style.webkitMask  = 'radial-gradient(farthest-side, transparent 58%, #000 61%)';
+    el.style.mask        = 'radial-gradient(farthest-side, transparent 58%, #000 61%)';
+    el.style.boxShadow   = '1px 3px 9px rgba(0,0,0,0.32), inset 0 0 4px rgba(0,0,0,0.10)';
   } else {
-    el.style.background = c.bg;
-    el.style.border     = 'none';
-    el.style.boxShadow  = c.sh;
+    el.style.webkitMask  = '';
+    el.style.mask        = '';
+    el.style.background  = c.bg;
+    el.style.boxShadow   = c.sh;
   }
   el.style.mixBlendMode = '';
 }
@@ -492,9 +516,7 @@ function buildGallery() {
     }
     var name = document.createElement('div'); name.className = 'product-name';
     name.textContent = p.name.replace('\n',' ');
-    var price = document.createElement('div'); price.className = 'product-price';
-    price.textContent = p.price;
-    card.appendChild(thumb); card.appendChild(name); card.appendChild(price);
+    card.appendChild(thumb); card.appendChild(name);
     card.addEventListener('click', function(){ selectProduct(p); });
     productGallery.appendChild(card);
   });
