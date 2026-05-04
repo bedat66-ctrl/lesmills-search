@@ -43,6 +43,7 @@ header { background:var(--black); padding:14px 20px; display:flex; align-items:c
 /* Photo container */
 #photo-container { position:relative; width:100%; max-width:540px; flex-shrink:0; background:#111; overflow:hidden; touch-action:none; user-select:none; }
 
+#try-group { position:absolute; top:0; left:0; width:100%; height:100%; transform-origin:center center; will-change:transform; }
 #user-photo { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; pointer-events:none; user-select:none; -webkit-user-drag:none; transform-origin:center center; will-change:transform; }
 
 /* ── 耳位置マーカー（デフォルト固定） ── */
@@ -150,8 +151,14 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
   <div class="instr-bar align" id="instr-bar">◎ に耳たぶを合わせてください（ピンチ拡大・ドラッグ移動）</div>
 
   <div id="photo-container">
-    <img id="user-photo" alt="">
-    <!-- 固定の耳位置マーカー -->
+    <!-- 試着モードでまとめて拡縮するグループ -->
+    <div id="try-group">
+      <img id="user-photo" alt="">
+      <!-- ピアス（グループ内の固定位置） -->
+      <div class="earring" id="left-earring"></div>
+      <div class="earring" id="right-earring"></div>
+    </div>
+    <!-- マーカー（コンテナ直下・固定位置・位置合わせのみ表示） -->
     <div class="ear-marker" id="left-marker">
       <div class="marker-outer"><div class="marker-inner"></div><div class="marker-dot"></div></div>
       <div class="marker-label">左耳</div>
@@ -160,9 +167,6 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
       <div class="marker-outer"><div class="marker-inner"></div><div class="marker-dot"></div></div>
       <div class="marker-label">右耳</div>
     </div>
-    <!-- ピアス（マーカーと同じ位置に表示） -->
-    <div class="earring" id="left-earring"></div>
-    <div class="earring" id="right-earring"></div>
   </div>
 
   <!-- Align Panel -->
@@ -319,6 +323,7 @@ var photoInput      = document.getElementById('photo-input');
 var step1           = document.getElementById('step1');
 var step2           = document.getElementById('step2');
 var userPhoto       = document.getElementById('user-photo');
+var tryGroup        = document.getElementById('try-group');
 var photoContainer  = document.getElementById('photo-container');
 var leftMarker      = document.getElementById('left-marker');
 var rightMarker     = document.getElementById('right-marker');
@@ -339,8 +344,11 @@ var earringPx       = 10;
 var activeProductId = null;
 var customEarringURL= null;
 
-/* リセット用スナップショット（試着モード開始時の変換値） */
-var tryBaseScale = 1, tryBaseX = 0, tryBaseY = 0;
+/* アライン用フォト変換 */
+var photoScale = 1, photoX = 0, photoY = 0;
+
+/* 試着用グループ変換（フォト変換とは独立） */
+var tryZoom = 1, tryPanX = 0, tryPanY = 0;
 
 /* ── マーカー・ピアスの画面位置（px）── */
 var markerLX = 0, markerLY = 0;
@@ -403,8 +411,6 @@ function enterAlignMode() {
 
 function enterTryingMode() {
   appMode = 'trying';
-  /* 試着開始時の変換値をスナップショット（リセット用） */
-  tryBaseScale = photoScale; tryBaseX = photoX; tryBaseY = photoY;
   instrBar.textContent = '商品をタップするとピアスが付きます';
   instrBar.className = 'instr-bar';
   leftMarker.style.display  = 'none';
@@ -413,8 +419,12 @@ function enterTryingMode() {
   rightEarring.style.display = 'block';
   alignPanel.style.display = 'none';
   tryPanel.style.display   = 'flex';
-  /* ピアスをマーカー位置に配置 */
-  updateEarringPositions();
+  /* 試着ズームをリセット（アライン変換はそのまま凍結） */
+  tryZoom = 1; tryPanX = 0; tryPanY = 0;
+  applyTryTransform();
+  /* ピアスをマーカー位置に固定（グループ内の固定座標） */
+  leftEarring.style.left  = markerLX + 'px'; leftEarring.style.top  = markerLY + 'px';
+  rightEarring.style.left = markerRX + 'px'; rightEarring.style.top = markerRY + 'px';
   if (activeProductId) applyStyle();
 }
 
@@ -422,10 +432,10 @@ function enterTryingMode() {
 document.getElementById('confirm-btn').addEventListener('click', enterTryingMode);
 document.getElementById('realign-btn').addEventListener('click', enterAlignMode);
 
-/* ══ リセットボタン（試着開始時の位置・サイズに戻す） ══ */
+/* ══ リセットボタン（試着ズームをリセット） ══ */
 document.getElementById('reset-btn').addEventListener('click', function() {
-  photoScale = tryBaseScale; photoX = tryBaseX; photoY = tryBaseY;
-  applyPhotoTransform();
+  tryZoom = 1; tryPanX = 0; tryPanY = 0;
+  applyTryTransform();
 });
 
 /* ══ 別の写真 ══ */
@@ -442,25 +452,9 @@ function resetAll() {
 document.getElementById('change-btn-align').addEventListener('click', resetAll);
 document.getElementById('change-btn-try').addEventListener('click', resetAll);
 
-/* ══ ピアス位置をフォト変換に合わせて更新（試着モード用） ══ */
-function updateEarringPositions() {
-  var cW = photoContainer.offsetWidth;
-  var cH = photoContainer.offsetHeight;
-  /* マーカーベース位置を現在のフォト変換で写像 */
-  var lx = (markerLX - cW/2) * photoScale + cW/2 + photoX;
-  var ly = (markerLY - cH/2) * photoScale + cH/2 + photoY;
-  var rx = (markerRX - cW/2) * photoScale + cW/2 + photoX;
-  var ry = (markerRY - cH/2) * photoScale + cH/2 + photoY;
-  leftEarring.style.left  = lx + 'px';
-  leftEarring.style.top   = ly + 'px';
-  rightEarring.style.left = rx + 'px';
-  rightEarring.style.top  = ry + 'px';
-}
-
-/* ══ スタイル適用（試着モードではzoomに比例してサイズも拡縮） ══ */
+/* ══ スタイル適用（サイズのみ。位置はグループ変換が担う） ══ */
 function applyStyle() {
-  var displayScale = (appMode === 'trying') ? photoScale : 1;
-  earringPx = mmToPx(currentMm) * displayScale;
+  earringPx = mmToPx(currentMm);
   var d = shapeDims(currentShape, earringPx);
   [leftEarring, rightEarring].forEach(function(el) {
     if (customEarringURL) { applyCustomPhoto(el, d); }
@@ -551,54 +545,79 @@ sizeSlider.addEventListener('input', function() {
 });
 
 
-/* ══ 写真 パン＆ピンチ ══ */
-var photoScale = 1, photoX = 0, photoY = 0;
-
+/* ══ 写真 パン＆ピンチ（アラインモード用） ══ */
 function applyPhotoTransform() {
   userPhoto.style.transform = 'translate('+photoX+'px,'+photoY+'px) scale('+photoScale+')';
-  /* 試着モードではピアスも連動して移動・サイズ変更 */
-  if (appMode === 'trying') {
-    updateEarringPositions();
-    if (activeProductId) applyStyle();
-  }
 }
 function resetPhotoTransform() { photoScale=1; photoX=0; photoY=0; applyPhotoTransform(); }
 
-/* ピンチ共通 */
-function buildPinchData(t0, t1) {
-  var rect = photoContainer.getBoundingClientRect();
-  var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
-  var midX = (t0.clientX+t1.clientX)/2 - rect.left;
-  var midY = (t0.clientY+t1.clientY)/2 - rect.top;
-  return {
-    startDist:  Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY),
-    startScale: photoScale,
-    pivotImgX:  (midX - cW/2 - photoX) / photoScale,
-    pivotImgY:  (midY - cH/2 - photoY) / photoScale,
-  };
-}
-function applyPinch(t0, t1, pd) {
-  var rect = photoContainer.getBoundingClientRect();
-  var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
-  var newDist  = Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY);
-  /* 試着モードでは縮小しすぎ防止（tryBaseScaleの0.5倍まで） */
-  var minScale = (appMode === 'trying') ? Math.max(0.5, tryBaseScale * 0.5) : 0.4;
-  var newScale = Math.max(minScale, Math.min(6, pd.startScale * newDist / pd.startDist));
-  var curMidX  = (t0.clientX+t1.clientX)/2 - rect.left - cW/2;
-  var curMidY  = (t0.clientY+t1.clientY)/2 - rect.top  - cH/2;
-  photoScale = newScale;
-  photoX = curMidX - pd.pivotImgX * newScale;
-  photoY = curMidY - pd.pivotImgY * newScale;
+/* ══ 試着グループ 拡縮（試着モード用） ══ */
+function applyTryTransform() {
+  tryGroup.style.transform = 'translate('+tryPanX+'px,'+tryPanY+'px) scale('+tryZoom+')';
 }
 
 var rafPending = false;
 function scheduleTransform(){
   if(rafPending) return; rafPending=true;
-  requestAnimationFrame(function(){ rafPending=false; applyPhotoTransform(); });
+  requestAnimationFrame(function(){
+    rafPending=false;
+    if (appMode === 'align') applyPhotoTransform();
+    else applyTryTransform();
+  });
 }
 
-/* Touch handlers（Align + Trying 両モードで写真を動かす） */
-var panTouchId=null, panStartX=0, panStartY=0, panPhotoX0=0, panPhotoY0=0;
+/* ── アライン用ピンチ ── */
+function buildAlignPinch(t0, t1) {
+  var rect = photoContainer.getBoundingClientRect();
+  var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
+  var midX = (t0.clientX+t1.clientX)/2 - rect.left;
+  var midY = (t0.clientY+t1.clientY)/2 - rect.top;
+  return {
+    startDist: Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY),
+    startScale: photoScale,
+    pivotX: (midX - cW/2 - photoX) / photoScale,
+    pivotY: (midY - cH/2 - photoY) / photoScale,
+  };
+}
+function doAlignPinch(t0, t1, pd) {
+  var rect = photoContainer.getBoundingClientRect();
+  var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
+  var newDist  = Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY);
+  var newScale = Math.max(0.4, Math.min(6, pd.startScale * newDist / pd.startDist));
+  var midX = (t0.clientX+t1.clientX)/2 - rect.left - cW/2;
+  var midY = (t0.clientY+t1.clientY)/2 - rect.top  - cH/2;
+  photoScale = newScale;
+  photoX = midX - pd.pivotX * newScale;
+  photoY = midY - pd.pivotY * newScale;
+}
+
+/* ── 試着用ピンチ ── */
+function buildTryPinch(t0, t1) {
+  var rect = photoContainer.getBoundingClientRect();
+  var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
+  var midX = (t0.clientX+t1.clientX)/2 - rect.left;
+  var midY = (t0.clientY+t1.clientY)/2 - rect.top;
+  return {
+    startDist: Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY),
+    startZoom: tryZoom,
+    pivotX: (midX - cW/2 - tryPanX) / tryZoom,
+    pivotY: (midY - cH/2 - tryPanY) / tryZoom,
+  };
+}
+function doTryPinch(t0, t1, pd) {
+  var rect = photoContainer.getBoundingClientRect();
+  var cW = photoContainer.offsetWidth, cH = photoContainer.offsetHeight;
+  var newDist = Math.hypot(t1.clientX-t0.clientX, t1.clientY-t0.clientY);
+  var newZoom = Math.max(0.5, Math.min(6, pd.startZoom * newDist / pd.startDist));
+  var midX = (t0.clientX+t1.clientX)/2 - rect.left - cW/2;
+  var midY = (t0.clientY+t1.clientY)/2 - rect.top  - cH/2;
+  tryZoom = newZoom;
+  tryPanX = midX - pd.pivotX * newZoom;
+  tryPanY = midY - pd.pivotY * newZoom;
+}
+
+/* ── タッチ処理（モードで分岐） ── */
+var panTouchId=null, panStartX=0, panStartY=0, panBase0=0, panBase1=0;
 var pinchData=null;
 
 photoContainer.addEventListener('touchstart', function(e) {
@@ -607,9 +626,13 @@ photoContainer.addEventListener('touchstart', function(e) {
   if (e.touches.length === 1) {
     panTouchId = e.touches[0].identifier;
     panStartX  = e.touches[0].clientX; panStartY = e.touches[0].clientY;
-    panPhotoX0 = photoX; panPhotoY0 = photoY; pinchData = null;
+    panBase0   = (appMode === 'align') ? photoX : tryPanX;
+    panBase1   = (appMode === 'align') ? photoY : tryPanY;
+    pinchData  = null;
   } else if (e.touches.length >= 2) {
-    pinchData = buildPinchData(e.touches[0], e.touches[1]);
+    pinchData = (appMode === 'align')
+      ? buildAlignPinch(e.touches[0], e.touches[1])
+      : buildTryPinch(e.touches[0], e.touches[1]);
   }
 }, {passive:false});
 
@@ -617,11 +640,16 @@ photoContainer.addEventListener('touchmove', function(e) {
   if (appMode !== 'align' && appMode !== 'trying') return;
   e.preventDefault();
   if (e.touches.length >= 2 && pinchData) {
-    applyPinch(e.touches[0], e.touches[1], pinchData);
+    if (appMode === 'align') doAlignPinch(e.touches[0], e.touches[1], pinchData);
+    else                     doTryPinch(e.touches[0], e.touches[1], pinchData);
   } else if (e.touches.length === 1 && panTouchId !== null && !pinchData) {
     var arr = Array.from(e.touches);
     var t = arr.find(function(x){ return x.identifier===panTouchId; });
-    if (t) { photoX = panPhotoX0 + t.clientX-panStartX; photoY = panPhotoY0 + t.clientY-panStartY; }
+    if (t) {
+      var dx = t.clientX - panStartX, dy = t.clientY - panStartY;
+      if (appMode === 'align') { photoX = panBase0 + dx; photoY = panBase1 + dy; }
+      else                     { tryPanX = panBase0 + dx; tryPanY = panBase1 + dy; }
+    }
   }
   scheduleTransform();
 }, {passive:false});
@@ -631,23 +659,26 @@ photoContainer.addEventListener('touchend', function(e) {
     pinchData  = null;
     panTouchId = e.touches[0].identifier;
     panStartX  = e.touches[0].clientX; panStartY = e.touches[0].clientY;
-    panPhotoX0 = photoX; panPhotoY0 = photoY;
+    panBase0   = (appMode === 'align') ? photoX : tryPanX;
+    panBase1   = (appMode === 'align') ? photoY : tryPanY;
   } else if (e.touches.length === 0) {
     panTouchId = null; pinchData = null;
   }
 });
 
-/* マウス（PC用） */
-var mouseDown=false, mouseDragPX=0, mouseDragPY=0, mousePhotoX0=0, mousePhotoY0=0;
+/* ── マウス（PC用） ── */
+var mouseDown=false, mouseDragPX=0, mouseDragPY=0, mouseBase0=0, mouseBase1=0;
 photoContainer.addEventListener('mousedown', function(e) {
-  if (appMode !== 'align') return;
-  if (e.target.closest('.earring')) return;
-  mouseDown=true; mouseDragPX=e.clientX; mouseDragPY=e.clientY; mousePhotoX0=photoX; mousePhotoY0=photoY;
+  if (appMode !== 'align' && appMode !== 'trying') return;
+  mouseDown=true; mouseDragPX=e.clientX; mouseDragPY=e.clientY;
+  mouseBase0 = (appMode === 'align') ? photoX : tryPanX;
+  mouseBase1 = (appMode === 'align') ? photoY : tryPanY;
 });
 document.addEventListener('mousemove', function(e) {
   if (!mouseDown) return;
-  photoX = mousePhotoX0 + e.clientX-mouseDragPX; photoY = mousePhotoY0 + e.clientY-mouseDragPY;
-  scheduleTransform();
+  var dx = e.clientX-mouseDragPX, dy = e.clientY-mouseDragPY;
+  if (appMode === 'align') { photoX = mouseBase0+dx; photoY = mouseBase1+dy; applyPhotoTransform(); }
+  else                     { tryPanX = mouseBase0+dx; tryPanY = mouseBase1+dy; applyTryTransform(); }
 });
 document.addEventListener('mouseup', function(){ mouseDown=false; });
 </script>
