@@ -343,8 +343,12 @@ var customEarringURL= null;
 var markerLX = 0, markerLY = 0;
 var markerRX = 0, markerRY = 0;
 
-/* ── mm→px（scale=1のときの顔幅基準） ── */
-function pxPerMm() { return photoContainer.offsetWidth * 0.85 / 140; }
+/* ── mm→px（マーカー間隔＝耳たぶ間距離 約135mm 基準） ── */
+function pxPerMm() {
+  var span = markerRX - markerLX; // マーカー間の距離（px）
+  if (span <= 0) return 1.2;      // fallback
+  return span / 135;              // 耳たぶ間平均135mmで割る
+}
 function mmToPx(mm){ return Math.max(3, mm * pxPerMm()); }
 
 /* ══ マーカー位置を設定（コンテナサイズ基準） ══ */
