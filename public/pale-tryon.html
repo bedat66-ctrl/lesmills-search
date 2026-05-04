@@ -195,7 +195,7 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
       <div class="ctrl-row">
         <span class="ctrl-label">大きさ</span>
         <div style="flex:1; display:flex; flex-direction:column; gap:2px;">
-          <input type="range" id="size-slider" min="3" max="10" step="0.5" value="6" list="size-ticks">
+          <input type="range" id="size-slider" min="3" max="10" step="0.5" value="3" list="size-ticks">
           <datalist id="size-ticks">
             <option value="3"></option><option value="5"></option>
             <option value="7"></option><option value="10"></option>
@@ -204,7 +204,7 @@ footer p { font-size:10px; letter-spacing:0.12em; color:#555; }
             <span>3mm</span><span>5mm</span><span>7mm</span><span>10mm</span>
           </div>
         </div>
-        <span id="size-mm-label">6.0mm</span>
+        <span id="size-mm-label">3.0mm</span>
       </div>
     </div>
 
@@ -339,7 +339,7 @@ var productGallery  = document.getElementById('product-gallery');
 var appMode         = 'align'; // 'align' | 'trying'
 var currentShape    = 'circle';
 var currentColor    = 'white';
-var currentMm       = 6;
+var currentMm       = 3;
 var earringPx       = 10;
 var activeProductId = null;
 var customEarringURL= null;
@@ -354,11 +354,11 @@ var tryZoom = 1, tryPanX = 0, tryPanY = 0;
 var markerLX = 0, markerLY = 0;
 var markerRX = 0, markerRY = 0;
 
-/* ── mm→px（マーカー間隔＝耳たぶ間距離 約120mm 基準） ── */
+/* ── mm→px（マーカー間隔基準・実測補正済み） ── */
 function pxPerMm() {
   var span = markerRX - markerLX; // マーカー間の距離（px）
-  if (span <= 0) return 1.5;      // fallback
-  return span / 120;              // 耳たぶ間平均120mmで割る
+  if (span <= 0) return 1.0;      // fallback
+  return span / 170;              // 実測補正値（7mm表示→実物10mmのため0.7倍縮小）
 }
 function mmToPx(mm){ return Math.max(2, mm * pxPerMm()); }
 
