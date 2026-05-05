@@ -1,294 +1,196 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PALE — 背景色比較</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#111; font-family:'Helvetica Neue',sans-serif; padding:32px 16px 60px; }
-  h1 { text-align:center; color:#888; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:32px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE PEARL — パターン比較</title>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  .row { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    body {
+      background: #f0ede8;
+      font-family: 'Josefin Sans', sans-serif;
+      min-height: 100vh;
+    }
 
-  .col { display:flex; flex-direction:column; align-items:center; gap:10px; }
-  .col-label { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; }
+    header {
+      background: #2a2826;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand { font-size: 10px; letter-spacing: 0.5em; color: #b8a98a; }
+    .header-title { font-size: 11px; letter-spacing: 0.3em; color: #888; }
 
-  /* ── ミニphone ── */
-  .phone {
-    width:160px;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 16px 40px rgba(0,0,0,0.6);
-    flex-shrink:0;
-  }
+    .scroll-hint {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: #b8a98a;
+      padding: 16px 0 8px;
+    }
 
-  /* status bar */
-  .sb { padding:8px 10px 4px; display:flex; justify-content:space-between; }
-  .sb span { font-size:7px; font-weight:700; }
+    .compare-wrap {
+      overflow-x: auto;
+      padding: 8px 24px 48px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .compare-row {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+    }
 
-  /* ig header */
-  .igh { padding:4px 10px 6px; display:flex; align-items:center; justify-content:space-between; border-bottom:0.5px solid; }
-  .igh-name { font-size:8px; font-weight:700; letter-spacing:0.03em; }
-  .igh-icons { display:flex; gap:6px; }
-  .igh-icon { width:10px; height:10px; border:1px solid; border-radius:2px; }
+    .pattern-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 296px;
+    }
 
-  /* profile */
-  .prof { padding:8px 10px 6px; }
-  .prof-top { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-  .avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .avatar span { font-family:'Cormorant Garamond',serif; font-size:10px; letter-spacing:0.1em; }
-  .stats { display:flex; gap:8px; }
-  .stat { display:flex; flex-direction:column; align-items:center; }
-  .stat-n { font-size:8px; font-weight:700; }
-  .stat-l { font-size:6px; }
-  .prof-name { font-size:7px; font-weight:700; margin-bottom:2px; }
-  .prof-bio { font-size:6px; line-height:1.6; font-family:'Noto Sans JP',sans-serif; }
-  .accent { color:#C8B99A; }
+    .pattern-label {
+      font-size: 9px;
+      letter-spacing: 0.45em;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+    .pattern-name {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      color: #2a2826;
+      margin-top: -4px;
+    }
+    .pattern-theme {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: #b8a98a;
+      margin-top: -6px;
+      text-align: center;
+    }
 
-  /* buttons */
-  .btns { display:flex; gap:4px; margin-top:6px; }
-  .btn-f { flex:1; padding:4px; border-radius:4px; font-size:6px; font-weight:700; text-align:center; background:#1c1c1c; color:#f7f6f4; }
-  .btn-m { flex:1; padding:4px; border-radius:4px; font-size:6px; font-weight:700; text-align:center; }
+    /* iframeを縮小表示 */
+    .frame-wrap {
+      width: 296px;
+      height: 554px;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .frame-wrap iframe {
+      width: 375px;
+      height: 700px;
+      border: none;
+      transform: scale(0.789);
+      transform-origin: top left;
+      pointer-events: none;
+    }
 
-  /* highlights */
-  .hls { padding:6px 10px; display:flex; gap:8px; border-bottom:0.5px solid; }
-  .hl { display:flex; flex-direction:column; align-items:center; gap:3px; }
-  .hl-c { width:24px; height:24px; border-radius:50%; border:1px solid; }
-  .hl-l { font-size:6px; }
+    .swatch-row { display: flex; gap: 6px; }
+    .swatch {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
 
-  /* try-on banner */
-  .tryon { background:#EDE6DC; padding:8px 10px; position:relative; overflow:hidden; }
-  .tryon-pearl { position:absolute; right:-6px; top:50%; transform:translateY(-50%); width:34px; height:34px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#fff,#e0d8d0 40%,#c0b8b0 80%,#a8a0a0); opacity:0.5; }
-  .tryon-tag { font-size:6px; letter-spacing:0.2em; color:#9a8870; text-transform:uppercase; margin-bottom:4px; }
-  .tryon-line { width:12px; height:0.5px; background:#C8B99A; margin-bottom:4px; }
-  .tryon-main { font-family:'Noto Sans JP',sans-serif; font-size:7px; font-weight:300; color:#1c1a18; letter-spacing:0.08em; margin-bottom:2px; }
-  .tryon-sub { font-size:6px; color:#7a6e62; }
-
-  /* grid 3x3 mini */
-  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; }
-  .cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-  .pearl-glow { width:5px; height:5px; border-radius:50%; background:radial-gradient(circle at 32% 30%,#fff,#f0e8de 30%,#c8c0b4 70%,#908880); box-shadow:0 0 4px 1px rgba(240,232,220,0.5); }
-  .pearl-lg { width:22px; height:22px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#fff,#e0d8d0 40%,#c0b8b0 80%,#a8a0a0); box-shadow:inset -2px -2px 4px rgba(0,0,0,0.08); }
-  .wm { font-family:'Cormorant Garamond',serif; font-size:10px; letter-spacing:0.4em; color:#e8e4de; padding-left:0.4em; }
-  .jp-txt { font-family:'Noto Sans JP',sans-serif; font-size:5px; letter-spacing:0.15em; color:#2a2520; text-align:center; line-height:1.8; }
-  .p1 { background:radial-gradient(ellipse at 50% 60%,#221e1a 0%,#0e0c0a 100%); flex-direction:column; gap:4px; }
-  .p2 { background:#EDE6DC; }
-  .p3 { background:#f7f6f4; flex-direction:column; gap:4px; padding:6px; }
-  .p4 { background:radial-gradient(ellipse at 50% 40%,#2e2b28 0%,#0a0908 100%); }
-  .p5 { background:#fff; flex-direction:column; }
-  .p5-price { font-size:5px; color:#888; font-style:italic; margin-top:2px; }
-  .p6 { background:radial-gradient(ellipse at 50% 50%,#3a3530 0%,#0e0c0a 100%); }
-  .pearl-solo { width:28px; height:28px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fff,#ece4d8 35%,#d0c8c0 65%,#b0a8a0 90%); box-shadow:0 0 12px 4px rgba(240,232,220,0.2); }
-  .p7 { background:#c8b88a; flex-direction:column; }
-  .p7-txt { font-family:'Noto Sans JP',sans-serif; font-size:5px; color:#2a2520; text-align:center; line-height:1.8; letter-spacing:0.1em; }
-  .p8 { background:#f5f4f2; display:flex; gap:6px; }
-  .pearl-pair { width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#fff,#e0d8d0 40%,#c0b8b0 80%,#a8a0a0); }
-  .p9 { background:radial-gradient(ellipse at 50% 60%,#2a2520 0%,#0e0c0a 100%); flex-direction:column; gap:3px; }
-  .pearl-tiny { width:8px; height:8px; border-radius:50%; background:radial-gradient(circle at 32% 30%,#fff,#f0e8de 30%,#c8c0b4 70%,#908880); box-shadow:0 0 4px 2px rgba(240,232,220,0.3); }
-  .small-wm { font-family:'Cormorant Garamond',serif; font-size:7px; letter-spacing:0.3em; color:#e8e4de; padding-left:0.3em; }
-  .tag { font-size:5px; letter-spacing:0.2em; color:#C8B99A; text-transform:uppercase; }
-
-  /* ── カラーバリアント ── */
-
-  /* 黒 */
-  .black .phone { background:#141210; }
-  .black .sb { background:#141210; }
-  .black .sb span { color:#d8d4ce; }
-  .black .igh { background:#141210; border-color:#2a2520; }
-  .black .igh-name { color:#e8e4de; }
-  .black .igh-icon { border-color:#666; }
-  .black .prof { background:#141210; }
-  .black .prof-name { color:#e8e4de; }
-  .black .prof-bio { color:#aaa; }
-  .black .stat-n { color:#e8e4de; }
-  .black .stat-l { color:#888; }
-  .black .btn-m { background:#2a2520; color:#e8e4de; }
-  .black .hls { background:#141210; border-color:#2a2520; }
-  .black .hl-c { border-color:#444; }
-  .black .hl-l { color:#aaa; }
-  .black .col-label { color:#666; }
-
-  /* 白 */
-  .white .phone { background:#fafafa; }
-  .white .sb { background:#fafafa; }
-  .white .sb span { color:#1c1c1c; }
-  .white .igh { background:#fafafa; border-color:#eee; }
-  .white .igh-name { color:#1c1c1c; }
-  .white .igh-icon { border-color:#1c1c1c; }
-  .white .prof { background:#fafafa; }
-  .white .prof-name { color:#1c1c1c; }
-  .white .prof-bio { color:#3a3a3a; }
-  .white .stat-n { color:#1c1c1c; }
-  .white .stat-l { color:#7a7a7a; }
-  .white .btn-f { background:#1c1c1c; }
-  .white .btn-m { background:#efefef; color:#1c1c1c; }
-  .white .hls { background:#fafafa; border-color:#eee; }
-  .white .hl-c { border-color:#ddd; }
-  .white .hl-l { color:#3a3a3a; }
-  .white .col-label { color:#888; }
-
-  /* グレー（能作） */
-  .gray .phone { background:#4a4d50; }
-  .gray .sb { background:#4a4d50; }
-  .gray .sb span { color:#d8d4ce; }
-  .gray .igh { background:#4a4d50; border-color:#5c5f62; }
-  .gray .igh-name { color:#e8e4de; }
-  .gray .igh-icon { border-color:#888; }
-  .gray .prof { background:#4a4d50; }
-  .gray .prof-name { color:#e8e4de; }
-  .gray .prof-bio { color:#ccc; }
-  .gray .stat-n { color:#e8e4de; }
-  .gray .stat-l { color:#aaa; }
-  .gray .btn-m { background:#5c5f62; color:#e8e4de; }
-  .gray .hls { background:#4a4d50; border-color:#5c5f62; }
-  .gray .hl-c { border-color:#888; }
-  .gray .hl-l { color:#ccc; }
-  .gray .col-label { color:#aaa; }
-</style>
+    .badge {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      background: #fef3e8;
+      color: #e8a87c;
+      border-radius: 20px;
+      padding: 3px 14px;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
 
-<h1>PALE — 背景色比較</h1>
+<header>
+  <div class="header-brand">P A L E &nbsp; P E A R L</div>
+  <div class="header-title">FEED PATTERN COMPARE</div>
+</header>
 
-<div class="row">
+<div class="scroll-hint">← 横にスクロールできます →</div>
 
-  <!-- 黒 -->
-  <div class="col black">
-    <div class="phone">
-      <div class="sb"><span>9:41</span><span>◼◼◼</span></div>
-      <div class="igh">
-        <div class="igh-name">pale_pearl</div>
-        <div class="igh-icons"><div class="igh-icon"></div><div class="igh-icon" style="border-radius:50%"></div></div>
+<div class="compare-wrap">
+  <div class="compare-row">
+
+    <!-- Pattern A -->
+    <div class="pattern-col">
+      <div class="pattern-label">Pattern A</div>
+      <div class="pattern-name">夜に輝く光</div>
+      <div class="pattern-theme">黒 × チャコール</div>
+      <div class="frame-wrap">
+        <iframe src="/pale-instagram.html" scrolling="no"></iframe>
       </div>
-      <div class="prof">
-        <div class="prof-top">
-          <div class="avatar" style="background:linear-gradient(#111,#111) padding-box,linear-gradient(135deg,#C8B99A,#7a7a7a) border-box;border:1.5px solid transparent;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;color:#e8e8e8;letter-spacing:0.1em;">P</span>
-          </div>
-          <div class="stats">
-            <div class="stat"><span class="stat-n">48</span><span class="stat-l">投稿</span></div>
-            <div class="stat"><span class="stat-n">1,204</span><span class="stat-l">フォロワー</span></div>
-            <div class="stat"><span class="stat-n">312</span><span class="stat-l">フォロー中</span></div>
-          </div>
-        </div>
-        <div class="prof-name">PALE pearl earrings</div>
-        <div class="prof-bio">動く日も、纏う。<br>フィットネス中も ✦ カフェでも<br><span class="accent">¥1,500〜 ／ DM or link↓</span></div>
-        <div class="btns"><div class="btn-f">フォローする</div><div class="btn-m">メッセージ</div></div>
-      </div>
-      <div class="hls">
-        <div class="hl"><div class="hl-c" style="background:#2c2c2c"></div><div class="hl-l">fitness</div></div>
-        <div class="hl"><div class="hl-c" style="background:#EDE6DC"></div><div class="hl-l">daily</div></div>
-        <div class="hl"><div class="hl-c" style="background:#d4d0cc"></div><div class="hl-l">styling</div></div>
-        <div class="hl"><div class="hl-c" style="background:#C8B99A"></div><div class="hl-l">order</div></div>
-      </div>
-      <div class="tryon"><div class="tryon-pearl"></div><div class="tryon-tag">Try-On Simulator</div><div class="tryon-line"></div><div class="tryon-main">自分の写真で試着できます</div><div class="tryon-sub">サイズ感・色・形を購入前に確認 →</div></div>
-      <div class="grid">
-        <div class="cell p1"><div class="pearl-glow"></div><div class="wm">PALE</div></div>
-        <div class="cell p2"><div class="pearl-lg"></div></div>
-        <div class="cell p3"><div class="jp-txt">フィットネスでも、<br>普段でも。</div></div>
-        <div class="cell p4"><div class="pearl-glow"></div></div>
-        <div class="cell p5"><div class="pearl-lg" style="width:16px;height:16px;"></div><div class="p5-price">¥ 1,980</div></div>
-        <div class="cell p6"><div class="pearl-solo"></div></div>
-        <div class="cell p7"><div class="p7-txt">動く日も、<br>纏う。</div></div>
-        <div class="cell p8"><div class="pearl-pair"></div><div class="pearl-pair"></div></div>
-        <div class="cell p9"><div class="pearl-tiny"></div><div class="small-wm">PALE</div><div class="tag">new arrival</div></div>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#1a1818"></div>
+        <div class="swatch" style="background:#3a3530"></div>
+        <div class="swatch" style="background:#6a6460"></div>
+        <div class="swatch" style="background:#c8b99a"></div>
+        <div class="swatch" style="background:#f5f0e8;border:1px solid #e8e0d4"></div>
       </div>
     </div>
-    <div class="col-label" style="color:#666;">黒 / Black</div>
-  </div>
 
-  <!-- 白 -->
-  <div class="col white">
-    <div class="phone">
-      <div class="sb"><span>9:41</span><span>◼◼◼</span></div>
-      <div class="igh">
-        <div class="igh-name">pale_pearl</div>
-        <div class="igh-icons"><div class="igh-icon"></div><div class="igh-icon" style="border-radius:50%"></div></div>
+    <!-- Pattern D -->
+    <div class="pattern-col">
+      <div class="pattern-label">Pattern D</div>
+      <div class="pattern-name">大地の光</div>
+      <div class="pattern-theme">ダスティクレイ × グレーローズ</div>
+      <div class="frame-wrap">
+        <iframe src="/pale-instagram4.html" scrolling="no" id="frame-d" onload="this.contentDocument.documentElement.scrollTop=420"></iframe>
       </div>
-      <div class="prof">
-        <div class="prof-top">
-          <div class="avatar" style="background:linear-gradient(#111,#111) padding-box,linear-gradient(135deg,#C8B99A,#7a7a7a) border-box;border:1.5px solid transparent;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;color:#e8e8e8;letter-spacing:0.1em;">P</span>
-          </div>
-          <div class="stats">
-            <div class="stat"><span class="stat-n">48</span><span class="stat-l">投稿</span></div>
-            <div class="stat"><span class="stat-n">1,204</span><span class="stat-l">フォロワー</span></div>
-            <div class="stat"><span class="stat-n">312</span><span class="stat-l">フォロー中</span></div>
-          </div>
-        </div>
-        <div class="prof-name">PALE pearl earrings</div>
-        <div class="prof-bio">動く日も、纏う。<br>フィットネス中も ✦ カフェでも<br><span class="accent">¥1,500〜 ／ DM or link↓</span></div>
-        <div class="btns"><div class="btn-f">フォローする</div><div class="btn-m">メッセージ</div></div>
-      </div>
-      <div class="hls">
-        <div class="hl"><div class="hl-c" style="background:#2c2c2c"></div><div class="hl-l">fitness</div></div>
-        <div class="hl"><div class="hl-c" style="background:#EDE6DC"></div><div class="hl-l">daily</div></div>
-        <div class="hl"><div class="hl-c" style="background:#d4d0cc"></div><div class="hl-l">styling</div></div>
-        <div class="hl"><div class="hl-c" style="background:#C8B99A"></div><div class="hl-l">order</div></div>
-      </div>
-      <div class="tryon"><div class="tryon-pearl"></div><div class="tryon-tag">Try-On Simulator</div><div class="tryon-line"></div><div class="tryon-main">自分の写真で試着できます</div><div class="tryon-sub">サイズ感・色・形を購入前に確認 →</div></div>
-      <div class="grid">
-        <div class="cell p1"><div class="pearl-glow"></div><div class="wm">PALE</div></div>
-        <div class="cell p2"><div class="pearl-lg"></div></div>
-        <div class="cell p3"><div class="jp-txt">フィットネスでも、<br>普段でも。</div></div>
-        <div class="cell p4"><div class="pearl-glow"></div></div>
-        <div class="cell p5"><div class="pearl-lg" style="width:16px;height:16px;"></div><div class="p5-price">¥ 1,980</div></div>
-        <div class="cell p6"><div class="pearl-solo"></div></div>
-        <div class="cell p7"><div class="p7-txt">動く日も、<br>纏う。</div></div>
-        <div class="cell p8"><div class="pearl-pair"></div><div class="pearl-pair"></div></div>
-        <div class="cell p9"><div class="pearl-tiny"></div><div class="small-wm">PALE</div><div class="tag">new arrival</div></div>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#ffffff;border:1px solid #eee"></div>
+        <div class="swatch" style="background:#e8e2da"></div>
+        <div class="swatch" style="background:#c0a098"></div>
+        <div class="swatch" style="background:#8a5850"></div>
+        <div class="swatch" style="background:#2a2828"></div>
       </div>
     </div>
-    <div class="col-label" style="color:#aaa;">白 / White</div>
-  </div>
 
-  <!-- グレー -->
-  <div class="col gray">
-    <div class="phone">
-      <div class="sb"><span>9:41</span><span>◼◼◼</span></div>
-      <div class="igh">
-        <div class="igh-name">pale_pearl</div>
-        <div class="igh-icons"><div class="igh-icon"></div><div class="igh-icon" style="border-radius:50%"></div></div>
+    <!-- Pattern E -->
+    <div class="pattern-col">
+      <div class="pattern-label">Pattern E</div>
+      <div class="pattern-name">セージの光</div>
+      <div class="pattern-theme">ボタニカルセージ × グレーグリーン</div>
+      <div class="frame-wrap">
+        <iframe src="/pale-instagram5.html" scrolling="no"></iframe>
       </div>
-      <div class="prof">
-        <div class="prof-top">
-          <div class="avatar" style="background:linear-gradient(#111,#111) padding-box,linear-gradient(135deg,#C8B99A,#7a7a7a) border-box;border:1.5px solid transparent;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;color:#e8e8e8;letter-spacing:0.1em;">P</span>
-          </div>
-          <div class="stats">
-            <div class="stat"><span class="stat-n">48</span><span class="stat-l">投稿</span></div>
-            <div class="stat"><span class="stat-n">1,204</span><span class="stat-l">フォロワー</span></div>
-            <div class="stat"><span class="stat-n">312</span><span class="stat-l">フォロー中</span></div>
-          </div>
-        </div>
-        <div class="prof-name">PALE pearl earrings</div>
-        <div class="prof-bio">動く日も、纏う。<br>フィットネス中も ✦ カフェでも<br><span class="accent">¥1,500〜 ／ DM or link↓</span></div>
-        <div class="btns"><div class="btn-f">フォローする</div><div class="btn-m">メッセージ</div></div>
-      </div>
-      <div class="hls">
-        <div class="hl"><div class="hl-c" style="background:#2c2c2c"></div><div class="hl-l">fitness</div></div>
-        <div class="hl"><div class="hl-c" style="background:#EDE6DC"></div><div class="hl-l">daily</div></div>
-        <div class="hl"><div class="hl-c" style="background:#d4d0cc"></div><div class="hl-l">styling</div></div>
-        <div class="hl"><div class="hl-c" style="background:#C8B99A"></div><div class="hl-l">order</div></div>
-      </div>
-      <div class="tryon"><div class="tryon-pearl"></div><div class="tryon-tag">Try-On Simulator</div><div class="tryon-line"></div><div class="tryon-main">自分の写真で試着できます</div><div class="tryon-sub">サイズ感・色・形を購入前に確認 →</div></div>
-      <div class="grid">
-        <div class="cell p1"><div class="pearl-glow"></div><div class="wm">PALE</div></div>
-        <div class="cell p2"><div class="pearl-lg"></div></div>
-        <div class="cell p3"><div class="jp-txt">フィットネスでも、<br>普段でも。</div></div>
-        <div class="cell p4"><div class="pearl-glow"></div></div>
-        <div class="cell p5"><div class="pearl-lg" style="width:16px;height:16px;"></div><div class="p5-price">¥ 1,980</div></div>
-        <div class="cell p6"><div class="pearl-solo"></div></div>
-        <div class="cell p7"><div class="p7-txt">動く日も、<br>纏う。</div></div>
-        <div class="cell p8"><div class="pearl-pair"></div><div class="pearl-pair"></div></div>
-        <div class="cell p9"><div class="pearl-tiny"></div><div class="small-wm">PALE</div><div class="tag">new arrival</div></div>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#e8ece6"></div>
+        <div class="swatch" style="background:#c2cecc"></div>
+        <div class="swatch" style="background:#889298"></div>
+        <div class="swatch" style="background:#6c7880"></div>
+        <div class="swatch" style="background:#2a3030"></div>
       </div>
     </div>
-    <div class="col-label" style="color:#aaa;">グレー / Gray</div>
-  </div>
 
+    <!-- Pattern F -->
+    <div class="pattern-col">
+      <div class="pattern-label">Pattern F</div>
+      <div class="pattern-name">石灰の光</div>
+      <div class="pattern-theme">グレージュ × チャコール</div>
+      <div class="frame-wrap">
+        <iframe src="/pale-instagram6.html" scrolling="no"></iframe>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#f0eee8;border:1px solid #e8e4e0"></div>
+        <div class="swatch" style="background:#d4d0cc"></div>
+        <div class="swatch" style="background:#9a9490"></div>
+        <div class="swatch" style="background:#6a6662"></div>
+        <div class="swatch" style="background:#4a4644"></div>
+      </div>
+      <div class="badge">★ 高評価</div>
+    </div>
+
+  </div>
 </div>
+
 </body>
 </html>
