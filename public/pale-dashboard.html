@@ -2,624 +2,706 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PALE JEWELLERY — Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>PALEパール — Dashboard</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     body {
-      font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-      background: #faf8f5;
+      font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #f5f2ee;
       color: #2a2826;
-      max-width: 680px;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 0 0 40px;
     }
 
+    /* ── ヘッダー ── */
     header {
-      text-align: center;
-      padding: 32px 0 24px;
-      border-bottom: 1px solid #e8e0d4;
-      margin-bottom: 28px;
+      background: #2a2826;
+      color: #f5f2ee;
+      padding: 28px 20px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-
-    .brand {
-      font-size: 11px;
-      letter-spacing: 0.5em;
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .brand-label {
+      font-size: 9px;
+      letter-spacing: 0.45em;
       color: #b8a98a;
       text-transform: uppercase;
-      margin-bottom: 8px;
     }
-
-    h1 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #2a2826;
+    .updated-label {
+      font-size: 10px;
+      color: #666;
     }
-
-    .concept {
-      font-size: 13px;
-      color: #888;
-      margin-top: 6px;
+    .header-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f5f2ee;
+      letter-spacing: 0.02em;
+    }
+    .header-concept {
+      font-size: 11px;
+      color: #b8a98a;
+      margin-top: 2px;
       font-style: italic;
     }
 
-    .updated {
-      font-size: 11px;
-      color: #bbb;
-      margin-top: 8px;
-    }
-
-    /* セクション */
-    .section { margin-bottom: 28px; }
+    /* ── セクション共通 ── */
+    .section { padding: 20px 16px 0; }
 
     .section-label {
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 0.4em;
       color: #b8a98a;
       text-transform: uppercase;
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e8e0d4;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e8e0d4;
     }
 
-    /* ステータスカード */
+    /* ── ステータス数字 ── */
     .status-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
     }
-
     .status-card {
       background: #fff;
-      border-radius: 10px;
-      padding: 14px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 14px 12px;
       text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
-
     .status-num {
-      font-size: 26px;
-      font-weight: 700;
+      font-size: 28px;
+      font-weight: 800;
       color: #b8a98a;
       line-height: 1;
     }
-
     .status-label {
-      font-size: 11px;
-      color: #888;
-      margin-top: 4px;
+      font-size: 10px;
+      color: #999;
+      margin-top: 5px;
+      line-height: 1.4;
     }
 
-    /* フェーズバー */
-    .phase-bar {
+    /* ── タイムライン ── */
+    .timeline {
       background: #fff;
-      border-radius: 10px;
-      padding: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      margin-bottom: 10px;
+      border-radius: 14px;
+      padding: 4px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
-
-    .phase-row {
+    .tl-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
-      padding: 8px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #f5f0ea;
     }
-
-    .phase-row:last-child { border-bottom: none; }
-
-    .phase-dot {
-      width: 10px;
-      height: 10px;
+    .tl-row:last-child { border-bottom: none; }
+    .tl-dot {
+      width: 10px; height: 10px;
       border-radius: 50%;
       flex-shrink: 0;
+      margin-top: 3px;
     }
-
     .dot-done { background: #b8a98a; }
     .dot-now  { background: #e8a87c; }
     .dot-next { background: #ddd; }
-
-    .phase-text {
-      font-size: 13px;
+    .tl-body { flex: 1; }
+    .tl-text {
+      font-size: 12px;
       color: #2a2826;
-      flex: 1;
-    }
-
-    .phase-date {
-      font-size: 11px;
-      color: #bbb;
-    }
-
-    /* リンクグリッド */
-    .link-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .link-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 16px 14px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      text-decoration: none;
-      display: block;
-      transition: box-shadow 0.2s;
-    }
-
-    .link-card:active {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-
-    .link-icon {
-      font-size: 22px;
-      margin-bottom: 6px;
-    }
-
-    .link-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #2a2826;
-    }
-
-    .link-desc {
-      font-size: 11px;
-      color: #888;
-      margin-top: 3px;
       line-height: 1.5;
     }
-
-    /* コンセプト整理 */
-    .concept-block {
-      background: #fff;
-      border-radius: 10px;
-      padding: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    .tl-date {
+      font-size: 10px;
+      color: #bbb;
+      margin-top: 2px;
     }
 
-    .line-tag {
+    /* ── フィードパターン ── */
+    .feed-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 16px 8px;
+      display: flex;
+      gap: 10px;
+      scrollbar-width: none;
+    }
+    .feed-scroll::-webkit-scrollbar { display: none; }
+    .feed-card {
+      flex-shrink: 0;
+      width: 140px;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      text-decoration: none;
+      display: block;
+      active: transform 0.1s;
+    }
+    .feed-card:active { opacity: 0.8; }
+    .feed-thumb {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+    }
+    .feed-info {
+      padding: 8px 10px 10px;
+    }
+    .feed-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2a2826;
+      margin-bottom: 2px;
+    }
+    .feed-desc {
+      font-size: 10px;
+      color: #999;
+      line-height: 1.4;
+    }
+    .feed-badge {
+      display: inline-block;
+      font-size: 9px;
+      background: #fef3e8;
+      color: #e8a87c;
+      border-radius: 4px;
+      padding: 1px 5px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* ── リンクグリッド ── */
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .link-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      text-decoration: none;
+      display: block;
+      min-height: 72px;
+    }
+    .link-card:active { opacity: 0.75; }
+    .link-icon { font-size: 20px; margin-bottom: 5px; }
+    .link-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2a2826;
+      line-height: 1.3;
+    }
+    .link-desc {
+      font-size: 10px;
+      color: #999;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    /* ── 商品ライン ── */
+    .product-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      margin-bottom: 8px;
+    }
+    .product-tag {
       display: inline-block;
       font-size: 10px;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 20px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .tag-main { background: #f0ebe2; color: #7a6a50; }
-    .tag-sub  { background: #fef9e7; color: #b8860b; }
-
-    .line-items {
-      font-size: 13px;
-      color: #444;
-      line-height: 2;
+      font-weight: 700;
       margin-bottom: 10px;
     }
+    .tag-main { background: #f0ebe2; color: #7a6a50; }
+    .tag-market { background: #fef9e7; color: #b8860b; }
+    .product-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f5f0ea;
+      font-size: 12px;
+      color: #2a2826;
+      line-height: 1.5;
+    }
+    .product-row:last-child { border-bottom: none; }
+    .product-row .label { color: #999; font-size: 11px; flex-shrink: 0; }
 
-    /* ネクストステップ */
+    /* ── 仕入れ ── */
+    .supply-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      margin-bottom: 8px;
+    }
+    .supply-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2a2826;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .supply-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      font-size: 12px;
+      color: #444;
+      padding: 7px 0;
+      border-bottom: 1px solid #f5f0ea;
+      gap: 8px;
+    }
+    .supply-row:last-child { border-bottom: none; }
+    .supply-item { flex: 1; line-height: 1.4; }
+    .supply-where { color: #b8a98a; font-weight: 600; font-size: 11px; text-align: right; flex-shrink: 0; }
+
+    /* ── ネクストステップ ── */
+    .phase-header {
+      font-size: 10px;
+      color: #b8a98a;
+      letter-spacing: 0.25em;
+      margin: 16px 0 8px;
+      padding-left: 2px;
+    }
     .next-card {
       background: #fff;
-      border-radius: 10px;
-      padding: 14px 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 13px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       margin-bottom: 8px;
       display: flex;
       align-items: flex-start;
       gap: 12px;
     }
-
+    .next-card:active { opacity: 0.8; }
     .next-num {
       flex-shrink: 0;
-      width: 26px;
-      height: 26px;
+      width: 28px; height: 28px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
     }
-
-    .num-now  { background: #e8a87c; }
-    .num-week { background: #b8a98a; }
-    .num-month{ background: #ccc; }
-
+    .num-now   { background: #e8a87c; }
+    .num-soon  { background: #b8a98a; }
+    .num-later { background: #ccc; }
     .next-info { flex: 1; }
-
     .next-title {
       font-size: 13px;
       font-weight: 600;
       color: #2a2826;
+      line-height: 1.4;
     }
-
     .next-when {
-      font-size: 11px;
+      font-size: 10px;
       color: #aaa;
-      margin-top: 2px;
+      margin-top: 3px;
+      line-height: 1.4;
     }
 
-    /* 仕入れまとめ */
-    .supply-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 14px 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      margin-bottom: 8px;
-    }
-
-    .supply-shop {
-      font-size: 13px;
-      font-weight: 600;
-      color: #2a2826;
-      margin-bottom: 6px;
-    }
-
-    .supply-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #555;
-      padding: 4px 0;
-      border-bottom: 1px solid #f5f0ea;
-    }
-
-    .supply-row:last-child { border-bottom: none; }
-    .supply-price { color: #b8a98a; font-weight: 600; }
-
+    /* ── フッター ── */
     footer {
       text-align: center;
-      font-size: 11px;
+      font-size: 10px;
       color: #ccc;
-      padding: 28px 0 16px;
+      padding: 32px 0 8px;
       letter-spacing: 0.3em;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="brand">P A L E &nbsp; J E W E L L E R Y</div>
-    <h1>Project Dashboard</h1>
-    <div class="concept">「動く日も、纏う」</div>
-    <div class="updated">最終更新：2026年5月5日</div>
-  </header>
+<!-- ヘッダー（sticky） -->
+<header>
+  <div class="header-top">
+    <div class="brand-label">P A L E &nbsp; P E A R L</div>
+    <div class="updated-label">更新 2026/5/5</div>
+  </div>
+  <div class="header-title">Project Dashboard</div>
+  <div class="header-concept">「動く日も、纏う」</div>
+</header>
 
-  <!-- ステータス数字 -->
-  <div class="section">
-    <div class="section-label">Project Status</div>
-    <div class="status-grid">
-      <div class="status-card">
-        <div class="status-num">5</div>
-        <div class="status-label">Instagram FEEDパターン数</div>
+<!-- ステータス -->
+<div class="section">
+  <div class="section-label">Status</div>
+  <div class="status-grid">
+    <div class="status-card">
+      <div class="status-num">6</div>
+      <div class="status-label">FEEDパターン<br>（F：グレー高評価）</div>
+    </div>
+    <div class="status-card">
+      <div class="status-num">2</div>
+      <div class="status-label">確定商品ライン<br>（オーバル・丸）</div>
+    </div>
+    <div class="status-card">
+      <div class="status-num">¥1,500〜</div>
+      <div class="status-label">販売価格目標<br>（こてつ比1.5倍〜）</div>
+    </div>
+    <div class="status-card">
+      <div class="status-num">6月</div>
+      <div class="status-label">Creema初出品<br>目標</div>
+    </div>
+  </div>
+</div>
+
+<!-- タイムライン -->
+<div class="section">
+  <div class="section-label">Timeline</div>
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="tl-dot dot-done"></div>
+      <div class="tl-body">
+        <div class="tl-text">ブランド名・コンセプト策定（PALE確定）</div>
+        <div class="tl-date">4月</div>
       </div>
-      <div class="status-card">
-        <div class="status-num">2</div>
-        <div class="status-label">確定商品ライン（オーバル・丸）</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-done"></div>
+      <div class="tl-body">
+        <div class="tl-text">市場調査・試着シミュレーター・創業計画書 作成</div>
+        <div class="tl-date">5/2</div>
       </div>
-      <div class="status-card">
-        <div class="status-num">¥1,500〜</div>
-        <div class="status-label">販売価格目標（こてつ比1.5倍〜）</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-done"></div>
+      <div class="tl-body">
+        <div class="tl-text">競合調査（こてつさん）→ 素材・サイズ・価格帯 確定</div>
+        <div class="tl-date">5/5</div>
       </div>
-      <div class="status-card">
-        <div class="status-num">6月</div>
-        <div class="status-label">Creema初出品 目標</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-done"></div>
+      <div class="tl-body">
+        <div class="tl-text">Instagram FEEDパターン A〜F 作成（Fグレー：高評価）</div>
+        <div class="tl-date">5/5</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-now"></div>
+      <div class="tl-body">
+        <div class="tl-text">▶ 材料仕入れ・試作フェーズ</div>
+        <div class="tl-date">今週〜</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-next"></div>
+      <div class="tl-body">
+        <div class="tl-text">耐久テスト → 商品写真 → Creema開設</div>
+        <div class="tl-date">6月</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-next"></div>
+      <div class="tl-body">
+        <div class="tl-text">Instagram投稿開始・Creema初出品</div>
+        <div class="tl-date">6〜7月</div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- プロジェクト進捗 -->
-  <div class="section">
-    <div class="section-label">Timeline</div>
-    <div class="phase-bar">
-      <div class="phase-row">
-        <div class="phase-dot dot-done"></div>
-        <div class="phase-text">ブランド名・コンセプト策定（PALE確定）</div>
-        <div class="phase-date">4月</div>
-      </div>
-      <div class="phase-row">
-        <div class="phase-dot dot-done"></div>
-        <div class="phase-text">市場調査・試着シミュレーター・創業計画書 作成</div>
-        <div class="phase-date">5/2</div>
-      </div>
-      <div class="phase-row">
-        <div class="phase-dot dot-done"></div>
-        <div class="phase-text">Instagram FEEDパターン A〜E 作成・フォント統一</div>
-        <div class="phase-date">5/5</div>
-      </div>
-      <div class="phase-row">
-        <div class="phase-dot dot-done"></div>
-        <div class="phase-text">競合調査（こてつさん）→ 素材・サイズ・価格帯 確定</div>
-        <div class="phase-date">5/5</div>
-      </div>
-      <div class="phase-row">
-        <div class="phase-dot dot-now"></div>
-        <div class="phase-text">▶ 材料仕入れ・試作フェーズ</div>
-        <div class="phase-date">今週〜</div>
-      </div>
-      <div class="phase-row">
-        <div class="phase-dot dot-next"></div>
-        <div class="phase-text">耐久テスト → 商品写真撮影 → Creema開設</div>
-        <div class="phase-date">6月</div>
-      </div>
-      <div class="phase-row">
-        <div class="phase-dot dot-next"></div>
-        <div class="phase-text">Instagram投稿開始・Creema初出品</div>
-        <div class="phase-date">6〜7月</div>
-      </div>
+<!-- FEEDパターン（横スクロール） -->
+<div class="section">
+  <div class="section-label">Feed Patterns</div>
+</div>
+<div class="feed-scroll">
+  <a class="feed-card" href="/pale-instagram.html">
+    <div class="feed-thumb" style="background:linear-gradient(155deg,#1a1818,#3a3530);color:rgba(255,255,255,0.7);">P A L E</div>
+    <div class="feed-info">
+      <div class="feed-name">Pattern A</div>
+      <div class="feed-desc">夜に輝く光<br>黒×チャコール</div>
+    </div>
+  </a>
+  <a class="feed-card" href="/pale-instagram2.html">
+    <div class="feed-thumb" style="background:linear-gradient(155deg,#f5f0e8,#c8b99a);color:#5a4a32;">P A L E</div>
+    <div class="feed-info">
+      <div class="feed-name">Pattern B</div>
+      <div class="feed-desc">薄明の光<br>クリーム×ゴールド</div>
+    </div>
+  </a>
+  <a class="feed-card" href="/pale-instagram3.html">
+    <div class="feed-thumb" style="background:linear-gradient(155deg,#c8e6f6,#88ccee);color:#2a5a7a;">P A L E</div>
+    <div class="feed-info">
+      <div class="feed-name">Pattern C</div>
+      <div class="feed-desc">陽の光<br>スカイブルー</div>
+    </div>
+  </a>
+  <a class="feed-card" href="/pale-instagram4.html">
+    <div class="feed-thumb" style="background:linear-gradient(155deg,#f5ede4,#c87858);color:#5a2a18;">P A L E</div>
+    <div class="feed-info">
+      <div class="feed-name">Pattern D</div>
+      <div class="feed-desc">大地の光<br>テラコッタ</div>
+    </div>
+  </a>
+  <a class="feed-card" href="/pale-instagram5.html">
+    <div class="feed-thumb" style="background:linear-gradient(155deg,#deeae8,#6a7e7a);color:#1e2e2c;">P A L E</div>
+    <div class="feed-info">
+      <div class="feed-name">Pattern E</div>
+      <div class="feed-desc">霧の光<br>フォググリーン</div>
+    </div>
+  </a>
+  <a class="feed-card" href="/pale-instagram6.html">
+    <div class="feed-thumb" style="background:linear-gradient(155deg,#e8e4e0,#9a9490);color:#2a2826;">P A L E</div>
+    <div class="feed-info">
+      <div class="feed-name">Pattern F</div>
+      <div class="feed-desc">石灰の光<br>グレージュ</div>
+      <div class="feed-badge">★ 高評価</div>
+    </div>
+  </a>
+</div>
+
+<!-- ツール＆ページ -->
+<div class="section">
+  <div class="section-label">Tools &amp; Pages</div>
+  <div class="link-grid">
+    <a class="link-card" href="/pale-tryon.html">
+      <div class="link-icon">👂</div>
+      <div class="link-title">試着シミュレーター</div>
+      <div class="link-desc">顔写真→耳タップ→商品選択</div>
+    </a>
+    <a class="link-card" href="/pale-plan.html">
+      <div class="link-icon">📋</div>
+      <div class="link-title">創業計画書</div>
+      <div class="link-desc">事業計画・収支イメージ</div>
+    </a>
+    <a class="link-card" href="/pale-brand.html">
+      <div class="link-icon">✨</div>
+      <div class="link-title">ブランドデザイン</div>
+      <div class="link-desc">カラー・フォント・世界観</div>
+    </a>
+    <a class="link-card" href="/pale-package.html">
+      <div class="link-icon">📦</div>
+      <div class="link-title">パッケージデザイン</div>
+      <div class="link-desc">台紙・袋・箱のイメージ</div>
+    </a>
+    <a class="link-card" href="/pale-order.html">
+      <div class="link-icon">🛒</div>
+      <div class="link-title">発注リスト</div>
+      <div class="link-desc">材料・仕入れ先まとめ</div>
+    </a>
+    <a class="link-card" href="/pale-calc.html">
+      <div class="link-icon">🧮</div>
+      <div class="link-title">価格計算ツール</div>
+      <div class="link-desc">原価・利益率の計算</div>
+    </a>
+  </div>
+</div>
+
+<!-- 商品ライン -->
+<div class="section">
+  <div class="section-label">Product Lines</div>
+  <div class="product-card">
+    <div class="product-tag tag-main">ピアスライン｜淡水パール × チタン軸</div>
+    <div class="product-row">
+      <span class="label">形①</span>
+      <span>🫧 オーバルパール 縦7mm×横3mm <br><span style="color:#b8a98a;font-size:11px;">← サイズ確定済み</span></span>
+    </div>
+    <div class="product-row">
+      <span class="label">形②</span>
+      <span>⚪ 丸パール 7〜8mm <br><span style="color:#b8a98a;font-size:11px;">← サイズ確定済み（こてつ7mm @¥750参考）</span></span>
+    </div>
+    <div class="product-row">
+      <span class="label">軸</span>
+      <span>チタン軸 0.8mm（アレルギーフリー）</span>
+    </div>
+    <div class="product-row">
+      <span class="label">接着</span>
+      <span>エポキシ系 2液混合（耐水・耐汗・お風呂OK）</span>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="product-tag tag-market">市場根拠 — こてつさん調査（評価2,681件）</div>
+    <div class="product-row">
+      <span class="label">相場</span>
+      <span>¥500〜¥950（こてつさんSOLD実績）</span>
+    </div>
+    <div class="product-row">
+      <span class="label">差別化</span>
+      <span>チタン軸＋エポキシ接着＋世界観 → ¥1,500〜¥3,000</span>
+    </div>
+    <div class="product-row">
+      <span class="label">体験</span>
+      <span>おまけチャーム＋手書きメッセージ</span>
+    </div>
+  </div>
+</div>
+
+<!-- 仕入れ -->
+<div class="section">
+  <div class="section-label">仕入先 &amp; 材料</div>
+  <div class="supply-card">
+    <div class="supply-title">① 今週中に買うもの（試作用）</div>
+    <div class="supply-row">
+      <span class="supply-item">淡水パール オーバル 縦7mm（10〜20粒）</span>
+      <span class="supply-where">楽天<br>パーツクラブ</span>
+    </div>
+    <div class="supply-row">
+      <span class="supply-item">チタン軸ピアス台座 0.8mm（20〜30本）</span>
+      <span class="supply-where">楽天<br>貴和製作所</span>
+    </div>
+    <div class="supply-row">
+      <span class="supply-item">エポキシ系接着剤 2液混合タイプ</span>
+      <span class="supply-where">ホーム<br>センター</span>
+    </div>
+    <div class="supply-row">
+      <span class="supply-item">グレー or ベージュ ロールスタンド（撮影用）</span>
+      <span class="supply-where">Amazon</span>
+    </div>
+  </div>
+  <div class="supply-card">
+    <div class="supply-title">② 試作でテストすること</div>
+    <div class="supply-row">
+      <span class="supply-item">フィットネス中（ジム・ヨガ）着用テスト</span>
+      <span class="supply-where">1〜2週間</span>
+    </div>
+    <div class="supply-row">
+      <span class="supply-item">お風呂着用テスト（エポキシ耐水確認）</span>
+      <span class="supply-where">10回以上</span>
+    </div>
+    <div class="supply-row">
+      <span class="supply-item">汗・洗顔・シャンプー耐性確認</span>
+      <span class="supply-where">日常生活</span>
+    </div>
+  </div>
+  <div class="supply-card">
+    <div class="supply-title">③ 初回試作予算目安</div>
+    <div class="supply-row">
+      <span class="supply-item">淡水パール＋チタン軸＋接着剤＋撮影台</span>
+      <span class="supply-where" style="color:#b8a98a;font-size:13px;">約¥3,000〜6,000</span>
+    </div>
+  </div>
+</div>
+
+<!-- ネクストステップ -->
+<div class="section">
+  <div class="section-label">Next Steps</div>
+
+  <div class="phase-header">▼ PHASE 1｜仕入れ・試作（5月中）</div>
+  <div class="next-card">
+    <div class="next-num num-now">1</div>
+    <div class="next-info">
+      <div class="next-title">淡水パール オーバル 縦7mm 少量仕入れ</div>
+      <div class="next-when">今週中｜楽天「淡水パール バロック オーバル 7mm」で検索</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-now">2</div>
+    <div class="next-info">
+      <div class="next-title">チタン軸ピアス台座 0.8mm × 20〜30本</div>
+      <div class="next-when">今週中｜楽天・貴和製作所</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-now">3</div>
+    <div class="next-info">
+      <div class="next-title">エポキシ系接着剤を購入（2液混合タイプ）</div>
+      <div class="next-when">今週中｜ホームセンター｜セメダイン・アラルダイト等</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-now">4</div>
+    <div class="next-info">
+      <div class="next-title">グレー or ベージュ ロールスタンド購入</div>
+      <div class="next-when">今週中｜Amazon｜こてつさんと同スタイルの撮影台</div>
     </div>
   </div>
 
-  <!-- ページリンク -->
-  <div class="section">
-    <div class="section-label">Pages &amp; Tools</div>
-    <div class="link-grid">
-      <a class="link-card" href="/pale-instagram.html">
-        <div class="link-icon">📱</div>
-        <div class="link-title">Instagram FEED — Pattern A</div>
-        <div class="link-desc">暗系・メゾティント調（既存）</div>
-      </a>
-      <a class="link-card" href="/pale-instagram2.html">
-        <div class="link-icon">🌤️</div>
-        <div class="link-title">Instagram FEED — Pattern B</div>
-        <div class="link-desc">薄明の光・クリーム×シャンパンゴールド</div>
-      </a>
-      <a class="link-card" href="/pale-instagram3.html">
-        <div class="link-icon">☀️</div>
-        <div class="link-title">Instagram FEED — Pattern C</div>
-        <div class="link-desc">陽の光・空×青・アクティブ・爽やか</div>
-      </a>
-      <a class="link-card" href="/pale-instagram4.html">
-        <div class="link-icon">🌿</div>
-        <div class="link-title">Instagram FEED — Pattern D</div>
-        <div class="link-desc">大地の光・テラコッタ×ダスティローズ・カジュアルフォント</div>
-      </a>
-      <a class="link-card" href="/pale-instagram5.html">
-        <div class="link-icon">🌲</div>
-        <div class="link-title">Instagram FEED — Pattern E</div>
-        <div class="link-desc">森の光・フォレストグリーン×セージ・Tenerita調自然派</div>
-      </a>
-      <a class="link-card" href="/pale-tryon.html">
-        <div class="link-icon">👂</div>
-        <div class="link-title">試着シミュレーター</div>
-        <div class="link-desc">顔写真をUP → 耳をタップ → 商品選ぶ</div>
-      </a>
-      <a class="link-card" href="/pale-plan.html">
-        <div class="link-icon">📋</div>
-        <div class="link-title">創業計画書</div>
-        <div class="link-desc">事業計画・収支イメージ</div>
-      </a>
-      <a class="link-card" href="/pale-brand.html">
-        <div class="link-icon">✨</div>
-        <div class="link-title">ブランドデザイン</div>
-        <div class="link-desc">カラー・フォント・世界観</div>
-      </a>
-      <a class="link-card" href="/pale-package.html">
-        <div class="link-icon">📦</div>
-        <div class="link-title">パッケージデザイン</div>
-        <div class="link-desc">台紙・袋・箱のイメージ</div>
-      </a>
-      <a class="link-card" href="/pale-order.html">
-        <div class="link-icon">🛒</div>
-        <div class="link-title">発注リスト</div>
-        <div class="link-desc">リカちゃん×クラシックブライダル</div>
-      </a>
-      <a class="link-card" href="/pale-unisex.html">
-        <div class="link-icon">💍</div>
-        <div class="link-title">ユニセックス3アイテム</div>
-        <div class="link-desc">ブローチ・スティックピン・チャーム</div>
-      </a>
-      <a class="link-card" href="/pale-calc.html">
-        <div class="link-icon">🧮</div>
-        <div class="link-title">価格計算ツール</div>
-        <div class="link-desc">原価・利益率の計算</div>
-      </a>
-      <a class="link-card" href="/pale-compare.html">
-        <div class="link-icon">📊</div>
-        <div class="link-title">比較・分析</div>
-        <div class="link-desc">競合・市場比較</div>
-      </a>
+  <div class="phase-header">▼ PHASE 2｜試作・テスト（5〜6月初旬）</div>
+  <div class="next-card">
+    <div class="next-num num-soon">5</div>
+    <div class="next-info">
+      <div class="next-title">試作 3〜5ペア 制作（オーバル＋丸）</div>
+      <div class="next-when">来週｜エポキシ接着剤でしっかり固定して作る</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-soon">6</div>
+    <div class="next-info">
+      <div class="next-title">着用耐久テスト（フィットネス・お風呂・日常）</div>
+      <div class="next-when">2週間｜10回以上お風呂・ジム着用で確認</div>
     </div>
   </div>
 
-  <!-- 商品ライン整理 -->
-  <div class="section">
-    <div class="section-label">Product Lines</div>
-    <div class="concept-block">
-      <div class="line-tag tag-main">ピアスライン｜淡水パール × チタン軸</div>
-      <div class="line-items">
-        🫧 オーバルパール（縦7mm×横3mm）← サイズ確定済み<br>
-        ⚪ 丸パール（サイズ検討中）<br>
-        素材：淡水パール ／ ポスト：チタン軸 0.8mm<br>
-        接着：エポキシ系（耐水・耐汗・お風呂OK）
-      </div>
-      <div class="line-tag tag-sub">こてつさん調査による市場根拠</div>
-      <div class="line-items" style="margin-bottom:0">
-        📊 こてつさん（評価2681件）の相場：¥500〜¥950<br>
-        💡 PALEの差別化：チタン軸＋エポキシ接着＋世界観 → ¥1,500〜¥3,000 設定可能<br>
-        ✨ おまけチャーム＋手書きメッセージ → ファンになってもらう体験を提供
-      </div>
+  <div class="phase-header">▼ PHASE 3｜販売準備（6月）</div>
+  <div class="next-card">
+    <div class="next-num num-soon">7</div>
+    <div class="next-info">
+      <div class="next-title">商品写真撮影（ロールスタンド使用）</div>
+      <div class="next-when">6月初旬｜サイズ表記を写真に入れる（こてつさん方式）</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-soon">8</div>
+    <div class="next-info">
+      <div class="next-title">Creemaアカウント開設</div>
+      <div class="next-when">6月｜ハンドメイド市場に合った販路でスタート</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-soon">9</div>
+    <div class="next-info">
+      <div class="next-title">Instagramアカウント開設・FEEDパターン決定</div>
+      <div class="next-when">6月｜A〜F 6パターンから1つ選ぶ（F：グレーが有力）</div>
     </div>
   </div>
 
-  <!-- 仕入れまとめ -->
-  <div class="section">
-    <div class="section-label">仕入先 &amp; 材料</div>
-
-    <div class="supply-card">
-      <div class="supply-shop">① 今週中に買うもの（試作用）</div>
-      <div class="supply-row">
-        <span>淡水パール オーバル 縦7mm前後（10〜20粒）</span>
-        <span class="supply-price">楽天・パーツクラブ</span>
-      </div>
-      <div class="supply-row">
-        <span>チタン軸ピアス台座 0.8mm（20〜30本）</span>
-        <span class="supply-price">楽天・貴和製作所</span>
-      </div>
-      <div class="supply-row">
-        <span>エポキシ系接着剤 2液混合タイプ</span>
-        <span class="supply-price">ホームセンター 500〜1,000円</span>
-      </div>
-      <div class="supply-row">
-        <span>グレー or ベージュ ロールスタンド（商品撮影用）</span>
-        <span class="supply-price">Amazon 1,000〜2,000円</span>
-      </div>
-    </div>
-
-    <div class="supply-card">
-      <div class="supply-shop">② 試作品でテストすること</div>
-      <div class="supply-row">
-        <span>フィットネス中（ジム・ヨガ）着用テスト</span>
-        <span class="supply-price">1〜2週間</span>
-      </div>
-      <div class="supply-row">
-        <span>お風呂着用テスト（エポキシ接着剤の耐水確認）</span>
-        <span class="supply-price">10回以上</span>
-      </div>
-      <div class="supply-row">
-        <span>汗・洗顔・シャンプー耐性確認</span>
-        <span class="supply-price">日常生活で確認</span>
-      </div>
-    </div>
-
-    <div class="supply-card">
-      <div class="supply-shop">③ 初回試作予算目安</div>
-      <div class="supply-row">
-        <span>淡水パール（20粒）</span>
-        <span class="supply-price">約 600〜1,600円</span>
-      </div>
-      <div class="supply-row">
-        <span>チタン軸（30本）</span>
-        <span class="supply-price">約 500〜1,500円</span>
-      </div>
-      <div class="supply-row">
-        <span>エポキシ接着剤</span>
-        <span class="supply-price">約 500〜1,000円</span>
-      </div>
-      <div class="supply-row">
-        <span>ロールスタンド（撮影台）</span>
-        <span class="supply-price">約 1,000〜2,000円</span>
-      </div>
-      <div class="supply-row">
-        <span style="font-weight:600">初回合計目安</span>
-        <span class="supply-price" style="font-size:14px">約 3,000〜6,000円</span>
-      </div>
+  <div class="phase-header">▼ PHASE 4｜販売開始（6〜7月）</div>
+  <div class="next-card">
+    <div class="next-num num-later">10</div>
+    <div class="next-info">
+      <div class="next-title">Creema 初出品（1〜3点から）</div>
+      <div class="next-when">6月末〜7月｜価格：¥1,500〜¥3,000を目安に</div>
     </div>
   </div>
-
-  <!-- ネクストステップ -->
-  <div class="section">
-    <div class="section-label">Next Steps — アクションプラン</div>
-
-    <div style="font-size:11px;color:#b8a98a;letter-spacing:0.2em;margin-bottom:8px;">▼ PHASE 1｜仕入れ・試作（5月中）</div>
-
-    <div class="next-card">
-      <div class="next-num num-now">1</div>
-      <div class="next-info">
-        <div class="next-title">淡水パール オーバル 縦7mm 少量仕入れ</div>
-        <div class="next-when">今週中｜楽天「淡水パール バロック オーバル 7mm」で検索</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-now">2</div>
-      <div class="next-info">
-        <div class="next-title">チタン軸ピアス台座 0.8mm × 20〜30本 仕入れ</div>
-        <div class="next-when">今週中｜楽天・貴和製作所</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-now">3</div>
-      <div class="next-info">
-        <div class="next-title">エポキシ系接着剤を購入（2液混合タイプ）</div>
-        <div class="next-when">今週中｜ホームセンター｜セメダイン・アラルダイト等</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-now">4</div>
-      <div class="next-info">
-        <div class="next-title">グレー or ベージュ ロールスタンド購入（商品写真用）</div>
-        <div class="next-when">今週中｜Amazon｜こてつさんと同スタイルの撮影台</div>
-      </div>
-    </div>
-
-    <div style="font-size:11px;color:#b8a98a;letter-spacing:0.2em;margin:12px 0 8px;">▼ PHASE 2｜試作・テスト（5月〜6月初旬）</div>
-
-    <div class="next-card">
-      <div class="next-num num-week">5</div>
-      <div class="next-info">
-        <div class="next-title">試作 3〜5ペア 制作（オーバル＋丸）</div>
-        <div class="next-when">来週｜エポキシ接着剤でしっかり固定して作る</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-week">6</div>
-      <div class="next-info">
-        <div class="next-title">着用耐久テスト（フィットネス・お風呂・日常）</div>
-        <div class="next-when">2週間｜10回以上お風呂・ジム着用で確認</div>
-      </div>
-    </div>
-
-    <div style="font-size:11px;color:#b8a98a;letter-spacing:0.2em;margin:12px 0 8px;">▼ PHASE 3｜販売準備（6月）</div>
-
-    <div class="next-card">
-      <div class="next-num num-week">7</div>
-      <div class="next-info">
-        <div class="next-title">商品写真撮影（ロールスタンド使用）</div>
-        <div class="next-when">6月初旬｜サイズ表記を写真に入れる（こてつさん方式）</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-week">8</div>
-      <div class="next-info">
-        <div class="next-title">Creemaアカウント開設</div>
-        <div class="next-when">6月｜ハンドメイド市場に合った販路でスタート</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-week">9</div>
-      <div class="next-info">
-        <div class="next-title">Instagramアカウント開設・FEEDパターン決定</div>
-        <div class="next-when">6月｜A〜Eの5パターンから1つ選ぶ</div>
-      </div>
-    </div>
-
-    <div style="font-size:11px;color:#b8a98a;letter-spacing:0.2em;margin:12px 0 8px;">▼ PHASE 4｜販売開始（6〜7月）</div>
-
-    <div class="next-card">
-      <div class="next-num num-month">10</div>
-      <div class="next-info">
-        <div class="next-title">Creema 初出品（1〜3点から）</div>
-        <div class="next-when">6月末〜7月｜価格：¥1,500〜¥3,000を目安に</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-month">11</div>
-      <div class="next-info">
-        <div class="next-title">Instagram 投稿開始（FEEDの世界観で発信）</div>
-        <div class="next-when">7月｜コンセプト投稿→商品投稿→着用投稿の順</div>
-      </div>
-    </div>
-
-    <div class="next-card">
-      <div class="next-num num-month">12</div>
-      <div class="next-info">
-        <div class="next-title">おまけチャーム＋手書きメッセージカード 準備</div>
-        <div class="next-when">初出品前｜購入者がファンになる体験を設計</div>
-      </div>
+  <div class="next-card">
+    <div class="next-num num-later">11</div>
+    <div class="next-info">
+      <div class="next-title">Instagram 投稿開始（FEEDの世界観で発信）</div>
+      <div class="next-when">7月｜コンセプト→商品→着用投稿の順</div>
     </div>
   </div>
+  <div class="next-card">
+    <div class="next-num num-later">12</div>
+    <div class="next-info">
+      <div class="next-title">おまけチャーム＋手書きメッセージカード 準備</div>
+      <div class="next-when">初出品前｜購入者がファンになる体験を設計</div>
+    </div>
+  </div>
+</div>
 
-  <footer>PALE JEWELLERY — 2026</footer>
+<footer>PALE PEARL — 2026</footer>
 
 </body>
 </html>

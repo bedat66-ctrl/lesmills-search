@@ -401,7 +401,31 @@ export default function Home() {
   const TIME_MAX = 25;
   const toPct = (h) => ((h - TIME_MIN) / (TIME_MAX - TIME_MIN)) * 100;
 
+  // 特別スケジュール（GWなど）の判定
+  const todayDateStr = (() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  })();
+  const todayDow = ["日","月","火","水","木","金","土"][new Date().getDay()];
+  // 今日、特別スケジュールがあるジムのIDセット
+  const specialGymIdsToday = new Set(
+    schedules.filter(s => s.date === todayDateStr).map(s => s.gymId)
+  );
+  const isSpecialScheduleToday = specialGymIdsToday.size > 0;
+  // 今日の曜日を表示中かどうか
+  const isViewingToday = day === todayDow;
+
   const filtered = schedules
+    .filter((s) => {
+      if (s.date) {
+        // 特別エントリ: 今日の曜日表示中 かつ 日付が今日に一致する場合のみ表示
+        return s.date === todayDateStr && isViewingToday;
+      } else {
+        // 通常エントリ: 今日の曜日を見ていて、このジムに今日の特別スケジュールがあれば非表示
+        if (isViewingToday && specialGymIdsToday.has(s.gymId)) return false;
+        return true;
+      }
+    })
     .filter((s) => program === "すべて" || s.program === program)
     .filter((s) => prefecture === "すべて" || s.prefecture === prefecture)
     .filter((s) => day === "すべて" || s.dayOfWeek === day)
@@ -479,6 +503,16 @@ export default function Home() {
         </div>
       </header>
       <div className="px-3 pt-3">
+        {/* 特別スケジュール バナー */}
+        {isSpecialScheduleToday && isViewingToday && (
+          <div className="max-w-2xl mx-auto mb-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-300 text-amber-800 text-xs flex items-start gap-2 dark:bg-amber-950 dark:border-amber-700 dark:text-amber-200">
+            <span className="text-base leading-none mt-0.5">⚠️</span>
+            <span>
+              <span className="font-bold">今日は特別スケジュール期間です。</span>
+              一部のスポーツクラブNAS店舗は、GW等の祝日スケジュールで表示しています。通常と異なる場合がありますので、各店舗HPもご確認ください。
+            </span>
+          </div>
+        )}
         {/* フィルター（コンパクト） */}
         <div className="bg-stone-50 border border-stone-200 rounded-xl px-3 py-3 mb-3 shadow-sm max-w-2xl mx-auto dark:bg-stone-900 dark:border-stone-700">
 
