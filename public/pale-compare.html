@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PALE PEARL — パターン比較</title>
+  <title>PALE PEARL — Pattern F</title>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,9 +12,13 @@
       background: #f0ede8;
       font-family: 'Josefin Sans', sans-serif;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     header {
+      width: 100%;
       background: #2a2826;
       padding: 20px 32px;
       display: flex;
@@ -24,54 +28,33 @@
     .header-brand { font-size: 10px; letter-spacing: 0.5em; color: #b8a98a; }
     .header-title { font-size: 11px; letter-spacing: 0.3em; color: #888; }
 
-    .scroll-hint {
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      color: #b8a98a;
-      padding: 16px 0 8px;
-    }
-
-    .compare-wrap {
-      overflow-x: auto;
-      padding: 8px 24px 48px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .compare-row {
-      display: flex;
-      gap: 20px;
-      width: max-content;
-    }
-
-    .pattern-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      width: 296px;
-    }
-
-    .pattern-label {
+    .decided-banner {
+      margin: 32px 0 8px;
       font-size: 9px;
-      letter-spacing: 0.45em;
-      color: #aaa;
+      letter-spacing: 0.5em;
+      color: #b8a98a;
       text-transform: uppercase;
     }
     .pattern-name {
-      font-size: 13px;
+      font-size: 22px;
       letter-spacing: 0.18em;
       color: #2a2826;
-      margin-top: -4px;
+      margin-bottom: 4px;
     }
     .pattern-theme {
-      font-size: 9px;
-      letter-spacing: 0.12em;
+      font-size: 10px;
+      letter-spacing: 0.15em;
       color: #b8a98a;
-      margin-top: -6px;
-      text-align: center;
+      margin-bottom: 16px;
     }
 
-    /* iframeを縮小表示 */
+    .swatch-row { display: flex; gap: 8px; margin-bottom: 24px; }
+    .swatch {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
     .frame-wrap {
       width: 296px;
       height: 1260px;
@@ -79,7 +62,7 @@
       border-radius: 18px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.13);
       background: #fff;
-      flex-shrink: 0;
+      margin-bottom: 48px;
     }
     .frame-wrap iframe {
       width: 375px;
@@ -90,21 +73,14 @@
       pointer-events: none;
     }
 
-    .swatch-row { display: flex; gap: 6px; }
-    .swatch {
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
-
     .badge {
       font-size: 9px;
       letter-spacing: 0.18em;
-      background: #fef3e8;
-      color: #e8a87c;
+      background: #2a2826;
+      color: #b8a98a;
       border-radius: 20px;
-      padding: 3px 14px;
-      font-weight: 600;
+      padding: 4px 16px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -112,84 +88,23 @@
 
 <header>
   <div class="header-brand">P A L E &nbsp; P E A R L</div>
-  <div class="header-title">FEED PATTERN COMPARE</div>
+  <div class="header-title">OFFICIAL FEED PATTERN</div>
 </header>
 
-<div class="scroll-hint">← 横にスクロールできます →</div>
+<div class="decided-banner">✓ 採用決定</div>
+<div class="pattern-name">Pattern F</div>
+<div class="pattern-theme">グレージュ × チャコール — 石灰の光</div>
+<div class="swatch-row">
+  <div class="swatch" style="background:#e4e2dc;border:1px solid #d8d4d0"></div>
+  <div class="swatch" style="background:#bebab6"></div>
+  <div class="swatch" style="background:#82807c"></div>
+  <div class="swatch" style="background:#565250"></div>
+  <div class="swatch" style="background:#3a3836"></div>
+</div>
+<div class="badge">PALE PEARL — DECIDED</div>
 
-<div class="compare-wrap">
-  <div class="compare-row">
-
-    <!-- Pattern A -->
-    <div class="pattern-col">
-      <div class="pattern-label">Pattern A</div>
-      <div class="pattern-name">夜に輝く光</div>
-      <div class="pattern-theme">黒 × チャコール</div>
-      <div class="frame-wrap">
-        <iframe src="/pale-instagram.html" scrolling="no"></iframe>
-      </div>
-      <div class="swatch-row">
-        <div class="swatch" style="background:#1a1818"></div>
-        <div class="swatch" style="background:#3a3530"></div>
-        <div class="swatch" style="background:#6a6460"></div>
-        <div class="swatch" style="background:#c8b99a"></div>
-        <div class="swatch" style="background:#f5f0e8;border:1px solid #e8e0d4"></div>
-      </div>
-    </div>
-
-    <!-- Pattern D -->
-    <div class="pattern-col">
-      <div class="pattern-label">Pattern D</div>
-      <div class="pattern-name">大地の光</div>
-      <div class="pattern-theme">ダスティクレイ × グレーローズ</div>
-      <div class="frame-wrap">
-        <iframe src="/pale-instagram4.html" scrolling="no"></iframe>
-      </div>
-      <div class="swatch-row">
-        <div class="swatch" style="background:#ffffff;border:1px solid #eee"></div>
-        <div class="swatch" style="background:#e8e2da"></div>
-        <div class="swatch" style="background:#c0a098"></div>
-        <div class="swatch" style="background:#8a5850"></div>
-        <div class="swatch" style="background:#2a2828"></div>
-      </div>
-    </div>
-
-    <!-- Pattern E -->
-    <div class="pattern-col">
-      <div class="pattern-label">Pattern E</div>
-      <div class="pattern-name">セージの光</div>
-      <div class="pattern-theme">ボタニカルセージ × グレーグリーン</div>
-      <div class="frame-wrap">
-        <iframe src="/pale-instagram5.html" scrolling="no"></iframe>
-      </div>
-      <div class="swatch-row">
-        <div class="swatch" style="background:#e8ece6"></div>
-        <div class="swatch" style="background:#c2cecc"></div>
-        <div class="swatch" style="background:#889298"></div>
-        <div class="swatch" style="background:#6c7880"></div>
-        <div class="swatch" style="background:#2a3030"></div>
-      </div>
-    </div>
-
-    <!-- Pattern F -->
-    <div class="pattern-col">
-      <div class="pattern-label">Pattern F</div>
-      <div class="pattern-name">石灰の光</div>
-      <div class="pattern-theme">グレージュ × チャコール</div>
-      <div class="frame-wrap">
-        <iframe src="/pale-instagram6.html" scrolling="no"></iframe>
-      </div>
-      <div class="swatch-row">
-        <div class="swatch" style="background:#e4e2dc;border:1px solid #d8d4d0"></div>
-        <div class="swatch" style="background:#bebab6"></div>
-        <div class="swatch" style="background:#82807c"></div>
-        <div class="swatch" style="background:#565250"></div>
-        <div class="swatch" style="background:#3a3836"></div>
-      </div>
-      <div class="badge">★ 高評価</div>
-    </div>
-
-  </div>
+<div class="frame-wrap">
+  <iframe src="/pale-instagram6.html" scrolling="no"></iframe>
 </div>
 
 </body>

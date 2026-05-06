@@ -1,0 +1,68 @@
+[
+  {
+    "gymId": 1,
+    "gymName": "スポーツクラブNAS西日暮里",
+    "gymUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "noLinks": true
+  },
+  {
+    "gymId": 2,
+    "gymName": "スポーツクラブNAS大崎",
+    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "noLinks": true
+  },
+  {
+    "gymId": 3,
+    "gymName": "スポーツクラブNASリバーシティ21",
+    "gymUrl": "https://www.nas-club.co.jp/club/rivercity21/",
+    "noLinks": true
+  },
+  {
+    "gymId": 4,
+    "gymName": "スポーツクラブNAS西葛西",
+    "gymUrl": "https://www.nas-club.co.jp/club/nishikasai/",
+    "noLinks": true
+  },
+  {
+    "gymId": 5,
+    "gymName": "スポーツクラブNAS戸塚",
+    "gymUrl": "https://www.nas-club.co.jp/club/totsuka/",
+    "noLinks": true
+  },
+  {
+    "gymId": 6,
+    "gymName": "スポーツクラブNAS藤沢",
+    "gymUrl": "https://www.nas-club.co.jp/club/fujisawa/",
+    "noLinks": true
+  },
+  {
+    "gymId": 7,
+    "gymName": "スポーツクラブNAS新川崎",
+    "gymUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
+    "noLinks": true
+  },
+  {
+    "gymId": 8,
+    "gymName": "スポーツクラブNAS篠崎",
+    "gymUrl": "https://www.nas-club.co.jp/club/shinozaki/",
+    "noLinks": true
+  },
+  {
+    "gymId": 9,
+    "gymName": "スポーツクラブNAS溝の口",
+    "gymUrl": "https://www.nas-club.co.jp/club/mizonokuchi/",
+    "noLinks": true
+  },
+  {
+    "gymId": 10,
+    "gymName": "スポーツクラブNAS中山",
+    "gymUrl": "https://www.nas-club.co.jp/club/nakayama/",
+    "noLinks": true
+  },
+  {
+    "gymId": 15,
+    "gymName": "スポーツクラブNAS蕨",
+    "gymUrl": "https://www.nas-club.co.jp/club/warabi/",
+    "noLinks": true
+  }
+]

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ふくろうスタンプ プレビュー</title>
+<style>
+  body { background: #f0f0f0; font-family: sans-serif; padding: 20px; }
+  h1 { text-align: center; color: #333; }
+  h2 { color: #555; margin-top: 30px; border-left: 5px solid #4a90d9; padding-left: 10px; }
+  .grid { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 30px; }
+  .stamp { background: white; border-radius: 16px; padding: 12px;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.12); text-align: center; width: 200px; }
+  .stamp svg { display: block; margin: 0 auto; }
+  .stamp p { margin: 6px 0 0; font-size: 13px; color: #444; font-weight: bold; }
+  .note { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px;
+          padding: 12px 16px; margin-bottom: 20px; font-size: 14px; color: #555; }
+</style>
+</head>
+<body>
+<h1>🦉 ふくろうスタンプ サンプル</h1>
+<div class="note">
+  ※ これはプログラムで描いたSVGのサンプルです。手描きの温かみとは異なりますが、参考にご覧ください。
+</div>
+
+<h2>🏋️ LES MILLS プログラム</h2>
+<div class="grid">
+
+  <!-- BODYATTACK ジャンプキック -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <!-- 影 -->
+      <ellipse cx="100" cy="192" rx="40" ry="8" fill="#ccc" opacity="0.5"/>
+      <!-- 体 -->
+      <ellipse cx="100" cy="115" rx="45" ry="52" fill="#9aa8b8"/>
+      <!-- お腹 -->
+      <ellipse cx="100" cy="125" rx="28" ry="35" fill="#e8edf2"/>
+      <!-- 頭 -->
+      <circle cx="100" cy="68" r="36" fill="#9aa8b8"/>
+      <!-- 左翼（上へ） -->
+      <ellipse cx="60" cy="100" rx="18" ry="28" fill="#7a8a9a" transform="rotate(-40 60 100)"/>
+      <!-- 右翼（跳ね上げ） -->
+      <ellipse cx="145" cy="85" rx="18" ry="28" fill="#7a8a9a" transform="rotate(50 145 85)"/>
+      <!-- 左足（蹴り上げ） -->
+      <line x1="85" y1="158" x2="65" y2="130" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="55" cy="122" rx="16" ry="12" fill="#d63031" transform="rotate(-30 55 122)"/>
+      <!-- 右足（踏み切り） -->
+      <line x1="115" y1="158" x2="130" y2="175" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="138" cy="181" rx="16" ry="10" fill="#d63031"/>
+      <!-- 目（左） -->
+      <circle cx="86" cy="65" r="14" fill="#1a2a4a"/>
+      <circle cx="90" cy="61" r="5" fill="white"/>
+      <!-- 目（右） -->
+      <circle cx="114" cy="65" r="14" fill="#1a2a4a"/>
+      <circle cx="118" cy="61" r="5" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="100,75 94,84 106,84" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="74" cy="76" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="126" cy="76" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <!-- テキスト -->
+    </svg>
+    <p>BODYATTACK<br>ジャンプキック！</p>
+  </div>
+
+  <!-- BODYPUMP ダンベル -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="100" cy="192" rx="40" ry="8" fill="#ccc" opacity="0.5"/>
+      <!-- バーベル -->
+      <rect x="20" y="95" width="160" height="10" rx="5" fill="#555"/>
+      <rect x="15" y="85" width="22" height="30" rx="6" fill="#333"/>
+      <rect x="163" y="85" width="22" height="30" rx="6" fill="#333"/>
+      <!-- 体 -->
+      <ellipse cx="100" cy="128" rx="43" ry="48" fill="#9aa8b8"/>
+      <ellipse cx="100" cy="138" rx="27" ry="32" fill="#e8edf2"/>
+      <!-- 腕（左・上げ） -->
+      <ellipse cx="58" cy="100" rx="16" ry="26" fill="#7a8a9a" transform="rotate(-10 58 100)"/>
+      <!-- 腕（右・上げ） -->
+      <ellipse cx="142" cy="100" rx="16" ry="26" fill="#7a8a9a" transform="rotate(10 142 100)"/>
+      <!-- 頭 -->
+      <circle cx="100" cy="72" r="36" fill="#9aa8b8"/>
+      <!-- 足 -->
+      <line x1="84" y1="168" x2="80" y2="188" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="76" cy="190" rx="16" ry="9" fill="#d63031"/>
+      <line x1="116" y1="168" x2="120" y2="188" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="124" cy="190" rx="16" ry="9" fill="#d63031"/>
+      <!-- 目 -->
+      <circle cx="86" cy="69" r="14" fill="#1a2a4a"/>
+      <circle cx="90" cy="65" r="5" fill="white"/>
+      <circle cx="114" cy="69" r="14" fill="#1a2a4a"/>
+      <circle cx="118" cy="65" r="5" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="100,79 94,88 106,88" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="74" cy="80" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="126" cy="80" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 力こぶ線 -->
+      <path d="M 58 88 Q 50 78 58 72" stroke="#555" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+    </svg>
+    <p>BODYPUMP<br>よいしょ〜！</p>
+  </div>
+
+  <!-- BODYCOMBAT パンチ -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="95" cy="192" rx="40" ry="8" fill="#ccc" opacity="0.5"/>
+      <!-- 体（傾き） -->
+      <ellipse cx="95" cy="128" rx="43" ry="48" fill="#9aa8b8" transform="rotate(-5 95 128)"/>
+      <ellipse cx="95" cy="138" rx="27" ry="32" fill="#e8edf2" transform="rotate(-5 95 138)"/>
+      <!-- 右腕 パンチ -->
+      <line x1="135" y1="115" x2="175" y2="100" stroke="#7a8a9a" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="178" cy="99" r="13" fill="#7a8a9a"/>
+      <!-- 左腕 ガード -->
+      <ellipse cx="62" cy="108" rx="15" ry="24" fill="#7a8a9a" transform="rotate(20 62 108)"/>
+      <!-- 頭 -->
+      <circle cx="95" cy="72" r="36" fill="#9aa8b8"/>
+      <!-- 足 -->
+      <line x1="82" y1="168" x2="72" y2="188" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="68" cy="190" rx="16" ry="9" fill="#d63031" transform="rotate(-10 68 190)"/>
+      <line x1="112" y1="168" x2="118" y2="185" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="122" cy="188" rx="16" ry="9" fill="#d63031"/>
+      <!-- 目 -->
+      <circle cx="83" cy="69" r="14" fill="#1a2a4a"/>
+      <circle cx="87" cy="65" r="5" fill="white"/>
+      <circle cx="109" cy="67" r="14" fill="#1a2a4a"/>
+      <circle cx="113" cy="63" r="5" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="96,79 90,88 102,88" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="71" cy="79" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="120" cy="77" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 効果線 -->
+      <line x1="178" y1="86" x2="190" y2="78" stroke="#f39c12" stroke-width="3"/>
+      <line x1="182" y1="96" x2="196" y2="93" stroke="#f39c12" stroke-width="3"/>
+      <line x1="178" y1="108" x2="192" y2="113" stroke="#f39c12" stroke-width="3"/>
+    </svg>
+    <p>BODYCOMBAT<br>ハイヤー！</p>
+  </div>
+
+  <!-- GRIT バーピー -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <!-- 床 -->
+      <rect x="10" y="178" width="180" height="6" rx="3" fill="#bbb"/>
+      <!-- 体（横向き） -->
+      <ellipse cx="105" cy="158" rx="52" ry="22" fill="#9aa8b8" transform="rotate(-10 105 158)"/>
+      <ellipse cx="105" cy="158" rx="34" ry="14" fill="#e8edf2" transform="rotate(-10 105 158)"/>
+      <!-- 頭 -->
+      <circle cx="52" cy="145" r="32" fill="#9aa8b8"/>
+      <!-- 前足（伸ばし） -->
+      <line x1="140" y1="162" x2="175" y2="168" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="180" cy="170" rx="14" ry="9" fill="#d63031"/>
+      <!-- 後ろ足 -->
+      <line x1="80" y1="165" x2="65" y2="175" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="58" cy="177" rx="14" ry="9" fill="#d63031"/>
+      <!-- 腕（支え） -->
+      <line x1="68" y1="158" x2="68" y2="178" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <line x1="110" y1="163" x2="110" y2="178" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <!-- 目 -->
+      <circle cx="42" cy="142" r="12" fill="#1a2a4a"/>
+      <circle cx="45" cy="139" r="4" fill="white"/>
+      <circle cx="63" cy="140" r="12" fill="#1a2a4a"/>
+      <circle cx="66" cy="137" r="4" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="52,151 47,158 57,158" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="33" cy="150" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="70" cy="149" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 汗 -->
+      <ellipse cx="30" cy="130" rx="4" ry="6" fill="#74b9ff" opacity="0.8"/>
+      <ellipse cx="20" cy="140" rx="3" ry="5" fill="#74b9ff" opacity="0.6"/>
+      <!-- GRIT文字 -->
+      <text x="120" y="130" font-size="18" font-weight="bold" fill="#e17055" font-family="sans-serif">GRIT!</text>
+    </svg>
+    <p>GRIT<br>もう無理〜！</p>
+  </div>
+
+  <!-- BODYJAM ダンス -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="100" cy="193" rx="40" ry="7" fill="#ccc" opacity="0.5"/>
+      <!-- 体（傾き） -->
+      <ellipse cx="105" cy="128" rx="42" ry="48" fill="#9aa8b8" transform="rotate(8 105 128)"/>
+      <ellipse cx="105" cy="138" rx="26" ry="32" fill="#e8edf2" transform="rotate(8 105 138)"/>
+      <!-- 左腕（上） -->
+      <line x1="68" y1="112" x2="42" y2="82" stroke="#7a8a9a" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="38" cy="76" rx="12" ry="16" fill="#7a8a9a" transform="rotate(-30 38 76)"/>
+      <!-- 右腕（横） -->
+      <line x1="142" y1="120" x2="170" y2="130" stroke="#7a8a9a" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="174" cy="134" rx="12" ry="16" fill="#7a8a9a" transform="rotate(20 174 134)"/>
+      <!-- 頭 -->
+      <circle cx="100" cy="68" r="35" fill="#9aa8b8" transform="rotate(5 100 68)"/>
+      <!-- 左足（蹴り出し） -->
+      <line x1="90" y1="168" x2="70" y2="188" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="62" cy="191" rx="16" ry="9" fill="#d63031" transform="rotate(-15 62 191)"/>
+      <!-- 右足（踏み） -->
+      <line x1="118" y1="168" x2="130" y2="183" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="136" cy="187" rx="16" ry="9" fill="#d63031" transform="rotate(10 136 187)"/>
+      <!-- 音符 -->
+      <text x="28" y="50" font-size="22" fill="#6c5ce7">♪</text>
+      <text x="150" y="60" font-size="18" fill="#fd79a8">♫</text>
+      <text x="155" y="40" font-size="14" fill="#fdcb6e">♩</text>
+      <!-- 目 -->
+      <circle cx="88" cy="65" r="13" fill="#1a2a4a"/>
+      <circle cx="92" cy="61" r="5" fill="white"/>
+      <circle cx="113" cy="63" r="13" fill="#1a2a4a"/>
+      <circle cx="117" cy="59" r="5" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="100,74 94,83 106,83" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="75" cy="75" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="125" cy="73" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+    </svg>
+    <p>BODYJAM<br>ノリノリ！</p>
+  </div>
+
+</div>
+
+<h2>⚽ スポーツ全般</h2>
+<div class="grid">
+
+  <!-- ランニング -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="105" cy="193" rx="40" ry="7" fill="#ccc" opacity="0.5"/>
+      <!-- 体（前傾） -->
+      <ellipse cx="105" cy="125" rx="42" ry="48" fill="#9aa8b8" transform="rotate(12 105 125)"/>
+      <ellipse cx="108" cy="135" rx="26" ry="32" fill="#e8edf2" transform="rotate(12 108 135)"/>
+      <!-- 左腕（前） -->
+      <line x1="74" y1="112" x2="50" y2="95" stroke="#7a8a9a" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="44" cy="90" rx="12" ry="15" fill="#7a8a9a" transform="rotate(-20 44 90)"/>
+      <!-- 右腕（後ろ） -->
+      <line x1="138" y1="118" x2="158" y2="138" stroke="#7a8a9a" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="163" cy="144" rx="12" ry="15" fill="#7a8a9a" transform="rotate(25 163 144)"/>
+      <!-- 頭 -->
+      <circle cx="98" cy="68" r="35" fill="#9aa8b8"/>
+      <!-- 左足（前・上げ） -->
+      <line x1="92" y1="165" x2="75" y2="145" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <line x1="75" y1="145" x2="58" y2="158" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="50" cy="162" rx="15" ry="9" fill="#d63031" transform="rotate(-10 50 162)"/>
+      <!-- 右足（後ろ） -->
+      <line x1="118" y1="165" x2="138" y2="180" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="146" cy="183" rx="15" ry="9" fill="#d63031"/>
+      <!-- 汗 -->
+      <ellipse cx="130" cy="50" rx="4" ry="6" fill="#74b9ff" opacity="0.8"/>
+      <ellipse cx="142" cy="42" rx="3" ry="5" fill="#74b9ff" opacity="0.6"/>
+      <!-- 目 -->
+      <circle cx="86" cy="65" r="13" fill="#1a2a4a"/>
+      <circle cx="90" cy="61" r="5" fill="white"/>
+      <circle cx="111" cy="63" r="13" fill="#1a2a4a"/>
+      <circle cx="115" cy="59" r="5" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="98,75 92,84 104,84" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="74" cy="75" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="122" cy="73" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 速度線 -->
+      <line x1="160" y1="80" x2="185" y2="80" stroke="#dfe6e9" stroke-width="3"/>
+      <line x1="165" y1="90" x2="190" y2="90" stroke="#dfe6e9" stroke-width="2"/>
+      <line x1="162" y1="70" x2="182" y2="70" stroke="#dfe6e9" stroke-width="2"/>
+    </svg>
+    <p>ランニング<br>走れ〜！</p>
+  </div>
+
+  <!-- 筋トレ（腕立て） -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <!-- 床 -->
+      <rect x="10" y="178" width="180" height="6" rx="3" fill="#bbb"/>
+      <!-- 体（横） -->
+      <ellipse cx="105" cy="160" rx="58" ry="18" fill="#9aa8b8"/>
+      <ellipse cx="105" cy="160" rx="40" ry="12" fill="#e8edf2"/>
+      <!-- 頭 -->
+      <circle cx="48" cy="145" r="32" fill="#9aa8b8"/>
+      <!-- 腕（支え） -->
+      <line x1="72" y1="162" x2="72" y2="178" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <line x1="125" y1="162" x2="125" y2="178" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <!-- 足 -->
+      <line x1="150" y1="162" x2="165" y2="178" stroke="#7a8a9a" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="170" cy="179" rx="14" ry="8" fill="#d63031"/>
+      <!-- 目 -->
+      <circle cx="37" cy="142" r="12" fill="#1a2a4a"/>
+      <circle cx="40" cy="139" r="4" fill="white"/>
+      <circle cx="59" cy="141" r="12" fill="#1a2a4a"/>
+      <circle cx="62" cy="138" r="4" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="48,151 43,158 53,158" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="30" cy="150" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="66" cy="149" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 汗 -->
+      <ellipse cx="26" cy="128" rx="4" ry="6" fill="#74b9ff" opacity="0.8"/>
+      <!-- 回数カウント -->
+      <text x="140" y="128" font-size="20" font-weight="bold" fill="#e17055" font-family="sans-serif">×10!</text>
+    </svg>
+    <p>筋トレ<br>腕立て伏せ！</p>
+  </div>
+
+  <!-- 相撲 -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="100" cy="193" rx="45" ry="7" fill="#ccc" opacity="0.5"/>
+      <!-- 廻し（まわし） -->
+      <rect x="68" y="145" width="64" height="22" rx="6" fill="#8B4513"/>
+      <!-- 体（どっしり大きめ） -->
+      <ellipse cx="100" cy="130" rx="55" ry="55" fill="#c8b89a"/>
+      <ellipse cx="100" cy="140" rx="38" ry="40" fill="#e8d9c0"/>
+      <!-- 頭 -->
+      <circle cx="100" cy="68" r="36" fill="#c8b89a"/>
+      <!-- 左腕（突き出し） -->
+      <line x1="52" y1="120" x2="22" y2="108" stroke="#c8b89a" stroke-width="18" stroke-linecap="round"/>
+      <!-- 右腕（突き出し） -->
+      <line x1="148" y1="120" x2="178" y2="108" stroke="#c8b89a" stroke-width="18" stroke-linecap="round"/>
+      <!-- 足（四股） -->
+      <line x1="80" y1="178" x2="58" y2="193" stroke="#c8b89a" stroke-width="14" stroke-linecap="round"/>
+      <ellipse cx="50" cy="194" rx="18" ry="8" fill="#d63031"/>
+      <line x1="120" y1="178" x2="142" y2="193" stroke="#c8b89a" stroke-width="14" stroke-linecap="round"/>
+      <ellipse cx="150" cy="194" rx="18" ry="8" fill="#d63031"/>
+      <!-- まわし帯 -->
+      <!-- 目 -->
+      <circle cx="87" cy="65" r="14" fill="#1a2a4a"/>
+      <circle cx="91" cy="61" r="5" fill="white"/>
+      <circle cx="113" cy="65" r="14" fill="#1a2a4a"/>
+      <circle cx="117" cy="61" r="5" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="100,75 94,84 106,84" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="74" cy="76" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="126" cy="76" rx="9" ry="6" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 眉（気合い） -->
+      <path d="M 80 52 Q 87 47 94 52" stroke="#555" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M 106 52 Q 113 47 120 52" stroke="#555" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- 土俵の砂 -->
+      <ellipse cx="40" cy="195" rx="10" ry="4" fill="#d4a853" opacity="0.6"/>
+      <ellipse cx="165" cy="196" rx="8" ry="3" fill="#d4a853" opacity="0.5"/>
+      <!-- どすこい -->
+      <text x="30" y="35" font-size="18" font-weight="bold" fill="#8B4513" font-family="sans-serif">どすこい！</text>
+    </svg>
+    <p>相撲<br>どすこい！</p>
+  </div>
+
+  <!-- 野球 バッティング -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="95" cy="193" rx="40" ry="7" fill="#ccc" opacity="0.5"/>
+      <!-- バット -->
+      <line x1="30" y1="140" x2="135" y2="90" stroke="#8B6914" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="130" cy="87" rx="12" ry="8" fill="#a07820" transform="rotate(-25 130 87)"/>
+      <!-- 体（スイング） -->
+      <ellipse cx="100" cy="128" rx="42" ry="48" fill="#9aa8b8" transform="rotate(-10 100 128)"/>
+      <ellipse cx="100" cy="138" rx="26" ry="32" fill="#e8edf2" transform="rotate(-10 100 138)"/>
+      <!-- 腕 -->
+      <line x1="68" y1="112" x2="42" y2="125" stroke="#7a8a9a" stroke-width="12" stroke-linecap="round"/>
+      <line x1="130" y1="108" x2="148" y2="95" stroke="#7a8a9a" stroke-width="12" stroke-linecap="round"/>
+      <!-- 頭（ヘルメット） -->
+      <circle cx="95" cy="68" r="36" fill="#9aa8b8"/>
+      <path d="M 65 60 Q 75 35 115 42 Q 125 44 128 55" fill="#2d3436" stroke="#2d3436" stroke-width="1"/>
+      <rect x="60" y="55" width="12" height="8" rx="2" fill="#2d3436"/>
+      <!-- 足 -->
+      <line x1="82" y1="168" x2="65" y2="188" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="57" cy="191" rx="16" ry="9" fill="#d63031" transform="rotate(-10 57 191)"/>
+      <line x1="115" y1="168" x2="125" y2="185" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="130" cy="188" rx="16" ry="9" fill="#d63031"/>
+      <!-- 目 -->
+      <circle cx="84" cy="68" r="12" fill="#1a2a4a"/>
+      <circle cx="87" cy="65" r="4" fill="white"/>
+      <circle cx="108" cy="66" r="12" fill="#1a2a4a"/>
+      <circle cx="111" cy="63" r="4" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="96,76 90,85 102,85" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="73" cy="77" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="118" cy="75" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 効果線 -->
+      <text x="148" y="80" font-size="22" font-weight="bold" fill="#f39c12" font-family="sans-serif">カキーン!</text>
+    </svg>
+    <p>野球<br>カキーン！</p>
+  </div>
+
+  <!-- ラグビー -->
+  <div class="stamp">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <ellipse cx="100" cy="193" rx="40" ry="7" fill="#ccc" opacity="0.5"/>
+      <!-- ボール -->
+      <ellipse cx="158" cy="85" rx="18" ry="12" fill="#8B4513" transform="rotate(30 158 85)"/>
+      <line x1="145" y1="78" x2="172" y2="93" stroke="white" stroke-width="1.5"/>
+      <!-- 体 -->
+      <ellipse cx="95" cy="128" rx="44" ry="50" fill="#9aa8b8" transform="rotate(-5 95 128)"/>
+      <ellipse cx="95" cy="138" rx="28" ry="34" fill="#e8edf2" transform="rotate(-5 95 138)"/>
+      <!-- ボール持つ腕 -->
+      <line x1="130" y1="112" x2="152" y2="93" stroke="#7a8a9a" stroke-width="13" stroke-linecap="round"/>
+      <!-- 左腕 -->
+      <ellipse cx="56" cy="115" rx="16" ry="26" fill="#7a8a9a" transform="rotate(15 56 115)"/>
+      <!-- 頭 -->
+      <circle cx="95" cy="68" r="35" fill="#9aa8b8"/>
+      <!-- スクラムキャップ -->
+      <path d="M 65 62 Q 70 35 120 40 Q 128 50 125 62" fill="#4a4a4a" opacity="0.8"/>
+      <!-- 足（走り） -->
+      <line x1="82" y1="170" x2="65" y2="188" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="57" cy="191" rx="15" ry="9" fill="#d63031" transform="rotate(-12 57 191)"/>
+      <line x1="114" y1="170" x2="128" y2="182" stroke="#7a8a9a" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="134" cy="185" rx="15" ry="9" fill="#d63031" transform="rotate(8 134 185)"/>
+      <!-- 目 -->
+      <circle cx="84" cy="67" r="12" fill="#1a2a4a"/>
+      <circle cx="87" cy="64" r="4" fill="white"/>
+      <circle cx="108" cy="66" r="12" fill="#1a2a4a"/>
+      <circle cx="111" cy="63" r="4" fill="white"/>
+      <!-- くちばし -->
+      <polygon points="96,76 90,85 102,85" fill="#e67e22"/>
+      <!-- ほっぺ -->
+      <ellipse cx="72" cy="76" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <ellipse cx="117" cy="75" rx="8" ry="5" fill="#ffb8c0" opacity="0.7"/>
+      <!-- 速度線 -->
+      <line x1="15" y1="100" x2="45" y2="100" stroke="#dfe6e9" stroke-width="3"/>
+      <line x1="10" y1="112" x2="40" y2="112" stroke="#dfe6e9" stroke-width="2"/>
+    </svg>
+    <p>ラグビー<br>突き進め！</p>
+  </div>
+
+</div>
+
+<div class="note" style="background:#d4edda; border-color:#28a745;">
+  ✅ 気に入ったポーズがあれば、残り40枚も同様に作成できます。<br>
+  顔のパーツ（目・くちばし・ほっぺ）は統一しています。<br>
+  ご要望があれば、テキストのセリフや色味の調整も可能です。
+</div>
+</body>
+</html>
