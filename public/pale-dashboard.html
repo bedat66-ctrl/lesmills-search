@@ -331,6 +331,61 @@
       line-height: 1.4;
     }
 
+    /* ── 優先リスト ── */
+    .priority-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 13px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .priority-badge {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .badge-red    { background: #feecea; }
+    .badge-yellow { background: #fef9e7; }
+    .badge-green  { background: #edf7f0; }
+    .badge-done   { background: #f0f0f0; }
+    .priority-info { flex: 1; }
+    .priority-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2a2826;
+      line-height: 1.4;
+    }
+    .priority-title.done {
+      color: #bbb;
+      text-decoration: line-through;
+    }
+    .priority-when {
+      font-size: 10px;
+      color: #aaa;
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+    .priority-tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+    .tag-red    { background: #feecea; color: #c0392b; }
+    .tag-yellow { background: #fef9e7; color: #b8860b; }
+    .tag-green  { background: #edf7f0; color: #27ae60; }
+    .tag-done-label { background: #f0f0f0; color: #aaa; }
+
     /* ── フッター ── */
     footer {
       text-align: center;
@@ -347,7 +402,7 @@
 <header>
   <div class="header-top">
     <div class="brand-label">P A L E &nbsp; P E A R L</div>
-    <div class="updated-label">Updated: 2026.05</div>
+    <div class="updated-label">Updated: 2026.05.07</div>
   </div>
   <div class="header-title">Project Dashboard</div>
   <div class="header-concept">「動く日も、纏う」</div>
@@ -409,10 +464,31 @@
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-dot dot-now"></div>
+      <div class="tl-dot dot-done"></div>
       <div class="tl-body">
         <div class="tl-text">ブランドデザイン・パッケージデザインをPattern Fに統一</div>
-        <div class="tl-date">2026年5月</div>
+        <div class="tl-date">5/6</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-done"></div>
+      <div class="tl-body">
+        <div class="tl-text">ハンドメイド訴求・片耳スタイル（for him）をFEEDに追加。プロフィール文も更新</div>
+        <div class="tl-date">5/7</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-done"></div>
+      <div class="tl-body">
+        <div class="tl-text">ご注文ガイドページ作成（フローチャート・Q&A・返品ポリシー）</div>
+        <div class="tl-date">5/7</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-dot dot-now"></div>
+      <div class="tl-body">
+        <div class="tl-text">開業届提出・仕訳システム（freee/マネーフォワード）登録・仕入れ開始</div>
+        <div class="tl-date">5月中</div>
       </div>
     </div>
     <div class="tl-row">
@@ -428,6 +504,124 @@
         <div class="tl-text">Instagram投稿開始・Creema初出品</div>
         <div class="tl-date">6〜7月</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- 事務手続き 優先リスト -->
+<div class="section">
+  <div class="section-label">事務手続き 優先リスト</div>
+
+  <div class="priority-tag tag-red">🔴 今すぐ</div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-red">📋</div>
+    <div class="priority-info">
+      <div class="priority-title">開業届を提出する</div>
+      <div class="priority-when">税務署 or e-Tax（オンライン）で無料提出。仕入れ開始前に完了させる。同時に「青色申告承認申請書」も提出すると最大65万円控除。</div>
+    </div>
+  </div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-red">💰</div>
+    <div class="priority-info">
+      <div class="priority-title">仕訳システムを登録する</div>
+      <div class="priority-when">freee（月1,628円〜）またはマネーフォワード（月1,078円〜）。仕入れ初日から記帳開始。領収書は全て保管。</div>
+    </div>
+  </div>
+
+  <div class="priority-tag tag-yellow" style="margin-top:12px;">🟡 今月中</div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-yellow">🔍</div>
+    <div class="priority-info">
+      <div class="priority-title">商標検索（J-PlatPat）</div>
+      <div class="priority-when">「PALE pearl」を特許情報プラットフォームで検索。区分14類（ピアス・身飾品）で類似商標がないか確認。問題なければ出願検討（約1.2万円〜）。</div>
+    </div>
+  </div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-yellow">📱</div>
+    <div class="priority-info">
+      <div class="priority-title">Instagramプロフィールのリンク先を設定</div>
+      <div class="priority-when">bio URLに /pale-guide.html（フローチャート・Q&A・返品ポリシー）を設定。Creema出品前に完了。</div>
+    </div>
+  </div>
+
+  <div class="priority-tag tag-green" style="margin-top:12px;">🟢 余裕があれば</div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-green">🏦</div>
+    <div class="priority-info">
+      <div class="priority-title">屋号付き銀行口座を開設</div>
+      <div class="priority-when">「PALE pearl」名義の口座。開業届を出した後に申し込み可能。売上・経費を個人口座と分けて管理。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 仕入手続き 優先リスト -->
+<div class="section">
+  <div class="section-label">仕入手続き 優先リスト</div>
+
+  <div class="priority-tag tag-red">🔴 仕入れ初回（試作用）</div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-red">🫧</div>
+    <div class="priority-info">
+      <div class="priority-title">淡水パール オーバル 縦7mm（10〜20粒）</div>
+      <div class="priority-when">楽天 / パーツクラブ｜「淡水パール バロック オーバル 7mm」で検索</div>
+    </div>
+  </div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-red">⚪</div>
+    <div class="priority-info">
+      <div class="priority-title">淡水パール 丸 7〜8mm（10〜20粒）</div>
+      <div class="priority-when">楽天 / 貴和製作所｜こてつさん7mm @¥750参考</div>
+    </div>
+  </div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-red">📌</div>
+    <div class="priority-info">
+      <div class="priority-title">チタン軸ピアス台座 0.8mm（20〜30本）</div>
+      <div class="priority-when">楽天 / 貴和製作所｜アレルギーフリー素材を必ず確認</div>
+    </div>
+  </div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-red">🔧</div>
+    <div class="priority-info">
+      <div class="priority-title">エポキシ系接着剤 2液混合タイプ</div>
+      <div class="priority-when">ホームセンター｜セメダイン・アラルダイト等。耐水・耐汗タイプ</div>
+    </div>
+  </div>
+
+  <div class="priority-tag tag-yellow" style="margin-top:12px;">🟡 撮影準備</div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-yellow">📸</div>
+    <div class="priority-info">
+      <div class="priority-title">グレー or ベージュ ロールスタンド</div>
+      <div class="priority-when">Amazon｜こてつさんスタイルの撮影台。Pattern Fのグレー系背景と相性◎</div>
+    </div>
+  </div>
+
+  <div class="priority-tag tag-yellow" style="margin-top:12px;">🟡 試作テスト（仕入れ後2週間）</div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-yellow">🏋️</div>
+    <div class="priority-info">
+      <div class="priority-title">フィットネス・お風呂・日常 耐久テスト</div>
+      <div class="priority-when">ジム・ヨガ着用 1〜2週間。お風呂10回以上。汗・洗顔・シャンプー耐性確認。</div>
+    </div>
+  </div>
+
+  <div class="priority-card">
+    <div class="priority-badge badge-yellow">💴</div>
+    <div class="priority-info">
+      <div class="priority-title">初回試作予算目安</div>
+      <div class="priority-when">パール＋チタン軸＋接着剤＋撮影台：約¥3,000〜6,000</div>
     </div>
   </div>
 </div>
@@ -480,6 +674,11 @@
       <div class="link-icon">🧮</div>
       <div class="link-title">価格計算ツール</div>
       <div class="link-desc">原価・利益率の計算</div>
+    </a>
+    <a class="link-card" href="/pale-guide.html">
+      <div class="link-icon">📖</div>
+      <div class="link-title">ご注文ガイド</div>
+      <div class="link-desc">フローチャート・Q&A・返品ポリシー</div>
     </a>
   </div>
 </div>
@@ -573,46 +772,53 @@
 <div class="section">
   <div class="section-label">Next Steps</div>
 
-  <div class="phase-header">▼ PHASE 1｜仕入れ・試作（5月中）</div>
+  <div class="phase-header">▼ PHASE 1｜事務手続き＋仕入れ（5月中）</div>
   <div class="next-card">
     <div class="next-num num-now">1</div>
     <div class="next-info">
-      <div class="next-title">淡水パール オーバル 縦7mm 少量仕入れ</div>
-      <div class="next-when">今週中｜楽天「淡水パール バロック オーバル 7mm」で検索</div>
+      <div class="next-title">開業届を提出する</div>
+      <div class="next-when">税務署 or e-Tax｜青色申告承認申請書も同時提出</div>
     </div>
   </div>
   <div class="next-card">
     <div class="next-num num-now">2</div>
     <div class="next-info">
-      <div class="next-title">チタン軸ピアス台座 0.8mm × 20〜30本</div>
-      <div class="next-when">今週中｜楽天・貴和製作所</div>
+      <div class="next-title">仕訳システム登録（freee or マネーフォワード）</div>
+      <div class="next-when">仕入れ初日から記帳開始。領収書は全て保管。</div>
     </div>
   </div>
   <div class="next-card">
     <div class="next-num num-now">3</div>
     <div class="next-info">
-      <div class="next-title">エポキシ系接着剤を購入（2液混合タイプ）</div>
-      <div class="next-when">今週中｜ホームセンター｜セメダイン・アラルダイト等</div>
+      <div class="next-title">淡水パール・チタン軸・接着剤 少量仕入れ</div>
+      <div class="next-when">今週中｜楽天・貴和製作所・ホームセンター</div>
     </div>
   </div>
   <div class="next-card">
     <div class="next-num num-now">4</div>
     <div class="next-info">
       <div class="next-title">グレー or ベージュ ロールスタンド購入</div>
-      <div class="next-when">今週中｜Amazon｜こてつさんと同スタイルの撮影台</div>
+      <div class="next-when">今週中｜Amazon｜Pattern F グレー背景と相性◎</div>
+    </div>
+  </div>
+  <div class="next-card">
+    <div class="next-num num-now">5</div>
+    <div class="next-info">
+      <div class="next-title">商標検索（J-PlatPat）</div>
+      <div class="next-when">今月中｜「PALE pearl」第14類で類似商標を確認</div>
     </div>
   </div>
 
   <div class="phase-header">▼ PHASE 2｜試作・テスト（5〜6月初旬）</div>
   <div class="next-card">
-    <div class="next-num num-soon">5</div>
+    <div class="next-num num-soon">6</div>
     <div class="next-info">
       <div class="next-title">試作 3〜5ペア 制作（オーバル＋丸）</div>
       <div class="next-when">来週｜エポキシ接着剤でしっかり固定して作る</div>
     </div>
   </div>
   <div class="next-card">
-    <div class="next-num num-soon">6</div>
+    <div class="next-num num-soon">7</div>
     <div class="next-info">
       <div class="next-title">着用耐久テスト（フィットネス・お風呂・日常）</div>
       <div class="next-when">2週間｜10回以上お風呂・ジム着用で確認</div>
@@ -621,21 +827,21 @@
 
   <div class="phase-header">▼ PHASE 3｜販売準備（6月）</div>
   <div class="next-card">
-    <div class="next-num num-soon">7</div>
+    <div class="next-num num-soon">8</div>
     <div class="next-info">
       <div class="next-title">商品写真撮影（ロールスタンド使用）</div>
       <div class="next-when">6月初旬｜サイズ表記を写真に入れる（こてつさん方式）</div>
     </div>
   </div>
   <div class="next-card">
-    <div class="next-num num-soon">8</div>
+    <div class="next-num num-soon">9</div>
     <div class="next-info">
       <div class="next-title">Creemaアカウント開設</div>
       <div class="next-when">6月｜ハンドメイド市場に合った販路でスタート</div>
     </div>
   </div>
   <div class="next-card">
-    <div class="next-num num-soon">9</div>
+    <div class="next-num num-soon">10</div>
     <div class="next-info">
       <div class="next-title">Instagramアカウント開設・初投稿</div>
       <div class="next-when">6月｜Pattern F（グレージュ）で統一スタート</div>
@@ -644,21 +850,21 @@
 
   <div class="phase-header">▼ PHASE 4｜販売開始（6〜7月）</div>
   <div class="next-card">
-    <div class="next-num num-later">10</div>
+    <div class="next-num num-later">11</div>
     <div class="next-info">
       <div class="next-title">Creema 初出品（1〜3点から）</div>
       <div class="next-when">6月末〜7月｜価格：¥1,500〜¥3,000を目安に</div>
     </div>
   </div>
   <div class="next-card">
-    <div class="next-num num-later">11</div>
+    <div class="next-num num-later">12</div>
     <div class="next-info">
       <div class="next-title">Instagram 投稿開始（FEEDの世界観で発信）</div>
       <div class="next-when">6〜7月｜プロフィール文・ハイライト設定、初投稿10件準備</div>
     </div>
   </div>
   <div class="next-card">
-    <div class="next-num num-later">12</div>
+    <div class="next-num num-later">13</div>
     <div class="next-info">
       <div class="next-title">おまけチャーム＋手書きメッセージカード 準備</div>
       <div class="next-when">初出品前｜購入者がファンになる体験を設計</div>
