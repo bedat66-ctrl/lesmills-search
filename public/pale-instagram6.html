@@ -214,8 +214,9 @@
     .f3 .copy {
       font-family: 'Noto Sans JP', sans-serif;
       font-weight: 200; font-size: 10px;
-      letter-spacing: 0.22em; color: #3a3836;
+      letter-spacing: 0.1em; color: #3a3836;
       text-align: center; line-height: 2.1;
+      word-break: keep-all;
     }
     .f3 .rule { width: 14px; height: 1px; background: #c0bcb8; }
 
@@ -296,9 +297,10 @@
     }
     .f7 .headline {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 12px; font-weight: 200;
-      letter-spacing: 0.2em; color: rgba(255,255,255,0.90);
-      text-align: center; line-height: 2;
+      font-size: 11px; font-weight: 200;
+      letter-spacing: 0; color: rgba(255,255,255,0.90);
+      text-align: center; line-height: 1.9;
+      word-break: keep-all;
     }
     .f7 .rule-w { width: 14px; height: 1px; background: rgba(255,255,255,0.35); }
     /* 幾何学の光 */
@@ -338,22 +340,30 @@
       letter-spacing: 0.2em; color: #74706c;
     }
 
-    /* ── F9: CTA ── */
+    /* ── F9: シチュエーション一覧 ── */
     .f9 {
       background: linear-gradient(155deg, #ccc8c4 0%, #d0ccc8 40%, #c4c0bc 100%);
-      flex-direction: column; gap: 9px; padding: 14px;
+      flex-direction: column; gap: 7px; padding: 12px;
     }
-    .f9 .cta {
+    .f9 .scene-label {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 9px; font-weight: 300;
-      letter-spacing: 0.35em; color: #2a2826;
+      font-size: 7px; font-weight: 300;
+      letter-spacing: 0.35em; color: #565250;
       text-transform: uppercase; text-align: center;
+      margin-bottom: 2px;
     }
-    .f9 .jp {
+    .f9 .scene-tags {
+      display: flex; flex-wrap: wrap;
+      gap: 5px; justify-content: center;
+    }
+    .f9 .tag {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 9px; font-weight: 300;
-      letter-spacing: 0.2em; color: #3a3836;
-      text-align: center; line-height: 1.9;
+      font-size: 8px; font-weight: 300;
+      color: #2a2826;
+      background: rgba(255,255,255,0.55);
+      border-radius: 20px;
+      padding: 3px 8px;
+      letter-spacing: 0.08em;
     }
     .f9 .rule-g { width: 14px; height: 1px; background: #a8a4a0; }
 
@@ -449,7 +459,8 @@
     <div class="profile-bio">
       動く日も、纏う。 ✦<br>
       フィットネス中も外れない、さり気ないおしゃれ<br>
-      チタン軸 × 淡水パール ／ アレルギーフリー
+      チタン軸 × 淡水パール ／ アレルギーフリー<br>
+      誕生日・就職祝い・自分ご褒美ギフトにも
     </div>
     <div class="btn-row">
       <div class="btn-follow">フォローする</div>
@@ -468,7 +479,7 @@
     </div>
     <div class="highlight">
       <div class="highlight-circle" style="background:linear-gradient(135deg,#bebab6,#b4b0ac)"></div>
-      <div class="highlight-label">素材</div>
+      <div class="highlight-label">ギフトに</div>
     </div>
     <div class="highlight">
       <div class="highlight-circle" style="background:linear-gradient(135deg,#b4b0ac,#b8b4b0)"></div>
@@ -505,10 +516,10 @@
       <div class="pearl-gray"></div>
     </div>
 
-    <!-- F3: コンセプト -->
+    <!-- F3: 誕生日ギフト -->
     <div class="cell f3">
       <div class="f3 rule"></div>
-      <div class="f3 copy">静かに、纏う。<br>光はパールが運ぶ</div>
+      <div class="f3 copy">誕生日の<br>ギフトに</div>
       <div class="f3 rule"></div>
     </div>
 
@@ -521,11 +532,11 @@
       <div class="label-f">everyday</div>
     </div>
 
-    <!-- F5: メインコピー -->
+    <!-- F5: 自分へのご褒美 -->
     <div class="cell f5">
       <div class="f5 rule"></div>
       <div class="f5 pearl-dot-f"></div>
-      <div class="f5 main">さり気なく、<br>でも確かに。</div>
+      <div class="f5 main">自分への<br>ご褒美に。</div>
       <div class="f5 rule"></div>
     </div>
 
@@ -535,13 +546,13 @@
       <div class="f6 tag">oval pearl</div>
     </div>
 
-    <!-- F7: チャコール × テキスト -->
+    <!-- F7: アレルギーフリーギフト -->
     <div class="cell f7">
       <div class="f7-geo" style="width:28px;height:28px;top:14%;right:14%;border-radius:50%;"></div>
       <div class="f7-geo" style="width:40px;height:40px;bottom:10%;left:10%;transform:rotate(15deg);"></div>
-      <div class="f7 tag-w">pale pierce</div>
+      <div class="f7 tag-w">gift for someone</div>
       <div class="f7 rule-w"></div>
-      <div class="f7 headline">チタン軸<br>アレルギーフリー</div>
+      <div class="f7 headline">アレルギーでも<br>贈れる。</div>
     </div>
 
     <!-- F8: 商品クローズアップ -->
@@ -551,11 +562,17 @@
       <div class="f8 size-tag">7mm — 8mm</div>
     </div>
 
-    <!-- F9: CTA -->
+    <!-- F9: シチュエーション一覧 -->
     <div class="cell f9">
-      <div class="f9 cta">shop now</div>
+      <div class="f9 scene-label">こんな時に</div>
       <div class="f9 rule-g"></div>
-      <div class="f9 jp">Creema &amp; メルカリ<br>で販売中</div>
+      <div class="f9 scene-tags">
+        <div class="f9 tag">誕生日</div>
+        <div class="f9 tag">就職祝い</div>
+        <div class="f9 tag">自分ご褒美</div>
+        <div class="f9 tag">母の日</div>
+        <div class="f9 tag">ギフトに</div>
+      </div>
     </div>
 
   </div><!-- /grid -->
