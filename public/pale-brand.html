@@ -10,13 +10,13 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --black:     #0a0908;
-      --charcoal:  #2a2826;
-      --grey:      #7a7a7a;
-      --offwhite:  #f7f6f2;
-      --beige:     #EDE6DC;
-      --sand:      #C8B99A;
-      --indigo:    #0f2050;
+      --black:     #2e2c2a;
+      --charcoal:  #302e2c;
+      --grey:      #6e6c6a;
+      --offwhite:  #eae8e6;
+      --beige:     #ceccc9;
+      --sand:      #a4a09c;
+      --stone:     #4a4846;
     }
 
     body {
@@ -40,7 +40,7 @@
     .cover {
       height: 100vh;
       min-height: 600px;
-      background: radial-gradient(ellipse at 50% 55%, #1e1a16 0%, #0c0a08 60%, #060504 100%);
+      background: radial-gradient(ellipse at 50% 55%, #3e3c3a 0%, #2e2c2a 60%, #262422 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -54,7 +54,7 @@
       background: radial-gradient(circle at 34% 32%, #f8f2ec, #ddd4c8 35%, #bcb4aa 65%, #908880);
       box-shadow: 0 0 18px 6px rgba(235,222,206,0.22), 2px 4px 10px rgba(0,0,0,0.5);
     }
-    .cover-rule { width: 32px; height: 0.5px; background: #2a2520; }
+    .cover-rule { width: 32px; height: 0.5px; background: #a4a09c; }
     .cover-wm {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
@@ -85,7 +85,7 @@
     ════════════════════════════ */
     .section {
       padding: 80px 60px;
-      border-top: 0.5px solid #1a1814;
+      border-top: 0.5px solid #c0bcb8;
     }
     .section.light {
       background: var(--offwhite);
@@ -116,11 +116,8 @@
     .logo-tile.mid   { background: var(--charcoal); }
     .logo-tile.pale  { background: var(--beige); }
     .logo-tile.white { background: var(--offwhite); }
-    .logo-tile.indig {
-      background-color: var(--indigo);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 160px;
-      background-blend-mode: multiply;
+    .logo-tile.stone {
+      background: #a4a09c;
     }
     .tile-wm {
       font-family: 'Cormorant Garamond', serif;
@@ -131,8 +128,8 @@
       padding-left: 0.55em;
     }
     .logo-tile.dark  .tile-wm,
-    .logo-tile.mid   .tile-wm,
-    .logo-tile.indig .tile-wm { color: #e8e4de; }
+    .logo-tile.mid   .tile-wm { color: #e8e4de; }
+    .logo-tile.stone .tile-wm { color: #302e2c; }
     .logo-tile.pale  .tile-wm { color: #2a2520; }
     .logo-tile.white .tile-wm { color: #1c1c1c; }
 
@@ -194,12 +191,7 @@
       text-align: center;
       line-height: 1.8;
     }
-    .palette-indigo {
-      background-color: var(--indigo);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 160px;
-      background-blend-mode: multiply;
-    }
+    /* palette chips defined inline */
 
     /* ════════════════════════════
        TYPOGRAPHY
@@ -215,7 +207,7 @@
       gap: 24px;
       align-items: center;
       padding-bottom: 24px;
-      border-bottom: 0.5px solid #1a1814;
+      border-bottom: 0.5px solid #c8c6c2;
       overflow: hidden;
     }
     .type-label {
@@ -286,7 +278,7 @@
     .phil-body strong { color: #aaa; font-weight: 300; }
     .philosophy-visual {
       height: 260px;
-      background: radial-gradient(ellipse at 50% 50%, #1a1612 0%, #080604 70%);
+      background: radial-gradient(ellipse at 50% 50%, #3e3c3a 0%, #2a2826 70%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -363,21 +355,11 @@
     .box-dk .mini-wm   { color: #e8e4de; }
     .box-dk .mini-inner{ color: #555; }
 
-    /* indigo box */
-    .box-ind .mini-lid {
-      background-color: var(--indigo);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 80px; background-blend-mode: multiply;
-      border: 0.5px solid #1e3c78;
-    }
-    .box-ind .mini-body {
-      background-color: #09183e;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 80px; background-blend-mode: multiply;
-      border: 0.5px solid #1e3c78;
-    }
-    .box-ind .mini-wm   { color: #c4dcf0; }
-    .box-ind .mini-inner{ color: #5a88b8; }
+    /* greige box */
+    .box-gr .mini-lid  { background: #ceccc9; border: 0.5px solid #b4b0ac; }
+    .box-gr .mini-body { background: #d8d6d2; border: 0.5px solid #b4b0ac; }
+    .box-gr .mini-wm   { color: #302e2c; }
+    .box-gr .mini-inner{ color: #6e6c6a; }
 
     /* beige box */
     .box-bg .mini-lid  { background: #E8DDD0; border: 0.5px solid #d4c8ba; }
@@ -417,14 +399,10 @@
     .bag-dk .mini-bag-body   { background: #2a2826; }
     .bag-dk .mini-bag-wm     { color: #e8e4de; }
     .bag-dk .mini-bag-tag    { color: #666; }
-    .bag-ind .mini-handle    { border-color: var(--indigo); }
-    .bag-ind .mini-bag-body  {
-      background-color: var(--indigo);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 80px; background-blend-mode: multiply;
-    }
-    .bag-ind .mini-bag-wm    { color: #c4dcf0; }
-    .bag-ind .mini-bag-tag   { color: #5a88b8; }
+    .bag-gr .mini-handle   { border-color: #a4a09c; }
+    .bag-gr .mini-bag-body { background: #ceccc9; border: 0.5px solid #b4b0ac; }
+    .bag-gr .mini-bag-wm   { color: #302e2c; }
+    .bag-gr .mini-bag-tag  { color: #6e6c6a; }
 
     /* ════════════════════════════
        CONCEPT WORDS
@@ -433,10 +411,10 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
-      background: #1a1814;
+      background: #c8c6c2;
     }
     .concept-cell {
-      background: #0a0908;
+      background: #eae8e6;
       padding: 40px 32px;
       display: flex;
       flex-direction: column;
@@ -446,22 +424,21 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 28px;
       font-weight: 300;
-      color: var(--sand);
-      opacity: 0.5;
+      color: #a4a09c;
     }
     .concept-word {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
       font-size: 16px;
       letter-spacing: 0.2em;
-      color: #e8e4de;
+      color: #302e2c;
     }
     .concept-desc {
       font-family: 'Noto Sans JP', sans-serif;
       font-weight: 300;
       font-size: 10px;
       letter-spacing: 0.1em;
-      color: #555;
+      color: #6e6c6a;
       line-height: 1.9;
     }
 
@@ -470,19 +447,19 @@
     ════════════════════════════ */
     .footer {
       padding: 60px;
-      background: var(--black);
+      background: #302e2c;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 16px;
-      border-top: 0.5px solid #1a1814;
+      border-top: 0.5px solid #c0bcb8;
     }
     .footer-wm {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
       font-size: 20px;
       letter-spacing: 0.6em;
-      color: #2a2520;
+      color: #a4a09c;
       padding-left: 0.6em;
     }
     .footer-tag {
@@ -490,7 +467,7 @@
       font-style: italic;
       font-size: 10px;
       letter-spacing: 0.2em;
-      color: #1e1e1e;
+      color: #6e6c6a;
     }
   </style>
 </head>
@@ -511,7 +488,7 @@
     <div class="logo-grid">
       <div class="logo-tile dark"><span class="tile-wm">PALE</span></div>
       <div class="logo-tile mid"><span class="tile-wm">PALE</span></div>
-      <div class="logo-tile indig"><span class="tile-wm">PALE</span></div>
+      <div class="logo-tile stone"><span class="tile-wm">PALE</span></div>
       <div class="logo-tile pale"><span class="tile-wm">PALE</span></div>
       <div class="logo-tile white"><span class="tile-wm">PALE</span></div>
       <div class="logo-tile dark" style="background:radial-gradient(ellipse at 50% 50%,#1e1a16,#060504);"><span class="tile-wm">PALE</span></div>
@@ -536,22 +513,18 @@
   <div class="section">
     <div class="sec-label">Color Palette</div>
     <div class="palette-row">
-      <div class="palette-chip" style="background:#0a0908"></div>
-      <div class="palette-chip" style="background:#2a2826"></div>
-      <div class="palette-chip" style="background:#7a7a7a"></div>
-      <div class="palette-chip" style="background:#f7f6f2"></div>
-      <div class="palette-chip" style="background:#EDE6DC"></div>
-      <div class="palette-chip" style="background:#C8B99A"></div>
-      <div class="palette-chip palette-indigo"></div>
+      <div class="palette-chip" style="background:#302e2c"></div>
+      <div class="palette-chip" style="background:#4a4846"></div>
+      <div class="palette-chip" style="background:#6e6c6a"></div>
+      <div class="palette-chip" style="background:#a4a09c"></div>
+      <div class="palette-chip" style="background:#eae8e6"></div>
     </div>
     <div class="palette-labels">
-      <div class="palette-chip-label">Black<br>#0a0908</div>
-      <div class="palette-chip-label">Charcoal<br>#2a2826</div>
-      <div class="palette-chip-label">Grey<br>#7a7a7a</div>
-      <div class="palette-chip-label">Off White<br>#f7f6f2</div>
-      <div class="palette-chip-label">Pale Beige<br>#EDE6DC</div>
-      <div class="palette-chip-label">Warm Sand<br>#C8B99A</div>
-      <div class="palette-chip-label">Indigo<br>#0f2050</div>
+      <div class="palette-chip-label">Charcoal<br>#302e2c</div>
+      <div class="palette-chip-label">Stone<br>#4a4846</div>
+      <div class="palette-chip-label">Silver<br>#6e6c6a</div>
+      <div class="palette-chip-label">Greige<br>#a4a09c</div>
+      <div class="palette-chip-label">Ivory<br>#eae8e6</div>
     </div>
   </div>
 
@@ -579,15 +552,16 @@
     <div class="sec-label">Visual Philosophy</div>
     <div class="philosophy">
       <div class="philosophy-text">
-        <div class="phil-title">暗闇の中の一粒の光</div>
+        <div class="phil-title">石灰の静寂に宿る光</div>
         <div class="phil-rule"></div>
         <div class="phil-body">
-          銅版画家・濱口陽三の世界観を視覚言語の軸に据える。<br><br>
-          <strong>深い暗闇</strong>の中に置かれた一粒のパールは、<br>
-          それ自体が光を放つ存在として浮かび上がる。<br><br>
-          背景が暗ければ暗いほど、パールの輝きは際立つ。<br>
+          石灰岩の断面のように、重なり合う灰色の層がある。<br><br>
+          <strong>グレージュ</strong>という色は、白でも黒でもない。<br>
+          余韻のある中立——そこに置かれたパールだけが、<br>
+          温かみをもって浮かび上がる。<br><br>
+          背景に主張がないほど、パールの存在が際立つ。<br>
           余白は「何もない空間」ではなく、光を引き立てる舞台。<br><br>
-          <strong>静寂 ／ 余白 ／ 内なる光</strong>
+          <strong>静寂 ／ 余白 ／ 石灰の光</strong>
         </div>
       </div>
       <div class="philosophy-visual">
@@ -613,12 +587,12 @@
       </div>
 
       <div class="pack-item">
-        <div class="pack-item-label">Box — Indigo</div>
-        <div class="mini-box box-ind">
+        <div class="pack-item-label">Box — Greige</div>
+        <div class="mini-box box-gr">
           <div class="mini-lid"><span class="mini-wm">PALE</span></div>
           <div class="mini-body">
             <div class="mini-pearl"></div>
-            <div class="mini-inner">動く日も、纏う。</div>
+            <div class="mini-inner">静かに、纏う。</div>
           </div>
         </div>
       </div>
@@ -647,8 +621,8 @@
       </div>
 
       <div class="pack-item">
-        <div class="pack-item-label">Bag — Indigo</div>
-        <div class="mini-bag bag-ind">
+        <div class="pack-item-label">Bag — Greige</div>
+        <div class="mini-bag bag-gr">
           <div class="mini-handle"></div>
           <div class="mini-bag-body">
             <div class="mini-bag-wm">PALE</div>
@@ -667,17 +641,17 @@
       <div class="concept-cell">
         <div class="concept-num">01</div>
         <div class="concept-word">Stillness</div>
-        <div class="concept-desc">静けさの中にある美しさ。<br>動かないことが強みになる。</div>
+        <div class="concept-desc">石灰の静寂。<br>余白が光を引き立てる。</div>
       </div>
       <div class="concept-cell">
         <div class="concept-num">02</div>
         <div class="concept-word">Movement</div>
-        <div class="concept-desc">フィットネスでも外さない。<br>からだに近いおしゃれ。</div>
+        <div class="concept-desc">ジムでも、職場でも。<br>外れない、さり気ないおしゃれ。</div>
       </div>
       <div class="concept-cell">
         <div class="concept-num">03</div>
-        <div class="concept-word">Everyday</div>
-        <div class="concept-desc">特別な日だけじゃない。<br>¥1,500〜、手の届く上質。</div>
+        <div class="concept-word">Gift</div>
+        <div class="concept-desc">誕生日・就職祝い・自分ご褒美。<br>アレルギーフリーで贈れる一粒。</div>
       </div>
     </div>
   </div>

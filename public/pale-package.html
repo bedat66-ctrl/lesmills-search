@@ -9,7 +9,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0e0e0e;
+      background: #ceccc9;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,7 +21,7 @@
     .section-label {
       font-size: 9px;
       letter-spacing: 0.3em;
-      color: #333;
+      color: #6e6c6a;
       text-transform: uppercase;
       text-align: center;
       margin-bottom: 28px;
@@ -41,7 +41,7 @@
     .box-label {
       font-size: 9px;
       letter-spacing: 0.2em;
-      color: #444;
+      color: #6e6c6a;
       text-transform: uppercase;
     }
 
@@ -111,24 +111,11 @@
     .box-b .lid-wm   { color: #e8e4de; }
     .box-b .box-inner-tag { color: #555; }
 
-    /* Box C: 藍 メゾチント質感（濱口陽三） */
-    .box-c .box-lid  {
-      background-color: #0f2050;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 160px 160px;
-      background-blend-mode: multiply;
-      border: 0.5px solid #1a3268;
-    }
-    .box-c .box-body {
-      background-color: #09183e;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 160px 160px;
-      background-blend-mode: multiply;
-      border: 0.5px solid #1a3268;
-      border-top: none;
-    }
-    .box-c .lid-wm        { color: #c4dcf0; text-shadow: none; }
-    .box-c .box-inner-tag { color: #5a88b8; }
+    /* Box C: greige */
+    .box-c .box-lid  { background: #ceccc9; border: 0.5px solid #b4b0ac; }
+    .box-c .box-body { background: #d8d6d2; border: 0.5px solid #b4b0ac; border-top: none; }
+    .box-c .lid-wm   { color: #302e2c; }
+    .box-c .box-inner-tag { color: #6e6c6a; }
 
     /* Box E: ブラック */
     .box-e .box-lid  { background: #0a0908; border: 0.5px solid #222; }
@@ -213,17 +200,12 @@
     .bag-b .bag-tagline{ color: #8a8480; }
     .bag-b .bag-rule   { background: #C8B99A; }
 
-    /* Bag C: 藍 メゾチント質感（濱口陽三） */
-    .bag-c .bag-handle { border-color: #183268; }
-    .bag-c .bag-body   {
-      background-color: #0f2050;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.62'/%3E%3C/svg%3E");
-      background-size: 160px 160px;
-      background-blend-mode: multiply;
-    }
-    .bag-c .bag-wm     { color: #c4dcf0; }
-    .bag-c .bag-tagline{ color: #5a88b8; }
-    .bag-c .bag-rule   { background: #C8B99A; }
+    /* Bag C: greige */
+    .bag-c .bag-handle { border-color: #a4a09c; }
+    .bag-c .bag-body   { background: #ceccc9; border: 0.5px solid #b4b0ac; }
+    .bag-c .bag-wm     { color: #302e2c; }
+    .bag-c .bag-tagline{ color: #6e6c6a; }
+    .bag-c .bag-rule   { background: #a4a09c; }
 
     /* Bag D: ブラック */
     .bag-d .bag-handle { border-color: #222; }
@@ -358,7 +340,8 @@
     .rec-box {
       width: 100%;
       max-width: 680px;
-      background: #161616;
+      background: #f0eeec;
+      border: 0.5px solid #c8c6c2;
       border-radius: 16px;
       padding: 28px 28px;
       display: flex;
@@ -368,7 +351,7 @@
     .rec-title {
       font-size: 9px;
       letter-spacing: 0.3em;
-      color: #333;
+      color: #6e6c6a;
       text-transform: uppercase;
     }
     .rec-row {
@@ -380,19 +363,19 @@
     .rec-item-label {
       font-size: 9px;
       letter-spacing: 0.15em;
-      color: #555;
+      color: #6e6c6a;
       text-transform: uppercase;
       padding-top: 2px;
     }
     .rec-item-text {
       font-size: 11px;
-      color: #777;
+      color: #4a4846;
       line-height: 1.8;
       letter-spacing: 0.03em;
       font-family: 'Noto Sans JP', sans-serif;
       font-weight: 300;
     }
-    .rec-item-text strong { color: #ccc; font-weight: 400; }
+    .rec-item-text strong { color: #302e2c; font-weight: 400; }
   </style>
 </head>
 <body>
@@ -415,7 +398,7 @@
       </div>
 
       <div class="box-wrap">
-        <div class="box-label">charcoal</div>
+        <div class="box-label">charcoal ★ 採用</div>
         <div class="box box-b">
           <div class="box-lid"><span class="lid-wm">PALE</span></div>
           <div class="box-body">
@@ -427,12 +410,12 @@
       </div>
 
       <div class="box-wrap">
-        <div class="box-label">くすんだ藍</div>
+        <div class="box-label">greige</div>
         <div class="box box-c">
           <div class="box-lid"><span class="lid-wm">PALE</span></div>
           <div class="box-body">
             <div class="box-pearl"></div>
-            <div class="box-inner-tag">動く日も、纏う。</div>
+            <div class="box-inner-tag">静かに、纏う。</div>
           </div>
         </div>
         <div class="box-shadow"></div>
@@ -497,7 +480,7 @@
       </div>
 
       <div class="bag-outer">
-        <div class="box-label">くすんだ藍</div>
+        <div class="box-label">greige</div>
         <div class="bag bag-c">
           <div class="bag-handle"></div>
           <div class="bag-body">
@@ -589,23 +572,23 @@
 
     <div class="rec-row">
       <div class="rec-item-label">箱</div>
-      <div class="rec-item-text"><strong>チャコール or くすんだ藍</strong>がおすすめ。濱口陽三的な「暗闇の中の光」がそのままパッケージになる。蓋を開けると光るパールが現れる演出。</div>
+      <div class="rec-item-text"><strong>チャコール or グレージュ</strong>がPattern F採用色。蓋を開けると光るパールが現れる演出。ギフトとしての高見えを重視。</div>
     </div>
     <div class="rec-row">
       <div class="rec-item-label">袋</div>
-      <div class="rec-item-text"><strong>チャコール or オフホワイト</strong>。箱と同じ色にしないことで、セットとして持ったときに引き締まる。</div>
+      <div class="rec-item-text"><strong>チャコール</strong>メインで。グレージュの箱との組み合わせで、受け取った瞬間から特別感を演出。</div>
     </div>
     <div class="rec-row">
       <div class="rec-item-label">カード</div>
-      <div class="rec-item-text">箱の中にサンキューカードを一枚。<strong>「動く日も、纏う。」</strong>とブランド名だけ。余白を怖がらない。</div>
+      <div class="rec-item-text">箱の中にサンキューカードを一枚。<strong>「静かに、纏う。」</strong>とブランド名だけ。余白を怖がらない。</div>
     </div>
     <div class="rec-row">
       <div class="rec-item-label">下げ札</div>
-      <div class="rec-item-text">素材・価格・アレルギーフリー表記をまとめる。<strong>細い糸で結ぶ</strong>と和光的な上品さが出る。</div>
+      <div class="rec-item-text">素材・価格・アレルギーフリー表記をまとめる。<strong>細い糸で結ぶ</strong>と上品さが出る。</div>
     </div>
     <div class="rec-row">
       <div class="rec-item-label">内装</div>
-      <div class="rec-item-text">箱の中にくすんだ藍のティッシュペーパーを敷く。開けた瞬間だけ藍色が現れる小さなサプライズ。</div>
+      <div class="rec-item-text">グレージュのティッシュペーパーを敷く。開けた瞬間だけグレージュが現れ、その中からパールが輝く小さなサプライズ。</div>
     </div>
   </div>
 
