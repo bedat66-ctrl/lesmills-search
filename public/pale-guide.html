@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PALE pearl — ご注文ガイド</title>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #ceccc9;
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* ── ヘッダー ── */
+    header {
+      background: #2a2826;
+      padding: 28px 24px 24px;
+      text-align: center;
+    }
+    .header-brand {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 20px; font-weight: 300;
+      letter-spacing: 0.55em; padding-left: 0.55em;
+      color: #eae8e6; margin-bottom: 6px;
+    }
+    .header-sub {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.4em; color: #a4a09c;
+      text-transform: uppercase;
+    }
+
+    /* ── セクション共通 ── */
+    .section {
+      max-width: 480px;
+      margin: 32px auto 0;
+      padding: 0 20px;
+    }
+    .section-eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.45em; color: #6e6c6a;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 16px; font-weight: 300;
+      letter-spacing: 0.12em; color: #2a2826;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 0.5px solid #b4b0ac;
+    }
+
+    /* ── フローチャート ── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .flow-step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .flow-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 36px;
+    }
+    .flow-circle {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #2a2826;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .flow-circle.light {
+      background: #eae8e6;
+      border: 1px solid #b4b0ac;
+    }
+    .flow-circle span {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px; font-weight: 300;
+      color: #eae8e6; letter-spacing: 0.05em;
+    }
+    .flow-circle.light span { color: #6e6c6a; }
+    .flow-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, #6e6c6a, #b4b0ac);
+      margin: 0 auto;
+    }
+    .flow-content {
+      padding-top: 6px;
+      padding-bottom: 36px;
+    }
+    .flow-label {
+      font-size: 14px; font-weight: 300;
+      letter-spacing: 0.1em; color: #2a2826;
+      margin-bottom: 4px;
+    }
+    .flow-desc {
+      font-size: 11px; font-weight: 300;
+      color: #6e6c6a; line-height: 1.8;
+    }
+    .flow-badge {
+      display: inline-block;
+      margin-top: 6px;
+      background: #302e2c;
+      color: #b4b0ac;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 8px; font-weight: 300;
+      letter-spacing: 0.3em;
+      padding: 3px 10px; border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .flow-badge.light {
+      background: rgba(180,176,172,0.25);
+      color: #4a4846;
+      border: 0.5px solid #b4b0ac;
+    }
+
+    /* ── Q&A ── */
+    .qa-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .qa-item {
+      background: #eae8e6;
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .qa-item:first-child { border-radius: 12px 12px 0 0; }
+    .qa-item:last-child  { border-radius: 0 0 12px 12px; }
+    .qa-q {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 18px;
+      cursor: pointer;
+    }
+    .qa-icon {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px; font-weight: 300;
+      letter-spacing: 0.05em;
+      color: #a4a09c; flex-shrink: 0;
+      padding-top: 1px;
+    }
+    .qa-q-text {
+      font-size: 13px; font-weight: 300;
+      letter-spacing: 0.06em; color: #2a2826;
+      line-height: 1.7; flex: 1;
+    }
+    .qa-a {
+      padding: 0 18px 16px 42px;
+      font-size: 12px; font-weight: 300;
+      color: #4a4846; line-height: 1.9;
+    }
+    .qa-divider {
+      width: calc(100% - 36px);
+      margin: 0 18px;
+      height: 0.5px;
+      background: #d2d0cc;
+    }
+
+    /* ── 返品ポリシー ── */
+    .policy-card {
+      background: #eae8e6;
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+    .policy-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.4em; color: #a4a09c;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .policy-text {
+      font-size: 12px; font-weight: 300;
+      color: #4a4846; line-height: 2.0;
+    }
+    .policy-rule {
+      width: 100%; height: 0.5px;
+      background: #d2d0cc;
+      margin: 14px 0;
+    }
+    .policy-exception {
+      font-size: 11px; font-weight: 300;
+      color: #6e6c6a; line-height: 1.9;
+    }
+    .policy-exception strong {
+      color: #302e2c; font-weight: 400;
+    }
+
+    /* ── フッター ── */
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      padding: 0 20px;
+    }
+    .footer-brand {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14px; font-weight: 300;
+      letter-spacing: 0.5em; padding-left: 0.5em;
+      color: #6e6c6a; margin-bottom: 8px;
+    }
+    .footer-sub {
+      font-size: 10px; font-weight: 300;
+      color: #a4a09c; line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header>
+  <div class="header-brand">PALE</div>
+  <div class="header-sub">pearl jewelry — order guide</div>
+</header>
+
+<!-- ① フローチャート -->
+<div class="section">
+  <div class="section-eyebrow">flowchart</div>
+  <div class="section-title">ご注文からお届けまで</div>
+
+  <div class="flow">
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle"><span>01</span></div>
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label">ご注文</div>
+        <div class="flow-desc">オンラインショップよりご注文ください。<br>ギフト包装ご希望の方は注文時にお選びください。</div>
+        <div class="flow-badge light">minne / creema</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle"><span>02</span></div>
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label">注文確認メール</div>
+        <div class="flow-desc">ご注文後、自動で確認メールをお送りします。<br>迷惑メールフォルダもご確認ください。</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle"><span>03</span></div>
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label">制作・検品</div>
+        <div class="flow-desc">ひとつひとつ手作りで仕上げます。<br>丁寧に検品してからお届けします。</div>
+        <div class="flow-badge">2〜4 business days</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle"><span>04</span></div>
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label">ギフト包装・梱包</div>
+        <div class="flow-desc">専用ボックスに入れて丁寧に梱包します。<br>ギフト対応の場合はリボン包装をいたします。</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle"><span>05</span></div>
+        <div class="flow-line"></div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label">発送・追跡番号のご連絡</div>
+        <div class="flow-desc">発送完了後、追跡番号をメールでお知らせします。<br>郵便局またはヤマト運輸にて配送。</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle light"><span>06</span></div>
+        <div class="flow-line" style="background:linear-gradient(to bottom,#b4b0ac,#ceccc9)"></div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label">お届け</div>
+        <div class="flow-desc">発送から通常1〜3日でお届けします。<br>（離島・一部地域は除く）</div>
+        <div class="flow-badge">1〜3 days after shipping</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-left">
+        <div class="flow-circle light" style="background:linear-gradient(135deg,#d2d0cc,#eae8e6)">
+          <span style="font-size:14px;color:#a4a09c;">✦</span>
+        </div>
+      </div>
+      <div class="flow-content">
+        <div class="flow-label" style="color:#a4a09c;">ご感想をお聞かせください</div>
+        <div class="flow-desc">レビューやInstagramのタグ付け、<br>とても励みになります。</div>
+        <div class="flow-badge light">@pale_pearl</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ② Q&A -->
+<div class="section" style="margin-top:40px;">
+  <div class="section-eyebrow">FAQ</div>
+  <div class="section-title">よくあるご質問</div>
+
+  <div class="qa-list">
+
+    <div class="qa-item">
+      <div class="qa-q">
+        <div class="qa-icon">Q.</div>
+        <div class="qa-q-text">金属アレルギーでも大丈夫ですか？</div>
+      </div>
+      <div class="qa-divider"></div>
+      <div class="qa-a">
+        チタン製のポストを使用しています。金属アレルギーの方にも安心してお使いいただける素材です。ただし体質により個人差がありますので、気になる症状が出た場合はご使用をお控えください。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">
+        <div class="qa-icon">Q.</div>
+        <div class="qa-q-text">パールのサイズを教えてください。</div>
+      </div>
+      <div class="qa-divider"></div>
+      <div class="qa-a">
+        パール部分は約7〜8mmです。主張しすぎないさりげないサイズ感で、フォーマルにもカジュアルにも合わせやすいデザインです。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">
+        <div class="qa-icon">Q.</div>
+        <div class="qa-q-text">片耳だけ購入できますか？</div>
+      </div>
+      <div class="qa-divider"></div>
+      <div class="qa-a">
+        はい、1点からご購入いただけます。片耳だけのスタイリングとしてもお楽しみください。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">
+        <div class="qa-icon">Q.</div>
+        <div class="qa-q-text">プレゼント用の包装はできますか？</div>
+      </div>
+      <div class="qa-divider"></div>
+      <div class="qa-a">
+        はい、ギフト対応しています。ご注文時にギフト包装をお選びいただくと、リボン包装でお届けします。誕生日・就職祝い・母の日など、大切な方へのギフトにどうぞ。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">
+        <div class="qa-icon">Q.</div>
+        <div class="qa-q-text">運動中や入浴中もつけていられますか？</div>
+      </div>
+      <div class="qa-divider"></div>
+      <div class="qa-a">
+        チタンポストは錆びにくい素材ですが、パール部分の変色・劣化を防ぐため、長時間の水濡れや過度な汗はお避けください。就寝前に外していただくことをおすすめします。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">
+        <div class="qa-icon">Q.</div>
+        <div class="qa-q-text">発送まで何日かかりますか？</div>
+      </div>
+      <div class="qa-divider"></div>
+      <div class="qa-a">
+        ご注文後2〜4営業日以内に発送いたします。手作りのため、繁忙期は多少お時間をいただく場合がございます。お急ぎの場合はご注文前にご相談ください。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ③ 返品ポリシー -->
+<div class="section" style="margin-top:40px;">
+  <div class="section-eyebrow">policy</div>
+  <div class="section-title">返品・交換について</div>
+
+  <div class="policy-card">
+    <div class="policy-title">return & exchange policy</div>
+    <div class="policy-text">
+      ハンドメイド品の性質上、および衛生上の理由から、<br>
+      ご注文後のキャンセル・返品・交換はお受けしておりません。<br><br>
+      商品の色味・素材感はできる限り実物に近い写真をご用意しておりますが、お使いのモニター環境により多少異なる場合がございます。ご理解のうえ、ご注文をお願いいたします。
+    </div>
+    <div class="policy-rule"></div>
+    <div class="policy-exception">
+      <strong>※ 例外について</strong><br>
+      商品に破損・不良がある場合のみ、到着後<strong>3日以内</strong>にInstagramのDMまたはショップのメッセージ機能よりご連絡ください。写真を添えてお知らせいただければ、速やかに対応いたします。
+    </div>
+  </div>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-brand">PALE</div>
+  <div class="footer-sub">
+    titanium × freshwater pearl<br>
+    allergy free handmade jewelry<br><br>
+    Instagram: @pale_pearl
+  </div>
+</footer>
+
+</body>
+</html>
