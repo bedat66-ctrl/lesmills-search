@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>PALE pearl — スケジュール</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #ceccc9;
+      color: #2a2826;
+      max-width: 480px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+
+    /* ── ヘッダー ── */
+    header {
+      background: #2a2826;
+      padding: 28px 20px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .brand-label {
+      font-size: 9px;
+      letter-spacing: 0.45em;
+      color: #a4a09c;
+      text-transform: uppercase;
+    }
+    .today-label {
+      font-size: 10px;
+      color: #6e6c6a;
+    }
+    .header-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #eae8e6;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── 進捗バー ── */
+    .progress-wrap {
+      background: #eae8e6;
+      padding: 14px 20px;
+      border-bottom: 0.5px solid #d2d0cc;
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .progress-label {
+      font-size: 11px;
+      color: #6e6c6a;
+    }
+    .progress-count {
+      font-size: 13px;
+      font-weight: 700;
+      color: #2a2826;
+    }
+    .progress-bar-bg {
+      background: #d2d0cc;
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(to right, #4a4846, #a4a09c);
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── フィルタータブ ── */
+    .tab-row {
+      display: flex;
+      gap: 0;
+      background: #eae8e6;
+      border-bottom: 0.5px solid #d2d0cc;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: #a4a09c;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      color: #2a2826;
+      border-bottom-color: #2a2826;
+    }
+
+    /* ── 週ヘッダー ── */
+    .week-label {
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      color: #6e6c6a;
+      text-transform: uppercase;
+      padding: 16px 16px 6px;
+    }
+
+    /* ── タスクカード ── */
+    .task-card {
+      background: #eae8e6;
+      margin: 0 12px 6px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      transition: opacity 0.2s;
+    }
+    .task-card.done {
+      opacity: 0.55;
+    }
+    .task-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 14px 12px;
+      cursor: pointer;
+    }
+    .task-check {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid #b4b0ac;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      transition: all 0.2s;
+    }
+    .task-card.done .task-check {
+      background: #4a4846;
+      border-color: #4a4846;
+    }
+    .check-icon {
+      display: none;
+      color: #eae8e6;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .task-card.done .check-icon { display: block; }
+
+    .task-body { flex: 1; min-width: 0; }
+    .task-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+    .task-date {
+      font-size: 10px;
+      color: #a4a09c;
+      font-weight: 600;
+    }
+    .task-time {
+      font-size: 10px;
+      color: #b4b0ac;
+    }
+    .task-badge {
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+    .badge-admin  { background: #feecea; color: #c0392b; }
+    .badge-buy    { background: #fef9e7; color: #b8860b; }
+    .badge-make   { background: #edf7f0; color: #27ae60; }
+    .badge-sns    { background: #eef4ff; color: #2563eb; }
+
+    .task-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2a2826;
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+    .task-card.done .task-title {
+      color: #a4a09c;
+      text-decoration: line-through;
+    }
+    .task-desc {
+      font-size: 11px;
+      color: #6e6c6a;
+      line-height: 1.7;
+    }
+
+    /* 今日ハイライト */
+    .task-card.today {
+      border: 1.5px solid #4a4846;
+    }
+    .today-dot {
+      width: 6px; height: 6px;
+      background: #e8a87c;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 3px;
+    }
+
+    /* ── 完了済みセクション ── */
+    .done-toggle {
+      text-align: center;
+      padding: 16px;
+      font-size: 11px;
+      color: #a4a09c;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 非表示クラス ── */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="brand-label">P A L E &nbsp; P E A R L</div>
+    <div class="today-label" id="today-str"></div>
+  </div>
+  <div class="header-title">開業スケジュール</div>
+</header>
+
+<!-- 進捗バー -->
+<div class="progress-wrap">
+  <div class="progress-top">
+    <div class="progress-label">完了タスク</div>
+    <div class="progress-count"><span id="done-count">0</span> / <span id="total-count">0</span></div>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- タブ -->
+<div class="tab-row">
+  <div class="tab active" data-tab="all">すべて</div>
+  <div class="tab" data-tab="todo">未完了</div>
+  <div class="tab" data-tab="done">完了済み</div>
+</div>
+
+<!-- タスクリスト -->
+<div id="task-list"></div>
+
+<script>
+// ── タスクデータ ──
+const tasks = [
+  {
+    id: 'T01',
+    date: '2026-05-08', dayLabel: '5/8（木）',
+    time: '15:00〜15:30',
+    title: 'e-Tax準備',
+    desc: 'マイナンバーカードを手元に用意。スマホに「e-Tax SP版」またはマイナポータルアプリをDL。翌日提出の準備だけ。',
+    badge: 'admin', badgeLabel: '事務',
+    week: '第1週 5/8〜5/11'
+  },
+  {
+    id: 'T02',
+    date: '2026-05-09', dayLabel: '5/9（金）★',
+    time: '09:00〜12:00',
+    title: '開業届・青色申告承認申請書 提出',
+    desc: 'e-Tax（オンライン）または最寄りの税務署窓口で提出。2枚同時提出。無料。',
+    badge: 'admin', badgeLabel: '事務',
+    week: '第1週 5/8〜5/11'
+  },
+  {
+    id: 'T03',
+    date: '2026-05-09', dayLabel: '5/9（金）★',
+    time: '13:00〜15:00',
+    title: 'freee登録・初期設定',
+    desc: 'freee（月1,628円〜）またはマネーフォワード（月1,078円〜）に登録。屋号「PALE pearl」、業種「製造小売業」で設定。',
+    badge: 'admin', badgeLabel: '事務',
+    week: '第1週 5/8〜5/11'
+  },
+  {
+    id: 'T04',
+    date: '2026-05-09', dayLabel: '5/9（金）★',
+    time: '15:00〜16:30',
+    title: '楽天で材料発注',
+    desc: '①淡水パール オーバル 縦7mm×20粒　②丸パール 7〜8mm×20粒　③チタン軸ピアス台座 0.8mm×30本　④梱包ボックス・袋・台紙（30セット分）',
+    badge: 'buy', badgeLabel: '仕入',
+    week: '第1週 5/8〜5/11'
+  },
+  {
+    id: 'T05',
+    date: '2026-05-10', dayLabel: '5/10（土）',
+    time: '19:00〜19:30',
+    title: 'Amazonでロールスタンド発注',
+    desc: 'グレーまたはベージュのロールスタンドを発注。Pattern Fグレー背景と相性◎。プライム会員なら翌日着も可能。',
+    badge: 'buy', badgeLabel: '仕入',
+    week: '第1週 5/8〜5/11'
+  },
+  {
+    id: 'T06',
+    date: '2026-05-11', dayLabel: '5/11（日）',
+    time: '19:00〜19:30',
+    title: '仕訳システム 科目設定確認',
+    desc: 'freeeまたはマネーフォワードの画面を確認。科目：仕入高・消耗品費・荷造運賃・広告宣伝費。',
+    badge: 'admin', badgeLabel: '事務',
+    week: '第1週 5/8〜5/11'
+  },
+  {
+    id: 'T07',
+    date: '2026-05-12', dayLabel: '5/12（月）',
+    time: '15:00〜16:00',
+    title: 'エポキシ接着剤を購入（ホームセンター）',
+    desc: 'カインズ・コーナン等へ。セメダイン エポキシ系 2液混合タイプ（耐水・耐汗）を購入。',
+    badge: 'buy', badgeLabel: '仕入',
+    week: '第2週 5/12〜5/16'
+  },
+  {
+    id: 'T08',
+    date: '2026-05-13', dayLabel: '5/13（火）',
+    time: '15:00頃',
+    title: '楽天発注の材料 受取・記帳',
+    desc: '届いた材料の内容物確認。注文確認メール・レシートを保管。仕訳システムに記帳（仕入高）。',
+    badge: 'buy', badgeLabel: '仕入',
+    week: '第2週 5/12〜5/16'
+  },
+  {
+    id: 'T09',
+    date: '2026-05-15', dayLabel: '5/15（木）',
+    time: '15:00〜16:30',
+    title: '試作1回目（オーバルパール）',
+    desc: 'オーバルパール×チタン軸で2〜3ペア制作。エポキシ接着剤を規定量で混合→固定→24時間放置。触らないこと。',
+    badge: 'make', badgeLabel: '制作',
+    week: '第2週 5/12〜5/16'
+  },
+  {
+    id: 'T10',
+    date: '2026-05-16', dayLabel: '5/16（金）',
+    time: '09:00〜10:30',
+    title: '商標検索（J-PlatPat）',
+    desc: 'J-PlatPat（j-platpat.inpit.go.jp）で「PALE pearl」を検索。区分14類で類似商標がないか確認。問題なければ出願検討（約1.2万円〜）。',
+    badge: 'admin', badgeLabel: '事務',
+    week: '第2週 5/12〜5/16'
+  },
+  {
+    id: 'T11',
+    date: '2026-05-16', dayLabel: '5/16（金）',
+    time: '13:00〜14:00',
+    title: 'InstagramにガイドページURLを設定',
+    desc: 'Instagramのプロフィール編集→「ウェブサイト」欄にpale-guide.htmlのVercel URLを入力。',
+    badge: 'sns', badgeLabel: 'SNS',
+    week: '第2週 5/12〜5/16'
+  },
+  {
+    id: 'T12',
+    date: '2026-05-17', dayLabel: '5/17（土）',
+    time: '19:00〜',
+    title: '耐久テスト開始（着用スタート）',
+    desc: '試作品の着用開始日。テスト期間2週間。日常生活・ジム・ヨガでそのままつけ続ける。',
+    badge: 'make', badgeLabel: '制作',
+    week: '第3週 5/17〜5/23'
+  },
+  {
+    id: 'T13',
+    date: '2026-05-18', dayLabel: '5/18（日）',
+    time: '19:00〜19:30',
+    title: 'お風呂テスト1回目',
+    desc: '入浴時もピアスをつけたままにしてエポキシ接着の耐水性を確認。はずれ・変色・変形がないかチェック。',
+    badge: 'make', badgeLabel: '制作',
+    week: '第3週 5/17〜5/23'
+  },
+  {
+    id: 'T14',
+    date: '2026-05-23', dayLabel: '5/23（金）',
+    time: '10:00〜12:00',
+    title: '試作2回目（丸パール）＋撮影テスト',
+    desc: '丸パール7〜8mmでも2〜3ペア制作。ロールスタンドで試し撮り。Pattern Fのグレー背景との相性を確認。',
+    badge: 'make', badgeLabel: '制作',
+    week: '第3週 5/17〜5/23'
+  },
+  {
+    id: 'T15',
+    date: '2026-05-30', dayLabel: '5/30（金）',
+    time: '10:00〜11:00',
+    title: '耐久テスト2週間後の点検',
+    desc: '確認項目：①接着のはずれ②パールの変色・劣化③着用感。問題なければ本番制作へ。問題あれば接着剤or素材を見直す。',
+    badge: 'make', badgeLabel: '制作',
+    week: '第4週以降'
+  },
+  {
+    id: 'T16',
+    date: '2026-06-06', dayLabel: '6/6（金）',
+    time: '10:00〜12:00',
+    title: 'Creemaアカウント開設・商品ページ作成',
+    desc: '屋号「PALE pearl」でアカウント開設。1〜3点から出品準備。価格は¥1,500〜¥3,000を目安に。',
+    badge: 'admin', badgeLabel: '事務',
+    week: '第4週以降'
+  }
+];
+
+// ── ローカルストレージ ──
+const STORAGE_KEY = 'pale_todo_done';
+function loadDone() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch(e) { return []; }
+}
+function saveDone(ids) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+}
+
+let doneIds = loadDone();
+let currentTab = 'all';
+
+// ── 今日の日付 ──
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// ── ヘッダー日付 ──
+function updateHeaderDate() {
+  const d = new Date();
+  const days = ['日','月','火','水','木','金','土'];
+  document.getElementById('today-str').textContent =
+    `${d.getMonth()+1}/${d.getDate()}（${days[d.getDay()]}）`;
+}
+
+// ── バッジHTML ──
+function badgeHTML(badge, label) {
+  return `<span class="task-badge badge-${badge}">${label}</span>`;
+}
+
+// ── 進捗更新 ──
+function updateProgress() {
+  const total = tasks.length;
+  const done = tasks.filter(t => doneIds.includes(t.id)).length;
+  document.getElementById('done-count').textContent = done;
+  document.getElementById('total-count').textContent = total;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+}
+
+// ── レンダリング ──
+function render() {
+  const today = todayStr();
+  const list = document.getElementById('task-list');
+  list.innerHTML = '';
+
+  const filtered = tasks.filter(t => {
+    if (currentTab === 'todo') return !doneIds.includes(t.id);
+    if (currentTab === 'done') return doneIds.includes(t.id);
+    return true;
+  });
+
+  // 週でグループ化
+  const weeks = [...new Set(tasks.map(t => t.week))];
+  weeks.forEach(week => {
+    const weekTasks = filtered.filter(t => t.week === week);
+    if (weekTasks.length === 0) return;
+
+    const wLabel = document.createElement('div');
+    wLabel.className = 'week-label';
+    wLabel.textContent = week;
+    list.appendChild(wLabel);
+
+    weekTasks.forEach(task => {
+      const isDone = doneIds.includes(task.id);
+      const isToday = task.date === today;
+
+      const card = document.createElement('div');
+      card.className = 'task-card' + (isDone ? ' done' : '') + (isToday ? ' today' : '');
+
+      card.innerHTML = `
+        <div class="task-inner">
+          <div class="task-check"><span class="check-icon">✓</span></div>
+          <div class="task-body">
+            <div class="task-meta">
+              <span class="task-date">${isToday ? '<span class="today-dot"></span>' : ''}${task.dayLabel}</span>
+              <span class="task-time">${task.time}</span>
+              ${badgeHTML(task.badge, task.badgeLabel)}
+            </div>
+            <div class="task-title">${task.title}</div>
+            <div class="task-desc">${task.desc}</div>
+          </div>
+        </div>
+      `;
+
+      card.querySelector('.task-inner').addEventListener('click', () => {
+        if (doneIds.includes(task.id)) {
+          doneIds = doneIds.filter(id => id !== task.id);
+        } else {
+          doneIds = [...doneIds, task.id];
+        }
+        saveDone(doneIds);
+        updateProgress();
+        render();
+      });
+
+      list.appendChild(card);
+    });
+  });
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:48px 16px;font-size:13px;color:#a4a09c;">' +
+      (currentTab === 'done' ? 'まだ完了したタスクはありません' : 'すべて完了しました 🎉') +
+      '</div>';
+  }
+}
+
+// ── タブ切り替え ──
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentTab = tab.dataset.tab;
+    render();
+  });
+});
+
+// ── 初期化 ──
+updateHeaderDate();
+updateProgress();
+render();
+</script>
+
+</body>
+</html>
