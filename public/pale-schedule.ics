@@ -1,0 +1,146 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PALE pearl//Schedule 2026//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:PALE pearl 開業スケジュール
+X-WR-TIMEZONE:Asia/Tokyo
+BEGIN:VTIMEZONE
+TZID:Asia/Tokyo
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0900
+TZOFFSETTO:+0900
+TZNAME:JST
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260508T150000
+DTEND;TZID=Asia/Tokyo:20260508T153000
+SUMMARY:【PALE pearl】e-Tax準備
+DESCRIPTION:マイナンバーカードを手元に用意。スマホに「e-Tax SP版」またはマイナポータルアプリをダウンロード。翌日（金）の開業届提出の準備のみ。
+CATEGORIES:PALE pearl
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260509T090000
+DTEND;TZID=Asia/Tokyo:20260509T120000
+SUMMARY:【PALE pearl★最優先】開業届・青色申告承認申請書 提出
+DESCRIPTION:e-Tax（オンライン）または最寄りの税務署窓口で提出。開業届と青色申告承認申請書の2枚を同時提出。提出は無料。
+CATEGORIES:PALE pearl,事務手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260509T130000
+DTEND;TZID=Asia/Tokyo:20260509T150000
+SUMMARY:【PALE pearl】freee登録・初期設定
+DESCRIPTION:freee（月1628円〜）またはマネーフォワード（月1078円〜）に登録。屋号「PALE pearl」、業種「製造小売業」で設定。
+CATEGORIES:PALE pearl,事務手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260509T150000
+DTEND;TZID=Asia/Tokyo:20260509T163000
+SUMMARY:【PALE pearl】楽天で材料発注
+DESCRIPTION:発注リスト：①淡水パール オーバル 縦7mm×20粒（パーツクラブ）②淡水パール 丸 7〜8mm×20粒③チタン軸ピアス台座 0.8mm×30本（貴和製作所）④梱包ボックス・袋・台紙（30セット分）
+CATEGORIES:PALE pearl,仕入手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260510T190000
+DTEND;TZID=Asia/Tokyo:20260510T193000
+SUMMARY:【PALE pearl】Amazonでロールスタンド発注
+DESCRIPTION:グレーまたはベージュのロールスタンドを発注。Pattern Fグレー背景と相性◎。プライム会員なら翌日着も可能。
+CATEGORIES:PALE pearl,仕入手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260511T190000
+DTEND;TZID=Asia/Tokyo:20260511T193000
+SUMMARY:【PALE pearl】仕訳システム 科目設定確認
+DESCRIPTION:freeeまたはマネーフォワードの画面確認。勘定科目：仕入高・消耗品費・荷造運賃・広告宣伝費。不明点はメモしておく。
+CATEGORIES:PALE pearl,事務手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260512T150000
+DTEND;TZID=Asia/Tokyo:20260512T160000
+SUMMARY:【PALE pearl】エポキシ接着剤を購入（ホームセンター）
+DESCRIPTION:カインズ・コーナン等のホームセンターへ。セメダイン エポキシ系 2液混合タイプを購入。耐水・耐汗タイプを選ぶこと。
+CATEGORIES:PALE pearl,仕入手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260513T150000
+DTEND;TZID=Asia/Tokyo:20260513T153000
+SUMMARY:【PALE pearl】楽天発注の材料 受取・記帳
+DESCRIPTION:届いた材料の内容物を確認。注文確認メール・レシートを保管。仕訳システムに記帳（例：淡水パール20粒 ¥○○ → 仕入高）。
+CATEGORIES:PALE pearl,仕入手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260515T150000
+DTEND;TZID=Asia/Tokyo:20260515T163000
+SUMMARY:【PALE pearl】試作1回目（オーバルパール）
+DESCRIPTION:オーバルパール×チタン軸で2〜3ペア制作。エポキシ接着剤を規定量で混合→固定→24時間放置。製作後は触らないこと。
+CATEGORIES:PALE pearl,制作
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260516T090000
+DTEND;TZID=Asia/Tokyo:20260516T103000
+SUMMARY:【PALE pearl】商標検索（J-PlatPat）
+DESCRIPTION:J-PlatPat（https://www.j-platpat.inpit.go.jp）で「PALE pearl」を検索。区分14類（ピアス・身飾品）で類似商標がないか確認。問題なければ出願検討（約1.2万円〜）。
+CATEGORIES:PALE pearl,事務手続き
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260516T130000
+DTEND;TZID=Asia/Tokyo:20260516T140000
+SUMMARY:【PALE pearl】InstagramにガイドページURLを設定
+DESCRIPTION:Instagramのプロフィール編集→「ウェブサイト」欄にpale-guide.htmlのVercel URLを入力。Q&A・返品ポリシー・フローチャートが見られるようになる。
+CATEGORIES:PALE pearl,SNS
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260517T190000
+DTEND;TZID=Asia/Tokyo:20260517T191500
+SUMMARY:【PALE pearl】耐久テスト開始（着用スタート）
+DESCRIPTION:試作品の着用開始日。テスト期間2週間。日常生活・ジム・ヨガでそのままつけ続ける。
+CATEGORIES:PALE pearl,制作
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260518T190000
+DTEND;TZID=Asia/Tokyo:20260518T193000
+SUMMARY:【PALE pearl】お風呂テスト1回目
+DESCRIPTION:入浴時もピアスをつけたままにしてエポキシ接着の耐水性を確認。はずれ・変色・変形がないかチェック。
+CATEGORIES:PALE pearl,制作
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260523T100000
+DTEND;TZID=Asia/Tokyo:20260523T120000
+SUMMARY:【PALE pearl】試作2回目（丸パール）＋撮影テスト
+DESCRIPTION:丸パール7〜8mmでも2〜3ペア制作。届いたロールスタンドで試し撮り。Pattern Fのグレー背景との相性を確認。
+CATEGORIES:PALE pearl,制作
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260530T100000
+DTEND;TZID=Asia/Tokyo:20260530T110000
+SUMMARY:【PALE pearl】耐久テスト2週間後の点検
+DESCRIPTION:2週間の着用テスト結果を確認。チェック項目：①接着のはずれ②パールの変色・劣化③着用感。問題なければ本番制作へ進む。問題あれば接着剤または素材を見直す。
+CATEGORIES:PALE pearl,制作
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Tokyo:20260606T100000
+DTEND;TZID=Asia/Tokyo:20260606T120000
+SUMMARY:【PALE pearl】Creemaアカウント開設・商品ページ作成
+DESCRIPTION:Creemaに登録。屋号「PALE pearl」でアカウント開設。1〜3点から出品準備。価格は¥1,500〜¥3,000を目安に。
+CATEGORIES:PALE pearl,販売準備
+END:VEVENT
+
+END:VCALENDAR
