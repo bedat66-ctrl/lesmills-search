@@ -3,7 +3,7 @@
     "gymId": 1,
     "gymName": "スポーツクラブNAS西日暮里",
     "program": "GRIT",
-    "note": "GRIT ATHLETIC",
+    "note": "GRIT STRENGTH",
     "dayOfWeek": "日",
     "startTime": "12:50",
     "endTime": "13:20",
@@ -307,7 +307,7 @@
     "dayOfWeek": "金",
     "startTime": "18:45",
     "endTime": "19:30",
-    "instructor": "福井"
+    "instructor": "原田 悠茉"
   },
   {
     "gymId": 2,
@@ -318,6 +318,16 @@
     "startTime": "19:45",
     "endTime": "20:30",
     "instructor": "池田 翔"
+  },
+  {
+    "gymId": 2,
+    "gymName": "スポーツクラブNAS大崎",
+    "program": "BODYJAM",
+    "note": "",
+    "dayOfWeek": "土",
+    "startTime": "11:00",
+    "endTime": "11:45",
+    "instructor": "Natsuki"
   },
   {
     "gymId": 2,
@@ -407,7 +417,7 @@
     "dayOfWeek": "月",
     "startTime": "20:50",
     "endTime": "21:35",
-    "instructor": "長沢和好"
+    "instructor": "KANANA"
   },
   {
     "gymId": 3,
@@ -612,16 +622,6 @@
   {
     "gymId": 4,
     "gymName": "スポーツクラブNAS西葛西",
-    "program": "BODYATTACK",
-    "note": "",
-    "dayOfWeek": "金",
-    "startTime": "19:30",
-    "endTime": "20:15",
-    "instructor": "坂牧 めぐみ"
-  },
-  {
-    "gymId": 4,
-    "gymName": "スポーツクラブNAS西葛西",
     "program": "BODYPUMP",
     "note": "VRクラス",
     "dayOfWeek": "金",
@@ -668,16 +668,6 @@
     "startTime": "10:30",
     "endTime": "11:00",
     "instructor": ""
-  },
-  {
-    "gymId": 4,
-    "gymName": "スポーツクラブNAS西葛西",
-    "program": "BODYATTACK",
-    "note": "",
-    "dayOfWeek": "土",
-    "startTime": "15:30",
-    "endTime": "16:15",
-    "instructor": "家城 和大"
   },
   {
     "gymId": 4,
@@ -827,7 +817,7 @@
     "dayOfWeek": "月",
     "startTime": "14:30",
     "endTime": "15:15",
-    "instructor": "加藤隼人"
+    "instructor": "佐藤舞"
   },
   {
     "gymId": 6,
@@ -837,7 +827,7 @@
     "dayOfWeek": "月",
     "startTime": "20:30",
     "endTime": "21:15",
-    "instructor": "齋藤香帆"
+    "instructor": "齋藤 香帆"
   },
   {
     "gymId": 6,
@@ -857,7 +847,7 @@
     "dayOfWeek": "火",
     "startTime": "12:30",
     "endTime": "13:15",
-    "instructor": "能美 美帆"
+    "instructor": "大内かおり"
   },
   {
     "gymId": 6,
@@ -867,7 +857,7 @@
     "dayOfWeek": "火",
     "startTime": "19:15",
     "endTime": "19:45",
-    "instructor": "結城千恵"
+    "instructor": "小島一球"
   },
   {
     "gymId": 6,
@@ -977,7 +967,7 @@
     "dayOfWeek": "月",
     "startTime": "13:40",
     "endTime": "14:25",
-    "instructor": "市原"
+    "instructor": "沖松 佑樹"
   },
   {
     "gymId": 7,
@@ -987,7 +977,7 @@
     "dayOfWeek": "火",
     "startTime": "12:30",
     "endTime": "13:15",
-    "instructor": "ENA"
+    "instructor": "UTA"
   },
   {
     "gymId": 7,
@@ -1027,7 +1017,7 @@
     "dayOfWeek": "金",
     "startTime": "15:00",
     "endTime": "15:45",
-    "instructor": "佐藤翔生"
+    "instructor": "佐藤舞"
   },
   {
     "gymId": 7,
@@ -1042,12 +1032,12 @@
   {
     "gymId": 8,
     "gymName": "スポーツクラブNAS篠崎",
-    "program": "BODYATTACK",
+    "program": "BODYPUMP",
     "note": "",
     "dayOfWeek": "日",
     "startTime": "13:00",
     "endTime": "13:45",
-    "instructor": "坂田 良介"
+    "instructor": "榊 裕貴"
   },
   {
     "gymId": 8,
@@ -1057,7 +1047,7 @@
     "dayOfWeek": "日",
     "startTime": "14:05",
     "endTime": "14:50",
-    "instructor": "坂田 良介"
+    "instructor": "榊 裕貴"
   },
   {
     "gymId": 8,
@@ -1262,20 +1252,20 @@
   {
     "gymId": 9,
     "gymName": "スポーツクラブNAS溝の口",
-    "program": "BODYCOMBAT",
-    "note": "",
+    "program": "GRIT",
+    "note": "GRIT STRENGTH",
     "dayOfWeek": "土",
-    "startTime": "13:45",
-    "endTime": "14:30",
+    "startTime": "13:40",
+    "endTime": "14:10",
     "instructor": "佐藤舞"
   },
   {
     "gymId": 9,
     "gymName": "スポーツクラブNAS溝の口",
-    "program": "GRIT",
-    "note": "GRIT STRENGTH",
+    "program": "BODYCOMBAT",
+    "note": "",
     "dayOfWeek": "土",
-    "startTime": "14:45",
+    "startTime": "14:30",
     "endTime": "15:15",
     "instructor": "佐藤舞"
   },
@@ -1342,22 +1332,12 @@
   {
     "gymId": 15,
     "gymName": "スポーツクラブNAS蕨",
-    "program": "BODYPUMP",
+    "program": "BODYJAM",
     "note": "",
     "dayOfWeek": "日",
-    "startTime": "13:00",
-    "endTime": "13:45",
-    "instructor": "家城 和大"
-  },
-  {
-    "gymId": 15,
-    "gymName": "スポーツクラブNAS蕨",
-    "program": "BODYATTACK",
-    "note": "",
-    "dayOfWeek": "日",
-    "startTime": "14:00",
-    "endTime": "14:45",
-    "instructor": "家城 和大"
+    "startTime": "15:00",
+    "endTime": "15:45",
+    "instructor": "AKANE"
   },
   {
     "gymId": 15,
