@@ -3867,6 +3867,25 @@
     "note": ""
   },
   {
+    "id": 133,
+    "gymId": 1,
+    "gymName": "スポーツクラブNAS西日暮里",
+    "chain": "NAS",
+    "prefecture": "東京都",
+    "city": "荒川区",
+    "address": "東京都荒川区西日暮里2-54-3",
+    "station": "西日暮里駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/nishinippori/",
+    "mapUrl": "https://maps.google.com/?q=東京都荒川区西日暮里2-54-3",
+    "program": "BODYJAM",
+    "dayOfWeek": "金",
+    "startTime": "11:35",
+    "endTime": "12:20",
+    "instructor": "Gackey",
+    "note": ""
+  },
+  {
     "gymId": 1,
     "gymName": "スポーツクラブNAS西日暮里",
     "chain": "NAS",
@@ -3956,7 +3975,7 @@
     "startTime": "12:50",
     "endTime": "13:20",
     "instructor": "鈴木直也",
-    "note": "GRIT ATHLETIC"
+    "note": "GRIT CARDIO"
   },
   {
     "gymId": 1,
@@ -4014,6 +4033,25 @@
     "note": ""
   },
   {
+    "id": 6,
+    "gymId": 2,
+    "gymName": "スポーツクラブNAS大崎",
+    "chain": "NAS",
+    "prefecture": "東京都",
+    "city": "品川区",
+    "address": "東京都品川区大崎1-11-2",
+    "station": "大崎駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "mapUrl": "https://maps.google.com/?q=東京都品川区大崎1-11-2",
+    "program": "GRIT",
+    "dayOfWeek": "火",
+    "startTime": "21:15",
+    "endTime": "21:45",
+    "instructor": "山岸",
+    "note": "GRIT STRENGTH"
+  },
+  {
     "id": 7,
     "gymId": 2,
     "gymName": "スポーツクラブNAS大崎",
@@ -4030,7 +4068,7 @@
     "startTime": "07:30",
     "endTime": "08:00",
     "instructor": "芹澤 宗一郎",
-    "note": "GRIT STRENGTH"
+    "note": "GRIT CARDIO"
   },
   {
     "gymId": 2,
@@ -4215,6 +4253,25 @@
     "note": ""
   },
   {
+    "id": 9,
+    "gymId": 2,
+    "gymName": "スポーツクラブNAS大崎",
+    "chain": "NAS",
+    "prefecture": "東京都",
+    "city": "品川区",
+    "address": "東京都品川区大崎1-11-2",
+    "station": "大崎駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "mapUrl": "https://maps.google.com/?q=東京都品川区大崎1-11-2",
+    "program": "BODYATTACK",
+    "dayOfWeek": "土",
+    "startTime": "14:15",
+    "endTime": "15:15",
+    "instructor": "太田 創士",
+    "note": ""
+  },
+  {
     "gymId": 2,
     "gymName": "スポーツクラブNAS大崎",
     "chain": "NAS",
@@ -4268,6 +4325,24 @@
     "endTime": "20:00",
     "instructor": "山岸",
     "note": "GRIT CARDIO"
+  },
+  {
+    "gymId": 2,
+    "gymName": "スポーツクラブNAS大崎",
+    "chain": "NAS",
+    "prefecture": "東京都",
+    "city": "品川区",
+    "address": "東京都品川区大崎1-11-2",
+    "station": "大崎駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/osaki/",
+    "mapUrl": "https://maps.google.com/?q=東京都品川区大崎1-11-2",
+    "program": "BODYJAM",
+    "dayOfWeek": "土",
+    "startTime": "19:00",
+    "endTime": "19:45",
+    "instructor": "Natsuki",
+    "note": ""
   },
   {
     "id": 11,
@@ -4503,7 +4578,7 @@
     "dayOfWeek": "土",
     "startTime": "17:15",
     "endTime": "18:00",
-    "instructor": "新井友佳",
+    "instructor": "KANANA",
     "note": ""
   },
   {
@@ -4558,7 +4633,7 @@
     "dayOfWeek": "月",
     "startTime": "19:30",
     "endTime": "20:15",
-    "instructor": "原田 悠茉",
+    "instructor": "齊藤 航",
     "note": ""
   },
   {
@@ -4576,7 +4651,7 @@
     "dayOfWeek": "月",
     "startTime": "20:30",
     "endTime": "21:15",
-    "instructor": "原田 悠茉",
+    "instructor": "齊藤 航",
     "note": ""
   },
   {
@@ -4813,24 +4888,6 @@
     "endTime": "11:00",
     "instructor": "予約不要レッスン",
     "note": "VRクラス"
-  },
-  {
-    "gymId": 4,
-    "gymName": "スポーツクラブNAS西葛西",
-    "chain": "NAS",
-    "prefecture": "東京都",
-    "city": "江戸川区",
-    "address": "東京都江戸川区西葛西6-14-2",
-    "station": "西葛西駅",
-    "gymUrl": "https://www.nas-club.co.jp/club/nishikasai/",
-    "reservationUrl": "https://www.nas-club.co.jp/club/nishikasai/",
-    "mapUrl": "https://maps.google.com/?q=東京都江戸川区西葛西6-14-2",
-    "program": "BODYJAM",
-    "dayOfWeek": "土",
-    "startTime": "13:30",
-    "endTime": "14:15",
-    "instructor": "鎌田 真生",
-    "note": ""
   },
   {
     "gymId": 4,
@@ -5156,7 +5213,7 @@
     "dayOfWeek": "月",
     "startTime": "20:30",
     "endTime": "21:15",
-    "instructor": "齋藤 香帆",
+    "instructor": "松田有輝也",
     "note": ""
   },
   {
@@ -5390,28 +5447,10 @@
     "reservationUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
     "mapUrl": "https://maps.google.com/?q=神奈川県川崎市幸区鹿島田1-1-2",
     "program": "BODYCOMBAT",
-    "dayOfWeek": "月",
-    "startTime": "13:40",
-    "endTime": "14:25",
-    "instructor": "UTA",
-    "note": ""
-  },
-  {
-    "gymId": 7,
-    "gymName": "スポーツクラブNAS新川崎",
-    "chain": "NAS",
-    "prefecture": "神奈川県",
-    "city": "川崎市幸区",
-    "address": "神奈川県川崎市幸区鹿島田1-1-2",
-    "station": "新川崎駅",
-    "gymUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
-    "reservationUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
-    "mapUrl": "https://maps.google.com/?q=神奈川県川崎市幸区鹿島田1-1-2",
-    "program": "BODYCOMBAT",
     "dayOfWeek": "火",
     "startTime": "12:30",
     "endTime": "13:15",
-    "instructor": "UTA",
+    "instructor": "鎌倉忠司",
     "note": ""
   },
   {
@@ -5535,6 +5574,24 @@
     "gymUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
     "reservationUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
     "mapUrl": "https://maps.google.com/?q=神奈川県川崎市幸区鹿島田1-1-2",
+    "program": "BODYATTACK",
+    "dayOfWeek": "日",
+    "startTime": "13:25",
+    "endTime": "13:55",
+    "instructor": "阿部 里菜",
+    "note": ""
+  },
+  {
+    "gymId": 7,
+    "gymName": "スポーツクラブNAS新川崎",
+    "chain": "NAS",
+    "prefecture": "神奈川県",
+    "city": "川崎市幸区",
+    "address": "神奈川県川崎市幸区鹿島田1-1-2",
+    "station": "新川崎駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
+    "mapUrl": "https://maps.google.com/?q=神奈川県川崎市幸区鹿島田1-1-2",
     "program": "BODYCOMBAT",
     "dayOfWeek": "日",
     "startTime": "14:10",
@@ -5558,7 +5615,7 @@
     "dayOfWeek": "日",
     "startTime": "13:00",
     "endTime": "13:45",
-    "instructor": "互 太朗",
+    "instructor": "野邉 和輝",
     "note": "週替わり担当"
   },
   {
@@ -5595,7 +5652,7 @@
     "dayOfWeek": "日",
     "startTime": "14:05",
     "endTime": "14:50",
-    "instructor": "互 太朗",
+    "instructor": "野邉 和輝",
     "note": ""
   },
   {
@@ -5687,7 +5744,7 @@
     "dayOfWeek": "火",
     "startTime": "20:00",
     "endTime": "20:45",
-    "instructor": "宮 郁美",
+    "instructor": "齊藤 航",
     "note": ""
   },
   {
@@ -5705,7 +5762,7 @@
     "dayOfWeek": "火",
     "startTime": "21:00",
     "endTime": "21:45",
-    "instructor": "宮 郁美",
+    "instructor": "齊藤 航",
     "note": ""
   },
   {
@@ -5884,12 +5941,12 @@
     "gymUrl": "https://www.nas-club.co.jp/club/mizonokuchi/",
     "reservationUrl": "https://rsv.nas-club.co.jp/reserve/schedule/134/287",
     "mapUrl": "https://maps.google.com/?q=神奈川県川崎市高津区溝口2-1-3",
-    "program": "BODYATTACK",
+    "program": "GRIT",
     "dayOfWeek": "土",
     "startTime": "13:40",
     "endTime": "14:10",
-    "instructor": "YOSSY",
-    "note": ""
+    "instructor": "佐藤舞",
+    "note": "GRIT STRENGTH"
   },
   {
     "gymId": 9,
@@ -5906,7 +5963,7 @@
     "dayOfWeek": "土",
     "startTime": "14:30",
     "endTime": "15:15",
-    "instructor": "YOSSY",
+    "instructor": "佐藤舞",
     "note": ""
   },
   {
@@ -5942,7 +5999,7 @@
     "dayOfWeek": "日",
     "startTime": "11:15",
     "endTime": "12:00",
-    "instructor": "Karen",
+    "instructor": "堀部 紗矢",
     "note": ""
   },
   {
@@ -5960,7 +6017,7 @@
     "dayOfWeek": "日",
     "startTime": "12:15",
     "endTime": "12:45",
-    "instructor": "Karen",
+    "instructor": "堀部 紗矢",
     "note": ""
   },
   {
@@ -5997,7 +6054,7 @@
     "dayOfWeek": "日",
     "startTime": "16:00",
     "endTime": "16:45",
-    "instructor": "中西 彩",
+    "instructor": "中村 早希",
     "note": ""
   },
   {
@@ -6035,6 +6092,24 @@
     "startTime": "20:45",
     "endTime": "21:30",
     "instructor": "Akiho",
+    "note": ""
+  },
+  {
+    "gymId": 10,
+    "gymName": "スポーツクラブNAS中山",
+    "chain": "NAS",
+    "prefecture": "神奈川県",
+    "city": "横浜市緑区",
+    "address": "神奈川県横浜市緑区中山町219-1",
+    "station": "中山駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/nakayama/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/nakayama/",
+    "mapUrl": "https://maps.google.com/?q=神奈川県横浜市緑区中山町219-1",
+    "program": "BODYCOMBAT",
+    "dayOfWeek": "金",
+    "startTime": "21:25",
+    "endTime": "22:10",
+    "instructor": "SUGURU",
     "note": ""
   },
   {
@@ -6112,7 +6187,6 @@
     "note": ""
   },
   {
-    "id": 130,
     "gymId": 15,
     "gymName": "スポーツクラブNAS蕨",
     "chain": "NAS",
@@ -6123,11 +6197,11 @@
     "gymUrl": "https://www.nas-club.co.jp/club/warabi/",
     "reservationUrl": "https://www.nas-club.co.jp/club/warabi/",
     "mapUrl": "https://maps.google.com/?q=埼玉県蕨市中央1-20-1",
-    "program": "BODYATTACK",
+    "program": "BODYPUMP",
     "dayOfWeek": "火",
     "startTime": "19:30",
     "endTime": "20:30",
-    "instructor": "AZUMAI & 原田",
+    "instructor": "MONA",
     "note": ""
   },
   {
@@ -6145,7 +6219,7 @@
     "dayOfWeek": "火",
     "startTime": "20:45",
     "endTime": "21:45",
-    "instructor": "AZUMAI & 原田",
+    "instructor": "MONA",
     "note": ""
   },
   {
@@ -6175,7 +6249,7 @@
     "endTime": "21:00",
     "program": "BODYJAM",
     "note": "",
-    "instructor": "鎌田 真生",
+    "instructor": "NOE",
     "prefecture": "埼玉県",
     "city": "蕨市",
     "address": "埼玉県蕨市中央1-20-1",
@@ -6400,78 +6474,21 @@
     "mapUrl": "https://maps.google.com/?q=埼玉県蕨市中央1-20-1"
   },
   {
-    "id": 133,
-    "gymId": 1,
-    "gymName": "スポーツクラブNAS西日暮里",
+    "gymId": 4,
+    "gymName": "スポーツクラブNAS西葛西",
     "chain": "NAS",
     "prefecture": "東京都",
-    "city": "荒川区",
-    "address": "東京都荒川区西日暮里2-54-3",
-    "station": "西日暮里駅",
-    "gymUrl": "https://www.nas-club.co.jp/club/nishinippori/",
-    "reservationUrl": "https://www.nas-club.co.jp/club/nishinippori/",
-    "mapUrl": "https://maps.google.com/?q=東京都荒川区西日暮里2-54-3",
-    "program": "BODYJAM",
-    "dayOfWeek": "金",
-    "startTime": "11:35",
-    "endTime": "12:20",
-    "instructor": "Gackey",
-    "note": ""
-  },
-  {
-    "id": 6,
-    "gymId": 2,
-    "gymName": "スポーツクラブNAS大崎",
-    "chain": "NAS",
-    "prefecture": "東京都",
-    "city": "品川区",
-    "address": "東京都品川区大崎1-11-2",
-    "station": "大崎駅",
-    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
-    "reservationUrl": "https://www.nas-club.co.jp/club/osaki/",
-    "mapUrl": "https://maps.google.com/?q=東京都品川区大崎1-11-2",
-    "program": "GRIT",
-    "dayOfWeek": "火",
-    "startTime": "21:15",
-    "endTime": "21:45",
-    "instructor": "山岸",
-    "note": "GRIT STRENGTH"
-  },
-  {
-    "id": 9,
-    "gymId": 2,
-    "gymName": "スポーツクラブNAS大崎",
-    "chain": "NAS",
-    "prefecture": "東京都",
-    "city": "品川区",
-    "address": "東京都品川区大崎1-11-2",
-    "station": "大崎駅",
-    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
-    "reservationUrl": "https://www.nas-club.co.jp/club/osaki/",
-    "mapUrl": "https://maps.google.com/?q=東京都品川区大崎1-11-2",
-    "program": "BODYATTACK",
-    "dayOfWeek": "土",
-    "startTime": "14:15",
-    "endTime": "15:15",
-    "instructor": "太田 創士",
-    "note": ""
-  },
-  {
-    "gymId": 2,
-    "gymName": "スポーツクラブNAS大崎",
-    "chain": "NAS",
-    "prefecture": "東京都",
-    "city": "品川区",
-    "address": "東京都品川区大崎1-11-2",
-    "station": "大崎駅",
-    "gymUrl": "https://www.nas-club.co.jp/club/osaki/",
-    "reservationUrl": "https://www.nas-club.co.jp/club/osaki/",
-    "mapUrl": "https://maps.google.com/?q=東京都品川区大崎1-11-2",
+    "city": "江戸川区",
+    "address": "東京都江戸川区西葛西6-14-2",
+    "station": "西葛西駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/nishikasai/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/nishikasai/",
+    "mapUrl": "https://maps.google.com/?q=東京都江戸川区西葛西6-14-2",
     "program": "BODYJAM",
     "dayOfWeek": "土",
-    "startTime": "19:00",
-    "endTime": "19:45",
-    "instructor": "Natsuki",
+    "startTime": "13:30",
+    "endTime": "14:15",
+    "instructor": "鎌田 真生",
     "note": ""
   },
   {
@@ -6485,11 +6502,11 @@
     "gymUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
     "reservationUrl": "https://www.nas-club.co.jp/club/shinkawasaki/",
     "mapUrl": "https://maps.google.com/?q=神奈川県川崎市幸区鹿島田1-1-2",
-    "program": "BODYATTACK",
-    "dayOfWeek": "日",
-    "startTime": "13:25",
-    "endTime": "13:55",
-    "instructor": "原田 悠茉",
+    "program": "BODYCOMBAT",
+    "dayOfWeek": "月",
+    "startTime": "13:40",
+    "endTime": "14:25",
+    "instructor": "UTA",
     "note": ""
   },
   {
@@ -6503,12 +6520,31 @@
     "gymUrl": "https://www.nas-club.co.jp/club/mizonokuchi/",
     "reservationUrl": "https://rsv.nas-club.co.jp/reserve/schedule/134/287",
     "mapUrl": "https://maps.google.com/?q=神奈川県川崎市高津区溝口2-1-3",
-    "program": "GRIT",
+    "program": "BODYATTACK",
     "dayOfWeek": "土",
     "startTime": "13:40",
     "endTime": "14:10",
-    "instructor": "佐藤舞",
-    "note": "GRIT CARDIO"
+    "instructor": "YOSSY",
+    "note": ""
+  },
+  {
+    "id": 130,
+    "gymId": 15,
+    "gymName": "スポーツクラブNAS蕨",
+    "chain": "NAS",
+    "prefecture": "埼玉県",
+    "city": "蕨市",
+    "address": "埼玉県蕨市中央1-20-1",
+    "station": "蕨駅",
+    "gymUrl": "https://www.nas-club.co.jp/club/warabi/",
+    "reservationUrl": "https://www.nas-club.co.jp/club/warabi/",
+    "mapUrl": "https://maps.google.com/?q=埼玉県蕨市中央1-20-1",
+    "program": "BODYATTACK",
+    "dayOfWeek": "火",
+    "startTime": "19:30",
+    "endTime": "20:30",
+    "instructor": "AZUMAI & 原田",
+    "note": ""
   },
   {
     "id": 17,
