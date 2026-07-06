@@ -62,6 +62,8 @@ function isTargetText(text) {
 async function scrapeGym(gym, browser) {
   console.log(`\n📍 ${gym.gymName}`);
   const results = [];
+  // このジムのページに実際に表示されていた曜日（削除判定の安全確認に使う）
+  let visibleDays = [];
   const page = await browser.newPage();
 
   try {
@@ -157,6 +159,7 @@ async function scrapeGym(gym, browser) {
     }, TARGET_KEYWORDS);
 
     console.log(`   曜日取得: ${data.dayCaptions.map(d => d.dayOfWeek).join(",")}`);
+    visibleDays = [...new Set(data.dayCaptions.map(d => d.dayOfWeek))];
 
     data.results.forEach(r => {
       const program = normalizeProgram(r.programText);
@@ -177,7 +180,7 @@ async function scrapeGym(gym, browser) {
   }
 
   await page.close();
-  return results;
+  return { results, visibleDays };
 }
 
 (async () => {
@@ -186,10 +189,12 @@ async function scrapeGym(gym, browser) {
 
   const browser = await chromium.launch({ headless: true });
   const allResults = [];
+  const visibleDaysByGym = {};
 
   for (const gym of NAS_GYMS) {
-    const gymResults = await scrapeGym(gym, browser);
+    const { results: gymResults, visibleDays } = await scrapeGym(gym, browser);
     allResults.push(...gymResults);
+    visibleDaysByGym[gym.gymId] = visibleDays;
     await new Promise(r => setTimeout(r, 2000));
   }
 
@@ -198,6 +203,13 @@ async function scrapeGym(gym, browser) {
   console.log(`\n=== 取得結果まとめ: 合計 ${allResults.length} レッスン ===`);
   fs.writeFileSync("data/hacomono-v2.json", JSON.stringify(allResults, null, 2));
   console.log("data/hacomono-v2.json に保存しました");
+
+  // 表示されていた曜日の記録（update-nas-schedules.js が削除判定の安全確認に使う）
+  fs.writeFileSync("data/hacomono-v2-meta.json", JSON.stringify({
+    scrapedAt: new Date().toISOString(),
+    visibleDaysByGym,
+  }, null, 2));
+  console.log("data/hacomono-v2-meta.json に表示曜日を保存しました");
 
   // schedules.json との比較（参考）
   const existing = JSON.parse(fs.readFileSync("data/schedules.json"));
