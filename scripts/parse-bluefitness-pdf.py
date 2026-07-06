@@ -5,7 +5,11 @@ BlueFitness VRクラス PDFスケジュール抽出・更新スクリプト
 機能:
   - PDFから VIRTUALクラスのみ抽出（有人LIVEクラスは自動除外）
   - schedules.json の BlueFitness 分を最新PDFで更新
-  - 手動追加データ（PDFにないが正規クラス）は保持
+  - manual: true の目印付きクラスは PDF に無くても保持（意図的な手動追加）
+  - 目印なしで PDF に無いクラスは廃止されたものとして削除（レポート出力）
+  - PDFの取得・解析に失敗したジムは削除を行わない（誤削除防止の安全装置）
+
+手動でクラスを追加したい場合は、schedules.json のエントリに "manual": true を付けること。
 
 使い方:
   手動確認: python3 scripts/parse-bluefitness-pdf.py
@@ -244,21 +248,29 @@ def download_pdf(url):
 
 
 def parse_gym(gym):
-    """1ジムのPDFをダウンロード・解析してVIRTUALクラスリストを返す"""
+    """1ジムのPDFをダウンロード・解析してVIRTUALクラスリストを返す
+    戻り値: (クラスリスト, 取得成功フラグ)。失敗時は (None, False)。"""
     print(f"\n📍 {gym['gymName']}")
     print(f"   ダウンロード中: {gym['url']}")
     try:
         pdf_path = download_pdf(gym["url"])
     except Exception as e:
         print(f"   ❌ ダウンロード失敗: {e}")
-        return []
+        return None, False
 
     try:
         results = extract_from_pdf(pdf_path, gym)
         print(f"   → VIRTUALクラス {len(results)}件取得")
         for r in sorted(results, key=lambda x: (x["dayOfWeek"], x["startTime"])):
             print(f"     {r['dayOfWeek']}曜 {r['startTime']}〜{r['endTime']} {r['program']} {r['note']}")
-        return results
+        if not results:
+            # 1件も取れないのは解析失敗の可能性が高い（誤削除防止のため失敗扱い）
+            print("   ⚠️  0件のため解析失敗とみなし、このジムの削除は行いません")
+            return None, False
+        return results, True
+    except Exception as e:
+        print(f"   ❌ 解析失敗: {e}")
+        return None, False
     finally:
         os.unlink(pdf_path)
 
@@ -267,8 +279,8 @@ def merge_schedules(existing_bf, new_pdf_entries, gym_id):
     """
     既存DBとPDF抽出結果をマージする戦略:
     1. PDFにあるクラス → PDF最新データを使用
-    2. DBにあってPDFにないクラス → 手動追加として保持（ユーザーが意図的に追加した可能性）
-    ※ 有人クラス誤登録は check-bluefitness-schedules.py で定期チェックして手動削除
+    2. manual: true の目印付きクラス → PDFに無くても保持（意図的な手動追加）
+    3. 目印なしでPDFに無いクラス → 廃止されたものとして削除（レポート出力）
     """
     def key(e):
         return (e["dayOfWeek"], e["startTime"], e["program"])
@@ -276,16 +288,24 @@ def merge_schedules(existing_bf, new_pdf_entries, gym_id):
     pdf_keys = {key(e) for e in new_pdf_entries}
     db_keys  = {key(e) for e in existing_bf}
 
-    # PDFにあるクラスは最新PDFデータで更新
+    # PDFにあるクラスは最新PDFデータで更新（manualキーは不要になるので外す）
     merged = list(new_pdf_entries)
 
-    # DBにあってPDFにないクラスは手動追加として保持
-    manual_entries = [e for e in existing_bf if key(e) not in pdf_keys]
+    # PDFに無いクラスの仕分け
+    not_in_pdf = [e for e in existing_bf if key(e) not in pdf_keys]
+    manual_entries  = [e for e in not_in_pdf if e.get("manual") is True]
+    removed_entries = [e for e in not_in_pdf if e.get("manual") is not True]
+
     if manual_entries:
         print(f"   ℹ️  手動追加データ {len(manual_entries)}件を保持:")
         for e in manual_entries:
-            print(f"     {e['dayOfWeek']}曜 {e['startTime']} {e['program']}（手動追加）")
+            print(f"     {e['dayOfWeek']}曜 {e['startTime']} {e['program']}（manual: true）")
         merged.extend(manual_entries)
+
+    if removed_entries:
+        print(f"   🗑  削除（最新PDFに存在しない） {len(removed_entries)}件:")
+        for e in removed_entries:
+            print(f"     {e['dayOfWeek']}曜 {e['startTime']} {e['program']}")
 
     # 新規追加クラス
     new_entries = [e for e in new_pdf_entries if key(e) not in db_keys]
@@ -314,10 +334,16 @@ def main():
 
     for gym in PDF_GYMS:
         # PDFから新規データを取得
-        pdf_results = parse_gym(gym)
+        pdf_results, pdf_ok = parse_gym(gym)
 
         # このジムの既存データ
         gym_existing = [e for e in existing_bf if e.get("gymId") == gym["gymId"]]
+
+        if not pdf_ok:
+            # 取得・解析に失敗したジムは何も変えない（誤削除防止）
+            print(f"   ⚠️  PDF取得失敗のため {gym['gymName']} は既存データをそのまま保持します")
+            all_new_bf.extend(gym_existing)
+            continue
 
         # マージ
         merged = merge_schedules(gym_existing, pdf_results, gym["gymId"])
