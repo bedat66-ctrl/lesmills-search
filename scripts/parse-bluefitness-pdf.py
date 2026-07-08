@@ -114,6 +114,39 @@ def is_instructor_name(line):
     return False
 
 
+def reconstruct_column_text(col_words):
+    """
+    列内の文字断片を、y(top)が近いものを1行としてまとめ、x順に連結して行テキストを作る。
+
+    このPDFは時刻やプログラム名が1文字ずつ絶対座標で配置されているため、
+    ページ全体の extract_text() だと隣の列と文字が混ざって時刻を認識できない。
+    列を絞ってから座標で組み立て直すことで、"20:00～20:30" や "BODYATTACK" を
+    正しく1行として復元する。
+    """
+    ws = sorted(col_words, key=lambda w: w["top"])
+    bands = []
+    cur = []
+    cur_top = None
+    for w in ws:
+        if cur_top is None:
+            cur = [w]
+            cur_top = w["top"]
+        elif abs(w["top"] - cur_top) <= 3:   # 同じ行（時刻とプログラム名は約5px離れるので別行になる）
+            cur.append(w)
+        else:
+            bands.append(cur)
+            cur = [w]
+            cur_top = w["top"]
+    if cur:
+        bands.append(cur)
+
+    lines = []
+    for b in bands:
+        b.sort(key=lambda w: w["x0"])
+        lines.append("".join(w["text"] for w in b))
+    return "\n".join(lines)
+
+
 def extract_column_lessons(col_text, day):
     """
     列テキストから VIRTUALクラスのみ抽出。
@@ -192,13 +225,19 @@ def extract_from_pdf(pdf_path, gym):
 
         # 曜日ヘッダーの中心x座標を取得
         day_x = {}
+        header_bottoms = []
         for w in words:
             for i, label in enumerate(DAY_LABELS):
                 if w["text"] == label:
                     day_x[DAY_SHORT[i]] = (w["x0"] + w["x1"]) / 2
+                    header_bottoms.append(w["bottom"])
 
         if len(day_x) < 7:
             print(f"  ⚠️ 曜日ヘッダーが{len(day_x)}つしか取得できませんでした")
+
+        # ヘッダー行の下端をレッスン領域の上限にする（早朝5時台の行まで拾うため。
+        # 固定値だと店舗ごとの開始時刻の違いで取りこぼす）
+        content_top = (max(header_bottoms) + 1) if header_bottoms else 45
 
         sorted_days = sorted(day_x.items(), key=lambda kv: kv[1])
 
@@ -206,8 +245,10 @@ def extract_from_pdf(pdf_path, gym):
             x0 = max((sorted_days[idx-1][1] + cx) / 2, TIME_AXIS_RIGHT) if idx > 0 else max(cx - 35, TIME_AXIS_RIGHT)
             x1 = (cx + sorted_days[idx+1][1]) / 2 if idx < len(sorted_days) - 1 else cx + 35
 
-            cropped = page.within_bbox((x0, 35, x1, page_height))
-            col_text = cropped.extract_text() or ""
+            # 列に属する文字断片を座標で組み立て直す（行単位extract_textだと列が混ざるため）
+            col_words = [w for w in words
+                         if x0 <= (w["x0"] + w["x1"]) / 2 < x1 and w["top"] >= content_top]
+            col_text = reconstruct_column_text(col_words)
             lessons = extract_column_lessons(col_text, day)
 
             for lesson in lessons:
